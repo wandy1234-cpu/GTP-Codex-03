@@ -64,10 +64,16 @@ def run_daily(
     _emit(progress_cb, 0.08, "拉取市场数据")
     adapter = AkshareAdapter.from_env()
     ingest_stats = DailyIngestor(adapter, paths).run()
+    coverage = ingest_stats.get("coverage", {}) if isinstance(ingest_stats, dict) else {}
 
     _emit(progress_cb, 0.20, "加载并校验数据")
     bars = load_latest_raw(paths.data_raw)
     warnings = _validate_dataset(bars)
+    for market, cov in (coverage.items() if isinstance(coverage, dict) else []):
+        miss = int((cov or {}).get("missing_symbol_count", 0))
+        total = int((cov or {}).get("spot_symbol_count", 0))
+        if total > 0 and miss / total > 0.30:
+            warnings.append(f"coverage_warning:{market}:missing={miss}/{total}")
     if bars.empty:
         return {"status": "failed", "reason": "no market data", "warnings": warnings, "ingest": ingest_stats}
 

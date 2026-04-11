@@ -10,6 +10,12 @@ import pandas as pd
 
 
 def load_latest_raw(data_root: Path) -> pd.DataFrame:
+    master_pattern = (data_root / "market=*" / "master_bars.parquet").as_posix()
+    if glob(master_pattern):
+        sql = f"SELECT * FROM read_parquet('{master_pattern}', union_by_name=true)"
+        with duckdb.connect() as con:
+            return con.execute(sql).df()
+
     pattern = (data_root / "market=*" / "date=*" / "bars.parquet").as_posix()
     matched = glob(pattern)
     if not matched:

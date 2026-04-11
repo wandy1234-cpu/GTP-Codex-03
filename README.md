@@ -38,6 +38,7 @@ python scripts/run_daily_pipeline.py
 ```
 输出内容：
 - `data/raw/market=*/date=*/bars.parquet`
+- `data/raw/market=*/master_bars.parquet`（增量主表，后续运行仅拉取最近增量并合并）
 - `data/feature/features_YYYY-MM-DD.parquet`
 - `models/ranker_YYYY-MM-DD.joblib`
 - `reports/topn_YYYY-MM-DD.parquet`
@@ -66,6 +67,7 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 说明：
 - Streamlit 侧边栏新增了“进度条 + 主要节点提示”，可看到卡在数据拉取、特征、训练、回测、漂移、治理或优化哪个阶段。
 - 默认关闭“启用优化搜索（更慢）”，避免每日流程看起来“卡住”；需要时可手动勾选。
+- 页面会展示 A/H 两个市场的“数据覆盖率检查”（spot总数、落库总数、最新交易日覆盖、缺失样本），便于确认是否已覆盖全部可抓取股票。
 
 ## 启动可视化
 ```bash

@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, timedelta
 from glob import glob
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -39,6 +40,23 @@ class DailyIngestor:
 
     def _name_store_file(self) -> str:
         return str(self.paths.data_raw / "symbol_names.parquet")
+
+    def _master_file(self, market: str) -> Path:
+        return self.paths.data_raw / f"market={market}" / "master_bars.parquet"
+
+    def _load_master(self, market: str) -> pd.DataFrame:
+        fp = self._master_file(market)
+        if not fp.exists():
+            return pd.DataFrame()
+        out = pd.read_parquet(fp)
+        if "date" in out.columns:
+            out["date"] = pd.to_datetime(out["date"])
+        return self._dedupe_bars(out)
+
+    def _save_master(self, market: str, df: pd.DataFrame) -> None:
+        fp = self._master_file(market)
+        fp.parent.mkdir(parents=True, exist_ok=True)
+        self._dedupe_bars(df).to_parquet(fp, index=False)
 
     def _load_name_map(self) -> dict[str, str]:
         store = self._name_store_file()
@@ -127,8 +145,13 @@ class DailyIngestor:
         end = end or date.today()
         start = end - timedelta(days=lookback_days)
 
-        stats: dict[str, object] = {"rows": {}, "errors": {}}
+        stats: dict[str, object] = {"rows": {}, "errors": {}, "coverage": {}, "notes": {}}
         for market in ("A", "HK"):
+            name_cache = self._load_name_map()
+            master = self._load_master(market)
+            last_dt = pd.to_datetime(master["date"]).max().date() if (not master.empty and "date" in master.columns) else None
+            inc_start = start if last_dt is None else max(start, last_dt - timedelta(days=10))
+            stats["notes"][market] = f"incremental_start={inc_start.isoformat()} last_cached_date={last_dt.isoformat() if last_dt else 'none'}"
             try:
                 spot = self.adapter.fetch_spot(market)
                 symbols = spot["symbol"].dropna().astype(str).unique().tolist()
@@ -139,7 +162,7 @@ class DailyIngestor:
                     .to_dict()
                     .get("name", {})
                 )
-                merged_map = self._load_name_map()
+                merged_map = name_cache
                 merged_map.update({k: v for k, v in name_map.items() if v})
                 self._save_name_map(merged_map)
             except Exception as exc:
@@ -149,6 +172,7 @@ class DailyIngestor:
                     out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
                     out_file.parent.mkdir(parents=True, exist_ok=True)
                     self._dedupe_bars(cached).to_parquet(out_file, index=False)
+                    self._save_master(market, cached)
                     stats["rows"][market] = int(len(cached))
                     stats["errors"][market] = f"spot failed, fallback to cache: {exc}"
                 else:
@@ -174,6 +198,7 @@ class DailyIngestor:
                     out_file.parent.mkdir(parents=True, exist_ok=True)
                     fallback_df = self._dedupe_bars(fallback_df)
                     fallback_df.to_parquet(out_file, index=False)
+                    self._save_master(market, fallback_df)
                     stats["rows"][market] = int(len(fallback_df))
                     stats["errors"][market] = f"spot failed, no cache; used {mode}: {exc}"
                 continue
@@ -182,26 +207,44 @@ class DailyIngestor:
                 symbols = symbols[:max_symbols_per_market]
 
             all_hist: list[pd.DataFrame] = []
+            fetched_symbols = 0
             for symbol in symbols:
                 try:
-                    hist = self.adapter.fetch_history(symbol, market, start=start, end=end)
+                    hist = self.adapter.fetch_history(symbol, market, start=inc_start, end=end)
                     if not hist.empty:
-                        merged_map = self._load_name_map()
-                        hist["name"] = name_map.get(symbol) or merged_map.get(symbol, "")
+                        hist["name"] = name_map.get(symbol) or name_cache.get(symbol, "")
                         all_hist.append(hist)
+                        fetched_symbols += 1
                 except Exception:
                     continue
 
             if all_hist:
-                raw = pd.concat(all_hist, ignore_index=True)
+                inc = pd.concat(all_hist, ignore_index=True)
+                raw = pd.concat([master, inc], ignore_index=True) if not master.empty else inc
             else:
-                raw = pd.DataFrame()
+                raw = master.copy() if not master.empty else pd.DataFrame()
 
-            out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
-            out_file.parent.mkdir(parents=True, exist_ok=True)
             raw = self._dedupe_bars(raw)
+            latest_dt = pd.to_datetime(raw["date"]).max() if (not raw.empty and "date" in raw.columns) else pd.Timestamp(end)
+            out_file = self.paths.data_raw / f"market={market}" / f"date={latest_dt.date().isoformat()}" / "bars.parquet"
+            out_file.parent.mkdir(parents=True, exist_ok=True)
             raw.to_parquet(out_file, index=False)
+            self._save_master(market, raw)
             stats["rows"][market] = int(len(raw))
+            latest_day = raw[pd.to_datetime(raw["date"]) == latest_dt] if (not raw.empty and "date" in raw.columns) else pd.DataFrame()
+            latest_symbols = latest_day["symbol"].astype(str).nunique() if not latest_day.empty else 0
+            spot_set = set(symbols)
+            got_set = set(raw["symbol"].astype(str).unique()) if not raw.empty else set()
+            miss = sorted(list(spot_set - got_set))
+            stats["coverage"][market] = {
+                "spot_symbol_count": int(len(spot_set)),
+                "fetched_symbol_count": int(fetched_symbols),
+                "stored_symbol_count": int(len(got_set)),
+                "latest_trade_date": str(latest_dt.date()),
+                "latest_trade_symbol_count": int(latest_symbols),
+                "missing_symbol_count": int(len(miss)),
+                "missing_symbol_sample": miss[:20],
+            }
 
         return stats
     def _dedupe_bars(self, df: pd.DataFrame) -> pd.DataFrame:

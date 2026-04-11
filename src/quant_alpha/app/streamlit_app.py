@@ -53,6 +53,10 @@ if run_btn:
         else:
             st.warning("流程完成，但出现数据问题，请查看返回信息。")
         st.json(result)
+        cov = (result.get("ingest") or {}).get("coverage", {})
+        if cov:
+            st.subheader("数据覆盖率检查（A/H）")
+            st.dataframe(pd.DataFrame(cov).T, use_container_width=True)
         ingest_errors = (result.get("ingest") or {}).get("errors", {})
         for market, msg in ingest_errors.items():
             if msg:
