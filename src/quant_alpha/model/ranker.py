@@ -25,13 +25,19 @@ def train_ranker(feature_df: pd.DataFrame) -> RankerResult:
 
     uniq_dates = sorted(df["date"].unique())
     if len(uniq_dates) < 2:
-        raise ValueError("not enough distinct dates for train/test split")
-    split_idx = int(len(uniq_dates) * 0.8)
-    split_idx = max(1, min(split_idx, len(uniq_dates) - 1))
-    train_dates = set(uniq_dates[:split_idx])
-
-    train = df[df["date"].isin(train_dates)].copy()
-    test = df[~df["date"].isin(train_dates)].copy()
+        # 单交易日场景：按股票维度切分 train/test，避免整体失败
+        symbols = sorted(df["symbol"].astype(str).unique())
+        split = max(1, int(len(symbols) * 0.8))
+        split = min(split, len(symbols) - 1) if len(symbols) > 1 else 1
+        train_symbols = set(symbols[:split])
+        train = df[df["symbol"].astype(str).isin(train_symbols)].copy()
+        test = df[~df["symbol"].astype(str).isin(train_symbols)].copy()
+    else:
+        split_idx = int(len(uniq_dates) * 0.8)
+        split_idx = max(1, min(split_idx, len(uniq_dates) - 1))
+        train_dates = set(uniq_dates[:split_idx])
+        train = df[df["date"].isin(train_dates)].copy()
+        test = df[~df["date"].isin(train_dates)].copy()
     if train.empty:
         raise ValueError("train set is empty")
     if test.empty:

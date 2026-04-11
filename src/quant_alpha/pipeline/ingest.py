@@ -23,6 +23,39 @@ class DailyIngestor:
             return ["000001", "000002", "600519", "600036", "300750"]
         return ["00700", "00941", "00005", "01299", "03690"]
 
+    def _builtin_name_map(self) -> dict[str, str]:
+        return {
+            "000001": "平安银行",
+            "000002": "万科A",
+            "600519": "贵州茅台",
+            "600036": "招商银行",
+            "300750": "宁德时代",
+            "00700": "腾讯控股",
+            "00941": "中国移动",
+            "00005": "汇丰控股",
+            "01299": "友邦保险",
+            "03690": "美团-W",
+        }
+
+    def _name_store_file(self) -> str:
+        return str(self.paths.data_raw / "symbol_names.parquet")
+
+    def _load_name_map(self) -> dict[str, str]:
+        store = self._name_store_file()
+        if glob(store):
+            df = pd.read_parquet(store)
+            mapping = dict(zip(df["symbol"].astype(str), df["name"].astype(str)))
+        else:
+            mapping = {}
+        mapping.update({k: v for k, v in self._builtin_name_map().items() if k not in mapping})
+        return mapping
+
+    def _save_name_map(self, mapping: dict[str, str]) -> None:
+        if not mapping:
+            return
+        out = pd.DataFrame({"symbol": list(mapping.keys()), "name": list(mapping.values())})
+        out.to_parquet(self._name_store_file(), index=False)
+
     def _synthetic_bars(self, market: str, end: date, lookback_days: int) -> pd.DataFrame:
         days = max(lookback_days, 120)
         idx = pd.bdate_range(end=end, periods=days)
@@ -54,7 +87,14 @@ class DailyIngestor:
             return pd.DataFrame()
         selected = files[-max_files:]
         frames = [pd.read_parquet(f) for f in selected]
-        return pd.concat(frames, ignore_index=True)
+        out = pd.concat(frames, ignore_index=True)
+        name_map = self._load_name_map()
+        if "name" not in out.columns:
+            out["name"] = out["symbol"].astype(str).map(name_map).fillna("")
+        else:
+            missing = out["name"].isna() | (out["name"].astype(str).str.strip() == "")
+            out.loc[missing, "name"] = out.loc[missing, "symbol"].astype(str).map(name_map).fillna("")
+        return out
 
     def run(
         self,
@@ -78,6 +118,9 @@ class DailyIngestor:
                     .to_dict()
                     .get("name", {})
                 )
+                merged_map = self._load_name_map()
+                merged_map.update({k: v for k, v in name_map.items() if v})
+                self._save_name_map(merged_map)
             except Exception as exc:
                 cached = self._cached_bars_window(market)
                 if not cached.empty:
@@ -93,7 +136,7 @@ class DailyIngestor:
                         try:
                             hist = self.adapter.fetch_history(symbol, market, start=start, end=end)
                             if not hist.empty:
-                                hist["name"] = symbol
+                                hist["name"] = self._load_name_map().get(symbol, symbol)
                                 all_hist.append(hist)
                         except Exception:
                             continue
@@ -120,7 +163,8 @@ class DailyIngestor:
                 try:
                     hist = self.adapter.fetch_history(symbol, market, start=start, end=end)
                     if not hist.empty:
-                        hist["name"] = name_map.get(symbol, "")
+                        merged_map = self._load_name_map()
+                        hist["name"] = name_map.get(symbol) or merged_map.get(symbol, "")
                         all_hist.append(hist)
                 except Exception:
                     continue

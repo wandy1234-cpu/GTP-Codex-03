@@ -62,7 +62,7 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 > Windows 下路径已统一按 POSIX pattern 处理，避免 `read_parquet` 通配符失效导致的 “No files found that match the pattern”。
 > 若触发合成数据回退，结果仅用于流程连通性验证，不可直接用于实盘决策。
 > 若模型阶段出现“Input data must be 2 dimensional and non empty”，系统现已改为返回结构化失败原因（`model stage failed: ...`），不会直接崩溃到页面。
-> 若样本交易日不足（如 `not enough distinct dates for train/test split`），系统会自动启用启发式打分回退并返回 `status=ok_with_warnings`。
+> 若样本交易日不足，Ranker 会自动切换为“单交易日按股票维度切分 train/test”策略，尽量继续训练并减少无谓告警。
 
 ## 目录结构
 ```text
