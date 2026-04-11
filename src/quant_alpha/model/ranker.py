@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 import lightgbm as lgb
 import pandas as pd
@@ -12,7 +13,7 @@ FEATURE_COLS = ["ret_1d", "ret_5d", "ret_20d", "vol_20d", "amt_20d_mean"]
 
 @dataclass
 class RankerResult:
-    model: lgb.LGBMRanker
+    model: Any
     scored: pd.DataFrame
 
 
@@ -68,3 +69,22 @@ def top_n_latest(scored: pd.DataFrame, n: int = 10) -> pd.DataFrame:
     latest = scored["date"].max()
     pick = scored[scored["date"] == latest].sort_values("score", ascending=False).head(n)
     return pick[["date", "market", "symbol", "close", "score", "target_5d"]]
+
+
+def fallback_score(feature_df: pd.DataFrame) -> pd.DataFrame:
+    """Heuristic scorer for small-sample fallback."""
+    df = feature_df.copy()
+    if df.empty:
+        return df
+    for col in FEATURE_COLS:
+        if col not in df.columns:
+            df[col] = 0.0
+    score = (
+        0.35 * df["ret_20d"].fillna(0)
+        + 0.25 * df["ret_5d"].fillna(0)
+        + 0.15 * df["ret_1d"].fillna(0)
+        - 0.15 * df["vol_20d"].fillna(0)
+        + 0.10 * (df["amt_20d_mean"].fillna(0).rank(pct=True))
+    )
+    df["score"] = score
+    return df

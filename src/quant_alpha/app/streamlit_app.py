@@ -37,6 +37,8 @@ if run_btn:
         for market, msg in ingest_errors.items():
             if msg:
                 st.warning(f"{market} 市场抓取告警: {msg}")
+        for msg in result.get("warnings", []):
+            st.warning(msg)
     except Exception as exc:
         st.error(f"执行失败: {exc}")
 
