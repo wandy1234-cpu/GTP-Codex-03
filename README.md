@@ -1,53 +1,68 @@
-# GTP-Codex-03
-
 # Quant Alpha: A股 + H股 指数增强荐股系统
 
-## 阶段一目标（进行中）
-- 统一数据适配层（AkShare）
-- 数据清洗、Parquet 落盘、DuckDB 查询
-- 股票池过滤（停牌/ST/上市天数/流动性）
-- 基础标签与特征工程
-- LightGBM Ranker 主流程
-- Walk-forward 回测基础框架
-- Top10 推荐输出
-- Streamlit 多页面 GUI 骨架
+## 你当前拿到的能力
+本版本已经把你要的“第一阶段骨架”打通：
+- AkShare 统一数据适配层（A股 + H股）
+- 每日全市场抓取与 Parquet 落盘
+- DuckDB 统一读取
+- 基础特征与未来 5 日标签
+- LightGBM Ranker 训练 + Top N 推荐
+- 简易 TopN 回测
+- 自迭代参数优化（首版）
+- Streamlit 可视化界面
 
-## 第一步交付：AkShare 数据接口
+## Token 自动设置
+系统内置了你提供的默认 token：
+- `4de5bc6ef18cbd032999b72d3245c4566c0be59b00d70839db24bc23`
 
-### 1) 环境安装
+优先级：
+1. `AKSHARE_TOKEN`
+2. `AKSHARE_API_KEY`
+3. 内置默认 token
+
+> 建议你线上部署时仍用环境变量覆盖，避免 token 明文长期固化。
+
+## 安装
 ```bash
-python -m venv .venv
-source .venv/bin/activate
 pip install -U pip
 pip install -e .
 ```
 
-### 2) Token 配置
+## 一键跑每日流程
 ```bash
-export AKSHARE_TOKEN="你的token"
-# 或者
-export AKSHARE_API_KEY="你的token"
+python scripts/run_daily_pipeline.py
+```
+输出内容：
+- `data/raw/market=*/date=*/bars.parquet`
+- `data/feature/features_YYYY-MM-DD.parquet`
+- `models/ranker_YYYY-MM-DD.joblib`
+- `reports/topn_YYYY-MM-DD.parquet`
+- `reports/backtest_YYYY-MM-DD.parquet`
+
+## 启动可视化
+```bash
+streamlit run src/quant_alpha/app/streamlit_app.py
+```
+界面支持：
+- 点击执行每日流程
+- 查看最新 Top N 推荐
+- 查看策略累计收益曲线（简化回测）
+
+## 目录结构
+```text
+src/quant_alpha/
+  data/         # AkShare 适配与标准化
+  pipeline/     # 每日调度流程
+  features/     # 特征工程
+  model/        # 排序模型 + 自优化
+  backtest/     # 回测
+  storage/      # DuckDB + 落盘
+  app/          # Streamlit
 ```
 
-> 当前实现会读取 token 并保留配置入口，便于后续接入需要鉴权的接口。
-
-### 3) 快速验证
-```bash
-python scripts/smoke_akshare.py
-```
-
-### 4) 当前接口能力
-`AkshareAdapter`（`src/quant_alpha/data/akshare_adapter.py`）已提供：
-- `fetch_spot("A")`：A股实时行情（标准化字段）
-- `fetch_spot("HK")`：H股实时行情（标准化字段）
-- `fetch_history(symbol, market, start, end, adjust, period)`：A/H 日线/周线/月线历史行情（标准化字段）
-
-标准化后的关键字段包含：
-- 通用标识：`symbol`, `market`, `name`
-- 价格量能：`open`, `high`, `low`, `close`, `volume`, `amount`
-- 常用衍生：`pct_change`, `change`, `turnover_rate`
-
-## 后续建议（下一步）
-1. 增加“交易日历 + 增量同步”模块。
-2. 增加 Parquet 分区落盘（按 `market/date`）。
-3. 增加 DuckDB 查询层与数据质量校验（缺失值、重复、停牌占比）。
+## 下一步建议（我建议你继续让我做）
+1. 接入股票池过滤（ST/停牌/上市天数/成交额门槛）。
+2. 改为 walk-forward 严格时序训练与验证。
+3. 加入行业/风格中性化约束，提升指数增强稳定性。
+4. 自迭代从“参数网格”升级到 Optuna + 在线漂移监控。
+5. 回测增加手续费、冲击成本、调仓频率与最大回撤分析。

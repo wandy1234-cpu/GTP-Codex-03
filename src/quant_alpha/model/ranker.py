@@ -1,0 +1,53 @@
+"""LightGBM ranker and walk-forward utilities."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+import lightgbm as lgb
+import pandas as pd
+
+FEATURE_COLS = ["ret_1d", "ret_5d", "ret_20d", "vol_20d", "amt_20d_mean"]
+
+
+@dataclass
+class RankerResult:
+    model: lgb.LGBMRanker
+    scored: pd.DataFrame
+
+
+def train_ranker(feature_df: pd.DataFrame) -> RankerResult:
+    df = feature_df.dropna(subset=FEATURE_COLS + ["target_5d", "date", "symbol", "market"]).copy()
+    df["date"] = pd.to_datetime(df["date"])
+
+    uniq_dates = sorted(df["date"].unique())
+    split_idx = int(len(uniq_dates) * 0.8)
+    train_dates = set(uniq_dates[:split_idx])
+
+    train = df[df["date"].isin(train_dates)].copy()
+    test = df[~df["date"].isin(train_dates)].copy()
+
+    train["relevance"] = train.groupby("date")["target_5d"].transform(
+        lambda x: pd.qcut(x.rank(method="first"), 5, labels=False, duplicates="drop")
+    ).astype(int)
+    train_group = train.groupby("date").size().tolist()
+    model = lgb.LGBMRanker(
+        objective="lambdarank",
+        metric="ndcg",
+        n_estimators=300,
+        learning_rate=0.05,
+        num_leaves=31,
+        random_state=42,
+    )
+    model.fit(train[FEATURE_COLS], train["relevance"], group=train_group)
+
+    test["score"] = model.predict(test[FEATURE_COLS])
+    return RankerResult(model=model, scored=test)
+
+
+def top_n_latest(scored: pd.DataFrame, n: int = 10) -> pd.DataFrame:
+    if scored.empty:
+        return scored
+    latest = scored["date"].max()
+    pick = scored[scored["date"] == latest].sort_values("score", ascending=False).head(n)
+    return pick[["date", "market", "symbol", "close", "score", "target_5d"]]

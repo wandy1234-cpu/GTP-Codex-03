@@ -1,0 +1,43 @@
+"""Streamlit UI for Quant Alpha system."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import pandas as pd
+import streamlit as st
+
+from quant_alpha.pipeline.run_daily import run_daily
+
+st.set_page_config(page_title="Quant Alpha", layout="wide")
+st.title("Quant Alpha: A股/H股 指数增强系统")
+
+st.sidebar.header("操作")
+top_n = st.sidebar.number_input("Top N", min_value=5, max_value=50, value=10, step=1)
+run_btn = st.sidebar.button("执行每日流程")
+
+if run_btn:
+    with st.spinner("正在拉取数据、训练模型、生成推荐..."):
+        result = run_daily(top_n=int(top_n))
+    st.success("流程执行完成")
+    st.json(result)
+
+report_dir = Path.cwd() / "reports"
+topn_files = sorted(report_dir.glob("topn_*.parquet"))
+bt_files = sorted(report_dir.glob("backtest_*.parquet"))
+
+st.subheader("Top N 推荐")
+if topn_files:
+    topn = pd.read_parquet(topn_files[-1])
+    st.dataframe(topn, use_container_width=True)
+else:
+    st.info("暂无推荐结果，请先执行每日流程")
+
+st.subheader("回测曲线")
+if bt_files:
+    bt = pd.read_parquet(bt_files[-1])
+    bt["date"] = pd.to_datetime(bt["date"])
+    st.line_chart(bt.set_index("date")["cum_ret"])
+    st.dataframe(bt.tail(20), use_container_width=True)
+else:
+    st.info("暂无回测结果，请先执行每日流程")
