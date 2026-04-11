@@ -3,11 +3,19 @@
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 
 import pandas as pd
 import streamlit as st
 
-from quant_alpha.pipeline.run_daily import run_daily
+try:
+    from quant_alpha.pipeline.run_daily import run_daily
+except ModuleNotFoundError:
+    # 兼容未执行 `pip install -e .` 的本地直接运行场景
+    src_root = Path(__file__).resolve().parents[2]
+    if str(src_root) not in sys.path:
+        sys.path.insert(0, str(src_root))
+    from quant_alpha.pipeline.run_daily import run_daily
 
 st.set_page_config(page_title="Quant Alpha", layout="wide")
 st.title("Quant Alpha: A股/H股 指数增强系统")

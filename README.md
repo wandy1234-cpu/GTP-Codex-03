@@ -41,12 +41,14 @@ python scripts/run_daily_pipeline.py
 
 ## 启动可视化
 ```bash
-streamlit run src/quant_alpha/app/streamlit_app.py
+python -m streamlit run src/quant_alpha/app/streamlit_app.py
 ```
 界面支持：
 - 点击执行每日流程
 - 查看最新 Top N 推荐
 - 查看策略累计收益曲线（简化回测）
+
+如果你还没执行 `pip install -e .`，脚本也支持直接从源码运行（已内置 `src` 路径回退导入逻辑）。
 
 ## 目录结构
 ```text

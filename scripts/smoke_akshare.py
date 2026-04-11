@@ -1,8 +1,16 @@
 """Simple smoke test for AkshareAdapter."""
 
 from datetime import date, timedelta
+from pathlib import Path
+import sys
 
-from quant_alpha.data.akshare_adapter import AkshareAdapter
+try:
+    from quant_alpha.data.akshare_adapter import AkshareAdapter
+except ModuleNotFoundError:
+    src_root = Path(__file__).resolve().parents[1] / "src"
+    if str(src_root) not in sys.path:
+        sys.path.insert(0, str(src_root))
+    from quant_alpha.data.akshare_adapter import AkshareAdapter
 
 
 if __name__ == "__main__":
