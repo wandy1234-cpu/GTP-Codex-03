@@ -8,8 +8,15 @@ import pandas as pd
 def build_weekly_recommendations(scored: pd.DataFrame, top_n: int, model_version: str, horizon_days: int = 5) -> pd.DataFrame:
     if scored.empty:
         return scored
-    latest = pd.to_datetime(scored["date"]).max()
-    day = scored[pd.to_datetime(scored["date"]) == latest].copy()
+    dt = pd.to_datetime(scored.get("date"), errors="coerce")
+    latest = dt.max()
+    if pd.isna(latest):
+        # fallback: no valid date, select by global score ranking
+        day = scored.copy()
+    else:
+        day = scored[dt == latest].copy()
+    if day.empty:
+        day = scored.copy()
     score_col = "final_score" if "final_score" in day.columns else "score"
     day = day.sort_values(score_col, ascending=False).drop_duplicates(subset=["market", "symbol"]).head(top_n)
     day = day.rename(columns={"date": "prediction_date", "name": "stock_name"})

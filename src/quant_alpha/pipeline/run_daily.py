@@ -51,6 +51,19 @@ def _ensure_scored_schema(scored: pd.DataFrame, features: pd.DataFrame, warnings
         else:
             out["date"] = pd.Timestamp.today().normalize()
             warnings.append("scored_missing_date_filled_with_today")
+    out["date"] = pd.to_datetime(out["date"], errors="coerce")
+    if out["date"].notna().sum() == 0:
+        if "date" in features.columns:
+            feat_date = pd.to_datetime(features["date"], errors="coerce")
+            if len(feat_date) == len(out) and feat_date.notna().sum() > 0:
+                out["date"] = feat_date.values
+                warnings.append("scored_all_nan_date_filled_from_features")
+            else:
+                out["date"] = pd.Timestamp.today().normalize()
+                warnings.append("scored_all_nan_date_filled_with_today")
+        else:
+            out["date"] = pd.Timestamp.today().normalize()
+            warnings.append("scored_all_nan_date_filled_with_today")
     if "market" not in out.columns:
         out["market"] = features["market"].values if ("market" in features.columns and len(features) == len(out)) else ""
         warnings.append("scored_missing_market_filled")
