@@ -47,6 +47,7 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 - 点击执行每日流程
 - 查看最新 Top N 推荐（含股票中文名称列）
 - 查看策略累计收益曲线（简化回测）
+- Top N 会按 `market+symbol` 去重，避免同一只股票重复出现在推荐列表中
 
 如果你还没执行 `pip install -e .`，脚本也支持直接从源码运行（已内置 `src` 路径回退导入逻辑）。
 

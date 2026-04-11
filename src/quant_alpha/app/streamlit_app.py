@@ -28,6 +28,16 @@ if run_btn:
     try:
         with st.spinner("正在拉取数据、训练模型、生成推荐..."):
             result = run_daily(top_n=int(top_n))
+        ingest = result.get("ingest") or {}
+        errors = dict(ingest.get("errors") or {})
+        notes = dict(ingest.get("notes") or {})
+        # 兼容历史返回结构: 将 cache fallback 从 errors 自动降级到 notes
+        for market, msg in list(errors.items()):
+            if "fallback to cache" in str(msg):
+                notes[market] = msg
+                errors.pop(market, None)
+        if ingest:
+            result["ingest"] = {"rows": ingest.get("rows", {}), "errors": errors, "notes": notes}
         if result.get("status") == "ok":
             st.success("流程执行完成")
         else:

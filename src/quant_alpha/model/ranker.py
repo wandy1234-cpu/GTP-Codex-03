@@ -73,7 +73,8 @@ def top_n_latest(scored: pd.DataFrame, n: int = 10) -> pd.DataFrame:
     if scored.empty:
         return scored
     latest = scored["date"].max()
-    pick = scored[scored["date"] == latest].sort_values("score", ascending=False).head(n)
+    pick = scored[scored["date"] == latest].sort_values("score", ascending=False)
+    pick = pick.drop_duplicates(subset=["market", "symbol"], keep="first").head(n)
     if "name" not in pick.columns:
         pick = pick.assign(name="")
     return pick[["date", "market", "symbol", "name", "close", "score", "target_5d"]]
