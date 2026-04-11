@@ -172,19 +172,23 @@ def run_daily(
             warnings.append("insufficient_fold_count")
     except Exception as exc:
         warnings.append(f"fold_metrics_fallback:{exc}")
-        dts = sorted(pd.to_datetime(features["date"]).dropna().unique()) if "date" in features.columns else []
+        dts = []
         wf_windows = []
         fold_df = pd.DataFrame(columns=["date", "rank_ic", "avg_topn_ret", "coverage"])
 
     # backtest realistic
     _emit(progress_cb, 0.74, "运行回测")
-    backtest = run_topn_backtest(
-        scored,
-        n=top_n,
-        fee_rate=0.0005,
-        slippage_bps=5,
-        rebalance_days=int(wf_cfg.get("step_days", 5)),
-    )
+    try:
+        backtest = run_topn_backtest(
+            scored,
+            n=top_n,
+            fee_rate=0.0005,
+            slippage_bps=5,
+            rebalance_days=int(wf_cfg.get("step_days", 5)),
+        )
+    except Exception as exc:
+        warnings.append(f"backtest_fallback:{exc}")
+        backtest = pd.DataFrame(columns=["date", "strategy_ret", "cum_ret", "max_drawdown", "turnover"])
 
     snap = date.today().isoformat()
     feature_file = paths.data_feature / f"features_{snap}.parquet"
