@@ -63,7 +63,11 @@ def run_daily(
 
     _emit(progress_cb, 0.08, "拉取市场数据")
     adapter = AkshareAdapter.from_env()
-    ingest_stats = DailyIngestor(adapter, paths).run()
+    def _ingest_progress(p: float, msg: str) -> None:
+        # map ingest internal [0,1] to global [0.08,0.20]
+        _emit(progress_cb, 0.08 + 0.12 * p, f"拉取市场数据 {msg}")
+
+    ingest_stats = DailyIngestor(adapter, paths).run(progress_cb=_ingest_progress)
     coverage = ingest_stats.get("coverage", {}) if isinstance(ingest_stats, dict) else {}
 
     _emit(progress_cb, 0.20, "加载并校验数据")

@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from glob import glob
 from pathlib import Path
+from typing import Callable
 
 import numpy as np
 import pandas as pd
@@ -140,21 +141,32 @@ class DailyIngestor:
         end: date | None = None,
         lookback_days: int = 365,
         max_symbols_per_market: int | None = None,
+        progress_cb: Callable[[float, str], None] | None = None,
     ) -> dict[str, object]:
+        def _emit(pct: float, msg: str) -> None:
+            if progress_cb is not None:
+                progress_cb(max(0.0, min(1.0, float(pct))), msg)
+
         self.paths.ensure()
         end = end or date.today()
         start = end - timedelta(days=lookback_days)
 
         stats: dict[str, object] = {"rows": {}, "errors": {}, "coverage": {}, "notes": {}}
-        for market in ("A", "HK"):
+        markets = ("A", "HK")
+        for mi, market in enumerate(markets):
+            base = mi / len(markets)
+            span = 1.0 / len(markets)
+            _emit(base + 0.02 * span, f"[{market}] 初始化增量上下文")
             name_cache = self._load_name_map()
             master = self._load_master(market)
             last_dt = pd.to_datetime(master["date"]).max().date() if (not master.empty and "date" in master.columns) else None
             inc_start = start if last_dt is None else max(start, last_dt - timedelta(days=10))
             stats["notes"][market] = f"incremental_start={inc_start.isoformat()} last_cached_date={last_dt.isoformat() if last_dt else 'none'}"
             try:
+                _emit(base + 0.10 * span, f"[{market}] 拉取 spot 列表")
                 spot = self.adapter.fetch_spot(market)
                 symbols = spot["symbol"].dropna().astype(str).unique().tolist()
+                _emit(base + 0.16 * span, f"[{market}] spot 成功，symbol={len(symbols)}")
                 name_map = (
                     spot[[c for c in ["symbol", "name"] if c in spot.columns]]
                     .drop_duplicates(subset=["symbol"])
@@ -166,6 +178,7 @@ class DailyIngestor:
                 merged_map.update({k: v for k, v in name_map.items() if v})
                 self._save_name_map(merged_map)
             except Exception as exc:
+                _emit(base + 0.18 * span, f"[{market}] spot 失败，尝试缓存回退")
                 cached = self._cached_bars_window(market)
                 if not cached.empty:
                     cached = self._expand_with_universe(market, cached, start=start, end=end)
@@ -175,6 +188,7 @@ class DailyIngestor:
                     self._save_master(market, cached)
                     stats["rows"][market] = int(len(cached))
                     stats["errors"][market] = f"spot failed, fallback to cache: {exc}"
+                    _emit(base + 0.95 * span, f"[{market}] 使用缓存回退完成，rows={len(cached)}")
                 else:
                     seed_symbols = self._seed_symbols(market)
                     all_hist: list[pd.DataFrame] = []
@@ -201,6 +215,7 @@ class DailyIngestor:
                     self._save_master(market, fallback_df)
                     stats["rows"][market] = int(len(fallback_df))
                     stats["errors"][market] = f"spot failed, no cache; used {mode}: {exc}"
+                    _emit(base + 0.95 * span, f"[{market}] 使用{mode}完成，rows={len(fallback_df)}")
                 continue
 
             if max_symbols_per_market:
@@ -208,6 +223,8 @@ class DailyIngestor:
 
             all_hist: list[pd.DataFrame] = []
             fetched_symbols = 0
+            total_symbols = max(1, len(symbols))
+            _emit(base + 0.22 * span, f"[{market}] 开始增量历史拉取")
             for symbol in symbols:
                 try:
                     hist = self.adapter.fetch_history(symbol, market, start=inc_start, end=end)
@@ -217,6 +234,9 @@ class DailyIngestor:
                         fetched_symbols += 1
                 except Exception:
                     continue
+                if fetched_symbols % 50 == 0:
+                    inner = fetched_symbols / total_symbols
+                    _emit(base + (0.22 + 0.56 * inner) * span, f"[{market}] 历史进度 {fetched_symbols}/{total_symbols}")
 
             if all_hist:
                 inc = pd.concat(all_hist, ignore_index=True)
@@ -245,6 +265,7 @@ class DailyIngestor:
                 "missing_symbol_count": int(len(miss)),
                 "missing_symbol_sample": miss[:20],
             }
+            _emit(base + 0.98 * span, f"[{market}] 完成，latest={latest_dt.date()} symbols={latest_symbols}")
 
         return stats
     def _dedupe_bars(self, df: pd.DataFrame) -> pd.DataFrame:
