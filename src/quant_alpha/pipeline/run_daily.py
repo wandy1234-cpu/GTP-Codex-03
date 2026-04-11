@@ -74,7 +74,12 @@ def run_daily(top_n: int = 10) -> dict:
     topn.to_parquet(topn_file, index=False)
     backtest.to_parquet(bt_file, index=False)
 
-    has_warnings = any(bool(v) for v in (ingest_stats.get("errors") or {}).values()) or bool(warnings)
+    ingest_errors = (ingest_stats.get("errors") or {})
+    hard_ingest_warning = any(
+        bool(v) and ("fallback to cache" not in str(v))
+        for v in ingest_errors.values()
+    )
+    has_warnings = hard_ingest_warning or bool(warnings)
     return {
         "status": "ok_with_warnings" if has_warnings else "ok",
         "ingest": ingest_stats,

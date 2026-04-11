@@ -68,7 +68,9 @@ def top_n_latest(scored: pd.DataFrame, n: int = 10) -> pd.DataFrame:
         return scored
     latest = scored["date"].max()
     pick = scored[scored["date"] == latest].sort_values("score", ascending=False).head(n)
-    return pick[["date", "market", "symbol", "close", "score", "target_5d"]]
+    if "name" not in pick.columns:
+        pick = pick.assign(name="")
+    return pick[["date", "market", "symbol", "name", "close", "score", "target_5d"]]
 
 
 def fallback_score(feature_df: pd.DataFrame) -> pd.DataFrame:

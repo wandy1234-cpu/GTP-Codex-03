@@ -45,7 +45,7 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 ```
 界面支持：
 - 点击执行每日流程
-- 查看最新 Top N 推荐
+- 查看最新 Top N 推荐（含股票中文名称列）
 - 查看策略累计收益曲线（简化回测）
 
 如果你还没执行 `pip install -e .`，脚本也支持直接从源码运行（已内置 `src` 路径回退导入逻辑）。
@@ -56,6 +56,7 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 2. 若 spot 仍失败，自动回退到该市场最近一次缓存的 `bars.parquet`（如果存在）。
 3. 若无缓存，则尝试“核心种子股票历史数据回退”；再失败时启用“合成数据回退”（用于不中断调试流程）。
 4. 在 Streamlit 页面展示“抓取告警”，并标记 `status=ok_with_warnings`。
+   - 若仅触发“fallback to cache”，页面显示提示信息，不视为硬失败。
 
 > 首次运行且没有任何缓存时，如果网络持续失败，系统会返回 `status=failed`，这是预期保护行为。
 > Windows 下路径已统一按 POSIX pattern 处理，避免 `read_parquet` 通配符失效导致的 “No files found that match the pattern”。

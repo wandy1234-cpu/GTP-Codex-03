@@ -41,17 +41,20 @@ class DailyIngestor:
                         "volume": float(rng.integers(100000, 5000000)),
                         "amount": float(rng.integers(1_000_000, 500_000_000)),
                         "symbol": symbol,
+                        "name": f"SYN_{symbol}",
                         "market": market,
                     }
                 )
         return pd.DataFrame(rows)
 
-    def _latest_cached_bars(self, market: str) -> pd.DataFrame:
+    def _cached_bars_window(self, market: str, max_files: int = 180) -> pd.DataFrame:
         pattern = self.paths.data_raw / f"market={market}" / "date=*" / "bars.parquet"
         files = sorted(glob(str(pattern)))
         if not files:
             return pd.DataFrame()
-        return pd.read_parquet(files[-1])
+        selected = files[-max_files:]
+        frames = [pd.read_parquet(f) for f in selected]
+        return pd.concat(frames, ignore_index=True)
 
     def run(
         self,
@@ -68,8 +71,15 @@ class DailyIngestor:
             try:
                 spot = self.adapter.fetch_spot(market)
                 symbols = spot["symbol"].dropna().astype(str).unique().tolist()
+                name_map = (
+                    spot[[c for c in ["symbol", "name"] if c in spot.columns]]
+                    .drop_duplicates(subset=["symbol"])
+                    .set_index("symbol")
+                    .to_dict()
+                    .get("name", {})
+                )
             except Exception as exc:
-                cached = self._latest_cached_bars(market)
+                cached = self._cached_bars_window(market)
                 if not cached.empty:
                     out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
                     out_file.parent.mkdir(parents=True, exist_ok=True)
@@ -83,6 +93,7 @@ class DailyIngestor:
                         try:
                             hist = self.adapter.fetch_history(symbol, market, start=start, end=end)
                             if not hist.empty:
+                                hist["name"] = symbol
                                 all_hist.append(hist)
                         except Exception:
                             continue
@@ -109,6 +120,7 @@ class DailyIngestor:
                 try:
                     hist = self.adapter.fetch_history(symbol, market, start=start, end=end)
                     if not hist.empty:
+                        hist["name"] = name_map.get(symbol, "")
                         all_hist.append(hist)
                 except Exception:
                     continue

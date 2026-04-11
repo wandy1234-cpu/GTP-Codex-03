@@ -36,7 +36,10 @@ if run_btn:
         ingest_errors = (result.get("ingest") or {}).get("errors", {})
         for market, msg in ingest_errors.items():
             if msg:
-                st.warning(f"{market} 市场抓取告警: {msg}")
+                if "fallback to cache" in str(msg):
+                    st.info(f"{market} 市场抓取提示: {msg}")
+                else:
+                    st.warning(f"{market} 市场抓取告警: {msg}")
         for msg in result.get("warnings", []):
             st.warning(msg)
     except Exception as exc:
