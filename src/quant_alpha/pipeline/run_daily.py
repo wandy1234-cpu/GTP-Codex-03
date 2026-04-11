@@ -159,16 +159,22 @@ def run_daily(
 
     # walk-forward artifacts
     _emit(progress_cb, 0.68, "计算分层评估指标")
-    dts = sorted(pd.to_datetime(scored["date"]).dropna().unique())
-    wf_windows = build_walk_forward_windows(
-        dts,
-        train_days=int(wf_cfg.get("train_window_days", 120)),
-        valid_days=int(wf_cfg.get("valid_window_days", 20)),
-        step_days=int(wf_cfg.get("step_days", 5)),
-    )
-    fold_df = fold_metrics(scored)
-    if not wf_windows:
-        warnings.append("insufficient_fold_count")
+    try:
+        dts = sorted(pd.to_datetime(scored["date"]).dropna().unique())
+        wf_windows = build_walk_forward_windows(
+            dts,
+            train_days=int(wf_cfg.get("train_window_days", 120)),
+            valid_days=int(wf_cfg.get("valid_window_days", 20)),
+            step_days=int(wf_cfg.get("step_days", 5)),
+        )
+        fold_df = fold_metrics(scored)
+        if not wf_windows:
+            warnings.append("insufficient_fold_count")
+    except Exception as exc:
+        warnings.append(f"fold_metrics_fallback:{exc}")
+        dts = sorted(pd.to_datetime(features["date"]).dropna().unique()) if "date" in features.columns else []
+        wf_windows = []
+        fold_df = pd.DataFrame(columns=["date", "rank_ic", "avg_topn_ret", "coverage"])
 
     # backtest realistic
     _emit(progress_cb, 0.74, "运行回测")
