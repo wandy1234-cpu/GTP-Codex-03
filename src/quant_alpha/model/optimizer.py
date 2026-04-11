@@ -66,6 +66,17 @@ def run_optimization(bars: pd.DataFrame, cfg: SystemConfig, paths: ProjectPaths)
     opt_cfg = cfg.optimization
     weights = cfg.composite_weights
     features = build_features(bars)
+    if features.empty:
+        now = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        paths.experiment_dir.mkdir(parents=True, exist_ok=True)
+        trials_file = paths.experiment_dir / f"optimization_trials_{now}.json"
+        study_file = paths.experiment_dir / f"optimization_study_{now}.json"
+        trials_file.write_text("[]", encoding="utf-8")
+        study_file.write_text(
+            json.dumps({"best_params": {}, "best_value": None, "n_trials": 0, "timestamp": now, "note": "empty_features"}, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        return OptimizationResult(best_params={}, best_metrics={}, best_composite=float("nan"), study_file=str(study_file), trials_file=str(trials_file))
     study = optuna.create_study(direction="maximize")
     records: list[dict[str, Any]] = []
 
@@ -73,10 +84,16 @@ def run_optimization(bars: pd.DataFrame, cfg: SystemConfig, paths: ProjectPaths)
         top_n = trial.suggest_categorical("top_n", list(opt_cfg.get("top_n_choices", [8, 10, 12, 15])))
         train_window_days = trial.suggest_int("train_window_days", 90, 180, step=15)
         step_days = trial.suggest_int("step_days", 5, 10, step=1)
-        candidate = walk_forward_score(features, min_train_days=train_window_days, step_days=step_days)
-        metrics = _candidate_metrics(candidate.scored, top_n=top_n)
-        score = composite_score(metrics, weights)
-        records.append({"trial_number": trial.number, "params": trial.params, "metrics": metrics, "composite_score": score})
+        try:
+            candidate = walk_forward_score(features, min_train_days=train_window_days, step_days=step_days)
+            metrics = _candidate_metrics(candidate.scored, top_n=top_n)
+            score = composite_score(metrics, weights)
+            rec = {"trial_number": trial.number, "params": trial.params, "metrics": metrics, "composite_score": score}
+        except Exception as exc:
+            metrics = _candidate_metrics(pd.DataFrame(), top_n=top_n)
+            score = -1.0
+            rec = {"trial_number": trial.number, "params": trial.params, "metrics": metrics, "composite_score": score, "error": str(exc)}
+        records.append(rec)
         return score
 
     study.optimize(
