@@ -179,6 +179,56 @@ class DailyIngestor:
                 self._save_name_map(merged_map)
             except Exception as exc:
                 _emit(base + 0.18 * span, f"[{market}] spot 失败，尝试缓存回退")
+                # 尝试退化到“仅股票代码列表”模式，避免因为 spot 接口异常导致整市场回退缓存
+                symbols = self.adapter.fetch_symbol_universe(market)
+                if max_symbols_per_market:
+                    symbols = symbols[:max_symbols_per_market]
+                if symbols:
+                    _emit(base + 0.20 * span, f"[{market}] spot 失败，改用代码清单模式 symbol={len(symbols)}")
+                    name_map = {}
+                    all_hist: list[pd.DataFrame] = []
+                    fetched_symbols = 0
+                    total_symbols = max(1, len(symbols))
+                    for symbol in symbols:
+                        try:
+                            hist = self.adapter.fetch_history(symbol, market, start=inc_start, end=end)
+                            if not hist.empty:
+                                hist["name"] = name_cache.get(symbol, "")
+                                all_hist.append(hist)
+                                fetched_symbols += 1
+                        except Exception:
+                            continue
+                        if fetched_symbols % 50 == 0:
+                            inner = fetched_symbols / total_symbols
+                            _emit(base + (0.20 + 0.60 * inner) * span, f"[{market}] 代码清单模式进度 {fetched_symbols}/{total_symbols}")
+
+                    if all_hist:
+                        inc = pd.concat(all_hist, ignore_index=True)
+                        raw = pd.concat([master, inc], ignore_index=True) if not master.empty else inc
+                        raw = self._dedupe_bars(raw)
+                        latest_dt = pd.to_datetime(raw["date"]).max() if (not raw.empty and "date" in raw.columns) else pd.Timestamp(end)
+                        out_file = self.paths.data_raw / f"market={market}" / f"date={latest_dt.date().isoformat()}" / "bars.parquet"
+                        out_file.parent.mkdir(parents=True, exist_ok=True)
+                        raw.to_parquet(out_file, index=False)
+                        self._save_master(market, raw)
+                        stats["rows"][market] = int(len(raw))
+                        spot_set = set(symbols)
+                        got_set = set(raw["symbol"].astype(str).unique()) if not raw.empty else set()
+                        miss = sorted(list(spot_set - got_set))
+                        latest_day = raw[pd.to_datetime(raw["date"]) == latest_dt] if (not raw.empty and "date" in raw.columns) else pd.DataFrame()
+                        stats["coverage"][market] = {
+                            "spot_symbol_count": int(len(spot_set)),
+                            "fetched_symbol_count": int(fetched_symbols),
+                            "stored_symbol_count": int(len(got_set)),
+                            "latest_trade_date": str(latest_dt.date()),
+                            "latest_trade_symbol_count": int(latest_day["symbol"].astype(str).nunique()) if not latest_day.empty else 0,
+                            "missing_symbol_count": int(len(miss)),
+                            "missing_symbol_sample": miss[:20],
+                        }
+                        stats["notes"][market] += " | spot_failed_use_symbol_universe=true"
+                        _emit(base + 0.95 * span, f"[{market}] 代码清单模式完成，rows={len(raw)}")
+                        continue
+
                 cached = self._cached_bars_window(market)
                 if not cached.empty:
                     cached = self._expand_with_universe(market, cached, start=start, end=end)
@@ -187,7 +237,7 @@ class DailyIngestor:
                     self._dedupe_bars(cached).to_parquet(out_file, index=False)
                     self._save_master(market, cached)
                     stats["rows"][market] = int(len(cached))
-                    stats["errors"][market] = f"spot failed, fallback to cache: {exc}"
+                    stats["errors"][market] = f"spot failed, fallback to cache: {exc!r}"
                     _emit(base + 0.95 * span, f"[{market}] 使用缓存回退完成，rows={len(cached)}")
                 else:
                     seed_symbols = self._seed_symbols(market)
@@ -214,7 +264,7 @@ class DailyIngestor:
                     fallback_df.to_parquet(out_file, index=False)
                     self._save_master(market, fallback_df)
                     stats["rows"][market] = int(len(fallback_df))
-                    stats["errors"][market] = f"spot failed, no cache; used {mode}: {exc}"
+                    stats["errors"][market] = f"spot failed, no cache; used {mode}: {exc!r}"
                     _emit(base + 0.95 * span, f"[{market}] 使用{mode}完成，rows={len(fallback_df)}")
                 continue
 

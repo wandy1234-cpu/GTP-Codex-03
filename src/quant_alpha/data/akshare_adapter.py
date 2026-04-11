@@ -32,11 +32,33 @@ class AkshareAdapter:
 
     def fetch_spot(self, market: Market) -> pd.DataFrame:
         if market == "A":
-            raw = self._with_retry(ak.stock_zh_a_spot_em)
-            return normalize_spot(raw, A_SPOT_RENAME, market="A")
+            last_exc: Exception | None = None
+            for fn in [getattr(ak, "stock_zh_a_spot_em", None), getattr(ak, "stock_zh_a_spot", None)]:
+                if fn is None:
+                    continue
+                try:
+                    raw = self._with_retry(fn)
+                    return normalize_spot(raw, A_SPOT_RENAME, market="A")
+                except Exception as exc:
+                    last_exc = exc
+                    continue
+            if last_exc is not None:
+                raise last_exc
+            raise RuntimeError("No available A-share spot endpoint in akshare runtime")
         if market == "HK":
-            raw = self._with_retry(ak.stock_hk_spot_em)
-            return normalize_spot(raw, H_SPOT_RENAME, market="HK")
+            last_exc: Exception | None = None
+            for fn in [getattr(ak, "stock_hk_spot_em", None), getattr(ak, "stock_hk_spot", None)]:
+                if fn is None:
+                    continue
+                try:
+                    raw = self._with_retry(fn)
+                    return normalize_spot(raw, H_SPOT_RENAME, market="HK")
+                except Exception as exc:
+                    last_exc = exc
+                    continue
+            if last_exc is not None:
+                raise last_exc
+            raise RuntimeError("No available HK spot endpoint in akshare runtime")
         raise ValueError(f"Unsupported market: {market}")
 
     def fetch_history(
