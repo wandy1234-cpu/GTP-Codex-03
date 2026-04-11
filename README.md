@@ -57,6 +57,7 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 3. 在 Streamlit 页面展示“抓取告警”，但尽量不中断整条流程。
 
 > 首次运行且没有任何缓存时，如果网络持续失败，系统会返回 `status=failed`，这是预期保护行为。
+> Windows 下路径已统一按 POSIX pattern 处理，避免 `read_parquet` 通配符失效导致的 “No files found that match the pattern”。
 
 ## 目录结构
 ```text
