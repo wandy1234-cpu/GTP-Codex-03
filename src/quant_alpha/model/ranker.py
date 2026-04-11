@@ -107,14 +107,32 @@ def fallback_score(feature_df: pd.DataFrame) -> pd.DataFrame:
     for col in FEATURE_COLS:
         if col not in df.columns:
             df[col] = 0.0
+    # robust fallback: if history factors are sparse, blend cross-sectional spot proxies
+    if "date" in df.columns:
+        grp = df.groupby("date", group_keys=False)
+        cs_amt = grp["amount"].rank(pct=True) if "amount" in df.columns else pd.Series(0.5, index=df.index)
+        cs_vol = grp["volume"].rank(pct=True) if "volume" in df.columns else pd.Series(0.5, index=df.index)
+        cs_ret1 = grp["ret_1d"].rank(pct=True) if "ret_1d" in df.columns else pd.Series(0.5, index=df.index)
+        cs_ret5 = grp["ret_5d"].rank(pct=True) if "ret_5d" in df.columns else pd.Series(0.5, index=df.index)
+        cs_ret20 = grp["ret_20d"].rank(pct=True) if "ret_20d" in df.columns else pd.Series(0.5, index=df.index)
+        cs_pct = grp["pct_change"].rank(pct=True) if "pct_change" in df.columns else pd.Series(0.5, index=df.index)
+    else:
+        cs_amt = df["amount"].rank(pct=True) if "amount" in df.columns else pd.Series(0.5, index=df.index)
+        cs_vol = df["volume"].rank(pct=True) if "volume" in df.columns else pd.Series(0.5, index=df.index)
+        cs_ret1 = df["ret_1d"].rank(pct=True) if "ret_1d" in df.columns else pd.Series(0.5, index=df.index)
+        cs_ret5 = df["ret_5d"].rank(pct=True) if "ret_5d" in df.columns else pd.Series(0.5, index=df.index)
+        cs_ret20 = df["ret_20d"].rank(pct=True) if "ret_20d" in df.columns else pd.Series(0.5, index=df.index)
+        cs_pct = df["pct_change"].rank(pct=True) if "pct_change" in df.columns else pd.Series(0.5, index=df.index)
+
     score = (
-        0.35 * df["ret_20d"].fillna(0)
-        + 0.25 * df["ret_5d"].fillna(0)
-        + 0.15 * df["ret_1d"].fillna(0)
-        - 0.15 * df["vol_20d"].fillna(0)
-        + 0.10 * (df["amt_20d_mean"].fillna(0).rank(pct=True))
+        0.25 * cs_ret20.fillna(0.5)
+        + 0.20 * cs_ret5.fillna(0.5)
+        + 0.15 * cs_ret1.fillna(0.5)
+        + 0.15 * cs_pct.fillna(0.5)
+        + 0.15 * cs_amt.fillna(0.5)
+        + 0.10 * cs_vol.fillna(0.5)
     )
-    df["score"] = score
+    df["score"] = score.astype(float)
     return df
 
 

@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+import math
 import pandas as pd
 
 from quant_alpha.config import ProjectPaths
@@ -23,16 +24,24 @@ class GovernanceDecision:
 
 
 def composite_score(metrics: dict[str, Any], weights: dict[str, float]) -> float:
+    def _v(name: str, default: float = 0.0) -> float:
+        x = metrics.get(name, default)
+        try:
+            val = float(x)
+        except Exception:
+            return default
+        return default if (math.isnan(val) or math.isinf(val)) else val
+
     plus = (
-        weights.get("avg_topn_excess_ret", 0.30) * float(metrics.get("avg_topn_excess_ret", 0.0))
-        + weights.get("winner_precision", 0.20) * float(metrics.get("winner_precision", 0.0))
-        + weights.get("benchmark_hit_rate", 0.15) * float(metrics.get("benchmark_hit_rate", 0.0))
-        + weights.get("rank_ic", 0.15) * float(metrics.get("rank_ic", 0.0))
-        + weights.get("stability_score", 0.10) * float(metrics.get("stability_score", 0.0))
+        weights.get("avg_topn_excess_ret", 0.30) * _v("avg_topn_excess_ret")
+        + weights.get("winner_precision", 0.20) * _v("winner_precision")
+        + weights.get("benchmark_hit_rate", 0.15) * _v("benchmark_hit_rate")
+        + weights.get("rank_ic", 0.15) * _v("rank_ic")
+        + weights.get("stability_score", 0.10) * _v("stability_score")
     )
     minus = (
-        weights.get("drawdown_penalty", 0.05) * float(metrics.get("drawdown_penalty", 0.0))
-        + weights.get("turnover_penalty", 0.05) * float(metrics.get("turnover_penalty", 0.0))
+        weights.get("drawdown_penalty", 0.05) * _v("drawdown_penalty")
+        + weights.get("turnover_penalty", 0.05) * _v("turnover_penalty")
     )
     return float(plus - minus)
 

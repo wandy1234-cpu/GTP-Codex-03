@@ -18,7 +18,22 @@ def build_weekly_recommendations(scored: pd.DataFrame, top_n: int, model_version
     if day.empty:
         day = scored.copy()
     score_col = "final_score" if "final_score" in day.columns else "score"
-    day = day.sort_values(score_col, ascending=False).drop_duplicates(subset=["market", "symbol"]).head(top_n)
+    ranked = day.sort_values(score_col, ascending=False).drop_duplicates(subset=["market", "symbol"])
+    mk = set(ranked["market"].astype(str).unique()) if "market" in ranked.columns else set()
+    if "A" in mk and "HK" in mk and top_n >= 2:
+        hk_quota = min(int((ranked["market"] == "HK").sum()), max(1, top_n // 5))
+        a_quota = min(int((ranked["market"] == "A").sum()), max(1, top_n - hk_quota))
+        pick_a = ranked[ranked["market"] == "A"].head(a_quota)
+        pick_hk = ranked[ranked["market"] == "HK"].head(hk_quota)
+        picked = pd.concat([pick_a, pick_hk], ignore_index=True)
+        need = max(0, top_n - len(picked))
+        if need > 0:
+            used = set(zip(picked["market"].astype(str), picked["symbol"].astype(str)))
+            rest = ranked[~ranked.apply(lambda r: (str(r.get("market", "")), str(r.get("symbol", ""))) in used, axis=1)].head(need)
+            picked = pd.concat([picked, rest], ignore_index=True)
+        day = picked.sort_values(score_col, ascending=False).head(top_n)
+    else:
+        day = ranked.head(top_n)
     day = day.rename(columns={"date": "prediction_date", "name": "stock_name"})
     day["holding_horizon_days"] = horizon_days
     day["model_version"] = model_version
