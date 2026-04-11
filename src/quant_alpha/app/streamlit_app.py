@@ -25,10 +25,20 @@ top_n = st.sidebar.number_input("Top N", min_value=5, max_value=50, value=10, st
 run_btn = st.sidebar.button("执行每日流程")
 
 if run_btn:
-    with st.spinner("正在拉取数据、训练模型、生成推荐..."):
-        result = run_daily(top_n=int(top_n))
-    st.success("流程执行完成")
-    st.json(result)
+    try:
+        with st.spinner("正在拉取数据、训练模型、生成推荐..."):
+            result = run_daily(top_n=int(top_n))
+        if result.get("status") == "ok":
+            st.success("流程执行完成")
+        else:
+            st.warning("流程完成，但出现数据问题，请查看返回信息。")
+        st.json(result)
+        ingest_errors = (result.get("ingest") or {}).get("errors", {})
+        for market, msg in ingest_errors.items():
+            if msg:
+                st.warning(f"{market} 市场抓取告警: {msg}")
+    except Exception as exc:
+        st.error(f"执行失败: {exc}")
 
 report_dir = Path.cwd() / "reports"
 topn_files = sorted(report_dir.glob("topn_*.parquet"))

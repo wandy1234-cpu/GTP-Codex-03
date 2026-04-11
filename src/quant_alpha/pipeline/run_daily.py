@@ -25,7 +25,20 @@ def run_daily(top_n: int = 10) -> dict:
     ingest_stats = ingestor.run()
 
     bars = load_latest_raw(paths.data_raw)
+    if bars.empty:
+        return {
+            "status": "failed",
+            "reason": "no market data available after ingestion",
+            "ingest": ingest_stats,
+        }
+
     features = build_features(bars)
+    if features.empty:
+        return {
+            "status": "failed",
+            "reason": "feature dataframe is empty",
+            "ingest": ingest_stats,
+        }
 
     snap_date = date.today().isoformat()
     feature_file = paths.data_feature / f"features_{snap_date}.parquet"
@@ -45,7 +58,8 @@ def run_daily(top_n: int = 10) -> dict:
     backtest.to_parquet(bt_file, index=False)
 
     return {
-        "ingest_rows": ingest_stats,
+        "status": "ok",
+        "ingest": ingest_stats,
         "feature_file": str(feature_file),
         "model_file": str(model_file),
         "topn_file": str(topn_file),

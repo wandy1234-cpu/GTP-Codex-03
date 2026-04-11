@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
+import time
 from typing import Literal
 
 import akshare as ak
@@ -20,6 +21,8 @@ class AkshareAdapter:
     """Thin wrapper around AkShare APIs with normalized output schema."""
 
     config: AkshareConfig
+    max_retries: int = 3
+    retry_sleep: float = 1.5
 
     def __post_init__(self) -> None:
         # AkShare的大多数接口不强制token; 如果未来需要可在此扩展统一鉴权。
@@ -38,10 +41,10 @@ class AkshareAdapter:
             market: "A" for mainland A-share, "HK" for Hong Kong stocks.
         """
         if market == "A":
-            raw = ak.stock_zh_a_spot_em()
+            raw = self._with_retry(ak.stock_zh_a_spot_em)
             return normalize_spot(raw, A_SPOT_RENAME, market="A")
         if market == "HK":
-            raw = ak.stock_hk_spot_em()
+            raw = self._with_retry(ak.stock_hk_spot_em)
             return normalize_spot(raw, H_SPOT_RENAME, market="HK")
         raise ValueError(f"Unsupported market: {market}")
 
@@ -59,7 +62,8 @@ class AkshareAdapter:
         end_s = end.strftime("%Y%m%d")
 
         if market == "A":
-            raw = ak.stock_zh_a_hist(
+            raw = self._with_retry(
+                ak.stock_zh_a_hist,
                 symbol=symbol,
                 period=period,
                 start_date=start_s,
@@ -69,7 +73,8 @@ class AkshareAdapter:
             return normalize_history(raw, symbol=symbol, market="A")
 
         if market == "HK":
-            raw = ak.stock_hk_hist(
+            raw = self._with_retry(
+                ak.stock_hk_hist,
                 symbol=symbol,
                 period=period,
                 start_date=start_s,
@@ -79,3 +84,15 @@ class AkshareAdapter:
             return normalize_history(raw, symbol=symbol, market="HK")
 
         raise ValueError(f"Unsupported market: {market}")
+
+    def _with_retry(self, fn, *args, **kwargs):
+        last_exc: Exception | None = None
+        for attempt in range(1, self.max_retries + 1):
+            try:
+                return fn(*args, **kwargs)
+            except Exception as exc:
+                last_exc = exc
+                if attempt < self.max_retries:
+                    time.sleep(self.retry_sleep * attempt)
+        if last_exc is not None:
+            raise last_exc

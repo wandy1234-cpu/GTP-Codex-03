@@ -50,6 +50,14 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 
 如果你还没执行 `pip install -e .`，脚本也支持直接从源码运行（已内置 `src` 路径回退导入逻辑）。
 
+## 网络连接失败时的行为（已处理）
+当 AkShare 临时网络异常（例如 `RemoteDisconnected`）时，系统会：
+1. 对 spot/hist 接口自动重试（指数退避）。
+2. 若 spot 仍失败，自动回退到该市场最近一次缓存的 `bars.parquet`（如果存在）。
+3. 在 Streamlit 页面展示“抓取告警”，但尽量不中断整条流程。
+
+> 首次运行且没有任何缓存时，如果网络持续失败，系统会返回 `status=failed`，这是预期保护行为。
+
 ## 目录结构
 ```text
 src/quant_alpha/
