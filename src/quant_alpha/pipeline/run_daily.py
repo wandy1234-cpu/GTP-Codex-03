@@ -93,7 +93,17 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
     if not {"symbol", "name"}.issubset(ndf.columns):
         return out
     mp = dict(zip(ndf["symbol"].astype(str), ndf["name"].astype(str)))
-    out.loc[mask, name_col] = out.loc[mask, "symbol"].astype(str).map(mp).fillna(out.loc[mask, name_col])
+    # HK symbols often appear as 1/00001 across different endpoints; normalize both keys.
+    for k, v in list(mp.items()):
+        ks = str(k)
+        if ks.isdigit() and len(ks) <= 5:
+            mp.setdefault(ks.zfill(5), v)
+    sym = out.loc[mask, "symbol"].astype(str)
+    name_from_map = sym.map(mp)
+    if "market" in out.columns:
+        hk_mask = out.loc[mask, "market"].astype(str).eq("HK")
+        name_from_map.loc[hk_mask] = sym.loc[hk_mask].str.zfill(5).map(mp).fillna(name_from_map.loc[hk_mask])
+    out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
     return out
 
 

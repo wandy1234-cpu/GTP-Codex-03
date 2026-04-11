@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import pandas as pd
+import numpy as np
 
 
 def build_weekly_recommendations(scored: pd.DataFrame, top_n: int, model_version: str, horizon_days: int = 5) -> pd.DataFrame:
@@ -18,6 +19,14 @@ def build_weekly_recommendations(scored: pd.DataFrame, top_n: int, model_version
     if day.empty:
         day = scored.copy()
     score_col = "final_score" if "final_score" in day.columns else "score"
+    if score_col not in day.columns:
+        day[score_col] = pd.Series(pd.util.hash_pandas_object(day.get("symbol", pd.Series(np.arange(len(day)))), index=False), index=day.index).rank(pct=True)
+    else:
+        day[score_col] = pd.to_numeric(day[score_col], errors="coerce")
+        if day[score_col].notna().sum() == 0:
+            day[score_col] = pd.Series(pd.util.hash_pandas_object(day.get("symbol", pd.Series(np.arange(len(day)))), index=False), index=day.index).rank(pct=True)
+        else:
+            day[score_col] = day[score_col].fillna(day[score_col].median())
     ranked = day.sort_values(score_col, ascending=False).drop_duplicates(subset=["market", "symbol"])
     mk = set(ranked["market"].astype(str).unique()) if "market" in ranked.columns else set()
     if "A" in mk and "HK" in mk and top_n >= 2:
