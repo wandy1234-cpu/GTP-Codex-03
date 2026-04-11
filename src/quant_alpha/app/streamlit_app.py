@@ -72,7 +72,10 @@ st.subheader("回测曲线")
 if bt_files:
     bt = pd.read_parquet(bt_files[-1])
     bt["date"] = pd.to_datetime(bt["date"])
-    st.line_chart(bt.set_index("date")["cum_ret"])
+    if len(bt) >= 2:
+        st.line_chart(bt.set_index("date")["cum_ret"])
+    else:
+        st.info("回测数据点不足 2 个，暂无法绘制曲线。")
     st.dataframe(bt.tail(20), use_container_width=True)
 else:
     st.info("暂无回测结果，请先执行每日流程")

@@ -90,6 +90,7 @@ def run_daily(top_n: int = 10) -> dict:
         "latest_date": str(latest_date) if latest_date is not None else None,
         "latest_symbol_count": latest_symbol_count,
         "requested_top_n": top_n,
+        "actual_top_n_count": int(len(topn)),
     }
     if latest_symbol_count and latest_symbol_count < top_n:
         warnings.append(

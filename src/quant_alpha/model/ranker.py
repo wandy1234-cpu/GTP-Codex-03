@@ -62,11 +62,12 @@ def train_ranker(feature_df: pd.DataFrame) -> RankerResult:
     )
     model.fit(train[FEATURE_COLS], train["relevance"], group=train_group)
 
-    test_x = test[FEATURE_COLS]
-    if test_x.empty:
-        raise ValueError("test feature matrix is empty")
-    test["score"] = model.predict(test_x)
-    return RankerResult(model=model, scored=test)
+    # 对全样本打分，保证 TopN 与回测覆盖完整股票池/时间段
+    full_x = df[FEATURE_COLS]
+    if full_x.empty:
+        raise ValueError("full feature matrix is empty")
+    df["score"] = model.predict(full_x)
+    return RankerResult(model=model, scored=df)
 
 
 def top_n_latest(scored: pd.DataFrame, n: int = 10) -> pd.DataFrame:
