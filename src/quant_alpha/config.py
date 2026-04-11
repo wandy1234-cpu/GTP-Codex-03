@@ -57,8 +57,16 @@ class ProjectPaths:
         return self.root / "reports"
 
     def ensure(self) -> None:
-        for path in [self.data_raw, self.data_feature, self.model_dir, self.report_dir]:
+        for path in [self.data_raw, self.data_feature, self.model_dir, self.report_dir, self.experiment_dir, self.governance_dir]:
             path.mkdir(parents=True, exist_ok=True)
+
+    @property
+    def experiment_dir(self) -> Path:
+        return self.report_dir / "experiments"
+
+    @property
+    def governance_dir(self) -> Path:
+        return self.report_dir / "governance"
 
 
 @dataclass(frozen=True)
@@ -68,6 +76,11 @@ class SystemConfig:
     filters: dict[str, Any]
     walk_forward: dict[str, Any]
     weekly: dict[str, Any]
+    optimization: dict[str, Any]
+    governance: dict[str, Any]
+    composite_weights: dict[str, Any]
+    drift: dict[str, Any]
+    self_adjustment: dict[str, Any]
 
     @classmethod
     def default(cls) -> "SystemConfig":
@@ -83,6 +96,43 @@ class SystemConfig:
                 "step_days": 5,
             },
             weekly={"holding_horizon_days": 5},
+            optimization={
+                "n_trials": 20,
+                "timeout_sec": 180,
+                "top_n_choices": [8, 10, 12, 15],
+                "holding_horizon_choices": [5, 10],
+            },
+            governance={
+                "min_composite_improvement": 0.01,
+                "min_fold_win_rate": 0.55,
+                "max_drawdown_deterioration": 0.03,
+                "max_turnover_deterioration": 0.20,
+                "max_instability_deterioration": 0.10,
+                "rollback_underperformance_threshold": -0.01,
+            },
+            composite_weights={
+                "avg_topn_excess_ret": 0.30,
+                "winner_precision": 0.20,
+                "benchmark_hit_rate": 0.15,
+                "rank_ic": 0.15,
+                "stability_score": 0.10,
+                "drawdown_penalty": 0.05,
+                "turnover_penalty": 0.05,
+            },
+            drift={
+                "psi_warn": 0.2,
+                "psi_alert": 0.35,
+                "mean_shift_sigma": 2.0,
+                "perf_drop_threshold": 0.03,
+                "recent_window_days": 20,
+            },
+            self_adjustment={
+                "enabled": True,
+                "lookback_reviews": 8,
+                "min_samples_per_tag": 20,
+                "max_weight_step": 0.03,
+                "max_family_toggle": 1,
+            },
         )
 
     @classmethod
@@ -125,4 +175,9 @@ class SystemConfig:
             filters=_merge(cfg.filters, payload.get("filters")),
             walk_forward=_merge(cfg.walk_forward, payload.get("walk_forward")),
             weekly=_merge(cfg.weekly, payload.get("weekly")),
+            optimization=_merge(cfg.optimization, payload.get("optimization")),
+            governance=_merge(cfg.governance, payload.get("governance")),
+            composite_weights=_merge(cfg.composite_weights, payload.get("composite_weights")),
+            drift=_merge(cfg.drift, payload.get("drift")),
+            self_adjustment=_merge(cfg.self_adjustment, payload.get("self_adjustment")),
         )

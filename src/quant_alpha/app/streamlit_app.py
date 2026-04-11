@@ -60,6 +60,11 @@ if run_btn:
 report_dir = Path.cwd() / "reports"
 topn_files = sorted(report_dir.glob("topn_*.parquet"))
 bt_files = sorted(report_dir.glob("backtest_*.parquet"))
+exp_registry = report_dir / "experiments" / "registry.jsonl"
+gov_state_file = report_dir / "governance" / "champion_state.json"
+gov_hist_file = report_dir / "governance" / "governance_history.jsonl"
+drift_files = sorted(report_dir.glob("drift_*.json"))
+review_files = sorted(report_dir.glob("review_*.parquet"))
 
 st.subheader("Top N 推荐")
 if topn_files:
@@ -79,3 +84,49 @@ if bt_files:
     st.dataframe(bt.tail(20), use_container_width=True)
 else:
     st.info("暂无回测结果，请先执行每日流程")
+
+st.subheader("系统健康卡 / Model Governance")
+col1, col2, col3 = st.columns(3)
+if gov_state_file.exists():
+    import json
+
+    state = json.loads(gov_state_file.read_text(encoding="utf-8"))
+    champion = state.get("champion") or {}
+    col1.metric("Champion", champion.get("model_version", "N/A"))
+    col2.metric("Last Promotion", champion.get("promoted_at", "N/A"))
+    col3.metric("Last Rollback", champion.get("rollback_at", "N/A"))
+    with st.expander("Champion / Challenger 状态", expanded=False):
+        st.json(state)
+else:
+    st.info("暂无 champion 状态，请先执行流程。")
+
+if gov_hist_file.exists():
+    import json
+
+    rows = [json.loads(x) for x in gov_hist_file.read_text(encoding="utf-8").splitlines() if x.strip()]
+    if rows:
+        st.subheader("Promotion / Rejection / Rollback 历史")
+        st.dataframe(pd.DataFrame(rows).tail(50), use_container_width=True)
+
+if drift_files:
+    import json
+
+    st.subheader("Drift Warnings")
+    drift = json.loads(drift_files[-1].read_text(encoding="utf-8"))
+    if drift.get("alerts"):
+        for x in drift.get("alerts", []):
+            st.warning(x)
+    st.json(drift)
+
+if exp_registry.exists():
+    import json
+
+    rows = [json.loads(x) for x in exp_registry.read_text(encoding="utf-8").splitlines() if x.strip()]
+    if rows:
+        st.subheader("Experiment Registry (latest)")
+        st.dataframe(pd.DataFrame(rows).tail(30), use_container_width=True)
+
+if review_files:
+    st.subheader("Recommendation Review History")
+    rv = pd.read_parquet(review_files[-1])
+    st.dataframe(rv.tail(200), use_container_width=True)

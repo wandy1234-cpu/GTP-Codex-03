@@ -1,4 +1,7 @@
-from quant_alpha.model.ranker import top_n_latest, train_ranker
-from quant_alpha.model.walk_forward import build_walk_forward_windows, fold_metrics
+"""Model subpackage.
 
-__all__ = ["train_ranker", "top_n_latest", "build_walk_forward_windows", "fold_metrics"]
+Keep package init lightweight to avoid importing optional heavy deps (e.g. lightgbm)
+when callers only need governance/drift utilities.
+"""
+
+__all__ = []

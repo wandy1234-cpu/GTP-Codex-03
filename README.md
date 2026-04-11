@@ -43,6 +43,27 @@ python scripts/run_daily_pipeline.py
 - `reports/topn_YYYY-MM-DD.parquet`
 - `reports/backtest_YYYY-MM-DD.parquet`
 
+## Round 3: 自优化与模型治理命令
+```bash
+# 1) 优化搜索（Optuna，有边界）
+python scripts/run_optimization.py
+
+# 2) 评估 challenger（不落地晋升）
+python scripts/evaluate_challenger.py
+
+# 3) 尝试晋升 challenger（写入治理日志）
+python scripts/promote_challenger.py
+
+# 4) 漂移检查
+python scripts/check_drift.py
+
+# 5) 完整周频流程（含实验追踪、治理、漂移、自调整建议）
+python scripts/run_daily_pipeline.py
+
+# 6) 可视化
+python -m streamlit run src/quant_alpha/app/streamlit_app.py
+```
+
 ## 启动可视化
 ```bash
 python -m streamlit run src/quant_alpha/app/streamlit_app.py

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import date
 from pathlib import Path
+from datetime import datetime, timezone
 
 import joblib
 import pandas as pd
@@ -12,7 +13,12 @@ from quant_alpha.backtest.simple import run_topn_backtest
 from quant_alpha.config import ProjectPaths, SystemConfig
 from quant_alpha.data.akshare_adapter import AkshareAdapter
 from quant_alpha.features.basic import build_features
+from quant_alpha.model.drift import drift_report
+from quant_alpha.model.experiment_tracker import ExperimentRun, ExperimentTracker
+from quant_alpha.model.governance import ChampionChallengerRegistry, composite_score
+from quant_alpha.model.optimizer import run_optimization
 from quant_alpha.model.ranker import top_n_latest, walk_forward_score
+from quant_alpha.model.review_adjustment import propose_adjustments_from_reviews
 from quant_alpha.model.walk_forward import build_walk_forward_windows, fold_metrics
 from quant_alpha.pipeline.filters import apply_stock_pool_filters_with_diagnostics
 from quant_alpha.pipeline.ingest import DailyIngestor
@@ -39,6 +45,9 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
     paths = ProjectPaths(Path.cwd())
     paths.ensure()
     cfg = SystemConfig.load(paths.root)
+    tracker = ExperimentTracker(paths)
+    governance = ChampionChallengerRegistry(paths)
+    run_id = tracker.new_run_id()
 
     adapter = AkshareAdapter.from_env()
     ingest_stats = DailyIngestor(adapter, paths).run()
@@ -114,6 +123,9 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
     bt_file = paths.report_dir / f"backtest_{snap}.parquet"
     wf_file = paths.report_dir / f"walkforward_{snap}.parquet"
     wf_sum_file = paths.report_dir / f"walkforward_summary_{snap}.json"
+    drift_file = paths.report_dir / f"drift_{snap}.json"
+    review_file = paths.report_dir / f"review_{snap}.parquet"
+    adjust_file = paths.report_dir / f"self_adjustment_{snap}.json"
 
     save_feature_snapshot(features, feature_file)
     joblib.dump(ranker_result.model, model_file)
@@ -127,6 +139,97 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         "avg_topn_ret_mean": float(fold_df["avg_topn_ret"].mean()) if not fold_df.empty else None,
     }
     wf_sum_file.write_text(pd.Series(summary).to_json(force_ascii=False), encoding="utf-8")
+    drift = drift_report(features, scored_df=scored, config=cfg.drift)
+    pd.Series(drift).to_json(drift_file, force_ascii=False)
+
+    # lightweight recommendation review: realized outcomes for historic scored panel
+    review_cols = ["date", "market", "symbol", "score", "target_5d"]
+    review_df = scored[[c for c in review_cols if c in scored.columns]].copy()
+    if not review_df.empty:
+        review_df["success"] = review_df["target_5d"] > 0
+        review_df["excess_ret"] = review_df["target_5d"] - review_df.groupby("date")["target_5d"].transform("mean")
+        review_df.to_parquet(review_file, index=False)
+
+    # controlled self-adjustment proposal (logged only; no silent apply)
+    proposal = propose_adjustments_from_reviews(
+        review_df=review_df if not review_df.empty else pd.DataFrame(),
+        current_weights=cfg.composite_weights,
+        current_families={"price_momentum": True, "volatility": True, "liquidity": True, "relative_strength": True},
+        cfg=cfg.self_adjustment,
+    )
+    pd.Series(
+        {
+            "run_id": run_id,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "proposal": {
+                "weight_deltas": proposal.weight_deltas,
+                "feature_family_changes": proposal.feature_family_changes,
+                "rationale": proposal.rationale,
+                "applied": False,
+            },
+        }
+    ).to_json(adjust_file, force_ascii=False)
+
+    rec_metrics = {
+        "winner_precision": float((review_df["success"].mean()) if not review_df.empty else 0.0),
+        "benchmark_hit_rate": float((review_df["excess_ret"] > 0).mean()) if not review_df.empty else 0.0,
+    }
+    eval_metrics = {
+        "rank_ic": float(fold_df["rank_ic"].mean()) if not fold_df.empty else 0.0,
+        "avg_topn_excess_ret": float(fold_df["avg_topn_ret"].mean()) if not fold_df.empty else 0.0,
+        "stability_score": float(1.0 / (1.0 + (fold_df["avg_topn_ret"].std(ddof=0) if not fold_df.empty else 0.0))),
+        "drawdown_penalty": float(abs(backtest["max_drawdown"].min())) if not backtest.empty else 0.0,
+        "turnover_penalty": float(backtest["turnover"].mean()) if not backtest.empty else 0.0,
+        "fold_win_rate": float((fold_df["avg_topn_ret"] > 0).mean()) if not fold_df.empty else 0.0,
+        "recent_window_excess_ret": float(fold_df.tail(min(6, len(fold_df)))["avg_topn_ret"].mean()) if not fold_df.empty else 0.0,
+        "instability_score": float(fold_df["avg_topn_ret"].std(ddof=0)) if not fold_df.empty else 0.0,
+    }
+    full_metrics = {**eval_metrics, **rec_metrics}
+    full_metrics["composite_score"] = composite_score(full_metrics, cfg.composite_weights)
+
+    challenger = {"run_id": run_id, "model_version": f"wf_{snap}", "metrics": full_metrics}
+    decision = governance.evaluate_challenger(challenger, cfg.governance, cfg.composite_weights)
+    gov_event = governance.register_challenger(challenger, decision)
+    rollback = governance.rollback_if_needed(
+        recent_realized_excess_ret=float(full_metrics.get("recent_window_excess_ret", 0.0)),
+        thresholds=cfg.governance,
+    )
+
+    # optimization (bounded) summary
+    optimization_result = run_optimization(bars, cfg, paths)
+
+    tracker.log_run(
+        ExperimentRun(
+            run_id=run_id,
+            model_version=f"wf_{snap}",
+            timestamp=datetime.now(timezone.utc).isoformat(),
+            config_snapshot={
+                "filters": cfg.filters,
+                "walk_forward": cfg.walk_forward,
+                "weekly": cfg.weekly,
+                "governance": cfg.governance,
+                "drift": cfg.drift,
+            },
+            feature_families={"price_momentum": True, "volatility": True, "liquidity": True, "relative_strength": True},
+            model_params={"engine": "lgbm_ranker", "notes": "defaults + walk-forward"},
+            train_period={"start": str(min(dts)) if dts else None, "end": str(max(dts)) if dts else None},
+            validation_period={"fold_count": int(len(fold_df))},
+            evaluation_metrics=eval_metrics,
+            recommendation_metrics=rec_metrics,
+            promotion_decision=gov_event,
+            notes=["bounded_self_adjustment_logged_only"],
+            warnings=warnings + drift.get("alerts", []),
+            artifacts={
+                "model_file": str(model_file),
+                "feature_file": str(feature_file),
+                "topn_file": str(topn_file),
+                "review_file": str(review_file),
+                "drift_file": str(drift_file),
+                "optimization_study_file": optimization_result.study_file,
+                "optimization_trials_file": optimization_result.trials_file,
+            },
+        )
+    )
 
     latest_date = pd.to_datetime(scored["date"]).max() if not scored.empty else None
     latest_count = int(scored[pd.to_datetime(scored["date"]) == latest_date]["symbol"].nunique()) if latest_date is not None else 0
@@ -152,4 +255,17 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         "backtest_file": str(bt_file),
         "walkforward_file": str(wf_file),
         "walkforward_summary_file": str(wf_sum_file),
+        "drift_file": str(drift_file),
+        "review_file": str(review_file),
+        "self_adjustment_file": str(adjust_file),
+        "governance_event": gov_event,
+        "rollback": rollback,
+        "optimization": {
+            "best_params": optimization_result.best_params,
+            "best_metrics": optimization_result.best_metrics,
+            "best_composite": optimization_result.best_composite,
+            "study_file": optimization_result.study_file,
+            "trials_file": optimization_result.trials_file,
+        },
+        "run_id": run_id,
     }
