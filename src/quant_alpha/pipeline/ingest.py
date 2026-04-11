@@ -158,6 +158,7 @@ class DailyIngestor:
         lookback_days: int = 365,
         max_symbols_per_market: int | None = None,
         history_backfill_batch: int = 200,
+        skip_if_same_day: bool = True,
         progress_cb: Callable[[float, str], None] | None = None,
     ) -> dict[str, object]:
         def _emit(pct: float, msg: str) -> None:
@@ -176,9 +177,29 @@ class DailyIngestor:
             _emit(base + 0.02 * span, f"[{market}] 初始化增量上下文")
             name_cache = self._load_name_map()
             master = self._load_master(market)
-            last_dt = pd.to_datetime(master["date"]).max().date() if (not master.empty and "date" in master.columns) else None
+            if not master.empty and "date" in master.columns:
+                dts = pd.to_datetime(master["date"], errors="coerce").dropna()
+                last_dt = dts.max().date() if not dts.empty else None
+            else:
+                last_dt = None
             inc_start = start if last_dt is None else max(start, last_dt - timedelta(days=10))
             stats["notes"][market] = f"incremental_start={inc_start.isoformat()} last_cached_date={last_dt.isoformat() if last_dt else 'none'}"
+            if skip_if_same_day and last_dt is not None and last_dt >= end:
+                stats["rows"][market] = int(len(master))
+                stats["notes"][market] += " | skip_update_same_day=true"
+                latest_day = master[pd.to_datetime(master["date"], errors="coerce") == pd.Timestamp(last_dt)] if not master.empty else pd.DataFrame()
+                stats["coverage"][market] = {
+                    "spot_symbol_count": 0,
+                    "fetched_symbol_count": 0,
+                    "stored_symbol_count": int(master["symbol"].astype(str).nunique()) if ("symbol" in master.columns and not master.empty) else 0,
+                    "latest_trade_date": str(last_dt),
+                    "latest_trade_symbol_count": int(latest_day["symbol"].astype(str).nunique()) if ("symbol" in latest_day.columns and not latest_day.empty) else 0,
+                    "missing_symbol_count": 0,
+                    "missing_symbol_sample": [],
+                    "backfill_remaining_count": 0,
+                }
+                _emit(base + 0.98 * span, f"[{market}] 已是最新交易日({last_dt})，跳过更新")
+                continue
             try:
                 _emit(base + 0.10 * span, f"[{market}] 拉取 spot 列表")
                 spot = self.adapter.fetch_spot(market)
