@@ -18,7 +18,7 @@ from quant_alpha.model.drift import drift_report
 from quant_alpha.model.experiment_tracker import ExperimentRun, ExperimentTracker
 from quant_alpha.model.governance import ChampionChallengerRegistry, composite_score
 from quant_alpha.model.optimizer import run_optimization
-from quant_alpha.model.ranker import top_n_latest, walk_forward_score
+from quant_alpha.model.ranker import RankerResult, fallback_score, top_n_latest, walk_forward_score
 from quant_alpha.model.review_adjustment import propose_adjustments_from_reviews
 from quant_alpha.model.walk_forward import build_walk_forward_windows, fold_metrics
 from quant_alpha.pipeline.filters import apply_stock_pool_filters_with_diagnostics
@@ -102,11 +102,24 @@ def run_daily(
     # strict walk-forward scoring
     _emit(progress_cb, 0.45, "训练并打分（walk-forward）")
     wf_cfg = cfg.walk_forward
-    ranker_result = walk_forward_score(
-        features,
-        min_train_days=int(wf_cfg.get("train_window_days", 120)),
-        step_days=int(wf_cfg.get("step_days", 5)),
-    )
+    try:
+        ranker_result = walk_forward_score(
+            features,
+            min_train_days=int(wf_cfg.get("train_window_days", 120)),
+            step_days=int(wf_cfg.get("step_days", 5)),
+        )
+    except Exception as exc:
+        warnings.append(f"model_fallback:{exc}")
+        fb = fallback_score(features)
+        if fb.empty or "score" not in fb.columns:
+            return {
+                "status": "failed",
+                "reason": f"model stage failed: {exc}",
+                "warnings": warnings,
+                "universe": universe_diag,
+                "ingest": ingest_stats,
+            }
+        ranker_result = RankerResult(model={"type": "fallback_score", "reason": str(exc)}, scored=fb)
 
     scored = ranker_result.scored.copy()
     scored["score"] = scored["score"].astype(float)
