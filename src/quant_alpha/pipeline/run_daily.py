@@ -92,25 +92,35 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
     ndf = pd.read_parquet(name_file)
     if not {"symbol", "name"}.issubset(ndf.columns):
         return out
+    def _norm_sym(x: str) -> str:
+        s = str(x).strip()
+        low = s.lower().replace("hk", "")
+        digits = "".join(ch for ch in low if ch.isdigit())
+        if digits:
+            return digits.zfill(5) if len(digits) <= 5 else digits
+        return s
+
     mp = dict(zip(ndf["symbol"].astype(str), ndf["name"].astype(str)))
     # HK symbols often appear as 1/00001 across different endpoints; normalize both keys.
     for k, v in list(mp.items()):
         ks = str(k)
         if ks.isdigit() and len(ks) <= 5:
             mp.setdefault(ks.zfill(5), v)
+        mp.setdefault(_norm_sym(ks), v)
     sym = out.loc[mask, "symbol"].astype(str)
     name_from_map = sym.map(mp)
     if "market" in out.columns:
         hk_mask = out.loc[mask, "market"].astype(str).eq("HK")
-        name_from_map.loc[hk_mask] = sym.loc[hk_mask].str.zfill(5).map(mp).fillna(name_from_map.loc[hk_mask])
+        norm_hk = sym.loc[hk_mask].map(_norm_sym)
+        name_from_map.loc[hk_mask] = norm_hk.map(mp).fillna(name_from_map.loc[hk_mask])
         # if HK names still missing, try live spot name map once
         unresolved_hk = hk_mask & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
         if unresolved_hk.any():
             try:
                 hk_spot = AkshareAdapter.from_env().fetch_spot("HK")
                 hk_names = hk_spot["name"].astype(str) if "name" in hk_spot.columns else pd.Series("", index=hk_spot.index)
-                hk_map = dict(zip(hk_spot["symbol"].astype(str).str.zfill(5), hk_names))
-                name_from_map.loc[unresolved_hk] = sym.loc[unresolved_hk].str.zfill(5).map(hk_map).fillna(name_from_map.loc[unresolved_hk])
+                hk_map = dict(zip(hk_spot["symbol"].astype(str).map(_norm_sym), hk_names))
+                name_from_map.loc[unresolved_hk] = sym.loc[unresolved_hk].map(_norm_sym).map(hk_map).fillna(name_from_map.loc[unresolved_hk])
             except Exception:
                 pass
     out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])

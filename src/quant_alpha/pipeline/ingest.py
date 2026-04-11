@@ -72,7 +72,14 @@ class DailyIngestor:
     def _save_name_map(self, mapping: dict[str, str]) -> None:
         if not mapping:
             return
-        out = pd.DataFrame({"symbol": list(mapping.keys()), "name": list(mapping.values())})
+        normalized = dict(mapping)
+        for k, v in list(mapping.items()):
+            s = str(k).strip()
+            digits = "".join(ch for ch in s.lower().replace("hk", "") if ch.isdigit())
+            if digits:
+                key = digits.zfill(5) if len(digits) <= 5 else digits
+                normalized.setdefault(key, v)
+        out = pd.DataFrame({"symbol": list(normalized.keys()), "name": list(normalized.values())})
         out.to_parquet(self._name_store_file(), index=False)
 
     def _synthetic_bars(self, market: str, end: date, lookback_days: int) -> pd.DataFrame:
