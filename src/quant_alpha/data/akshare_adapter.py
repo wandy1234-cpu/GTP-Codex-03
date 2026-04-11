@@ -18,16 +18,12 @@ Market = Literal["A", "HK"]
 
 @dataclass
 class AkshareAdapter:
-    """Thin wrapper around AkShare APIs with normalized output schema."""
-
     config: AkshareConfig
     max_retries: int = 3
     retry_sleep: float = 1.5
 
     def __post_init__(self) -> None:
-        # AkShare的大多数接口不强制token; 如果未来需要可在此扩展统一鉴权。
         if self.config.token:
-            # 保留token字段，避免误报“未使用”。
             _ = self.config.token
 
     @classmethod
@@ -35,11 +31,6 @@ class AkshareAdapter:
         return cls(config=AkshareConfig.from_env())
 
     def fetch_spot(self, market: Market) -> pd.DataFrame:
-        """Fetch latest spot quotes.
-
-        Args:
-            market: "A" for mainland A-share, "HK" for Hong Kong stocks.
-        """
         if market == "A":
             raw = self._with_retry(ak.stock_zh_a_spot_em)
             return normalize_spot(raw, A_SPOT_RENAME, market="A")
@@ -57,10 +48,8 @@ class AkshareAdapter:
         adjust: Literal["", "qfq", "hfq"] = "qfq",
         period: Literal["daily", "weekly", "monthly"] = "daily",
     ) -> pd.DataFrame:
-        """Fetch normalized historical bars."""
         start_s = start.strftime("%Y%m%d")
         end_s = end.strftime("%Y%m%d")
-
         if market == "A":
             raw = self._with_retry(
                 ak.stock_zh_a_hist,
@@ -82,8 +71,32 @@ class AkshareAdapter:
                 adjust=adjust,
             )
             return normalize_history(raw, symbol=symbol, market="HK")
-
         raise ValueError(f"Unsupported market: {market}")
+
+    def fetch_symbol_universe(self, market: Market) -> list[str]:
+        if market == "A":
+            try:
+                df = self._with_retry(ak.stock_info_a_code_name)
+                for c in ["code", "代码", "symbol"]:
+                    if c in df.columns:
+                        return df[c].astype(str).tolist()
+            except Exception:
+                return []
+            return []
+
+        if market == "HK":
+            for fn in [getattr(ak, "stock_hk_spot_em", None), getattr(ak, "stock_hk_spot", None)]:
+                if fn is None:
+                    continue
+                try:
+                    df = self._with_retry(fn)
+                    for c in ["代码", "symbol", "code"]:
+                        if c in df.columns:
+                            return df[c].astype(str).tolist()
+                except Exception:
+                    continue
+            return []
+        return []
 
     def _with_retry(self, fn, *args, **kwargs):
         last_exc: Exception | None = None

@@ -96,6 +96,27 @@ class DailyIngestor:
             out.loc[missing, "name"] = out.loc[missing, "symbol"].astype(str).map(name_map).fillna("")
         return out
 
+    def _expand_with_universe(self, market: str, base: pd.DataFrame, start: date, end: date, max_symbols: int = 800) -> pd.DataFrame:
+        universe = self.adapter.fetch_symbol_universe(market)
+        if not universe:
+            return base
+        existing = set(base["symbol"].astype(str).unique()) if not base.empty and "symbol" in base.columns else set()
+        targets = [s for s in universe if s not in existing][:max_symbols]
+        frames: list[pd.DataFrame] = [base] if not base.empty else []
+        name_map = self._load_name_map()
+        for sym in targets:
+            try:
+                h = self.adapter.fetch_history(sym, market, start=start, end=end)
+                if h.empty:
+                    continue
+                h["name"] = name_map.get(sym, "")
+                frames.append(h)
+            except Exception:
+                continue
+        if not frames:
+            return base
+        return self._dedupe_bars(pd.concat(frames, ignore_index=True))
+
     def run(
         self,
         end: date | None = None,
@@ -124,6 +145,7 @@ class DailyIngestor:
             except Exception as exc:
                 cached = self._cached_bars_window(market)
                 if not cached.empty:
+                    cached = self._expand_with_universe(market, cached, start=start, end=end)
                     out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
                     out_file.parent.mkdir(parents=True, exist_ok=True)
                     self._dedupe_bars(cached).to_parquet(out_file, index=False)
