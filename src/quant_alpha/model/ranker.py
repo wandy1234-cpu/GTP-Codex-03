@@ -18,14 +18,28 @@ class RankerResult:
 
 def train_ranker(feature_df: pd.DataFrame) -> RankerResult:
     df = feature_df.dropna(subset=FEATURE_COLS + ["target_5d", "date", "symbol", "market"]).copy()
+    if df.empty:
+        raise ValueError("feature dataframe is empty after dropna")
     df["date"] = pd.to_datetime(df["date"])
 
     uniq_dates = sorted(df["date"].unique())
+    if len(uniq_dates) < 2:
+        raise ValueError("not enough distinct dates for train/test split")
     split_idx = int(len(uniq_dates) * 0.8)
+    split_idx = max(1, min(split_idx, len(uniq_dates) - 1))
     train_dates = set(uniq_dates[:split_idx])
 
     train = df[df["date"].isin(train_dates)].copy()
     test = df[~df["date"].isin(train_dates)].copy()
+    if train.empty:
+        raise ValueError("train set is empty")
+    if test.empty:
+        # 极端小样本时，回退为使用最后一个交易日作为测试集
+        latest = df["date"].max()
+        test = df[df["date"] == latest].copy()
+        train = df[df["date"] < latest].copy()
+        if train.empty or test.empty:
+            raise ValueError("unable to build non-empty train/test sets")
 
     train["relevance"] = train.groupby("date")["target_5d"].transform(
         lambda x: pd.qcut(x.rank(method="first"), 5, labels=False, duplicates="drop")
@@ -41,7 +55,10 @@ def train_ranker(feature_df: pd.DataFrame) -> RankerResult:
     )
     model.fit(train[FEATURE_COLS], train["relevance"], group=train_group)
 
-    test["score"] = model.predict(test[FEATURE_COLS])
+    test_x = test[FEATURE_COLS]
+    if test_x.empty:
+        raise ValueError("test feature matrix is empty")
+    test["score"] = model.predict(test_x)
     return RankerResult(model=model, scored=test)
 
 

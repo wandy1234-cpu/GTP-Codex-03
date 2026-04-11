@@ -44,10 +44,17 @@ def run_daily(top_n: int = 10) -> dict:
     feature_file = paths.data_feature / f"features_{snap_date}.parquet"
     save_feature_snapshot(features, feature_file)
 
-    ranker_result = train_ranker(features)
-    topn = top_n_latest(ranker_result.scored, n=top_n)
-    backtest = run_topn_backtest(ranker_result.scored, n=top_n)
-    improve = optimize_once(features)
+    try:
+        ranker_result = train_ranker(features)
+        topn = top_n_latest(ranker_result.scored, n=top_n)
+        backtest = run_topn_backtest(ranker_result.scored, n=top_n)
+        improve = optimize_once(features)
+    except Exception as exc:
+        return {
+            "status": "failed",
+            "reason": f"model stage failed: {exc}",
+            "ingest": ingest_stats,
+        }
 
     model_file = paths.model_dir / f"ranker_{snap_date}.joblib"
     joblib.dump(ranker_result.model, model_file)
