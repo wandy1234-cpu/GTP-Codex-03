@@ -71,4 +71,6 @@ def fold_metrics(scored: pd.DataFrame, top_n: int = 10) -> pd.DataFrame:
             }
         )
 
+    if not rows:
+        return pd.DataFrame(columns=["date", "rank_ic", "avg_topn_ret", "coverage"])
     return pd.DataFrame(rows).sort_values("date").reset_index(drop=True)
