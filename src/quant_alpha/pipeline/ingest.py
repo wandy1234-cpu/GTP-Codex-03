@@ -179,12 +179,29 @@ class DailyIngestor:
             master = self._load_master(market)
             if not master.empty and "date" in master.columns:
                 dts = pd.to_datetime(master["date"], errors="coerce").dropna()
-                last_dt = dts.max().date() if not dts.empty else None
+                raw_last = dts.max() if not dts.empty else pd.NaT
+                if pd.isna(raw_last):
+                    last_dt = None
+                else:
+                    last_dt = pd.Timestamp(raw_last).date()
             else:
                 last_dt = None
-            inc_start = start if last_dt is None else max(start, last_dt - timedelta(days=10))
+            if last_dt is None:
+                inc_start = start
+            else:
+                try:
+                    inc_start = max(start, last_dt - timedelta(days=10))
+                except Exception:
+                    inc_start = start
+                    last_dt = None
             stats["notes"][market] = f"incremental_start={inc_start.isoformat()} last_cached_date={last_dt.isoformat() if last_dt else 'none'}"
-            if skip_if_same_day and last_dt is not None and last_dt >= end:
+            can_skip_same_day = False
+            if skip_if_same_day and last_dt is not None:
+                try:
+                    can_skip_same_day = last_dt >= end
+                except Exception:
+                    can_skip_same_day = False
+            if can_skip_same_day:
                 stats["rows"][market] = int(len(master))
                 stats["notes"][market] += " | skip_update_same_day=true"
                 latest_day = master[pd.to_datetime(master["date"], errors="coerce") == pd.Timestamp(last_dt)] if not master.empty else pd.DataFrame()
