@@ -140,7 +140,4 @@ if exp_registry.exists():
         st.subheader("Experiment Registry (latest)")
         st.dataframe(pd.DataFrame(rows).tail(30), use_container_width=True)
 
-if review_files:
-    st.subheader("Recommendation Review History")
-    rv = pd.read_parquet(review_files[-1])
-    st.dataframe(rv.tail(200), use_container_width=True)
+# Review history table intentionally hidden per operator feedback.

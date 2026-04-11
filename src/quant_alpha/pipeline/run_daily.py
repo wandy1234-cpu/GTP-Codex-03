@@ -103,6 +103,16 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
     if "market" in out.columns:
         hk_mask = out.loc[mask, "market"].astype(str).eq("HK")
         name_from_map.loc[hk_mask] = sym.loc[hk_mask].str.zfill(5).map(mp).fillna(name_from_map.loc[hk_mask])
+        # if HK names still missing, try live spot name map once
+        unresolved_hk = hk_mask & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
+        if unresolved_hk.any():
+            try:
+                hk_spot = AkshareAdapter.from_env().fetch_spot("HK")
+                hk_names = hk_spot["name"].astype(str) if "name" in hk_spot.columns else pd.Series("", index=hk_spot.index)
+                hk_map = dict(zip(hk_spot["symbol"].astype(str).str.zfill(5), hk_names))
+                name_from_map.loc[unresolved_hk] = sym.loc[unresolved_hk].str.zfill(5).map(hk_map).fillna(name_from_map.loc[unresolved_hk])
+            except Exception:
+                pass
     out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
     return out
 
@@ -234,6 +244,24 @@ def run_daily(
     except Exception as exc:
         warnings.append(f"backtest_fallback:{exc}")
         backtest = pd.DataFrame(columns=["date", "strategy_ret", "cum_ret", "max_drawdown", "turnover"])
+    if len(backtest) < 2:
+        # fallback historical backtest using heuristic score on full feature history
+        hist = fallback_score(features.copy())
+        if "date" in hist.columns:
+            hist["date"] = pd.to_datetime(hist["date"], errors="coerce")
+            hist = hist.dropna(subset=["date", "score"])
+        if "target_5d" in hist.columns:
+            hist["target_5d"] = pd.to_numeric(hist["target_5d"], errors="coerce").fillna(0.0)
+        hist_bt = run_topn_backtest(
+            hist,
+            n=top_n,
+            fee_rate=0.0005,
+            slippage_bps=5,
+            rebalance_days=int(wf_cfg.get("step_days", 5)),
+        )
+        if len(hist_bt) >= 2:
+            backtest = hist_bt
+            warnings.append("backtest_rebuilt_from_feature_history")
 
     snap = date.today().isoformat()
     feature_file = paths.data_feature / f"features_{snap}.parquet"

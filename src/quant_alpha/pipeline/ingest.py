@@ -157,7 +157,7 @@ class DailyIngestor:
         end: date | None = None,
         lookback_days: int = 365,
         max_symbols_per_market: int | None = None,
-        history_backfill_batch: int = 200,
+        history_backfill_batch: int = 1000,
         skip_if_same_day: bool = True,
         progress_cb: Callable[[float, str], None] | None = None,
     ) -> dict[str, object]:
