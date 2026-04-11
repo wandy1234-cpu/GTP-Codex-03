@@ -57,8 +57,9 @@ def run_daily(top_n: int = 10) -> dict:
     topn.to_parquet(topn_file, index=False)
     backtest.to_parquet(bt_file, index=False)
 
+    has_warnings = any(bool(v) for v in (ingest_stats.get("errors") or {}).values())
     return {
-        "status": "ok",
+        "status": "ok_with_warnings" if has_warnings else "ok",
         "ingest": ingest_stats,
         "feature_file": str(feature_file),
         "model_file": str(model_file),

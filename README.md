@@ -54,10 +54,12 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 当 AkShare 临时网络异常（例如 `RemoteDisconnected`）时，系统会：
 1. 对 spot/hist 接口自动重试（指数退避）。
 2. 若 spot 仍失败，自动回退到该市场最近一次缓存的 `bars.parquet`（如果存在）。
-3. 在 Streamlit 页面展示“抓取告警”，但尽量不中断整条流程。
+3. 若无缓存，则尝试“核心种子股票历史数据回退”；再失败时启用“合成数据回退”（用于不中断调试流程）。
+4. 在 Streamlit 页面展示“抓取告警”，并标记 `status=ok_with_warnings`。
 
 > 首次运行且没有任何缓存时，如果网络持续失败，系统会返回 `status=failed`，这是预期保护行为。
 > Windows 下路径已统一按 POSIX pattern 处理，避免 `read_parquet` 通配符失效导致的 “No files found that match the pattern”。
+> 若触发合成数据回退，结果仅用于流程连通性验证，不可直接用于实盘决策。
 
 ## 目录结构
 ```text
