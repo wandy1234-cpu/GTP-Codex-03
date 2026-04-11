@@ -46,6 +46,14 @@ def composite_score(metrics: dict[str, Any], weights: dict[str, float]) -> float
     return float(plus - minus)
 
 
+def _safe_float(x: Any, default: float = 0.0) -> float:
+    try:
+        v = float(x)
+    except Exception:
+        return default
+    return default if (math.isnan(v) or math.isinf(v)) else v
+
+
 class ChampionChallengerRegistry:
     def __init__(self, paths: ProjectPaths) -> None:
         self.root = paths.governance_dir
@@ -80,11 +88,11 @@ class ChampionChallengerRegistry:
         n_score = composite_score(challenger.get("metrics", {}), weights)
         delta = n_score - c_score
 
-        fold_win_rate = float(challenger.get("metrics", {}).get("fold_win_rate", 0.0))
-        drawdown_det = float(challenger.get("metrics", {}).get("drawdown_penalty", 0.0)) - float(champion.get("metrics", {}).get("drawdown_penalty", 0.0))
-        turnover_det = float(challenger.get("metrics", {}).get("turnover_penalty", 0.0)) - float(champion.get("metrics", {}).get("turnover_penalty", 0.0))
-        instab_det = float(challenger.get("metrics", {}).get("instability_score", 0.0)) - float(champion.get("metrics", {}).get("instability_score", 0.0))
-        recent_det = float(challenger.get("metrics", {}).get("recent_window_excess_ret", 0.0)) - float(champion.get("metrics", {}).get("recent_window_excess_ret", 0.0))
+        fold_win_rate = _safe_float(challenger.get("metrics", {}).get("fold_win_rate", 0.0))
+        drawdown_det = _safe_float(challenger.get("metrics", {}).get("drawdown_penalty", 0.0)) - _safe_float(champion.get("metrics", {}).get("drawdown_penalty", 0.0))
+        turnover_det = _safe_float(challenger.get("metrics", {}).get("turnover_penalty", 0.0)) - _safe_float(champion.get("metrics", {}).get("turnover_penalty", 0.0))
+        instab_det = _safe_float(challenger.get("metrics", {}).get("instability_score", 0.0)) - _safe_float(champion.get("metrics", {}).get("instability_score", 0.0))
+        recent_det = _safe_float(challenger.get("metrics", {}).get("recent_window_excess_ret", 0.0)) - _safe_float(champion.get("metrics", {}).get("recent_window_excess_ret", 0.0))
 
         accept = (
             delta >= float(thresholds.get("min_composite_improvement", 0.01))

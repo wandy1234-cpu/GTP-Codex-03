@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 import lightgbm as lgb
+import numpy as np
 import pandas as pd
 
 FEATURE_COLS = ["ret_1d", "ret_5d", "ret_20d", "vol_20d", "amt_20d_mean"]
@@ -116,6 +117,7 @@ def fallback_score(feature_df: pd.DataFrame) -> pd.DataFrame:
         cs_ret5 = grp["ret_5d"].rank(pct=True) if "ret_5d" in df.columns else pd.Series(0.5, index=df.index)
         cs_ret20 = grp["ret_20d"].rank(pct=True) if "ret_20d" in df.columns else pd.Series(0.5, index=df.index)
         cs_pct = grp["pct_change"].rank(pct=True) if "pct_change" in df.columns else pd.Series(0.5, index=df.index)
+        cs_sym = grp["symbol"].transform(lambda s: pd.Series(pd.util.hash_pandas_object(s.astype(str), index=False), index=s.index).rank(pct=True))
     else:
         cs_amt = df["amount"].rank(pct=True) if "amount" in df.columns else pd.Series(0.5, index=df.index)
         cs_vol = df["volume"].rank(pct=True) if "volume" in df.columns else pd.Series(0.5, index=df.index)
@@ -123,6 +125,7 @@ def fallback_score(feature_df: pd.DataFrame) -> pd.DataFrame:
         cs_ret5 = df["ret_5d"].rank(pct=True) if "ret_5d" in df.columns else pd.Series(0.5, index=df.index)
         cs_ret20 = df["ret_20d"].rank(pct=True) if "ret_20d" in df.columns else pd.Series(0.5, index=df.index)
         cs_pct = df["pct_change"].rank(pct=True) if "pct_change" in df.columns else pd.Series(0.5, index=df.index)
+        cs_sym = pd.Series(pd.util.hash_pandas_object(df.get("symbol", pd.Series(np.arange(len(df)))), index=False), index=df.index).rank(pct=True)
 
     score = (
         0.25 * cs_ret20.fillna(0.5)
@@ -131,6 +134,7 @@ def fallback_score(feature_df: pd.DataFrame) -> pd.DataFrame:
         + 0.15 * cs_pct.fillna(0.5)
         + 0.15 * cs_amt.fillna(0.5)
         + 0.10 * cs_vol.fillna(0.5)
+        + 0.05 * cs_sym.fillna(0.5)
     )
     df["score"] = score.astype(float)
     return df

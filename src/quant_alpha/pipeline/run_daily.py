@@ -76,6 +76,27 @@ def _ensure_scored_schema(scored: pd.DataFrame, features: pd.DataFrame, warnings
     return out
 
 
+def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.DataFrame:
+    if recs.empty:
+        return recs
+    out = recs.copy()
+    name_col = "stock_name" if "stock_name" in out.columns else ("name" if "name" in out.columns else None)
+    if name_col is None:
+        return out
+    mask = out[name_col].isna() | (out[name_col].astype(str).str.strip() == "")
+    if not mask.any():
+        return out
+    name_file = paths.data_raw / "symbol_names.parquet"
+    if not name_file.exists():
+        return out
+    ndf = pd.read_parquet(name_file)
+    if not {"symbol", "name"}.issubset(ndf.columns):
+        return out
+    mp = dict(zip(ndf["symbol"].astype(str), ndf["name"].astype(str)))
+    out.loc[mask, name_col] = out.loc[mask, "symbol"].astype(str).map(mp).fillna(out.loc[mask, name_col])
+    return out
+
+
 def _emit(progress_cb: Callable[[float, str], None] | None, pct: float, message: str) -> None:
     if progress_cb is not None:
         progress_cb(max(0.0, min(1.0, float(pct))), message)
@@ -169,6 +190,7 @@ def run_daily(
         recs = top_n_latest(scored, n=top_n).rename(columns={"date": "prediction_date", "name": "stock_name"})
         recs["holding_horizon_days"] = horizon
         recs["model_version"] = f"wf_{date.today().isoformat()}"
+    recs = _fill_recommendation_names(recs, paths)
 
     # walk-forward artifacts
     _emit(progress_cb, 0.68, "计算分层评估指标")
