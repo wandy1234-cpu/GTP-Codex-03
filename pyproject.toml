@@ -14,6 +14,7 @@ dependencies = [
   "lightgbm>=4.5.0",
   "joblib>=1.4.0",
   "numpy>=1.26.0",
+  "optuna>=3.6.0",
   "pandas>=2.2.0",
   "pyarrow>=17.0.0",
   "scikit-learn>=1.5.0",

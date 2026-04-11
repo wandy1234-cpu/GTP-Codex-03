@@ -12,8 +12,11 @@ from quant_alpha.backtest.simple import run_topn_backtest
 from quant_alpha.config import ProjectPaths
 from quant_alpha.data.akshare_adapter import AkshareAdapter
 from quant_alpha.features.basic import build_features
-from quant_alpha.model.ranker import fallback_score, top_n_latest, train_ranker
+from quant_alpha.model.drift import drift_report
+from quant_alpha.model.neutralize import neutralize_scores
+from quant_alpha.model.ranker import fallback_score, top_n_latest, train_ranker, walk_forward_score
 from quant_alpha.model.self_improve import optimize_once
+from quant_alpha.pipeline.filters import apply_stock_pool_filters
 from quant_alpha.pipeline.ingest import DailyIngestor
 from quant_alpha.storage.duckdb_store import load_latest_raw, save_feature_snapshot
 
@@ -33,6 +36,7 @@ def run_daily(top_n: int = 10) -> dict:
             "ingest": ingest_stats,
         }
 
+    bars = apply_stock_pool_filters(bars)
     features = build_features(bars)
     if features.empty:
         return {
@@ -48,14 +52,16 @@ def run_daily(top_n: int = 10) -> dict:
     warnings: list[str] = []
     model_file = None
     try:
-        ranker_result = train_ranker(features)
-        topn = top_n_latest(ranker_result.scored, n=top_n)
-        backtest = run_topn_backtest(ranker_result.scored, n=top_n)
+        ranker_result = walk_forward_score(features, min_train_days=60, step_days=5)
+        scored = neutralize_scores(ranker_result.scored)
+        topn = top_n_latest(scored, n=top_n)
+        backtest = run_topn_backtest(scored, n=top_n, fee_rate=0.0005, slippage_bps=5, rebalance_days=5)
         improve = optimize_once(features)
     except Exception as exc:
         msg = str(exc)
         if "not enough distinct dates" in msg:
             scored = fallback_score(features)
+            scored = neutralize_scores(scored)
             topn = top_n_latest(scored, n=top_n)
             backtest = run_topn_backtest(scored, n=top_n)
             improve = optimize_once(features)
@@ -108,5 +114,6 @@ def run_daily(top_n: int = 10) -> dict:
         "backtest_file": str(bt_file),
         "best_params": improve.best_params,
         "best_score": improve.best_score,
+        "drift": drift_report(features),
         "warnings": warnings,
     }

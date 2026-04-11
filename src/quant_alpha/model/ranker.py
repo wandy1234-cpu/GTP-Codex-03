@@ -116,3 +116,51 @@ def fallback_score(feature_df: pd.DataFrame) -> pd.DataFrame:
     )
     df["score"] = score
     return df
+
+
+def walk_forward_score(
+    feature_df: pd.DataFrame,
+    min_train_days: int = 60,
+    step_days: int = 5,
+) -> RankerResult:
+    """Strict walk-forward scoring with expanding window."""
+    df = feature_df.dropna(subset=FEATURE_COLS + ["target_5d", "date", "symbol", "market"]).copy()
+    if df.empty:
+        raise ValueError("feature dataframe is empty after dropna")
+    df["date"] = pd.to_datetime(df["date"])
+    uniq_dates = sorted(df["date"].unique())
+    if len(uniq_dates) <= min_train_days:
+        return train_ranker(df)
+
+    scored_parts: list[pd.DataFrame] = []
+    last_model: Any = None
+    for idx in range(min_train_days, len(uniq_dates), step_days):
+        train_dates = set(uniq_dates[:idx])
+        test_dates = set(uniq_dates[idx : idx + step_days])
+        if not test_dates:
+            continue
+        train = df[df["date"].isin(train_dates)].copy()
+        test = df[df["date"].isin(test_dates)].copy()
+        if train.empty or test.empty:
+            continue
+        train["relevance"] = train.groupby("date")["target_5d"].transform(
+            lambda x: pd.qcut(x.rank(method="first"), 5, labels=False, duplicates="drop")
+        ).astype(int)
+        group = train.groupby("date").size().tolist()
+        model = lgb.LGBMRanker(
+            objective="lambdarank",
+            metric="ndcg",
+            n_estimators=250,
+            learning_rate=0.05,
+            num_leaves=31,
+            random_state=42,
+        )
+        model.fit(train[FEATURE_COLS], train["relevance"], group=group)
+        test["score"] = model.predict(test[FEATURE_COLS])
+        scored_parts.append(test)
+        last_model = model
+
+    if not scored_parts:
+        return train_ranker(df)
+    scored = pd.concat(scored_parts, ignore_index=True)
+    return RankerResult(model=last_model, scored=scored)
