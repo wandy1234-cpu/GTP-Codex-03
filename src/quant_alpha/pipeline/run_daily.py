@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import date
 from pathlib import Path
 from datetime import datetime, timezone
+from typing import Callable
 
 import joblib
 import pandas as pd
@@ -41,7 +42,18 @@ def _validate_dataset(df: pd.DataFrame) -> list[str]:
     return warnings
 
 
-def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
+def _emit(progress_cb: Callable[[float, str], None] | None, pct: float, message: str) -> None:
+    if progress_cb is not None:
+        progress_cb(max(0.0, min(1.0, float(pct))), message)
+
+
+def run_daily(
+    top_n: int = 10,
+    mode: str = "weekly",
+    progress_cb: Callable[[float, str], None] | None = None,
+    enable_optimization: bool | None = None,
+) -> dict:
+    _emit(progress_cb, 0.02, "初始化配置")
     paths = ProjectPaths(Path.cwd())
     paths.ensure()
     cfg = SystemConfig.load(paths.root)
@@ -49,9 +61,11 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
     governance = ChampionChallengerRegistry(paths)
     run_id = tracker.new_run_id()
 
+    _emit(progress_cb, 0.08, "拉取市场数据")
     adapter = AkshareAdapter.from_env()
     ingest_stats = DailyIngestor(adapter, paths).run()
 
+    _emit(progress_cb, 0.20, "加载并校验数据")
     bars = load_latest_raw(paths.data_raw)
     warnings = _validate_dataset(bars)
     if bars.empty:
@@ -64,6 +78,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         min_price=float(cfg.filters.get("min_price", 1.0)),
     )
 
+    _emit(progress_cb, 0.32, "构建特征")
     features = build_features(bars)
     if features.empty:
         return {
@@ -75,6 +90,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         }
 
     # strict walk-forward scoring
+    _emit(progress_cb, 0.45, "训练并打分（walk-forward）")
     wf_cfg = cfg.walk_forward
     ranker_result = walk_forward_score(
         features,
@@ -86,6 +102,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
     scored["score"] = scored["score"].astype(float)
 
     # weekly output
+    _emit(progress_cb, 0.60, "生成周频推荐")
     horizon = int(cfg.weekly.get("holding_horizon_days", 5))
     if mode == "weekly":
         recs = build_weekly_recommendations(scored, top_n=top_n, model_version=f"wf_{date.today().isoformat()}", horizon_days=horizon)
@@ -96,6 +113,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         recs["model_version"] = f"wf_{date.today().isoformat()}"
 
     # walk-forward artifacts
+    _emit(progress_cb, 0.68, "计算分层评估指标")
     dts = sorted(pd.to_datetime(scored["date"]).dropna().unique())
     wf_windows = build_walk_forward_windows(
         dts,
@@ -108,6 +126,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         warnings.append("insufficient_fold_count")
 
     # backtest realistic
+    _emit(progress_cb, 0.74, "运行回测")
     backtest = run_topn_backtest(
         scored,
         n=top_n,
@@ -139,6 +158,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         "avg_topn_ret_mean": float(fold_df["avg_topn_ret"].mean()) if not fold_df.empty else None,
     }
     wf_sum_file.write_text(pd.Series(summary).to_json(force_ascii=False), encoding="utf-8")
+    _emit(progress_cb, 0.80, "执行漂移检测")
     drift = drift_report(features, scored_df=scored, config=cfg.drift)
     pd.Series(drift).to_json(drift_file, force_ascii=False)
 
@@ -151,6 +171,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         review_df.to_parquet(review_file, index=False)
 
     # controlled self-adjustment proposal (logged only; no silent apply)
+    _emit(progress_cb, 0.86, "生成自调整建议（仅记录）")
     proposal = propose_adjustments_from_reviews(
         review_df=review_df if not review_df.empty else pd.DataFrame(),
         current_weights=cfg.composite_weights,
@@ -196,8 +217,14 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
     )
 
     # optimization (bounded) summary
-    optimization_result = run_optimization(bars, cfg, paths)
+    do_opt = bool(cfg.optimization.get("run_on_daily", False)) if enable_optimization is None else bool(enable_optimization)
+    if do_opt:
+        _emit(progress_cb, 0.90, "执行优化搜索（Optuna）")
+        optimization_result = run_optimization(bars, cfg, paths)
+    else:
+        optimization_result = None
 
+    _emit(progress_cb, 0.96, "写入实验追踪与治理记录")
     tracker.log_run(
         ExperimentRun(
             run_id=run_id,
@@ -225,8 +252,8 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
                 "topn_file": str(topn_file),
                 "review_file": str(review_file),
                 "drift_file": str(drift_file),
-                "optimization_study_file": optimization_result.study_file,
-                "optimization_trials_file": optimization_result.trials_file,
+                "optimization_study_file": (optimization_result.study_file if optimization_result is not None else ""),
+                "optimization_trials_file": (optimization_result.trials_file if optimization_result is not None else ""),
             },
         )
     )
@@ -237,6 +264,7 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         warnings.append(f"insufficient_latest_universe:{latest_count}<{top_n}")
 
     status = "ok_with_warnings" if warnings else "ok"
+    _emit(progress_cb, 1.0, "流程完成")
     return {
         "status": status,
         "mode": mode,
@@ -261,11 +289,12 @@ def run_daily(top_n: int = 10, mode: str = "weekly") -> dict:
         "governance_event": gov_event,
         "rollback": rollback,
         "optimization": {
-            "best_params": optimization_result.best_params,
-            "best_metrics": optimization_result.best_metrics,
-            "best_composite": optimization_result.best_composite,
-            "study_file": optimization_result.study_file,
-            "trials_file": optimization_result.trials_file,
+            "enabled": do_opt,
+            "best_params": (optimization_result.best_params if optimization_result is not None else {}),
+            "best_metrics": (optimization_result.best_metrics if optimization_result is not None else {}),
+            "best_composite": (optimization_result.best_composite if optimization_result is not None else None),
+            "study_file": (optimization_result.study_file if optimization_result is not None else ""),
+            "trials_file": (optimization_result.trials_file if optimization_result is not None else ""),
         },
         "run_id": run_id,
     }

@@ -63,6 +63,9 @@ python scripts/run_daily_pipeline.py
 # 6) 可视化
 python -m streamlit run src/quant_alpha/app/streamlit_app.py
 ```
+说明：
+- Streamlit 侧边栏新增了“进度条 + 主要节点提示”，可看到卡在数据拉取、特征、训练、回测、漂移、治理或优化哪个阶段。
+- 默认关闭“启用优化搜索（更慢）”，避免每日流程看起来“卡住”；需要时可手动勾选。
 
 ## 启动可视化
 ```bash

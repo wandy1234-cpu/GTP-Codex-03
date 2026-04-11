@@ -97,6 +97,7 @@ class SystemConfig:
             },
             weekly={"holding_horizon_days": 5},
             optimization={
+                "run_on_daily": False,
                 "n_trials": 20,
                 "timeout_sec": 180,
                 "top_n_choices": [8, 10, 12, 15],

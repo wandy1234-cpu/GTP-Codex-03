@@ -22,12 +22,22 @@ st.title("Quant Alpha: A股/H股 指数增强系统")
 
 st.sidebar.header("操作")
 top_n = st.sidebar.number_input("Top N", min_value=5, max_value=50, value=10, step=1)
+enable_optimization = st.sidebar.checkbox("启用优化搜索（更慢）", value=False)
 run_btn = st.sidebar.button("执行每日流程")
 
 if run_btn:
     try:
+        progress_text = st.empty()
+        progress = st.progress(0)
+
+        def _on_progress(pct: float, msg: str) -> None:
+            progress.progress(int(pct * 100))
+            progress_text.info(f"{int(pct * 100)}% - {msg}")
+
         with st.spinner("正在拉取数据、训练模型、生成推荐..."):
-            result = run_daily(top_n=int(top_n))
+            result = run_daily(top_n=int(top_n), progress_cb=_on_progress, enable_optimization=enable_optimization)
+        progress.progress(100)
+        progress_text.success("100% - 流程完成")
         ingest = result.get("ingest") or {}
         errors = dict(ingest.get("errors") or {})
         notes = dict(ingest.get("notes") or {})
