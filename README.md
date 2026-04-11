@@ -59,6 +59,7 @@ python -m streamlit run src/quant_alpha/app/streamlit_app.py
 4. 在 Streamlit 页面展示“抓取告警”，并标记 `status=ok_with_warnings`。
    - 若仅触发“fallback to cache”，写入 `ingest.notes`（非 `ingest.errors`），不视为硬失败。
 5. 缓存窗口回退会自动按 `market+symbol+date` 去重，避免 TopN 出现同一股票重复多行。
+6. 若最新交易日可用股票数小于 `Top N`，系统会自动从更早日期补齐推荐，并在 `warnings` 中提示。
 
 > 首次运行且没有任何缓存时，如果网络持续失败，系统会返回 `status=failed`，这是预期保护行为。
 > Windows 下路径已统一按 POSIX pattern 处理，避免 `read_parquet` 通配符失效导致的 “No files found that match the pattern”。

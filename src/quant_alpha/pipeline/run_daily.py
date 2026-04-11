@@ -6,6 +6,7 @@ from datetime import date
 from pathlib import Path
 
 import joblib
+import pandas as pd
 
 from quant_alpha.backtest.simple import run_topn_backtest
 from quant_alpha.config import ProjectPaths
@@ -79,9 +80,27 @@ def run_daily(top_n: int = 10) -> dict:
     hard_errors = {k: v for k, v in ingest_errors.items() if "fallback to cache" not in str(v) and v}
     hard_ingest_warning = any(bool(v) for v in hard_errors.values())
     has_warnings = hard_ingest_warning or bool(warnings)
+    latest_date = pd.to_datetime(features["date"]).max() if "date" in features.columns and not features.empty else None
+    latest_symbol_count = 0
+    if latest_date is not None:
+        latest_symbol_count = int(
+            features[pd.to_datetime(features["date"]) == latest_date]["symbol"].astype(str).nunique()
+        )
+    data_quality = {
+        "latest_date": str(latest_date) if latest_date is not None else None,
+        "latest_symbol_count": latest_symbol_count,
+        "requested_top_n": top_n,
+    }
+    if latest_symbol_count and latest_symbol_count < top_n:
+        warnings.append(
+            f"latest trading day has only {latest_symbol_count} unique symbols; recommendations filled from older dates"
+        )
+        has_warnings = True
+
     return {
         "status": "ok_with_warnings" if has_warnings else "ok",
         "ingest": {"rows": ingest_stats.get("rows", {}), "errors": hard_errors, "notes": cache_notes},
+        "data_quality": data_quality,
         "feature_file": str(feature_file),
         "model_file": str(model_file) if model_file else None,
         "topn_file": str(topn_file),

@@ -72,9 +72,27 @@ def train_ranker(feature_df: pd.DataFrame) -> RankerResult:
 def top_n_latest(scored: pd.DataFrame, n: int = 10) -> pd.DataFrame:
     if scored.empty:
         return scored
-    latest = scored["date"].max()
-    pick = scored[scored["date"] == latest].sort_values("score", ascending=False)
-    pick = pick.drop_duplicates(subset=["market", "symbol"], keep="first").head(n)
+    scored = scored.copy()
+    scored["date"] = pd.to_datetime(scored["date"])
+    dates = sorted(scored["date"].dropna().unique(), reverse=True)
+    buckets: list[pd.DataFrame] = []
+    seen: set[tuple[str, str]] = set()
+    for dt in dates:
+        day = scored[scored["date"] == dt].sort_values("score", ascending=False)
+        for _, row in day.iterrows():
+            key = (str(row.get("market", "")), str(row.get("symbol", "")))
+            if key in seen:
+                continue
+            seen.add(key)
+            buckets.append(row.to_frame().T)
+            if len(seen) >= n:
+                break
+        if len(seen) >= n:
+            break
+    if buckets:
+        pick = pd.concat(buckets, ignore_index=True)
+    else:
+        pick = scored.sort_values("score", ascending=False).drop_duplicates(subset=["market", "symbol"]).head(n)
     if "name" not in pick.columns:
         pick = pick.assign(name="")
     return pick[["date", "market", "symbol", "name", "close", "score", "target_5d"]]
