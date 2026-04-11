@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quant-alpha"
+version = "0.1.0"
+description = "A/H cross-sectional index enhancement stock selection system"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "akshare>=1.14.0",
+  "pandas>=2.2.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
