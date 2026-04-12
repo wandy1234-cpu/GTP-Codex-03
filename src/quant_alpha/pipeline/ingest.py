@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from glob import glob
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Callable
 
 import numpy as np
@@ -138,6 +139,44 @@ class DailyIngestor:
         out["amount"] = pd.to_numeric(spot.get("amount"), errors="coerce")
         return self._dedupe_bars(out)
 
+    def _fetch_hist_parallel(
+        self,
+        symbols: list[str],
+        market: str,
+        start: date,
+        end: date,
+        name_map: dict[str, str],
+        workers: int = 8,
+        progress_hook: Callable[[int, int], None] | None = None,
+    ) -> tuple[list[pd.DataFrame], int]:
+        if not symbols:
+            return [], 0
+        frames: list[pd.DataFrame] = []
+        ok = 0
+
+        def _one(sym: str) -> pd.DataFrame:
+            h = self.adapter.fetch_history(sym, market, start=start, end=end)
+            if h.empty:
+                return h
+            h["name"] = name_map.get(sym, "")
+            return h
+
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as ex:
+            futs = {ex.submit(_one, s): s for s in symbols}
+            done = 0
+            for fut in as_completed(futs):
+                done += 1
+                try:
+                    df = fut.result()
+                    if not df.empty:
+                        frames.append(df)
+                        ok += 1
+                except Exception:
+                    pass
+                if progress_hook is not None:
+                    progress_hook(done, len(symbols))
+        return frames, ok
+
     def _expand_with_universe(self, market: str, base: pd.DataFrame, start: date, end: date, max_symbols: int = 800) -> pd.DataFrame:
         universe = self.adapter.fetch_symbol_universe(market)
         if not universe:
@@ -165,6 +204,7 @@ class DailyIngestor:
         lookback_days: int = 365,
         max_symbols_per_market: int | None = None,
         history_backfill_batch: int = 1000,
+        history_workers: int = 8,
         skip_if_same_day: bool = True,
         progress_cb: Callable[[float, str], None] | None = None,
     ) -> dict[str, object]:
@@ -262,22 +302,15 @@ class DailyIngestor:
                     symbols = symbols[:max_symbols_per_market]
                 if symbols:
                     _emit(base + 0.20 * span, f"[{market}] spot 失败，改用代码清单模式 symbol={len(symbols)}")
-                    name_map = {}
-                    all_hist: list[pd.DataFrame] = []
-                    fetched_symbols = 0
-                    total_symbols = max(1, len(symbols))
-                    for symbol in symbols:
-                        try:
-                            hist = self.adapter.fetch_history(symbol, market, start=inc_start, end=end)
-                            if not hist.empty:
-                                hist["name"] = name_cache.get(symbol, "")
-                                all_hist.append(hist)
-                                fetched_symbols += 1
-                        except Exception:
-                            continue
-                        if fetched_symbols % 50 == 0:
-                            inner = fetched_symbols / total_symbols
-                            _emit(base + (0.20 + 0.60 * inner) * span, f"[{market}] 代码清单模式进度 {fetched_symbols}/{total_symbols}")
+                    all_hist, fetched_symbols = self._fetch_hist_parallel(
+                        symbols,
+                        market=market,
+                        start=inc_start,
+                        end=end,
+                        name_map=name_cache,
+                        workers=history_workers,
+                        progress_hook=lambda done, total: _emit(base + (0.20 + 0.60 * (done / max(1, total))) * span, f"[{market}] 代码清单模式进度 {done}/{total}"),
+                    )
 
                     if all_hist:
                         inc = pd.concat(all_hist, ignore_index=True)
@@ -348,8 +381,6 @@ class DailyIngestor:
             if max_symbols_per_market:
                 symbols = symbols[:max_symbols_per_market]
 
-            all_hist: list[pd.DataFrame] = []
-            fetched_symbols = 0
             existing = set(master["symbol"].astype(str).unique()) if not master.empty else set()
             missing_symbols = [s for s in symbols if s not in existing]
             # avoid full-universe per-symbol history every run; bounded incremental backfill only
@@ -360,19 +391,15 @@ class DailyIngestor:
                 targets = missing_symbols[: min(len(missing_symbols), max(1, history_backfill_batch))]
                 _emit(base + 0.22 * span, f"[{market}] 增量回补缺失 history {len(targets)}/{len(missing_symbols)}")
 
-            total_symbols = max(1, len(targets))
-            for symbol in targets:
-                try:
-                    hist = self.adapter.fetch_history(symbol, market, start=inc_start, end=end)
-                    if not hist.empty:
-                        hist["name"] = name_map.get(symbol) or name_cache.get(symbol, "")
-                        all_hist.append(hist)
-                        fetched_symbols += 1
-                except Exception:
-                    continue
-                if fetched_symbols % 50 == 0:
-                    inner = fetched_symbols / total_symbols
-                    _emit(base + (0.22 + 0.56 * inner) * span, f"[{market}] history进度 {fetched_symbols}/{total_symbols}")
+            all_hist, fetched_symbols = self._fetch_hist_parallel(
+                targets,
+                market=market,
+                start=inc_start,
+                end=end,
+                name_map={**name_cache, **name_map},
+                workers=history_workers,
+                progress_hook=lambda done, total: _emit(base + (0.22 + 0.56 * (done / max(1, total))) * span, f"[{market}] history进度 {done}/{total}"),
+            )
 
             if all_hist:
                 inc = pd.concat(all_hist, ignore_index=True)
