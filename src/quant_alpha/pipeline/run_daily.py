@@ -18,6 +18,7 @@ from quant_alpha.model.drift import drift_report
 from quant_alpha.model.experiment_tracker import ExperimentRun, ExperimentTracker
 from quant_alpha.model.governance import ChampionChallengerRegistry, composite_score
 from quant_alpha.model.optimizer import run_optimization
+from quant_alpha.model.neutralize import neutralize_scores
 from quant_alpha.model.ranker import RankerResult, fallback_score, top_n_latest, walk_forward_score
 from quant_alpha.model.review_adjustment import propose_adjustments_from_reviews
 from quant_alpha.model.walk_forward import build_walk_forward_windows, fold_metrics
@@ -247,6 +248,7 @@ def run_daily(
     scored = ranker_result.scored.copy()
     scored["score"] = scored["score"].astype(float)
     scored = _ensure_scored_schema(scored, features, warnings)
+    scored = neutralize_scores(scored)
 
     # weekly output
     _emit(progress_cb, 0.60, "生成周频推荐")

@@ -208,21 +208,21 @@ class AkshareAdapter:
             except Exception:
                 pass
         secid = f"116.{code}"
-        url = "https://push2.eastmoney.com/api/qt/stock/get"
         params = {"secid": secid, "fields": "f57,f58"}
-        try:
-            resp = requests.get(url, params=params, timeout=8)
-            resp.raise_for_status()
-            data = resp.json()
-            name = ((data or {}).get("data") or {}).get("f58")
-            if name:
-                name_s = str(name).strip()
-                if _has_cjk(name_s):
-                    return name_s
-                if not best:
-                    best = name_s
-        except Exception:
-            pass
+        for url in ["https://push2delay.eastmoney.com/api/qt/stock/get", "https://push2.eastmoney.com/api/qt/stock/get"]:
+            try:
+                resp = requests.get(url, params=params, timeout=8)
+                resp.raise_for_status()
+                data = resp.json()
+                name = ((data or {}).get("data") or {}).get("f58")
+                if name:
+                    name_s = str(name).strip()
+                    if _has_cjk(name_s):
+                        return name_s
+                    if not best:
+                        best = name_s
+            except Exception:
+                continue
         # fallback: sina HK quote endpoint
         try:
             url2 = f"https://hq.sinajs.cn/list=rt_hk{code}"

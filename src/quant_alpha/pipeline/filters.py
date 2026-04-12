@@ -52,8 +52,12 @@ def apply_stock_pool_filters_with_diagnostics(
         m = out["volume"].fillna(0) <= 0
         diag["removed_by_rule"]["suspended"] = int(m.sum())
         out = out[~m]
+    elif "suspend_flag" in out.columns:
+        m = out["suspend_flag"].fillna(False).astype(bool)
+        diag["removed_by_rule"]["suspended"] = int(m.sum())
+        out = out[~m]
     else:
-        diag["missing_fields"].append("volume")
+        diag["missing_fields"].append("volume/suspend_flag")
 
     if "amount" in out.columns:
         m = out["amount"].fillna(0) < min_liquidity_amount
