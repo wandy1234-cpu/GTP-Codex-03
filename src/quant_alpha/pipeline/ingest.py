@@ -21,6 +21,28 @@ class DailyIngestor:
     adapter: AkshareAdapter
     paths: ProjectPaths
 
+    @staticmethod
+    def _norm_symbol(symbol: str) -> str:
+        s = str(symbol).strip()
+        low = s.lower().replace("hk", "")
+        digits = "".join(ch for ch in low if ch.isdigit())
+        if digits:
+            return digits.zfill(5) if len(digits) <= 5 else digits
+        return s
+
+    def _name_for_symbol(self, name_map: dict[str, str], symbol: str, market: str | None = None) -> str:
+        sym = str(symbol).strip()
+        candidates = [sym, self._norm_symbol(sym)]
+        if market == "HK":
+            digits = "".join(ch for ch in sym if ch.isdigit())
+            if digits:
+                candidates.extend([digits, digits.zfill(5)])
+        for k in candidates:
+            v = name_map.get(k, "")
+            if str(v).strip():
+                return str(v)
+        return ""
+
     def _seed_symbols(self, market: str) -> list[str]:
         if market == "A":
             return ["000001", "000002", "600519", "600036", "300750"]
@@ -68,18 +90,26 @@ class DailyIngestor:
         else:
             mapping = {}
         mapping.update({k: v for k, v in self._builtin_name_map().items() if k not in mapping})
-        return mapping
+        # normalize aliases for HK symbols (e.g. 1 <-> 00001, HK00001)
+        normalized = dict(mapping)
+        for k, v in list(mapping.items()):
+            nk = self._norm_symbol(k)
+            if str(v).strip():
+                normalized.setdefault(nk, str(v))
+                if nk.isdigit() and len(nk) <= 5:
+                    normalized.setdefault(str(int(nk)), str(v))
+        return normalized
 
     def _save_name_map(self, mapping: dict[str, str]) -> None:
         if not mapping:
             return
         normalized = dict(mapping)
         for k, v in list(mapping.items()):
-            s = str(k).strip()
-            digits = "".join(ch for ch in s.lower().replace("hk", "") if ch.isdigit())
-            if digits:
-                key = digits.zfill(5) if len(digits) <= 5 else digits
+            key = self._norm_symbol(k)
+            if key != str(k).strip():
                 normalized.setdefault(key, v)
+            if key.isdigit() and len(key) <= 5:
+                normalized.setdefault(str(int(key)), v)
         out = pd.DataFrame({"symbol": list(normalized.keys()), "name": list(normalized.values())})
         out.to_parquet(self._name_store_file(), index=False)
 
@@ -158,7 +188,7 @@ class DailyIngestor:
             h = self.adapter.fetch_history(sym, market, start=start, end=end)
             if h.empty:
                 return h
-            h["name"] = name_map.get(sym, "")
+            h["name"] = self._name_for_symbol(name_map, sym, market=market)
             return h
 
         with ThreadPoolExecutor(max_workers=max(1, workers)) as ex:
@@ -190,7 +220,7 @@ class DailyIngestor:
                 h = self.adapter.fetch_history(sym, market, start=start, end=end)
                 if h.empty:
                     continue
-                h["name"] = name_map.get(sym, "")
+                h["name"] = self._name_for_symbol(name_map, sym, market=market)
                 frames.append(h)
             except Exception:
                 continue
