@@ -94,6 +94,12 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
         return out
     def _norm_sym(x: str) -> str:
         s = str(x).strip()
+        if s.endswith(".0"):
+            # parquet/csv round-trip may cast symbols like 700 -> 700.0
+            try:
+                s = str(int(float(s)))
+            except Exception:
+                pass
         low = s.lower().replace("hk", "")
         digits = "".join(ch for ch in low if ch.isdigit())
         if digits:

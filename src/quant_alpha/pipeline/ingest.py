@@ -24,6 +24,12 @@ class DailyIngestor:
     @staticmethod
     def _norm_symbol(symbol: str) -> str:
         s = str(symbol).strip()
+        if s.endswith(".0"):
+            # parquet/csv round-trip may cast symbols like 700 -> 700.0
+            try:
+                s = str(int(float(s)))
+            except Exception:
+                pass
         low = s.lower().replace("hk", "")
         digits = "".join(ch for ch in low if ch.isdigit())
         if digits:
