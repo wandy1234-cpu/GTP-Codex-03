@@ -162,6 +162,30 @@ class AkshareAdapter:
     def fetch_hk_name_by_symbol(self, symbol: str) -> str:
         """Best-effort HK single symbol name fetch via eastmoney quote api."""
         code = "".join(ch for ch in str(symbol) if ch.isdigit()).zfill(5)
+        # try akshare code-name mapping first (usually faster and more stable than quote api)
+        fn = getattr(ak, "stock_hk_name_code", None)
+        if fn is not None:
+            try:
+                df = self._with_retry(fn)
+                cols = df.columns.tolist()
+                sym_col = next((c for c in ["symbol", "代码", "code", "证券代码", "股票代码"] if c in cols), None)
+                name_col = next((c for c in ["name", "名称", "证券简称", "股票简称"] if c in cols), None)
+                if sym_col and name_col:
+                    s = (
+                        df[sym_col]
+                        .astype(str)
+                        .str.strip()
+                        .str.replace(r"\.0+$", "", regex=True)
+                        .str.replace(r"[^0-9]", "", regex=True)
+                        .str.zfill(5)
+                    )
+                    m = s == code
+                    if m.any():
+                        name = str(df.loc[m, name_col].iloc[0]).strip()
+                        if name:
+                            return name
+            except Exception:
+                pass
         secid = f"116.{code}"
         url = "https://push2.eastmoney.com/api/qt/stock/get"
         params = {"secid": secid, "fields": "f57,f58"}

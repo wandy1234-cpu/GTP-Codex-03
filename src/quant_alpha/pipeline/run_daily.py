@@ -124,6 +124,16 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
         if unresolved_hk.any():
             try:
                 adapter = AkshareAdapter.from_env()
+                hk_name_map = adapter.fetch_symbol_name_map("HK")
+                if hk_name_map:
+                    nm = {(_norm_sym(k)): str(v) for k, v in hk_name_map.items() if str(v).strip()}
+                    name_from_map.loc[unresolved_hk] = (
+                        sym.loc[unresolved_hk].map(_norm_sym).map(nm).fillna(name_from_map.loc[unresolved_hk])
+                    )
+                    unresolved_hk = hk_mask & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
+                if not unresolved_hk.any():
+                    out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
+                    return out
                 hk_spot = adapter.fetch_spot("HK")
                 hk_names = hk_spot["name"].astype(str) if "name" in hk_spot.columns else pd.Series("", index=hk_spot.index)
                 hk_map = dict(zip(hk_spot["symbol"].astype(str).map(_norm_sym), hk_names))
