@@ -81,6 +81,8 @@ class DailyIngestor:
         out = pd.read_parquet(fp)
         if "date" in out.columns:
             out["date"] = pd.to_datetime(out["date"])
+            if not out.empty and out["date"].notna().sum() == 0:
+                out["date"] = pd.Timestamp(date.today())
         return self._dedupe_bars(out)
 
     def _save_master(self, market: str, df: pd.DataFrame) -> None:
@@ -267,14 +269,6 @@ class DailyIngestor:
             span = 1.0 / len(markets)
             _emit(base + 0.02 * span, f"[{market}] 初始化增量上下文")
             name_cache = self._load_name_map()
-            # refresh name map first (important for HK chinese names even on skip path)
-            try:
-                name_refresh = self.adapter.fetch_symbol_name_map(market)
-                if name_refresh:
-                    name_cache.update(name_refresh)
-                    self._save_name_map(name_cache)
-            except Exception:
-                pass
             master = self._load_master(market)
             if not master.empty and "date" in master.columns:
                 dts = pd.to_datetime(master["date"], errors="coerce").dropna()
@@ -316,6 +310,14 @@ class DailyIngestor:
                 }
                 _emit(base + 0.98 * span, f"[{market}] 已是最新交易日({last_dt})，跳过更新")
                 continue
+            # Refresh names only when a market data update is actually needed.
+            try:
+                name_refresh = self.adapter.fetch_symbol_name_map(market)
+                if name_refresh:
+                    name_cache.update(name_refresh)
+                    self._save_name_map(name_cache)
+            except Exception:
+                pass
             try:
                 _emit(base + 0.10 * span, f"[{market}] 拉取 spot 列表")
                 spot = self.adapter.fetch_spot(market)

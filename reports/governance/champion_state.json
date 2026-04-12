@@ -21,6 +21,66 @@
   "previous_champion": null,
   "challengers": [
     {
+      "run_id": "run_20260412T062530Z_221c5f6d",
+      "model_version": "wf_2026-04-12",
+      "metrics": {
+        "fold_count": 0,
+        "rank_ic": 0.0,
+        "avg_topn_excess_ret": 0.0,
+        "stability_score": 1.0,
+        "drawdown_penalty": 0.0,
+        "turnover_penalty": 0.2,
+        "fold_win_rate": 0.0,
+        "recent_window_excess_ret": 0.0,
+        "instability_score": 0.0,
+        "winner_precision": 0.0,
+        "benchmark_hit_rate": 0.0,
+        "composite_score": 0.09
+      },
+      "evaluated_at": "2026-04-12T06:25:31.870645+00:00",
+      "rejection_rationale": "promotion_thresholds_not_met"
+    },
+    {
+      "run_id": "run_20260412T062350Z_bab7353e",
+      "model_version": "wf_2026-04-12",
+      "metrics": {
+        "fold_count": 0,
+        "rank_ic": 0.0,
+        "avg_topn_excess_ret": 0.0,
+        "stability_score": 1.0,
+        "drawdown_penalty": 0.0,
+        "turnover_penalty": 0.2,
+        "fold_win_rate": 0.0,
+        "recent_window_excess_ret": 0.0,
+        "instability_score": 0.0,
+        "winner_precision": 0.0,
+        "benchmark_hit_rate": 0.0,
+        "composite_score": 0.09
+      },
+      "evaluated_at": "2026-04-12T06:23:52.440612+00:00",
+      "rejection_rationale": "promotion_thresholds_not_met"
+    },
+    {
+      "run_id": "run_20260412T062247Z_36559203",
+      "model_version": "wf_2026-04-12",
+      "metrics": {
+        "fold_count": 0,
+        "rank_ic": 0.0,
+        "avg_topn_excess_ret": 0.0,
+        "stability_score": 1.0,
+        "drawdown_penalty": 0.0,
+        "turnover_penalty": 0.2,
+        "fold_win_rate": 0.0,
+        "recent_window_excess_ret": 0.0,
+        "instability_score": 0.0,
+        "winner_precision": 0.0,
+        "benchmark_hit_rate": 0.0,
+        "composite_score": 0.09
+      },
+      "evaluated_at": "2026-04-12T06:22:47.869431+00:00",
+      "rejection_rationale": "promotion_thresholds_not_met"
+    },
+    {
       "run_id": "run_20260412T060629Z_ead9d6c5",
       "model_version": "wf_2026-04-12",
       "metrics": {
@@ -345,63 +405,6 @@
         "composite_score": 0.09
       },
       "evaluated_at": "2026-04-12T01:20:04.075432+00:00",
-      "rejection_rationale": "promotion_thresholds_not_met"
-    },
-    {
-      "run_id": "run_20260412T004908Z_5e646c6e",
-      "model_version": "wf_2026-04-12",
-      "metrics": {
-        "rank_ic": 0.0,
-        "avg_topn_excess_ret": 0.0,
-        "stability_score": 1.0,
-        "drawdown_penalty": NaN,
-        "turnover_penalty": 0.2,
-        "fold_win_rate": 0.0,
-        "recent_window_excess_ret": 0.0,
-        "instability_score": 0.0,
-        "winner_precision": 0.0,
-        "benchmark_hit_rate": 0.0,
-        "composite_score": 0.09
-      },
-      "evaluated_at": "2026-04-12T00:53:43.898883+00:00",
-      "rejection_rationale": "promotion_thresholds_not_met"
-    },
-    {
-      "run_id": "run_20260412T003942Z_088a0e67",
-      "model_version": "wf_2026-04-12",
-      "metrics": {
-        "rank_ic": 0.0,
-        "avg_topn_excess_ret": 0.0,
-        "stability_score": 1.0,
-        "drawdown_penalty": NaN,
-        "turnover_penalty": 0.2,
-        "fold_win_rate": 0.0,
-        "recent_window_excess_ret": 0.0,
-        "instability_score": 0.0,
-        "winner_precision": 0.0,
-        "benchmark_hit_rate": 0.0,
-        "composite_score": 0.09
-      },
-      "evaluated_at": "2026-04-12T00:44:32.452725+00:00",
-      "rejection_rationale": "promotion_thresholds_not_met"
-    },
-    {
-      "run_id": "run_20260412T003214Z_2d4695ef",
-      "model_version": "wf_2026-04-12",
-      "metrics": {
-        "rank_ic": 0.0,
-        "avg_topn_excess_ret": 0.0,
-        "stability_score": 1.0,
-        "drawdown_penalty": NaN,
-        "turnover_penalty": 0.2,
-        "fold_win_rate": 0.0,
-        "recent_window_excess_ret": 0.0,
-        "instability_score": 0.0,
-        "winner_precision": 0.0,
-        "benchmark_hit_rate": 0.0,
-        "composite_score": 0.09
-      },
-      "evaluated_at": "2026-04-12T00:37:09.073081+00:00",
       "rejection_rationale": "promotion_thresholds_not_met"
     }
   ]

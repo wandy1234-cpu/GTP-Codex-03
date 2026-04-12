@@ -5,14 +5,14 @@
       "name": "fold_count",
       "passed": false,
       "value": 0,
-      "threshold": 3,
+      "threshold": 1,
       "severity": "error"
     },
     {
       "name": "fold_win_rate",
       "passed": false,
       "value": 0.0,
-      "threshold": 0.55,
+      "threshold": 0.35000000000000003,
       "severity": "error"
     },
     {

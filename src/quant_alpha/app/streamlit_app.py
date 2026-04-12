@@ -9,19 +9,74 @@ import pandas as pd
 import streamlit as st
 
 try:
+    from quant_alpha.market.broad_index import A_BROAD_INDEXES, HK_BROAD_INDEXES, fetch_broad_index_quotes, market_median_change
     from quant_alpha.pipeline.run_daily import run_daily
 except ModuleNotFoundError:
     # 兼容未执行 `pip install -e .` 的本地直接运行场景
     src_root = Path(__file__).resolve().parents[2]
     if str(src_root) not in sys.path:
         sys.path.insert(0, str(src_root))
+    from quant_alpha.market.broad_index import A_BROAD_INDEXES, HK_BROAD_INDEXES, fetch_broad_index_quotes, market_median_change
     from quant_alpha.pipeline.run_daily import run_daily
 
 st.set_page_config(page_title="Quant Alpha", layout="wide")
 st.title("Quant Alpha: A股/H股 指数增强系统")
 
 st.sidebar.header("操作")
+page = st.sidebar.radio("页面", ["推荐与回测", "宽基指数"], index=0)
+
+
+@st.cache_data(ttl=180)
+def _cached_broad_index_quotes() -> pd.DataFrame:
+    return fetch_broad_index_quotes()
+
+
+@st.cache_data(ttl=60)
+def _cached_market_median_change(root: str) -> pd.DataFrame:
+    return market_median_change(Path(root) / "data" / "raw")
+
+
+if page == "宽基指数":
+    st.subheader("主要宽基指数")
+    if st.button("刷新本地市场中位数"):
+        _cached_market_median_change.clear()
+
+    refresh_live_index = st.button("刷新实时指数行情")
+    if refresh_live_index:
+        _cached_broad_index_quotes.clear()
+        idx = _cached_broad_index_quotes()
+    else:
+        idx = pd.DataFrame(
+            [{"market": "A", "symbol": k, "name": v, "close": pd.NA, "pct_change": pd.NA, "source": "点击刷新实时指数行情"} for k, v in A_BROAD_INDEXES.items()]
+            + [{"market": "HK", "symbol": k, "name": v, "close": pd.NA, "pct_change": pd.NA, "source": "点击刷新实时指数行情"} for k, v in HK_BROAD_INDEXES.items()]
+        )
+    med = _cached_market_median_change(str(Path.cwd()))
+
+    a_med = med[med["market"].astype(str).eq("A")]["median_pct_change"] if not med.empty else pd.Series(dtype=float)
+    hk_med = med[med["market"].astype(str).eq("HK")]["median_pct_change"] if not med.empty else pd.Series(dtype=float)
+    col1, col2, col3 = st.columns(3)
+    col1.metric("A股股票中位数涨跌幅", f"{float(a_med.iloc[0]):.2f}%" if not a_med.empty else "N/A")
+    col2.metric("港股股票中位数涨跌幅", f"{float(hk_med.iloc[0]):.2f}%" if not hk_med.empty else "N/A")
+    col3.metric("样本来源", med["change_source"].iloc[0] if not med.empty else "N/A")
+
+    if not idx.empty:
+        st.dataframe(idx, use_container_width=True, hide_index=True)
+        for item in idx.attrs.get("errors", []):
+            st.warning(f"{item.get('market')}: 指数接口暂不可用，{item.get('error')}")
+    else:
+        st.info("暂未取到宽基指数行情。")
+
+    st.subheader("市场股票中位数涨跌幅")
+    if not med.empty:
+        st.dataframe(med, use_container_width=True, hide_index=True)
+        if "close/open_proxy" in set(med["change_source"].astype(str)):
+            st.caption("当前原始股票快照没有 pre_close 或 pct_change 字段，股票中位数使用 close/open 作为当日代理涨跌幅。")
+    else:
+        st.info("暂无本地股票快照，先执行一次日常流程后即可计算市场股票中位数。")
+    st.stop()
+
 top_n = st.sidebar.number_input("Top N", min_value=5, max_value=50, value=10, step=1)
+fast_mode = st.sidebar.checkbox("快速模式（使用缓存，跳过实时抓取）", value=True)
 enable_optimization = st.sidebar.checkbox("启用优化搜索（更慢）", value=False)
 run_btn = st.sidebar.button("执行每日流程")
 
@@ -35,7 +90,12 @@ if run_btn:
             progress_text.info(f"{int(pct * 100)}% - {msg}")
 
         with st.spinner("正在拉取数据、训练模型、生成推荐..."):
-            result = run_daily(top_n=int(top_n), progress_cb=_on_progress, enable_optimization=enable_optimization)
+            result = run_daily(
+                top_n=int(top_n),
+                progress_cb=_on_progress,
+                enable_optimization=enable_optimization,
+                smoke=fast_mode,
+            )
         progress.progress(100)
         progress_text.success("100% - 流程完成")
         ingest = result.get("ingest") or {}
