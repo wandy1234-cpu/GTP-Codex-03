@@ -124,6 +124,15 @@ class AkshareAdapter:
     def fetch_symbol_name_map(self, market: Market) -> dict[str, str]:
         """Best-effort symbol->name mapping for A/HK."""
         mapping: dict[str, str] = {}
+
+        def _norm_symbol(s: str) -> str:
+            x = str(s).strip()
+            x = x.removesuffix(".0")
+            digits = "".join(ch for ch in x.lower().replace("hk", "") if ch.isdigit())
+            if market == "HK" and digits:
+                return digits.zfill(5) if len(digits) <= 5 else digits
+            return digits if digits else x
+
         candidates: list = []
         if market == "A":
             candidates = [getattr(ak, "stock_zh_a_spot_em", None), getattr(ak, "stock_zh_a_spot", None), getattr(ak, "stock_info_a_code_name", None)]
@@ -137,12 +146,15 @@ class AkshareAdapter:
             except Exception:
                 continue
             cols = df.columns.tolist()
-            sym_col = next((c for c in ["symbol", "代码", "code"] if c in cols), None)
-            name_col = next((c for c in ["name", "名称"] if c in cols), None)
+            sym_col = next((c for c in ["symbol", "代码", "code", "证券代码", "股票代码"] if c in cols), None)
+            name_col = next((c for c in ["name", "名称", "证券简称", "股票简称"] if c in cols), None)
             if sym_col and name_col:
                 for s, n in zip(df[sym_col].astype(str), df[name_col].astype(str)):
-                    if str(n).strip():
-                        mapping[str(s)] = str(n)
+                    name = str(n).strip()
+                    if name:
+                        raw = str(s).strip()
+                        mapping[raw] = name
+                        mapping[_norm_symbol(raw)] = name
                 if mapping:
                     return mapping
         return mapping

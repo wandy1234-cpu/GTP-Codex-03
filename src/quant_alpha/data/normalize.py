@@ -45,7 +45,14 @@ def normalize_spot(df: pd.DataFrame, rename_map: dict[str, str], market: str) ->
     out = df.rename(columns=rename_map).copy()
     out["market"] = market
     if "symbol" in out.columns:
-        out["symbol"] = out["symbol"].astype(str)
+        sym = out["symbol"].astype(str).str.strip()
+        # some providers may return float-like strings such as "700.0"
+        sym = sym.str.replace(r"\.0+$", "", regex=True)
+        if market == "HK":
+            digits = sym.str.replace(r"[^0-9]", "", regex=True)
+            has_digits = digits.str.len() > 0
+            sym = sym.where(~has_digits, digits.str.zfill(5))
+        out["symbol"] = sym
     return out
 
 
