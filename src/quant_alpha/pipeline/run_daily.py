@@ -83,7 +83,17 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
     name_col = "stock_name" if "stock_name" in out.columns else ("name" if "name" in out.columns else None)
     if name_col is None:
         return out
+    def _has_cjk(text: str) -> bool:
+        return any("\u4e00" <= ch <= "\u9fff" for ch in str(text))
+
     mask = out[name_col].isna() | (out[name_col].astype(str).str.strip() == "")
+    if "market" in out.columns:
+        hk_non_cjk = (
+            out["market"].astype(str).eq("HK")
+            & out[name_col].astype(str).str.strip().ne("")
+            & ~out[name_col].astype(str).map(_has_cjk)
+        )
+        mask = mask | hk_non_cjk
     if not mask.any():
         return out
     name_file = paths.data_raw / "symbol_names.parquet"
@@ -105,9 +115,6 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
         if digits:
             return digits.zfill(5) if len(digits) <= 5 else digits
         return s
-    def _has_cjk(text: str) -> bool:
-        return any("\u4e00" <= ch <= "\u9fff" for ch in str(text))
-
     mp = dict(zip(ndf["symbol"].astype(str), ndf["name"].astype(str)))
     # HK symbols often appear as 1/00001 across different endpoints; normalize both keys.
     for k, v in list(mp.items()):
