@@ -345,15 +345,32 @@ class DailyIngestor:
                 if max_symbols_per_market:
                     symbols = symbols[:max_symbols_per_market]
                 if symbols:
-                    _emit(base + 0.20 * span, f"[{market}] spot 失败，改用代码清单模式 symbol={len(symbols)}")
+                    existing = set(master["symbol"].astype(str).unique()) if not master.empty else set()
+                    if master.empty:
+                        targets = symbols[: min(len(symbols), max(1, history_backfill_batch))]
+                        _emit(
+                            base + 0.20 * span,
+                            f"[{market}] spot 失败，代码清单模式(首建库分批) {len(targets)}/{len(symbols)}",
+                        )
+                    else:
+                        missing_symbols = [s for s in symbols if s not in existing]
+                        targets = missing_symbols[: min(len(missing_symbols), max(1, history_backfill_batch))]
+                        _emit(
+                            base + 0.20 * span,
+                            f"[{market}] spot 失败，代码清单模式(增量分批) {len(targets)}/{len(missing_symbols)}",
+                        )
+
                     all_hist, fetched_symbols = self._fetch_hist_parallel(
-                        symbols,
+                        targets,
                         market=market,
                         start=inc_start,
                         end=end,
                         name_map=name_cache,
                         workers=history_workers,
-                        progress_hook=lambda done, total: _emit(base + (0.20 + 0.60 * (done / max(1, total))) * span, f"[{market}] 代码清单模式进度 {done}/{total}"),
+                        progress_hook=lambda done, total: _emit(
+                            base + (0.20 + 0.60 * (done / max(1, total))) * span,
+                            f"[{market}] 代码清单模式进度 {done}/{total}",
+                        ),
                     )
 
                     if all_hist:
@@ -379,7 +396,7 @@ class DailyIngestor:
                             "missing_symbol_count": int(len(miss)),
                             "missing_symbol_sample": miss[:20],
                         }
-                        stats["notes"][market] += " | spot_failed_use_symbol_universe=true"
+                        stats["notes"][market] += f" | spot_failed_use_symbol_universe=true fetched_batch={len(targets)}/{len(symbols)}"
                         _emit(base + 0.95 * span, f"[{market}] 代码清单模式完成，rows={len(raw)}")
                         continue
 
