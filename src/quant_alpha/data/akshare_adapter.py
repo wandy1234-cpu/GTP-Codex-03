@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import date
 import time
 from typing import Literal
+import urllib.request
 
 import akshare as ak
 import pandas as pd
@@ -194,6 +195,20 @@ class AkshareAdapter:
             name = ((data or {}).get("data") or {}).get("f58")
             if name:
                 return str(name)
+        except Exception:
+            pass
+        # fallback: sina HK quote endpoint
+        try:
+            url2 = f"https://hq.sinajs.cn/list=rt_hk{code}"
+            req = urllib.request.Request(url2, headers={"Referer": "https://finance.sina.com.cn", "User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                txt = resp.read().decode("gbk", errors="ignore")
+            # example: var hq_str_rt_hk00700="腾讯控股,...."
+            if '"' in txt:
+                payload = txt.split('"', 1)[1].rsplit('"', 1)[0]
+                first = payload.split(",", 1)[0].strip()
+                if first and first != code:
+                    return first
         except Exception:
             pass
         return ""

@@ -151,10 +151,6 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
             except Exception:
                 pass
     out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
-    if "market" in out.columns:
-        hk_blank = out["market"].astype(str).eq("HK") & (out[name_col].isna() | (out[name_col].astype(str).str.strip() == ""))
-        if hk_blank.any():
-            out.loc[hk_blank, name_col] = out.loc[hk_blank, "symbol"].astype(str)
     return out
 
 
