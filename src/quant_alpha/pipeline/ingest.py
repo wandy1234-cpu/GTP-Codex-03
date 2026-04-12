@@ -207,7 +207,15 @@ class DailyIngestor:
                     progress_hook(done, len(symbols))
         return frames, ok
 
-    def _expand_with_universe(self, market: str, base: pd.DataFrame, start: date, end: date, max_symbols: int = 800) -> pd.DataFrame:
+    def _expand_with_universe(
+        self,
+        market: str,
+        base: pd.DataFrame,
+        start: date,
+        end: date,
+        max_symbols: int = 800,
+        workers: int = 8,
+    ) -> pd.DataFrame:
         universe = self.adapter.fetch_symbol_universe(market)
         if not universe:
             return base
@@ -215,15 +223,15 @@ class DailyIngestor:
         targets = [s for s in universe if s not in existing][:max_symbols]
         frames: list[pd.DataFrame] = [base] if not base.empty else []
         name_map = self._load_name_map()
-        for sym in targets:
-            try:
-                h = self.adapter.fetch_history(sym, market, start=start, end=end)
-                if h.empty:
-                    continue
-                h["name"] = self._name_for_symbol(name_map, sym, market=market)
-                frames.append(h)
-            except Exception:
-                continue
+        fetched, _ = self._fetch_hist_parallel(
+            targets,
+            market=market,
+            start=start,
+            end=end,
+            name_map=name_map,
+            workers=workers,
+        )
+        frames.extend(fetched)
         if not frames:
             return base
         return self._dedupe_bars(pd.concat(frames, ignore_index=True))
@@ -369,43 +377,43 @@ class DailyIngestor:
                         _emit(base + 0.95 * span, f"[{market}] 代码清单模式完成，rows={len(raw)}")
                         continue
 
-                cached = self._cached_bars_window(market)
-                if not cached.empty:
-                    cached = self._expand_with_universe(market, cached, start=start, end=end)
-                    out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
-                    out_file.parent.mkdir(parents=True, exist_ok=True)
-                    self._dedupe_bars(cached).to_parquet(out_file, index=False)
-                    self._save_master(market, cached)
-                    stats["rows"][market] = int(len(cached))
-                    stats["errors"][market] = f"spot failed, fallback to cache: {exc!r}"
-                    _emit(base + 0.95 * span, f"[{market}] 使用缓存回退完成，rows={len(cached)}")
-                else:
-                    seed_symbols = self._seed_symbols(market)
-                    all_hist: list[pd.DataFrame] = []
-                    for symbol in seed_symbols:
-                        try:
-                            hist = self.adapter.fetch_history(symbol, market, start=start, end=end)
-                            if not hist.empty:
-                                hist["name"] = self._load_name_map().get(symbol, symbol)
-                                all_hist.append(hist)
-                        except Exception:
-                            continue
-
-                    if all_hist:
-                        fallback_df = pd.concat(all_hist, ignore_index=True)
-                        mode = "seed-symbol history fallback"
+                    cached = self._cached_bars_window(market)
+                    if not cached.empty:
+                        cached = self._expand_with_universe(market, cached, start=start, end=end, workers=history_workers)
+                        out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
+                        out_file.parent.mkdir(parents=True, exist_ok=True)
+                        self._dedupe_bars(cached).to_parquet(out_file, index=False)
+                        self._save_master(market, cached)
+                        stats["rows"][market] = int(len(cached))
+                        stats["errors"][market] = f"spot failed, fallback to cache: {exc!r}"
+                        _emit(base + 0.95 * span, f"[{market}] 使用缓存回退完成，rows={len(cached)}")
                     else:
-                        fallback_df = self._synthetic_bars(market, end=end, lookback_days=lookback_days)
-                        mode = "synthetic fallback"
+                        seed_symbols = self._seed_symbols(market)
+                        seed_map = self._load_name_map()
+                        all_hist, _ = self._fetch_hist_parallel(
+                            seed_symbols,
+                            market=market,
+                            start=start,
+                            end=end,
+                            name_map=seed_map,
+                            workers=min(history_workers, len(seed_symbols)),
+                        )
 
-                    out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
-                    out_file.parent.mkdir(parents=True, exist_ok=True)
-                    fallback_df = self._dedupe_bars(fallback_df)
-                    fallback_df.to_parquet(out_file, index=False)
-                    self._save_master(market, fallback_df)
-                    stats["rows"][market] = int(len(fallback_df))
-                    stats["errors"][market] = f"spot failed, no cache; used {mode}: {exc!r}"
-                    _emit(base + 0.95 * span, f"[{market}] 使用{mode}完成，rows={len(fallback_df)}")
+                        if all_hist:
+                            fallback_df = pd.concat(all_hist, ignore_index=True)
+                            mode = "seed-symbol history fallback"
+                        else:
+                            fallback_df = self._synthetic_bars(market, end=end, lookback_days=lookback_days)
+                            mode = "synthetic fallback"
+
+                        out_file = self.paths.data_raw / f"market={market}" / f"date={end.isoformat()}" / "bars.parquet"
+                        out_file.parent.mkdir(parents=True, exist_ok=True)
+                        fallback_df = self._dedupe_bars(fallback_df)
+                        fallback_df.to_parquet(out_file, index=False)
+                        self._save_master(market, fallback_df)
+                        stats["rows"][market] = int(len(fallback_df))
+                        stats["errors"][market] = f"spot failed, no cache; used {mode}: {exc!r}"
+                        _emit(base + 0.95 * span, f"[{market}] 使用{mode}完成，rows={len(fallback_df)}")
                 continue
 
             if max_symbols_per_market:
