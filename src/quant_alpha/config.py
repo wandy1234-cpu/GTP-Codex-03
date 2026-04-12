@@ -13,7 +13,7 @@ try:
 except Exception:  # pragma: no cover - optional dependency fallback
     yaml = None
 
-DEFAULT_AKSHARE_TOKEN = "4de5bc6ef18cbd032999b72d3245c4566c0be59b00d70839db24bc23"
+DEFAULT_AKSHARE_TOKEN = None
 
 
 @dataclass(frozen=True)

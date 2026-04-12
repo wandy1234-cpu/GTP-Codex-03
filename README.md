@@ -15,16 +15,14 @@
 - 分数中性化（行业/市值分桶可用时）
 - Optuna 参数搜索 + 特征漂移监控
 
-## Token 自动设置
-系统内置了你提供的默认 token：
-- `4de5bc6ef18cbd032999b72d3245c4566c0be59b00d70839db24bc23`
+## Token 配置
+系统不再内置默认 token。请使用环境变量配置 AkShare 凭据：
 
 优先级：
 1. `AKSHARE_TOKEN`
 2. `AKSHARE_API_KEY`
-3. 内置默认 token
 
-> 建议你线上部署时仍用环境变量覆盖，避免 token 明文长期固化。
+不要把 token、Cookie、账号或其它敏感信息提交到仓库；线上部署与本地调试都应使用环境变量或 secret 管理。
 
 ## 安装
 ```bash

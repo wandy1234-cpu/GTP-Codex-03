@@ -1,0 +1,68 @@
+{
+  "status": "fail",
+  "checks": [
+    {
+      "name": "fold_count",
+      "passed": false,
+      "value": 0,
+      "threshold": 1,
+      "severity": "error"
+    },
+    {
+      "name": "fold_win_rate",
+      "passed": false,
+      "value": 0.0,
+      "threshold": 0.35000000000000003,
+      "severity": "error"
+    },
+    {
+      "name": "rank_ic",
+      "passed": true,
+      "value": 0.0,
+      "threshold": -0.05,
+      "severity": "error"
+    },
+    {
+      "name": "max_drawdown",
+      "passed": true,
+      "value": 0.0,
+      "threshold": 0.35,
+      "severity": "error"
+    },
+    {
+      "name": "turnover",
+      "passed": true,
+      "value": 0.2,
+      "threshold": 2.0,
+      "severity": "error"
+    },
+    {
+      "name": "drift_alerts",
+      "passed": true,
+      "value": [],
+      "threshold": "no alerts",
+      "severity": "warning"
+    },
+    {
+      "name": "pipeline_error_warnings",
+      "passed": false,
+      "value": [
+        "model_fallback:feature dataframe is empty after dropna"
+      ],
+      "threshold": 0,
+      "severity": "error"
+    }
+  ],
+  "failed_checks": [
+    "fold_count",
+    "fold_win_rate",
+    "pipeline_error_warnings"
+  ],
+  "warning_checks": [],
+  "summary": {
+    "error_count": 3,
+    "warning_count": 0,
+    "drift_alert_count": 0,
+    "pipeline_error_warning_count": 1
+  }
+}

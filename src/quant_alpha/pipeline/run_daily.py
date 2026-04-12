@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import date
 from pathlib import Path
 from datetime import datetime, timezone
+import json
 from typing import Callable
 
 import joblib
@@ -15,6 +16,7 @@ from quant_alpha.config import ProjectPaths, SystemConfig
 from quant_alpha.data.akshare_adapter import AkshareAdapter
 from quant_alpha.features.basic import build_features
 from quant_alpha.model.drift import drift_report
+from quant_alpha.model.evaluation_gates import evaluate_release_gates
 from quant_alpha.model.experiment_tracker import ExperimentRun, ExperimentTracker
 from quant_alpha.model.governance import ChampionChallengerRegistry, composite_score
 from quant_alpha.model.optimizer import run_optimization
@@ -77,7 +79,7 @@ def _ensure_scored_schema(scored: pd.DataFrame, features: pd.DataFrame, warnings
     return out
 
 
-def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.DataFrame:
+def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths, allow_live_lookup: bool = True) -> pd.DataFrame:
     if recs.empty:
         return recs
     out = recs.copy()
@@ -131,7 +133,7 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
         name_from_map.loc[hk_mask] = norm_hk.map(mp).fillna(name_from_map.loc[hk_mask])
         # if HK names still missing, try live spot name map once
         unresolved_hk = hk_mask & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
-        if unresolved_hk.any():
+        if unresolved_hk.any() and allow_live_lookup:
             try:
                 adapter = AkshareAdapter.from_env()
                 hk_name_map = adapter.fetch_symbol_name_map("HK")
@@ -171,11 +173,22 @@ def _emit(progress_cb: Callable[[float, str], None] | None, pct: float, message:
         progress_cb(max(0.0, min(1.0, float(pct))), message)
 
 
+def _clean_metric_map(metrics: dict[str, object]) -> dict[str, object]:
+    out: dict[str, object] = {}
+    for key, value in metrics.items():
+        if isinstance(value, (int, float)) and pd.isna(value):
+            out[key] = 0.0
+        else:
+            out[key] = value
+    return out
+
+
 def run_daily(
     top_n: int = 10,
     mode: str = "weekly",
     progress_cb: Callable[[float, str], None] | None = None,
     enable_optimization: bool | None = None,
+    smoke: bool = False,
 ) -> dict:
     _emit(progress_cb, 0.02, "初始化配置")
     paths = ProjectPaths(Path.cwd())
@@ -191,7 +204,22 @@ def run_daily(
         # map ingest internal [0,1] to global [0.08,0.20]
         _emit(progress_cb, 0.08 + 0.12 * p, f"拉取市场数据 {msg}")
 
-    ingest_stats = DailyIngestor(adapter, paths).run(progress_cb=_ingest_progress)
+    cached_smoke_bars = load_latest_raw(paths.data_raw) if smoke else pd.DataFrame()
+    if smoke and not cached_smoke_bars.empty:
+        ingest_stats = {
+            "rows": {"cached": int(len(cached_smoke_bars))},
+            "errors": {},
+            "coverage": {},
+            "notes": {"smoke": "used_cached_raw_data; live_ingest_skipped"},
+        }
+    else:
+        ingest_stats = DailyIngestor(adapter, paths).run(
+            progress_cb=_ingest_progress,
+            lookback_days=90 if smoke else 365,
+            max_symbols_per_market=30 if smoke else None,
+            history_backfill_batch=30 if smoke else 1000,
+            history_workers=2 if smoke else 8,
+        )
     coverage = ingest_stats.get("coverage", {}) if isinstance(ingest_stats, dict) else {}
 
     _emit(progress_cb, 0.20, "加载并校验数据")
@@ -229,7 +257,7 @@ def run_daily(
     try:
         ranker_result = walk_forward_score(
             features,
-            min_train_days=int(wf_cfg.get("train_window_days", 120)),
+            min_train_days=min(int(wf_cfg.get("train_window_days", 120)), 20) if smoke else int(wf_cfg.get("train_window_days", 120)),
             step_days=int(wf_cfg.get("step_days", 5)),
         )
     except Exception as exc:
@@ -260,7 +288,7 @@ def run_daily(
         recs = top_n_latest(scored, n=top_n).rename(columns={"date": "prediction_date", "name": "stock_name"})
         recs["holding_horizon_days"] = horizon
         recs["model_version"] = f"wf_{date.today().isoformat()}"
-    recs = _fill_recommendation_names(recs, paths)
+    recs = _fill_recommendation_names(recs, paths, allow_live_lookup=not smoke)
     if not recs.empty:
         recs = recs.reset_index(drop=True)
         recs["rank_position"] = range(1, len(recs) + 1)
@@ -271,8 +299,8 @@ def run_daily(
         dts = sorted(pd.to_datetime(scored["date"]).dropna().unique())
         wf_windows = build_walk_forward_windows(
             dts,
-            train_days=int(wf_cfg.get("train_window_days", 120)),
-            valid_days=int(wf_cfg.get("valid_window_days", 20)),
+            train_days=min(int(wf_cfg.get("train_window_days", 120)), 20) if smoke else int(wf_cfg.get("train_window_days", 120)),
+            valid_days=min(int(wf_cfg.get("valid_window_days", 20)), 5) if smoke else int(wf_cfg.get("valid_window_days", 20)),
             step_days=int(wf_cfg.get("step_days", 5)),
         )
         fold_df = fold_metrics(scored)
@@ -324,6 +352,7 @@ def run_daily(
     wf_file = paths.report_dir / f"walkforward_{snap}.parquet"
     wf_sum_file = paths.report_dir / f"walkforward_summary_{snap}.json"
     drift_file = paths.report_dir / f"drift_{snap}.json"
+    gate_file = paths.report_dir / f"quality_gate_{snap}.json"
     review_file = paths.report_dir / f"review_{snap}.parquet"
     adjust_file = paths.report_dir / f"self_adjustment_{snap}.json"
 
@@ -377,6 +406,7 @@ def run_daily(
         "benchmark_hit_rate": float((review_df["excess_ret"] > 0).mean()) if not review_df.empty else 0.0,
     }
     eval_metrics = {
+        "fold_count": int(len(fold_df)),
         "rank_ic": float(fold_df["rank_ic"].mean()) if not fold_df.empty else 0.0,
         "avg_topn_excess_ret": float(fold_df["avg_topn_ret"].mean()) if not fold_df.empty else 0.0,
         "stability_score": float(1.0 / (1.0 + (fold_df["avg_topn_ret"].std(ddof=0) if not fold_df.empty else 0.0))),
@@ -386,8 +416,20 @@ def run_daily(
         "recent_window_excess_ret": float(fold_df.tail(min(6, len(fold_df)))["avg_topn_ret"].mean()) if not fold_df.empty else 0.0,
         "instability_score": float(fold_df["avg_topn_ret"].std(ddof=0)) if not fold_df.empty else 0.0,
     }
+    eval_metrics = _clean_metric_map(eval_metrics)
+    rec_metrics = _clean_metric_map(rec_metrics)
     full_metrics = {**eval_metrics, **rec_metrics}
     full_metrics["composite_score"] = composite_score(full_metrics, cfg.composite_weights)
+    release_gate = evaluate_release_gates(
+        full_metrics,
+        drift,
+        warnings,
+        min_fold_count=1 if smoke else 3,
+        min_fold_win_rate=float(cfg.governance.get("min_fold_win_rate", 0.55)) - (0.20 if smoke else 0.0),
+        max_drawdown=float(cfg.governance.get("max_drawdown_gate", 0.35)),
+        max_turnover=float(cfg.governance.get("max_turnover_gate", 2.0)),
+    )
+    gate_file.write_text(json.dumps(release_gate, ensure_ascii=False, indent=2), encoding="utf-8")
 
     challenger = {"run_id": run_id, "model_version": f"wf_{snap}", "metrics": full_metrics}
     decision = governance.evaluate_challenger(challenger, cfg.governance, cfg.composite_weights)
@@ -398,7 +440,7 @@ def run_daily(
     )
 
     # optimization (bounded) summary
-    do_opt = bool(cfg.optimization.get("run_on_daily", False)) if enable_optimization is None else bool(enable_optimization)
+    do_opt = False if smoke else (bool(cfg.optimization.get("run_on_daily", False)) if enable_optimization is None else bool(enable_optimization))
     if do_opt:
         _emit(progress_cb, 0.90, "执行优化搜索（Optuna）")
         optimization_result = run_optimization(bars, cfg, paths)
@@ -415,6 +457,7 @@ def run_daily(
                 "filters": cfg.filters,
                 "walk_forward": cfg.walk_forward,
                 "weekly": cfg.weekly,
+                "smoke": smoke,
                 "governance": cfg.governance,
                 "drift": cfg.drift,
             },
@@ -425,7 +468,7 @@ def run_daily(
             evaluation_metrics=eval_metrics,
             recommendation_metrics=rec_metrics,
             promotion_decision=gov_event,
-            notes=["bounded_self_adjustment_logged_only"],
+            notes=["bounded_self_adjustment_logged_only", f"release_gate={release_gate['status']}"],
             warnings=warnings + drift.get("alerts", []),
             artifacts={
                 "model_file": str(model_file),
@@ -433,6 +476,7 @@ def run_daily(
                 "topn_file": str(topn_file),
                 "review_file": str(review_file),
                 "drift_file": str(drift_file),
+                "quality_gate_file": str(gate_file),
                 "optimization_study_file": (optimization_result.study_file if optimization_result is not None else ""),
                 "optimization_trials_file": (optimization_result.trials_file if optimization_result is not None else ""),
             },
@@ -449,6 +493,7 @@ def run_daily(
     return {
         "status": status,
         "mode": mode,
+        "smoke": smoke,
         "warnings": warnings,
         "ingest": ingest_stats,
         "universe": universe_diag,
@@ -465,6 +510,8 @@ def run_daily(
         "walkforward_file": str(wf_file),
         "walkforward_summary_file": str(wf_sum_file),
         "drift_file": str(drift_file),
+        "quality_gate_file": str(gate_file),
+        "quality_gate": release_gate,
         "review_file": str(review_file),
         "self_adjustment_file": str(adjust_file),
         "governance_event": gov_event,
