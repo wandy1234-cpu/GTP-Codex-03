@@ -27,7 +27,12 @@ def build_weekly_recommendations(scored: pd.DataFrame, top_n: int, model_version
             day[score_col] = pd.Series(pd.util.hash_pandas_object(day.get("symbol", pd.Series(np.arange(len(day)))), index=False), index=day.index).rank(pct=True)
         else:
             day[score_col] = day[score_col].fillna(day[score_col].median())
-    ranked = day.sort_values(score_col, ascending=False).drop_duplicates(subset=["market", "symbol"])
+    # market-neutral score calibration: avoid persistent A/H scale mismatch
+    if "market" in day.columns:
+        day["score_calibrated"] = day.groupby("market")[score_col].rank(pct=True)
+    else:
+        day["score_calibrated"] = day[score_col].rank(pct=True)
+    ranked = day.sort_values("score_calibrated", ascending=False).drop_duplicates(subset=["market", "symbol"])
     mk = set(ranked["market"].astype(str).unique()) if "market" in ranked.columns else set()
     if "A" in mk and "HK" in mk and top_n >= 2:
         hk_quota = min(int((ranked["market"] == "HK").sum()), max(1, top_n // 5))
@@ -40,14 +45,13 @@ def build_weekly_recommendations(scored: pd.DataFrame, top_n: int, model_version
             used = set(zip(picked["market"].astype(str), picked["symbol"].astype(str)))
             rest = ranked[~ranked.apply(lambda r: (str(r.get("market", "")), str(r.get("symbol", ""))) in used, axis=1)].head(need)
             picked = pd.concat([picked, rest], ignore_index=True)
-        day = picked.sort_values(score_col, ascending=False).head(top_n)
+        day = picked.sort_values("score_calibrated", ascending=False).head(top_n)
     else:
         day = ranked.head(top_n)
     day = day.rename(columns={"date": "prediction_date", "name": "stock_name"})
     day["holding_horizon_days"] = horizon_days
     day["model_version"] = model_version
-    if "final_score" not in day.columns:
-        day["final_score"] = day[score_col]
+    day["final_score"] = day["score_calibrated"].astype(float)
     day["rank_position"] = range(1, len(day) + 1)
     cols = ["prediction_date", "holding_horizon_days", "market", "symbol", "stock_name", "model_version", "final_score", "rank_position"]
     for c in cols:

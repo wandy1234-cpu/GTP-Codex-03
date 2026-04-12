@@ -244,6 +244,9 @@ def run_daily(
         recs["holding_horizon_days"] = horizon
         recs["model_version"] = f"wf_{date.today().isoformat()}"
     recs = _fill_recommendation_names(recs, paths)
+    if not recs.empty:
+        recs = recs.reset_index(drop=True)
+        recs["rank_position"] = range(1, len(recs) + 1)
 
     # walk-forward artifacts
     _emit(progress_cb, 0.68, "计算分层评估指标")

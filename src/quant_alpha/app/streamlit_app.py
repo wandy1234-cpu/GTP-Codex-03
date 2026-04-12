@@ -83,7 +83,10 @@ review_files = sorted(report_dir.glob("review_*.parquet"))
 st.subheader("Top N 推荐")
 if topn_files:
     topn = pd.read_parquet(topn_files[-1])
-    st.dataframe(topn, use_container_width=True)
+    topn_show = topn.copy().reset_index(drop=True)
+    if "rank_position" not in topn_show.columns:
+        topn_show.insert(0, "rank_position", range(1, len(topn_show) + 1))
+    st.dataframe(topn_show, use_container_width=True, hide_index=True)
 else:
     st.info("暂无推荐结果，请先执行每日流程")
 

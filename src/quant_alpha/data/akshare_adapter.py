@@ -155,8 +155,6 @@ class AkshareAdapter:
                         raw = str(s).strip()
                         mapping[raw] = name
                         mapping[_norm_symbol(raw)] = name
-                if mapping:
-                    return mapping
         return mapping
 
     def fetch_hk_name_by_symbol(self, symbol: str) -> str:
