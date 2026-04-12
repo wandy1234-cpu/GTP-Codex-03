@@ -134,11 +134,15 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
                 if not unresolved_hk.any():
                     out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
                     return out
-                hk_spot = adapter.fetch_spot("HK")
-                hk_names = hk_spot["name"].astype(str) if "name" in hk_spot.columns else pd.Series("", index=hk_spot.index)
-                hk_map = dict(zip(hk_spot["symbol"].astype(str).map(_norm_sym), hk_names))
-                name_from_map.loc[unresolved_hk] = sym.loc[unresolved_hk].map(_norm_sym).map(hk_map).fillna(name_from_map.loc[unresolved_hk])
-                still = unresolved_hk & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
+                # spot fallback may fail; do not block single-symbol fallback on that failure
+                try:
+                    hk_spot = adapter.fetch_spot("HK")
+                    hk_names = hk_spot["name"].astype(str) if "name" in hk_spot.columns else pd.Series("", index=hk_spot.index)
+                    hk_map = dict(zip(hk_spot["symbol"].astype(str).map(_norm_sym), hk_names))
+                    name_from_map.loc[unresolved_hk] = sym.loc[unresolved_hk].map(_norm_sym).map(hk_map).fillna(name_from_map.loc[unresolved_hk])
+                except Exception:
+                    pass
+                still = hk_mask & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
                 if still.any():
                     for idx, s in sym.loc[still].items():
                         n = adapter.fetch_hk_name_by_symbol(s)
@@ -147,6 +151,10 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
             except Exception:
                 pass
     out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
+    if "market" in out.columns:
+        hk_blank = out["market"].astype(str).eq("HK") & (out[name_col].isna() | (out[name_col].astype(str).str.strip() == ""))
+        if hk_blank.any():
+            out.loc[hk_blank, name_col] = out.loc[hk_blank, "symbol"].astype(str)
     return out
 
 
