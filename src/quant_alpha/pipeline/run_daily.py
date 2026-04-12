@@ -16,6 +16,7 @@ from quant_alpha.config import ProjectPaths, SystemConfig
 from quant_alpha.data.akshare_adapter import AkshareAdapter
 from quant_alpha.features.basic import build_features
 from quant_alpha.model.drift import drift_report
+from quant_alpha.model.barra import barra_risk_report, neutralize_scores_barra
 from quant_alpha.model.evaluation_gates import evaluate_release_gates
 from quant_alpha.model.experiment_tracker import ExperimentRun, ExperimentTracker
 from quant_alpha.model.governance import ChampionChallengerRegistry, composite_score
@@ -38,6 +39,17 @@ HK_FALLBACK_NAMES = {
     "01788": "国泰君安国际",
     "03690": "美团-W",
 }
+HK_FALLBACK_NAMES.update(
+    {
+        "00005": "\u6c47\u4e30\u63a7\u80a1",
+        "00700": "\u817e\u8baf\u63a7\u80a1",
+        "00883": "\u4e2d\u56fd\u6d77\u6d0b\u77f3\u6cb9",
+        "00941": "\u4e2d\u56fd\u79fb\u52a8",
+        "01299": "\u53cb\u90a6\u4fdd\u9669",
+        "01788": "\u56fd\u6cf0\u541b\u5b89\u56fd\u9645",
+        "03690": "\u7f8e\u56e2-W",
+    }
+)
 
 
 def _validate_dataset(df: pd.DataFrame) -> list[str]:
@@ -147,6 +159,14 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths, allow_li
         if unresolved_hk.any() and allow_live_lookup:
             try:
                 adapter = AkshareAdapter.from_env()
+                for idx, s in sym.loc[unresolved_hk].items():
+                    n = adapter.fetch_hk_name_by_symbol(s)
+                    if n:
+                        name_from_map.loc[idx] = n
+                unresolved_hk = hk_mask & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
+                if not unresolved_hk.any():
+                    out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
+                    return out
                 hk_name_map = adapter.fetch_symbol_name_map("HK")
                 if hk_name_map:
                     nm = {(_norm_sym(k)): str(v) for k, v in hk_name_map.items() if str(v).strip() and _has_cjk(v)}
@@ -256,8 +276,10 @@ def run_daily(
     bars, universe_diag = apply_stock_pool_filters_with_diagnostics(
         bars,
         min_liquidity_amount=float(cfg.filters.get("min_avg_amount", 5_000_000)),
+        hk_min_liquidity_amount=float(cfg.filters.get("hk_min_avg_amount", 0)),
         min_listing_days=int(cfg.filters.get("min_listing_days", 60)),
         min_price=float(cfg.filters.get("min_price", 1.0)),
+        hk_min_price=float(cfg.filters.get("hk_min_price", 0)),
     )
 
     _emit(progress_cb, 0.32, "构建特征")
@@ -277,7 +299,7 @@ def run_daily(
     try:
         ranker_result = walk_forward_score(
             features,
-            min_train_days=min(int(wf_cfg.get("train_window_days", 120)), 20) if smoke else int(wf_cfg.get("train_window_days", 120)),
+            min_train_days=int(wf_cfg.get("train_window_days", 120)),
             step_days=int(wf_cfg.get("step_days", 5)),
         )
     except Exception as exc:
@@ -296,7 +318,24 @@ def run_daily(
     scored = ranker_result.scored.copy()
     scored["score"] = scored["score"].astype(float)
     scored = _ensure_scored_schema(scored, features, warnings)
+    feature_dates = pd.to_datetime(features["date"], errors="coerce") if "date" in features.columns else pd.Series(dtype="datetime64[ns]")
+    latest_feature_date = feature_dates.max() if not feature_dates.empty else pd.NaT
+    if not pd.isna(latest_feature_date):
+        scored_dates = pd.to_datetime(scored["date"], errors="coerce") if "date" in scored.columns else pd.Series(dtype="datetime64[ns]")
+        latest_scored_count = int(scored.loc[scored_dates == latest_feature_date, "symbol"].nunique()) if "symbol" in scored.columns else 0
+        latest_feature_count = int(features.loc[feature_dates == latest_feature_date, "symbol"].nunique()) if "symbol" in features.columns else 0
+        if latest_feature_count > 0 and latest_scored_count < min(top_n, latest_feature_count):
+            latest_features = features.loc[feature_dates == latest_feature_date].copy()
+            latest_fallback = fallback_score(latest_features)
+            if not latest_fallback.empty and "score" in latest_fallback.columns:
+                old = scored.loc[scored_dates != latest_feature_date].copy()
+                scored = pd.concat([old, latest_fallback], ignore_index=True)
+                warnings.append(
+                    f"latest_cross_section_score_fallback:{latest_scored_count}/{latest_feature_count}"
+                )
     scored = neutralize_scores(scored)
+    scored = neutralize_scores_barra(scored)
+    barra_report = barra_risk_report(scored, top_n=top_n)
 
     # weekly output
     _emit(progress_cb, 0.60, "生成周频推荐")
@@ -308,7 +347,7 @@ def run_daily(
         recs = top_n_latest(scored, n=top_n).rename(columns={"date": "prediction_date", "name": "stock_name"})
         recs["holding_horizon_days"] = horizon
         recs["model_version"] = f"wf_{date.today().isoformat()}"
-    recs = _fill_recommendation_names(recs, paths, allow_live_lookup=not smoke)
+    recs = _fill_recommendation_names(recs, paths, allow_live_lookup=True)
     if not recs.empty:
         recs = recs.reset_index(drop=True)
         recs["rank_position"] = range(1, len(recs) + 1)
@@ -319,8 +358,8 @@ def run_daily(
         dts = sorted(pd.to_datetime(scored["date"]).dropna().unique())
         wf_windows = build_walk_forward_windows(
             dts,
-            train_days=min(int(wf_cfg.get("train_window_days", 120)), 20) if smoke else int(wf_cfg.get("train_window_days", 120)),
-            valid_days=min(int(wf_cfg.get("valid_window_days", 20)), 5) if smoke else int(wf_cfg.get("valid_window_days", 20)),
+            train_days=int(wf_cfg.get("train_window_days", 120)),
+            valid_days=int(wf_cfg.get("valid_window_days", 20)),
             step_days=int(wf_cfg.get("step_days", 5)),
         )
         fold_df = fold_metrics(scored)
@@ -372,6 +411,7 @@ def run_daily(
     wf_file = paths.report_dir / f"walkforward_{snap}.parquet"
     wf_sum_file = paths.report_dir / f"walkforward_summary_{snap}.json"
     drift_file = paths.report_dir / f"drift_{snap}.json"
+    barra_file = paths.report_dir / f"barra_risk_{snap}.json"
     gate_file = paths.report_dir / f"quality_gate_{snap}.json"
     review_file = paths.report_dir / f"review_{snap}.parquet"
     adjust_file = paths.report_dir / f"self_adjustment_{snap}.json"
@@ -391,6 +431,7 @@ def run_daily(
     _emit(progress_cb, 0.80, "执行漂移检测")
     drift = drift_report(features, scored_df=scored, config=cfg.drift)
     pd.Series(drift).to_json(drift_file, force_ascii=False)
+    barra_file.write_text(json.dumps(barra_report, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # lightweight recommendation review: realized outcomes for historic scored panel
     review_cols = ["date", "market", "symbol", "score", "target_5d"]
@@ -496,6 +537,7 @@ def run_daily(
                 "topn_file": str(topn_file),
                 "review_file": str(review_file),
                 "drift_file": str(drift_file),
+                "barra_risk_file": str(barra_file),
                 "quality_gate_file": str(gate_file),
                 "optimization_study_file": (optimization_result.study_file if optimization_result is not None else ""),
                 "optimization_trials_file": (optimization_result.trials_file if optimization_result is not None else ""),
@@ -540,6 +582,8 @@ def run_daily(
         "walkforward_file": str(wf_file),
         "walkforward_summary_file": str(wf_sum_file),
         "drift_file": str(drift_file),
+        "barra_risk_file": str(barra_file),
+        "barra_risk": barra_report,
         "quality_gate_file": str(gate_file),
         "quality_gate": release_gate,
         "review_file": str(review_file),

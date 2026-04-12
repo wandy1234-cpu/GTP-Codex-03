@@ -27,7 +27,24 @@ def load_latest_raw(data_root: Path) -> pd.DataFrame:
                 if not part.empty and part["date"].notna().sum() == 0:
                     part["date"] = pd.Timestamp(date.today())
             frames.append(part)
-        return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+        dated_pattern = (data_root / "market=*" / "date=*" / "bars.parquet").as_posix()
+        for file in glob(dated_pattern):
+            part = pd.read_parquet(file)
+            market = Path(file).parents[1].name.split("=", 1)[-1]
+            if "market" not in part.columns:
+                part["market"] = market
+            else:
+                part["market"] = part["market"].fillna(market)
+            if "date" in part.columns:
+                part["date"] = pd.to_datetime(part["date"], errors="coerce")
+                part = part[part["date"].notna()]
+            if not part.empty:
+                frames.append(part)
+        if not frames:
+            return pd.DataFrame()
+        out = pd.concat(frames, ignore_index=True)
+        keys = [c for c in ["market", "symbol", "date"] if c in out.columns]
+        return out.drop_duplicates(subset=keys, keep="last").reset_index(drop=True) if keys else out
 
     pattern = (data_root / "market=*" / "date=*" / "bars.parquet").as_posix()
     matched = glob(pattern)

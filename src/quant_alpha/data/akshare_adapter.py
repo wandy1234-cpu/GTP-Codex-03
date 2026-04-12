@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
+from contextlib import contextmanager
+import os
 import time
 from typing import Literal
 import urllib.request
@@ -16,6 +18,24 @@ from quant_alpha.config import AkshareConfig
 from quant_alpha.data.normalize import A_SPOT_RENAME, H_SPOT_RENAME, normalize_history, normalize_spot
 
 Market = Literal["A", "HK"]
+SYMBOL_COLUMNS = ["symbol", "code", "\u4ee3\u7801", "\u8bc1\u5238\u4ee3\u7801", "\u80a1\u7968\u4ee3\u7801"]
+NAME_COLUMNS = ["name", "\u540d\u79f0", "\u8bc1\u5238\u7b80\u79f0", "\u80a1\u7968\u7b80\u79f0"]
+PROXY_ENV_KEYS = ["HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy"]
+
+
+@contextmanager
+def _without_broken_proxy():
+    old = {k: os.environ.get(k) for k in PROXY_ENV_KEYS}
+    try:
+        for k in PROXY_ENV_KEYS:
+            os.environ.pop(k, None)
+        yield
+    finally:
+        for k, v in old.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
 
 
 @dataclass
@@ -101,6 +121,9 @@ class AkshareAdapter:
         if market == "A":
             try:
                 df = self._with_retry(ak.stock_info_a_code_name)
+                for c in SYMBOL_COLUMNS:
+                    if c in df.columns:
+                        return df[c].astype(str).tolist()
                 for c in ["code", "代码", "symbol"]:
                     if c in df.columns:
                         return df[c].astype(str).tolist()
@@ -114,6 +137,9 @@ class AkshareAdapter:
                     continue
                 try:
                     df = self._with_retry(fn)
+                    for c in SYMBOL_COLUMNS:
+                        if c in df.columns:
+                            return df[c].astype(str).tolist()
                     for c in ["代码", "symbol", "code"]:
                         if c in df.columns:
                             return df[c].astype(str).tolist()
@@ -165,6 +191,8 @@ class AkshareAdapter:
             cols = df.columns.tolist()
             sym_col = next((c for c in ["symbol", "代码", "code", "证券代码", "股票代码"] if c in cols), None)
             name_col = next((c for c in ["name", "名称", "证券简称", "股票简称"] if c in cols), None)
+            sym_col = next((c for c in SYMBOL_COLUMNS if c in cols), sym_col)
+            name_col = next((c for c in NAME_COLUMNS if c in cols), name_col)
             if sym_col and name_col:
                 for s, n in zip(df[sym_col].astype(str), df[name_col].astype(str)):
                     name = str(n).strip()
@@ -189,6 +217,8 @@ class AkshareAdapter:
                 cols = df.columns.tolist()
                 sym_col = next((c for c in ["symbol", "代码", "code", "证券代码", "股票代码"] if c in cols), None)
                 name_col = next((c for c in ["name", "名称", "证券简称", "股票简称"] if c in cols), None)
+                sym_col = next((c for c in SYMBOL_COLUMNS if c in cols), sym_col)
+                name_col = next((c for c in NAME_COLUMNS if c in cols), name_col)
                 if sym_col and name_col:
                     s = (
                         df[sym_col]
@@ -211,7 +241,8 @@ class AkshareAdapter:
         params = {"secid": secid, "fields": "f57,f58"}
         for url in ["https://push2delay.eastmoney.com/api/qt/stock/get", "https://push2.eastmoney.com/api/qt/stock/get"]:
             try:
-                resp = requests.get(url, params=params, timeout=8)
+                with _without_broken_proxy():
+                    resp = requests.get(url, params=params, timeout=8)
                 resp.raise_for_status()
                 data = resp.json()
                 name = ((data or {}).get("data") or {}).get("f58")
@@ -227,8 +258,9 @@ class AkshareAdapter:
         try:
             url2 = f"https://hq.sinajs.cn/list=rt_hk{code}"
             req = urllib.request.Request(url2, headers={"Referer": "https://finance.sina.com.cn", "User-Agent": "Mozilla/5.0"})
-            with urllib.request.urlopen(req, timeout=8) as resp:
-                txt = resp.read().decode("gbk", errors="ignore")
+            with _without_broken_proxy():
+                with urllib.request.urlopen(req, timeout=8) as resp:
+                    txt = resp.read().decode("gbk", errors="ignore")
             # example: var hq_str_rt_hk00700="腾讯控股,...."
             if '"' in txt:
                 payload = txt.split('"', 1)[1].rsplit('"', 1)[0]
@@ -245,7 +277,8 @@ class AkshareAdapter:
         last_exc: Exception | None = None
         for attempt in range(1, self.max_retries + 1):
             try:
-                return fn(*args, **kwargs)
+                with _without_broken_proxy():
+                    return fn(*args, **kwargs)
             except Exception as exc:
                 last_exc = exc
                 if attempt < self.max_retries:

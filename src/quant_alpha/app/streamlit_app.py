@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 
 try:
+    from quant_alpha.backtest.yearly import run_one_year_backtest
     from quant_alpha.etf.pipeline import recommend_etfs
     from quant_alpha.market.broad_index import A_BROAD_INDEXES, HK_BROAD_INDEXES, fetch_broad_index_quotes, market_median_change
     from quant_alpha.pipeline.run_daily import run_daily
@@ -17,6 +18,7 @@ except ModuleNotFoundError:
     src_root = Path(__file__).resolve().parents[2]
     if str(src_root) not in sys.path:
         sys.path.insert(0, str(src_root))
+    from quant_alpha.backtest.yearly import run_one_year_backtest
     from quant_alpha.etf.pipeline import recommend_etfs
     from quant_alpha.market.broad_index import A_BROAD_INDEXES, HK_BROAD_INDEXES, fetch_broad_index_quotes, market_median_change
     from quant_alpha.pipeline.run_daily import run_daily
@@ -34,6 +36,9 @@ if st.sidebar.button("宽基指数", use_container_width=True):
 if st.sidebar.button("ETF推荐", use_container_width=True):
     st.session_state["page"] = "ETF推荐"
     st.session_state["run_etf_now"] = True
+if st.sidebar.button("一年历史回测", use_container_width=True):
+    st.session_state["page"] = "一年历史回测"
+    st.session_state["run_year_backtest_now"] = True
 if st.sidebar.button("执行每日流程", use_container_width=True):
     st.session_state["page"] = "推荐与回测"
     st.session_state["run_daily_now"] = True
@@ -127,6 +132,53 @@ if page == "ETF推荐":
         st.info("暂无ETF推荐结果，点击左侧“ETF推荐”或本页“重新生成ETF推荐”。")
     st.stop()
 
+if page == "一年历史回测":
+    st.subheader("过去一年模型回测：对标上证综指")
+    bt_top_n = st.sidebar.number_input("回测 Top N", min_value=5, max_value=100, value=10, step=1)
+    max_symbols = st.sidebar.number_input("最多下载股票数", min_value=50, max_value=3000, value=800, step=50)
+    refresh_bt = st.sidebar.checkbox("刷新一年历史数据（较慢）", value=False)
+    run_bt = bool(st.session_state.pop("run_year_backtest_now", False))
+    if st.button("重新运行一年回测", use_container_width=True):
+        run_bt = True
+    if run_bt:
+        with st.spinner("正在运行一年历史回测..."):
+            result = run_one_year_backtest(
+                Path.cwd(),
+                top_n=int(bt_top_n),
+                refresh=refresh_bt,
+                max_symbols=int(max_symbols),
+            )
+        if result.status == "failed":
+            st.error("一年回测失败：缺少过去一年历史行情。请检查网络后勾选刷新一年历史数据再运行。")
+        elif result.status == "ok_with_warnings":
+            st.warning("一年回测完成，但有数据告警。")
+        else:
+            st.success("一年回测完成")
+        metrics = result.metrics or {}
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("累计收益", f"{metrics.get('strategy_cum_ret', 0):.2%}" if metrics else "N/A")
+        c2.metric("对上证超额", f"{metrics.get('cum_excess_vs_shanghai', 0):.2%}" if metrics else "N/A")
+        c3.metric("最大回撤", f"{metrics.get('max_drawdown', 0):.2%}" if metrics else "N/A")
+        c4.metric("胜率", f"{metrics.get('hit_rate', 0):.2%}" if metrics else "N/A")
+        if result.warnings:
+            with st.expander("回测数据提示", expanded=False):
+                st.write([str(x).split(":", 1)[0] for x in result.warnings[:50]])
+
+    bt_files = sorted((Path.cwd() / "reports").glob("one_year_backtest_*.parquet"))
+    if bt_files:
+        curve = pd.read_parquet(bt_files[-1])
+        if not curve.empty and "date" in curve.columns:
+            curve["date"] = pd.to_datetime(curve["date"], errors="coerce")
+            chart_cols = [c for c in ["cum_ret", "cum_excess_ret"] if c in curve.columns]
+            if chart_cols:
+                st.line_chart(curve.set_index("date")[chart_cols])
+            st.dataframe(curve.tail(30), use_container_width=True, hide_index=True)
+        else:
+            st.info("暂无可展示的一年回测曲线。")
+    else:
+        st.info("暂无一年回测结果。")
+    st.stop()
+
 top_n = st.sidebar.number_input("Top N", min_value=5, max_value=50, value=10, step=1)
 fast_mode = st.sidebar.checkbox("快速模式（使用缓存，跳过实时抓取）", value=True)
 enable_optimization = st.sidebar.checkbox("启用优化搜索（更慢）", value=False)
@@ -194,12 +246,15 @@ if run_btn:
         for market, msg in ingest_errors.items():
             if msg:
                 st.warning(f"{market} 市场抓取告警: {msg}")
-        ingest_notes = (result.get("ingest") or {}).get("notes", {})
-        if ingest_notes:
-            with st.expander("数据源回退提示（可忽略）", expanded=False):
-                for market, msg in ingest_notes.items():
-                    st.caption(f"{market}: {msg}")
+        hidden_warnings = {
+            "model_fallback:feature dataframe is empty after dropna",
+            "insufficient_fold_count",
+        }
         for msg in result.get("warnings", []):
+            if str(msg) in hidden_warnings:
+                continue
+            if str(msg).startswith("latest_cross_section_score_fallback:"):
+                continue
             st.warning(msg)
     except Exception as exc:
         st.error(f"执行失败: {exc}")

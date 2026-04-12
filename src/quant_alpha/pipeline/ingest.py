@@ -446,13 +446,25 @@ class DailyIngestor:
 
             existing = set(master["symbol"].astype(str).unique()) if not master.empty else set()
             missing_symbols = [s for s in symbols if s not in existing]
+            if not master.empty and {"symbol", "date"}.issubset(master.columns):
+                history_counts = master.groupby("symbol")["date"].nunique()
+                min_history_days = min(30, max(5, lookback_days // 4))
+                insufficient_symbols = [s for s in symbols if int(history_counts.get(s, 0)) < min_history_days]
+            else:
+                insufficient_symbols = symbols
+            refill_symbols = []
+            seen_refill = set()
+            for s in missing_symbols + insufficient_symbols:
+                if s not in seen_refill:
+                    refill_symbols.append(s)
+                    seen_refill.add(s)
             # avoid full-universe per-symbol history every run; bounded incremental backfill only
             if master.empty:
                 targets = symbols[: min(len(symbols), max(1, history_backfill_batch))]
                 _emit(base + 0.22 * span, f"[{market}] 首次建库，分批拉取 history {len(targets)}/{len(symbols)}")
             else:
-                targets = missing_symbols[: min(len(missing_symbols), max(1, history_backfill_batch))]
-                _emit(base + 0.22 * span, f"[{market}] 增量回补缺失 history {len(targets)}/{len(missing_symbols)}")
+                targets = refill_symbols[: min(len(refill_symbols), max(1, history_backfill_batch))]
+                _emit(base + 0.22 * span, f"[{market}] 增量回补 history {len(targets)}/{len(refill_symbols)}")
 
             all_hist, fetched_symbols = self._fetch_hist_parallel(
                 targets,

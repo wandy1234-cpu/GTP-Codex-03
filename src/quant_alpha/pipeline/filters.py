@@ -9,6 +9,7 @@ def apply_stock_pool_filters(
     df: pd.DataFrame,
     *,
     min_liquidity_amount: float = 5_000_000,
+    hk_min_liquidity_amount: float = 0,
     min_listing_days: int = 60,
 ) -> pd.DataFrame:
     out = df.copy()
@@ -20,7 +21,11 @@ def apply_stock_pool_filters(
         out = out[out["volume"].fillna(0) > 0]
 
     if "amount" in out.columns:
-        out = out[out["amount"].fillna(0) >= min_liquidity_amount]
+        if "market" in out.columns:
+            threshold = out["market"].astype(str).map({"HK": hk_min_liquidity_amount}).fillna(min_liquidity_amount)
+            out = out[out["amount"].fillna(0) >= threshold]
+        else:
+            out = out[out["amount"].fillna(0) >= min_liquidity_amount]
 
     if "list_date" in out.columns and "date" in out.columns:
         out["list_date"] = pd.to_datetime(out["list_date"], errors="coerce")
@@ -41,8 +46,10 @@ def apply_stock_pool_filters_with_diagnostics(
     df: pd.DataFrame,
     *,
     min_liquidity_amount: float = 5_000_000,
+    hk_min_liquidity_amount: float = 0,
     min_listing_days: int = 60,
     min_price: float = 1.0,
+    hk_min_price: float = 0,
 ) -> tuple[pd.DataFrame, dict]:
     diag = {
         "before_count": int(len(df)),
@@ -80,14 +87,22 @@ def apply_stock_pool_filters_with_diagnostics(
         diag["missing_fields"].append("volume/suspend_flag")
 
     if "amount" in out.columns:
-        m = out["amount"].fillna(0) < min_liquidity_amount
+        if "market" in out.columns:
+            threshold = out["market"].astype(str).map({"HK": hk_min_liquidity_amount}).fillna(min_liquidity_amount)
+            m = out["amount"].fillna(0) < threshold
+        else:
+            m = out["amount"].fillna(0) < min_liquidity_amount
         _record("amount", m)
         out = out[~m]
     else:
         diag["missing_fields"].append("amount")
 
     if "close" in out.columns:
-        m = out["close"].fillna(0) < min_price
+        if "market" in out.columns:
+            threshold = out["market"].astype(str).map({"HK": hk_min_price}).fillna(min_price)
+            m = out["close"].fillna(0) < threshold
+        else:
+            m = out["close"].fillna(0) < min_price
         _record("min_price", m)
         out = out[~m]
     else:

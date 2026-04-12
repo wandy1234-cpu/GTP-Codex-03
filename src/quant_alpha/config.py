@@ -87,8 +87,10 @@ class SystemConfig:
         return cls(
             filters={
                 "min_avg_amount": 5_000_000,
+                "hk_min_avg_amount": 0,
                 "min_listing_days": 60,
                 "min_price": 1.0,
+                "hk_min_price": 0,
             },
             walk_forward={
                 "train_window_days": 120,
