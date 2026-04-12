@@ -1,0 +1,75 @@
+strategy:
+  name: A_H_IndexEnhance_v1
+  markets: [A, H]
+  benchmark: {A: UNSPECIFIED, H: UNSPECIFIED}
+  objective:
+    target_excess_return_ann: UNSPECIFIED
+    tracking_error_target_ann: UNSPECIFIED
+    max_drawdown: UNSPECIFIED
+    vol_target_ann: UNSPECIFIED
+
+data:
+  history_years: 10
+  frequency: {signal: 1d, execution: 1min, tick: UNSPECIFIED}
+  sources_priority: [exchange_official, official_disclosure, licensed_terminal]
+  required_fields: [ticker, market, currency, date, open, high, low, close, volume, amount, adj_factor, suspend_flag, risk_warning_flag]
+  corporate_action_policy: {adjust_price: forward_adjust, dividends_in_return: true}
+  asof_policy: {fundamental_lag_days: 0, enforce_no_lookahead: true}
+
+universe:
+  A: {include_boards: [main, chiNext, star], exclude_ST: true, min_list_days: 180, min_avg_amount_20d: 20000000}
+  H: {include_types: [HK_mainboard], min_avg_amount_20d: 10000000, board_lot_check: true}
+
+factors:
+  pool:
+    - {name: EP, type: value}
+    - {name: BP, type: value}
+    - {name: MOM12_1, type: momentum}
+    - {name: GPA, type: quality}
+    - {name: RVOL_60, type: low_vol}
+    - {name: AMIHUD, type: liquidity}
+  preprocess:
+    winsorize: {method: quantile, q_low: 0.01, q_high: 0.99}
+    normalize: {method: zscore}
+    neutralize: {enabled: true, controls: [log_mktcap, industry_dummy]}
+  evaluation: {ic_method: spearman, ic_horizon: 5d, rolling_window: 252}
+
+model:
+  type: lgbm_ranker
+  label: {horizon: 5d, target: excess_return_vs_benchmark}
+  training: {walk_forward: true, train_window_days: 756, valid_window_days: 252, test_window_days: 252}
+  hyperopt: {enabled: true, engine: optuna, max_trials: 200}
+
+portfolio:
+  method: enhanced_index_optimization
+  constraints:
+    long_only: true
+    max_weight_single_name: 0.02
+    max_active_weight_single_name: 0.01
+    max_turnover: 0.6
+    max_industry_active: 0.05
+    tracking_error_cap: UNSPECIFIED
+  rebalance: {frequency: weekly, day_of_week: FRI}
+  optimizer: {engine: cvxpy, risk_model: factor_or_shrink_cov, risk_aversion_lambda: 5.0, turnover_penalty_eta: 1.0}
+
+execution:
+  order_style:
+    A: {type: LIMIT, schedule: TWAP, participation_rate: 0.1}
+    H: {type: LIMIT, schedule: POV, participation_rate: 0.1}
+  market_rules:
+    A_price_limit: {main: 0.10, chiNext: 0.20, star: 0.20, ST_main: 0.05}
+    HK_trading_sessions: {use_exchange_calendar: true}
+  program_trading_compliance:
+    enabled: true
+    require_pretrade_report_flag: true
+    max_orders_per_sec: 250
+    max_orders_per_day: 15000
+
+cost:
+  explicit:
+    A: {commission_bps: 2, stamp_duty_sell_bps: 5}
+    H: {commission_bps: 3, stamp_duty_bps_each_side: 10}
+  slippage:
+    model: spread_plus_impact
+    spread_bps_default: 8
+    impact: {model: sqrt, k: 0.1, adv_window_days: 20}
