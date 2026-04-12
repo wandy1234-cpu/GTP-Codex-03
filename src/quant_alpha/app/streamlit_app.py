@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 
 try:
+    from quant_alpha.etf.pipeline import recommend_etfs
     from quant_alpha.market.broad_index import A_BROAD_INDEXES, HK_BROAD_INDEXES, fetch_broad_index_quotes, market_median_change
     from quant_alpha.pipeline.run_daily import run_daily
 except ModuleNotFoundError:
@@ -16,6 +17,7 @@ except ModuleNotFoundError:
     src_root = Path(__file__).resolve().parents[2]
     if str(src_root) not in sys.path:
         sys.path.insert(0, str(src_root))
+    from quant_alpha.etf.pipeline import recommend_etfs
     from quant_alpha.market.broad_index import A_BROAD_INDEXES, HK_BROAD_INDEXES, fetch_broad_index_quotes, market_median_change
     from quant_alpha.pipeline.run_daily import run_daily
 
@@ -23,7 +25,19 @@ st.set_page_config(page_title="Quant Alpha", layout="wide")
 st.title("Quant Alpha: A股/H股 指数增强系统")
 
 st.sidebar.header("操作")
-page = st.sidebar.radio("页面", ["推荐与回测", "宽基指数"], index=0)
+if "page" not in st.session_state:
+    st.session_state["page"] = "推荐与回测"
+if st.sidebar.button("推荐与回测", use_container_width=True):
+    st.session_state["page"] = "推荐与回测"
+if st.sidebar.button("宽基指数", use_container_width=True):
+    st.session_state["page"] = "宽基指数"
+if st.sidebar.button("ETF推荐", use_container_width=True):
+    st.session_state["page"] = "ETF推荐"
+    st.session_state["run_etf_now"] = True
+if st.sidebar.button("执行每日流程", use_container_width=True):
+    st.session_state["page"] = "推荐与回测"
+    st.session_state["run_daily_now"] = True
+page = st.session_state["page"]
 
 
 @st.cache_data(ttl=180)
@@ -75,10 +89,48 @@ if page == "宽基指数":
         st.info("暂无本地股票快照，先执行一次日常流程后即可计算市场股票中位数。")
     st.stop()
 
+if page == "ETF推荐":
+    st.subheader("未来一周 ETF Top N")
+    etf_top_n = st.sidebar.number_input("ETF Top N", min_value=1, max_value=30, value=5, step=1)
+    refresh_etf = st.sidebar.checkbox("刷新全量ETF数据（较慢）", value=False)
+    run_etf = bool(st.session_state.pop("run_etf_now", False))
+    if st.button("重新生成ETF推荐", use_container_width=True):
+        run_etf = True
+
+    if run_etf:
+        with st.spinner("正在获取ETF数据并排序..."):
+            result = recommend_etfs(Path.cwd(), top_n=int(etf_top_n), force_refresh=refresh_etf)
+        if result.status == "ok":
+            st.success("ETF推荐已生成")
+        elif result.status == "ok_with_warnings":
+            st.warning("ETF推荐已生成，但部分ETF历史数据获取失败，已使用可用样本排序。")
+        else:
+            st.error("ETF推荐失败，请检查网络或缓存。")
+        c1, c2, c3 = st.columns(3)
+        c1.metric("ETF数量", result.etf_count)
+        c2.metric("历史行数", result.rows)
+        c3.metric("状态", result.status)
+        if result.warnings:
+            with st.expander("ETF数据提示", expanded=False):
+                st.caption(f"共 {len(result.warnings)} 条提示。下面只显示简短类型，完整信息已写入报告 JSON。")
+                short = []
+                for msg in result.warnings[:20]:
+                    text = str(msg)
+                    short.append(text.split(":", 1)[0] if ":" in text else text)
+                st.write(short)
+
+    etf_files = sorted((Path.cwd() / "reports").glob("etf_topn_*.parquet"))
+    if etf_files:
+        etf_topn = pd.read_parquet(etf_files[-1])
+        st.dataframe(etf_topn, use_container_width=True, hide_index=True)
+    else:
+        st.info("暂无ETF推荐结果，点击左侧“ETF推荐”或本页“重新生成ETF推荐”。")
+    st.stop()
+
 top_n = st.sidebar.number_input("Top N", min_value=5, max_value=50, value=10, step=1)
 fast_mode = st.sidebar.checkbox("快速模式（使用缓存，跳过实时抓取）", value=True)
 enable_optimization = st.sidebar.checkbox("启用优化搜索（更慢）", value=False)
-run_btn = st.sidebar.button("执行每日流程")
+run_btn = bool(st.session_state.pop("run_daily_now", False))
 
 if run_btn:
     try:
@@ -112,7 +164,28 @@ if run_btn:
             st.success("流程执行完成")
         else:
             st.warning("流程完成，但出现数据问题，请查看返回信息。")
-        st.json(result)
+        dq = result.get("data_quality") or {}
+        qg = result.get("quality_gate") or {}
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("最新日期", dq.get("latest_date", "N/A"))
+        c2.metric("原始覆盖股票数", dq.get("raw_latest_symbol_count", "N/A"))
+        c3.metric("过滤后股票池", dq.get("filtered_latest_symbol_count", "N/A"))
+        c4.metric("质量门禁", qg.get("status", "N/A"))
+        by_market = pd.DataFrame(
+            [
+                {
+                    "market": m,
+                    "原始覆盖": (dq.get("raw_latest_by_market") or {}).get(m, 0),
+                    "过滤后": (dq.get("filtered_latest_by_market") or {}).get(m, 0),
+                }
+                for m in sorted(set((dq.get("raw_latest_by_market") or {}) | (dq.get("filtered_latest_by_market") or {})))
+            ]
+        )
+        if not by_market.empty:
+            st.dataframe(by_market, use_container_width=True, hide_index=True)
+        st.caption(f"推荐数量: {dq.get('actual_top_n_count', 'N/A')} / 请求 Top N: {dq.get('requested_top_n', 'N/A')}")
+        with st.expander("查看完整流程返回信息", expanded=False):
+            st.json(result)
         cov = (result.get("ingest") or {}).get("coverage", {})
         if cov:
             st.subheader("数据覆盖率检查（A/H）")

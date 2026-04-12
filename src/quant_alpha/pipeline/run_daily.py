@@ -29,6 +29,16 @@ from quant_alpha.pipeline.ingest import DailyIngestor
 from quant_alpha.pipeline.weekly_pipeline import build_weekly_recommendations
 from quant_alpha.storage.duckdb_store import load_latest_raw, save_feature_snapshot
 
+HK_FALLBACK_NAMES = {
+    "00005": "汇丰控股",
+    "00700": "腾讯控股",
+    "00883": "中国海洋石油",
+    "00941": "中国移动",
+    "01299": "友邦保险",
+    "01788": "国泰君安国际",
+    "03690": "美团-W",
+}
+
 
 def _validate_dataset(df: pd.DataFrame) -> list[str]:
     warnings: list[str] = []
@@ -119,6 +129,7 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths, allow_li
             return digits.zfill(5) if len(digits) <= 5 else digits
         return s
     mp = dict(zip(ndf["symbol"].astype(str), ndf["name"].astype(str)))
+    mp.update({k: v for k, v in HK_FALLBACK_NAMES.items() if k not in mp or not str(mp.get(k, "")).strip()})
     # HK symbols often appear as 1/00001 across different endpoints; normalize both keys.
     for k, v in list(mp.items()):
         ks = str(k)
@@ -232,6 +243,15 @@ def run_daily(
             warnings.append(f"coverage_warning:{market}:missing={miss}/{total}")
     if bars.empty:
         return {"status": "failed", "reason": "no market data", "warnings": warnings, "ingest": ingest_stats}
+    bars["date"] = pd.to_datetime(bars["date"], errors="coerce") if "date" in bars.columns else pd.Timestamp.today().normalize()
+    raw_latest_date = pd.to_datetime(bars["date"], errors="coerce").max() if "date" in bars.columns else None
+    raw_latest = bars[pd.to_datetime(bars["date"], errors="coerce") == raw_latest_date] if raw_latest_date is not None else bars
+    raw_symbol_count = int(raw_latest[["market", "symbol"]].drop_duplicates().shape[0]) if {"market", "symbol"}.issubset(raw_latest.columns) else int(len(raw_latest))
+    raw_by_market = (
+        {str(k): int(v) for k, v in raw_latest.groupby("market")["symbol"].nunique(dropna=True).items()}
+        if {"market", "symbol"}.issubset(raw_latest.columns)
+        else {}
+    )
 
     bars, universe_diag = apply_stock_pool_filters_with_diagnostics(
         bars,
@@ -485,6 +505,12 @@ def run_daily(
 
     latest_date = pd.to_datetime(scored["date"]).max() if not scored.empty else None
     latest_count = int(scored[pd.to_datetime(scored["date"]) == latest_date]["symbol"].nunique()) if latest_date is not None else 0
+    filtered_latest = bars[pd.to_datetime(bars["date"], errors="coerce") == pd.to_datetime(bars["date"], errors="coerce").max()] if (not bars.empty and "date" in bars.columns) else bars
+    filtered_by_market = (
+        {str(k): int(v) for k, v in filtered_latest.groupby("market")["symbol"].nunique(dropna=True).items()}
+        if {"market", "symbol"}.issubset(filtered_latest.columns)
+        else {}
+    )
     if latest_count < top_n:
         warnings.append(f"insufficient_latest_universe:{latest_count}<{top_n}")
 
@@ -498,8 +524,12 @@ def run_daily(
         "ingest": ingest_stats,
         "universe": universe_diag,
         "data_quality": {
-            "latest_date": str(latest_date) if latest_date is not None else None,
-            "latest_symbol_count": latest_count,
+            "latest_date": str(raw_latest_date) if raw_latest_date is not None else (str(latest_date) if latest_date is not None else None),
+            "raw_latest_symbol_count": raw_symbol_count,
+            "raw_latest_by_market": raw_by_market,
+            "filtered_latest_symbol_count": int(sum(filtered_by_market.values())) if filtered_by_market else int(len(filtered_latest)),
+            "filtered_latest_by_market": filtered_by_market,
+            "scored_latest_symbol_count": latest_count,
             "requested_top_n": top_n,
             "actual_top_n_count": int(len(recs)),
         },
