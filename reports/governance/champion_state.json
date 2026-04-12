@@ -21,6 +21,26 @@
   "previous_champion": null,
   "challengers": [
     {
+      "run_id": "run_20260412T060629Z_ead9d6c5",
+      "model_version": "wf_2026-04-12",
+      "metrics": {
+        "fold_count": 0,
+        "rank_ic": 0.0,
+        "avg_topn_excess_ret": 0.0,
+        "stability_score": 1.0,
+        "drawdown_penalty": 0.0,
+        "turnover_penalty": 0.2,
+        "fold_win_rate": 0.0,
+        "recent_window_excess_ret": 0.0,
+        "instability_score": 0.0,
+        "winner_precision": 0.0,
+        "benchmark_hit_rate": 0.0,
+        "composite_score": 0.09
+      },
+      "evaluated_at": "2026-04-12T06:10:52.844172+00:00",
+      "rejection_rationale": "promotion_thresholds_not_met"
+    },
+    {
       "run_id": "run_20260412T055933Z_57386a0f",
       "model_version": "wf_2026-04-12",
       "metrics": {
@@ -382,25 +402,6 @@
         "composite_score": 0.09
       },
       "evaluated_at": "2026-04-12T00:37:09.073081+00:00",
-      "rejection_rationale": "promotion_thresholds_not_met"
-    },
-    {
-      "run_id": "run_20260412T002542Z_2adecab2",
-      "model_version": "wf_2026-04-12",
-      "metrics": {
-        "rank_ic": 0.0,
-        "avg_topn_excess_ret": 0.0,
-        "stability_score": 1.0,
-        "drawdown_penalty": NaN,
-        "turnover_penalty": 0.2,
-        "fold_win_rate": 0.0,
-        "recent_window_excess_ret": 0.0,
-        "instability_score": 0.0,
-        "winner_precision": 0.0,
-        "benchmark_hit_rate": 0.0,
-        "composite_score": 0.09
-      },
-      "evaluated_at": "2026-04-12T00:30:38.616106+00:00",
       "rejection_rationale": "promotion_thresholds_not_met"
     }
   ]
