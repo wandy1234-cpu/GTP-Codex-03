@@ -105,6 +105,8 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
         if digits:
             return digits.zfill(5) if len(digits) <= 5 else digits
         return s
+    def _has_cjk(text: str) -> bool:
+        return any("\u4e00" <= ch <= "\u9fff" for ch in str(text))
 
     mp = dict(zip(ndf["symbol"].astype(str), ndf["name"].astype(str)))
     # HK symbols often appear as 1/00001 across different endpoints; normalize both keys.
@@ -126,7 +128,9 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
                 adapter = AkshareAdapter.from_env()
                 hk_name_map = adapter.fetch_symbol_name_map("HK")
                 if hk_name_map:
-                    nm = {(_norm_sym(k)): str(v) for k, v in hk_name_map.items() if str(v).strip()}
+                    nm = {(_norm_sym(k)): str(v) for k, v in hk_name_map.items() if str(v).strip() and _has_cjk(v)}
+                    if not nm:
+                        nm = {(_norm_sym(k)): str(v) for k, v in hk_name_map.items() if str(v).strip()}
                     name_from_map.loc[unresolved_hk] = (
                         sym.loc[unresolved_hk].map(_norm_sym).map(nm).fillna(name_from_map.loc[unresolved_hk])
                     )

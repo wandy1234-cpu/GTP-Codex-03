@@ -125,6 +125,22 @@ class AkshareAdapter:
     def fetch_symbol_name_map(self, market: Market) -> dict[str, str]:
         """Best-effort symbol->name mapping for A/HK."""
         mapping: dict[str, str] = {}
+        def _has_cjk(text: str) -> bool:
+            return any("\u4e00" <= ch <= "\u9fff" for ch in str(text))
+
+        def _set_pref(key: str, name: str) -> None:
+            old = str(mapping.get(key, "")).strip()
+            new = str(name).strip()
+            if not new:
+                return
+            if not old:
+                mapping[key] = new
+                return
+            if _has_cjk(new) and not _has_cjk(old):
+                mapping[key] = new
+                return
+            if _has_cjk(new) == _has_cjk(old) and len(new) > len(old):
+                mapping[key] = new
 
         def _norm_symbol(s: str) -> str:
             x = str(s).strip()
@@ -154,13 +170,17 @@ class AkshareAdapter:
                     name = str(n).strip()
                     if name:
                         raw = str(s).strip()
-                        mapping[raw] = name
-                        mapping[_norm_symbol(raw)] = name
+                        _set_pref(raw, name)
+                        _set_pref(_norm_symbol(raw), name)
         return mapping
 
     def fetch_hk_name_by_symbol(self, symbol: str) -> str:
         """Best-effort HK single symbol name fetch via eastmoney quote api."""
         code = "".join(ch for ch in str(symbol) if ch.isdigit()).zfill(5)
+        def _has_cjk(text: str) -> bool:
+            return any("\u4e00" <= ch <= "\u9fff" for ch in str(text))
+
+        best = ""
         # try akshare code-name mapping first (usually faster and more stable than quote api)
         fn = getattr(ak, "stock_hk_name_code", None)
         if fn is not None:
@@ -181,8 +201,10 @@ class AkshareAdapter:
                     m = s == code
                     if m.any():
                         name = str(df.loc[m, name_col].iloc[0]).strip()
-                        if name:
+                        if name and _has_cjk(name):
                             return name
+                        if name and not best:
+                            best = name
             except Exception:
                 pass
         secid = f"116.{code}"
@@ -194,7 +216,11 @@ class AkshareAdapter:
             data = resp.json()
             name = ((data or {}).get("data") or {}).get("f58")
             if name:
-                return str(name)
+                name_s = str(name).strip()
+                if _has_cjk(name_s):
+                    return name_s
+                if not best:
+                    best = name_s
         except Exception:
             pass
         # fallback: sina HK quote endpoint
@@ -207,11 +233,13 @@ class AkshareAdapter:
             if '"' in txt:
                 payload = txt.split('"', 1)[1].rsplit('"', 1)[0]
                 first = payload.split(",", 1)[0].strip()
-                if first and first != code:
+                if first and first != code and _has_cjk(first):
                     return first
+                if first and first != code and not best:
+                    best = first
         except Exception:
             pass
-        return ""
+        return best
 
     def _with_retry(self, fn, *args, **kwargs):
         last_exc: Exception | None = None
