@@ -9,6 +9,7 @@ from typing import Literal
 
 import akshare as ak
 import pandas as pd
+import requests
 
 from quant_alpha.config import AkshareConfig
 from quant_alpha.data.normalize import A_SPOT_RENAME, H_SPOT_RENAME, normalize_history, normalize_spot
@@ -145,6 +146,23 @@ class AkshareAdapter:
                 if mapping:
                     return mapping
         return mapping
+
+    def fetch_hk_name_by_symbol(self, symbol: str) -> str:
+        """Best-effort HK single symbol name fetch via eastmoney quote api."""
+        code = "".join(ch for ch in str(symbol) if ch.isdigit()).zfill(5)
+        secid = f"116.{code}"
+        url = "https://push2.eastmoney.com/api/qt/stock/get"
+        params = {"secid": secid, "fields": "f57,f58"}
+        try:
+            resp = requests.get(url, params=params, timeout=8)
+            resp.raise_for_status()
+            data = resp.json()
+            name = ((data or {}).get("data") or {}).get("f58")
+            if name:
+                return str(name)
+        except Exception:
+            pass
+        return ""
 
     def _with_retry(self, fn, *args, **kwargs):
         last_exc: Exception | None = None

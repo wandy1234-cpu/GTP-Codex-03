@@ -117,10 +117,17 @@ def _fill_recommendation_names(recs: pd.DataFrame, paths: ProjectPaths) -> pd.Da
         unresolved_hk = hk_mask & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
         if unresolved_hk.any():
             try:
-                hk_spot = AkshareAdapter.from_env().fetch_spot("HK")
+                adapter = AkshareAdapter.from_env()
+                hk_spot = adapter.fetch_spot("HK")
                 hk_names = hk_spot["name"].astype(str) if "name" in hk_spot.columns else pd.Series("", index=hk_spot.index)
                 hk_map = dict(zip(hk_spot["symbol"].astype(str).map(_norm_sym), hk_names))
                 name_from_map.loc[unresolved_hk] = sym.loc[unresolved_hk].map(_norm_sym).map(hk_map).fillna(name_from_map.loc[unresolved_hk])
+                still = unresolved_hk & (name_from_map.isna() | (name_from_map.astype(str).str.strip() == ""))
+                if still.any():
+                    for idx, s in sym.loc[still].items():
+                        n = adapter.fetch_hk_name_by_symbol(s)
+                        if n:
+                            name_from_map.loc[idx] = n
             except Exception:
                 pass
     out.loc[mask, name_col] = name_from_map.fillna(out.loc[mask, name_col])
