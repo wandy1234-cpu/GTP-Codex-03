@@ -1,0 +1,38 @@
+name: Market relay
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 1-7 * * 1-5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-relay
+  cancel-in-progress: true
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh market snapshot
+        run: python3 scripts/market_relay.py
+      - name: Commit snapshot
+        shell: bash
+        run: |
+          if [ ! -f data/latest_market.json ]; then
+            echo "latest_market.json not generated"
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest_market.json
+          if git diff --cached --quiet; then
+            echo "No snapshot changes"
+            exit 0
+          fi
+          git commit -m "Update market relay snapshot"
+          git push
