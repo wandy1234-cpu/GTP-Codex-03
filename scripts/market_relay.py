@@ -113,6 +113,24 @@ def east_quote(sym):
         out["parse_error"] = f"{type(e).__name__}: {e}"[:250]
     return out
 
+def sina_quote(sym):
+    url="https://hq.sinajs.cn/list="+sym
+    r=get(url,"https://finance.sina.com.cn/")
+    out={"source":"sina_hq","transport":{k:v for k,v in r.items() if k!="body"}}
+    if not r.get("ok"): return out
+    try:
+        raw=text(r,"gb18030")
+        m=re.search(r'="([^"]*)"',raw)
+        f=(m.group(1) if m else "").split(",")
+        if len(f)>=32:
+            rec={"name":f[0],"price":num(f[3]),"prev_close":num(f[2]),"open":num(f[1]),
+                 "high":num(f[4]),"low":num(f[5]),"quote_time":ts(f[30]+" "+f[31])}
+            rec["age_seconds"]=age_seconds(rec["quote_time"])
+            out["record"]=rec
+    except Exception as e:
+        out["parse_error"]=f"{type(e).__name__}: {e}"[:250]
+    return out
+
 def east_kline(sym,klt,limit):
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get?" + urllib.parse.urlencode({
         "secid":secid(sym),"klt":klt,"fqt":1,"lmt":limit,"end":"20500101",
@@ -237,12 +255,59 @@ def danger_score(q,m):
     if low and p<low: s+=4
     return s
 
+def aggregate_15_from_5(bars):
+    groups={}
+    order=[]
+    for x in bars:
+        try:
+            t=dt.datetime.strptime(str(x.get("time")),"%Y-%m-%d %H:%M")
+        except Exception:
+            continue
+        mins=t.hour*60+t.minute
+        end=((mins+14)//15)*15
+        day=t.date()
+        if end>=24*60:
+            day=day+dt.timedelta(days=1); end-=24*60
+        key=f"{day.isoformat()} {end//60:02d}:{end%60:02d}"
+        if key not in groups:
+            groups[key]=[]; order.append(key)
+        groups[key].append(x)
+    out=[]
+    for key in order:
+        g=groups[key]
+        if not g: continue
+        vals=[z for z in g if all(z.get(k) is not None for k in ("open","close","high","low"))]
+        if not vals: continue
+        out.append({"time":key,"open":vals[0]["open"],"close":vals[-1]["close"],
+                    "high":max(z["high"] for z in vals),"low":min(z["low"] for z in vals),
+                    "volume":sum((z.get("volume") or 0) for z in vals),
+                    "amount":sum((z.get("amount") or 0) for z in vals) if any(z.get("amount") is not None for z in vals) else None})
+    return out
+
 def deep_symbol(sym,price):
     eq=east_quote(sym)
+    er=(eq.get("record") or {})
+    efresh=er.get("price") is not None and er.get("age_seconds") is not None and er["age_seconds"]<=600
+    sq=None
+    if not efresh:
+        sq=sina_quote(sym)
+
     em5=east_kline(sym,5,120); tq5=tencent_kline(sym,"m5",120)
     em15=east_kline(sym,15,80); tq15=tencent_kline(sym,"m15",80)
-    b5,s5,q5=choose(em5,tq5); b15,s15,q15=choose(em15,tq15)
-    return {"eastmoney_quote":eq,
+    b5,s5,q5=choose(em5,tq5)
+    b15,s15,q15=choose(em15,tq15)
+    if q15=="insufficient" and len(b5)>=6:
+        derived=aggregate_15_from_5(b5)
+        if len(derived)>=4:
+            b15=derived; s15=s5+"_derived15"; q15="derived_from_real_m5"
+
+    secondary=eq
+    secondary_name="eastmoney_push2"
+    if sq and (sq.get("record") or {}).get("age_seconds") is not None and (sq.get("record") or {}).get("age_seconds")<=600:
+        secondary=sq; secondary_name="sina_hq"
+
+    return {"secondary_quote":secondary,"secondary_quote_source":secondary_name,
+            "eastmoney_quote":eq,"sina_quote":sq,
             "m5":{"source":s5,"quality":q5,"metrics":intraday_metrics(b5,price)},
             "m15":{"source":s15,"quality":q15,"metrics":intraday_metrics(b15,price)}}
 
@@ -282,7 +347,7 @@ def main():
         row={"tencent_fresh":qfresh}
         if s in candidates:
             d=(result["symbols"].get(s) or {}).get("deep") or {}
-            er=(d.get("eastmoney_quote") or {}).get("record") or {}
+            er=(d.get("secondary_quote") or {}).get("record") or {}
             efresh=er.get("price") is not None and er.get("age_seconds") is not None and er["age_seconds"]<=600
             agree=None
             if qfresh and efresh and q.get("price") and er.get("price"):
@@ -290,7 +355,7 @@ def main():
                 pricediff=abs(q["price"]-er["price"])/((q["price"]+er["price"])/2)
                 agree=(timediff<=300 and pricediff<=0.005)
             kready=(d.get("m5",{}).get("quality")!="insufficient" and d.get("m15",{}).get("quality")!="insufficient")
-            row.update({"eastmoney_fresh":efresh,"dual_agree":agree,"deep_kline_ready":kready})
+            row.update({"secondary_quote_source":d.get("secondary_quote_source"),"secondary_fresh":efresh,"dual_agree":agree,"deep_kline_ready":kready})
             if agree and kready: deep_green+=1
         per[s]=row
 
