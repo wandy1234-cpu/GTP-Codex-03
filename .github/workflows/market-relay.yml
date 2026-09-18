@@ -1,6 +1,11 @@
 name: Market relay
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/market_relay.py'
+      - '.github/workflows/market-relay.yml'
   workflow_dispatch:
   schedule:
     - cron: '*/5 1-7 * * 1-5'
