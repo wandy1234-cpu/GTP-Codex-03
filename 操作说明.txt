@@ -1,0 +1,24 @@
+1）本地空白文件下clone下来：
+cd C:\Users\Admin\Desktop
+git clone https://github.com/wandy1234-cpu/GTP-Codex-01.git
+cd .\GTP-Codex-01\
+git fetch --all
+git checkout codex/create-a-share-and-h-share-quant-system
+git status
+
+1.1）更新 （在ChapGPT Codex右上角先更新）
+cd C:\Users\Admin\Desktop\GTP-Codex-01
+git pull
+
+2）以上不行，直接在github，我的branch上，下载zip，自己解压也行。未来更新也只能如此
+
+3）cd C:\Users\Admin\Desktop\GTP-Codex-01
+python web_app.py
+运行，然后http://127.0.0.1:8000，可视化界面
+
+如果更新github就输入  git pull  同步一下
+
+终止命令 直接 ctrl+c  即可哦
+
+
+
