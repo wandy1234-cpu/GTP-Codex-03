@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/market_relay.py'
+      - 'scripts/market_relay_post.py'
       - '.github/workflows/market-relay.yml'
   workflow_dispatch:
   schedule:
@@ -24,7 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Refresh market snapshot
-        run: python3 scripts/market_relay.py
+        run: |
+          python3 scripts/market_relay.py
+          python3 scripts/market_relay_post.py
       - name: Commit snapshot
         shell: bash
         run: |
