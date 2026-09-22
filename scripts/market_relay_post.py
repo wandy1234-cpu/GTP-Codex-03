@@ -5,6 +5,7 @@ from pathlib import Path
 
 TZ = dt.timezone(dt.timedelta(hours=8))
 P = Path("data/latest_market.json")
+SP = Path("data/radar_summary.json")
 obj = json.loads(P.read_text(encoding="utf-8"))
 now = dt.datetime.fromisoformat(obj["generated_at_beijing"])
 health = obj.get("health") or {}
@@ -51,7 +52,6 @@ elif fresh >= total - 1 and all((per.get(s) or {}).get("minute_query_fresh") and
 else:
     health["quote_health"] = "YELLOW"
 
-# Compact top-level summary for fast radar reads; no fabricated fields.
 quotes = ((obj.get("tencent_quote") or {}).get("records") or {})
 summary = {
     "generated_at_beijing": obj.get("generated_at_beijing"),
@@ -105,6 +105,6 @@ for sym in candidates:
         "gate": per.get(sym) or {}
     }
 obj["radar_summary"] = summary
-
 P.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+SP.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
 print(json.dumps({"quote_health": health.get("quote_health"), "deep_gate_ready": ready, "fresh": fresh}, ensure_ascii=False))
