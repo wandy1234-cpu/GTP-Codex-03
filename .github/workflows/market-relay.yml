@@ -35,8 +35,12 @@ jobs:
             echo "latest_market.json not generated"
             exit 1
           fi
+          cp data/latest_market.json /tmp/latest_market.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git reset --hard origin/main
+          cp /tmp/latest_market.json data/latest_market.json
           git add data/latest_market.json
           if git diff --cached --quiet; then
             echo "No snapshot changes"
@@ -44,5 +48,3 @@ jobs:
           fi
           git commit -m "Update market relay snapshot"
           git push
-
-# manual trigger: 2026-09-22 10:03 BJT
