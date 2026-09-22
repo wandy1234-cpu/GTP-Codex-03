@@ -51,5 +51,60 @@ elif fresh >= total - 1 and all((per.get(s) or {}).get("minute_query_fresh") and
 else:
     health["quote_health"] = "YELLOW"
 
+# Compact top-level summary for fast radar reads; no fabricated fields.
+quotes = ((obj.get("tencent_quote") or {}).get("records") or {})
+summary = {
+    "generated_at_beijing": obj.get("generated_at_beijing"),
+    "data_health": health.get("quote_health"),
+    "fresh_quotes_le_10m": health.get("fresh_quotes_le_10m"),
+    "deep_gate_ready": health.get("deep_gate_ready"),
+    "deep_candidates": candidates,
+    "candidates": {}
+}
+for sym in candidates:
+    sx = ((obj.get("symbols") or {}).get(sym) or {})
+    deep = sx.get("deep") or {}
+    mq = deep.get("minute_query") or {}
+    m5 = ((deep.get("m5") or {}).get("metrics") or {})
+    m15 = ((deep.get("m15") or {}).get("metrics") or {})
+    sec = ((deep.get("secondary_quote") or {}).get("record") or {})
+    q = quotes.get(sym) or {}
+    summary["candidates"][sym] = {
+        "name": q.get("name"),
+        "price": q.get("price"),
+        "quote_time": q.get("quote_time"),
+        "change_pct": q.get("change_pct"),
+        "high": q.get("high"),
+        "low": q.get("low"),
+        "daily": sx.get("daily_metrics") or {},
+        "minute_date": mq.get("date"),
+        "minute_last_time": mq.get("last_time"),
+        "minute_last_price": ((mq.get("rows") or [{}])[-1] or {}).get("price") if mq.get("rows") else None,
+        "secondary_source": deep.get("secondary_quote_source"),
+        "secondary_price": sec.get("price"),
+        "secondary_time": sec.get("quote_time"),
+        "route": deep.get("route"),
+        "m5": {
+            "source": (deep.get("m5") or {}).get("source"),
+            "quality": (deep.get("m5") or {}).get("quality"),
+            "lower_lows": m5.get("lower_lows"),
+            "lower_highs": m5.get("lower_highs"),
+            "higher_lows": m5.get("higher_lows"),
+            "higher_highs": m5.get("higher_highs"),
+            "vwap": m5.get("vwap")
+        },
+        "m15": {
+            "source": (deep.get("m15") or {}).get("source"),
+            "quality": (deep.get("m15") or {}).get("quality"),
+            "lower_lows": m15.get("lower_lows"),
+            "lower_highs": m15.get("lower_highs"),
+            "higher_lows": m15.get("higher_lows"),
+            "higher_highs": m15.get("higher_highs"),
+            "vwap": m15.get("vwap")
+        },
+        "gate": per.get(sym) or {}
+    }
+obj["radar_summary"] = summary
+
 P.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
 print(json.dumps({"quote_health": health.get("quote_health"), "deep_gate_ready": ready, "fresh": fresh}, ensure_ascii=False))
