@@ -35,13 +35,19 @@ jobs:
             echo "latest_market.json not generated"
             exit 1
           fi
+          if [ ! -f data/radar_summary.json ]; then
+            echo "radar_summary.json not generated"
+            exit 1
+          fi
           cp data/latest_market.json /tmp/latest_market.json
+          cp data/radar_summary.json /tmp/radar_summary.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git reset --hard origin/main
           cp /tmp/latest_market.json data/latest_market.json
-          git add data/latest_market.json
+          cp /tmp/radar_summary.json data/radar_summary.json
+          git add data/latest_market.json data/radar_summary.json
           if git diff --cached --quiet; then
             echo "No snapshot changes"
             exit 0
