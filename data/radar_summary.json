@@ -1,0 +1,275 @@
+{
+  "generated_at_beijing": "2026-09-22T14:33:14.461734+08:00",
+  "data_health": "GREEN",
+  "fresh_quotes_le_10m": 14,
+  "deep_gate_ready": 5,
+  "deep_candidates": [
+    "sh600988",
+    "sh600926",
+    "sh601233",
+    "sh600900",
+    "sh688676"
+  ],
+  "candidates": {
+    "sh600988": {
+      "name": "赤峰黄金",
+      "price": 42.34,
+      "quote_time": "2026-09-22T14:33:12+08:00",
+      "change_pct": -1.44,
+      "high": 43.55,
+      "low": 42.33,
+      "daily": {
+        "ma5": 43.688,
+        "ma10": 43.903,
+        "ma20": 45.137,
+        "ma60": 40.099833,
+        "atr14": 1.908571,
+        "recent_6d_low": 42.1,
+        "recent_6d_high": 45.89,
+        "recent_12d_low": 42.1
+      },
+      "minute_date": "20260922",
+      "minute_last_time": "2026-09-22T14:34:00+08:00",
+      "minute_last_price": 42.34,
+      "secondary_source": "eastmoney_push2",
+      "secondary_price": 42.34,
+      "secondary_time": "2026-09-22T14:33:27+08:00",
+      "route": "standard",
+      "m5": {
+        "source": "eastmoney_klt5",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 42.978962
+      },
+      "m15": {
+        "source": "eastmoney_klt15",
+        "quality": "primary",
+        "lower_lows": true,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 42.978859
+      },
+      "gate": {
+        "tencent_fresh": true,
+        "minute_query_fresh": true,
+        "secondary_quote_source": "eastmoney_push2",
+        "secondary_fresh": true,
+        "dual_agree": true,
+        "deep_kline_ready": true,
+        "route": "standard"
+      }
+    },
+    "sh600926": {
+      "name": "杭州银行",
+      "price": 17.1,
+      "quote_time": "2026-09-22T14:33:12+08:00",
+      "change_pct": -0.47,
+      "high": 17.14,
+      "low": 16.88,
+      "daily": {
+        "ma5": 17.152,
+        "ma10": 17.331,
+        "ma20": 17.156,
+        "ma60": 16.3255,
+        "atr14": 0.331429,
+        "recent_6d_low": 16.88,
+        "recent_6d_high": 17.67,
+        "recent_12d_low": 16.88
+      },
+      "minute_date": "20260922",
+      "minute_last_time": "2026-09-22T14:34:00+08:00",
+      "minute_last_price": 17.1,
+      "secondary_source": "eastmoney_push2",
+      "secondary_price": 17.1,
+      "secondary_time": "2026-09-22T14:33:24+08:00",
+      "route": "standard",
+      "m5": {
+        "source": "eastmoney_klt5",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 17.003595
+      },
+      "m15": {
+        "source": "eastmoney_klt15",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 17.003595
+      },
+      "gate": {
+        "tencent_fresh": true,
+        "minute_query_fresh": true,
+        "secondary_quote_source": "eastmoney_push2",
+        "secondary_fresh": true,
+        "dual_agree": true,
+        "deep_kline_ready": true,
+        "route": "standard"
+      }
+    },
+    "sh601233": {
+      "name": "桐昆股份",
+      "price": 23.86,
+      "quote_time": "2026-09-22T14:33:12+08:00",
+      "change_pct": -2.21,
+      "high": 24.45,
+      "low": 23.58,
+      "daily": {
+        "ma5": 23.804,
+        "ma10": 23.777,
+        "ma20": 24.922,
+        "ma60": 23.244333,
+        "atr14": 0.92,
+        "recent_6d_low": 22.63,
+        "recent_6d_high": 24.74,
+        "recent_12d_low": 22.63
+      },
+      "minute_date": "20260922",
+      "minute_last_time": "2026-09-22T14:34:00+08:00",
+      "minute_last_price": 23.85,
+      "secondary_source": "eastmoney_push2",
+      "secondary_price": 23.86,
+      "secondary_time": "2026-09-22T14:33:24+08:00",
+      "route": "standard",
+      "m5": {
+        "source": "eastmoney_klt5",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 23.886317
+      },
+      "m15": {
+        "source": "eastmoney_klt15",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 23.886419
+      },
+      "gate": {
+        "tencent_fresh": true,
+        "minute_query_fresh": true,
+        "secondary_quote_source": "eastmoney_push2",
+        "secondary_fresh": true,
+        "dual_agree": true,
+        "deep_kline_ready": true,
+        "route": "standard"
+      }
+    },
+    "sh600900": {
+      "name": "长江电力",
+      "price": 28.05,
+      "quote_time": "2026-09-22T14:33:13+08:00",
+      "change_pct": -0.18,
+      "high": 28.15,
+      "low": 27.93,
+      "daily": {
+        "ma5": 28.268,
+        "ma10": 28.306,
+        "ma20": 28.262,
+        "ma60": 28.073167,
+        "atr14": 0.363571,
+        "recent_6d_low": 27.93,
+        "recent_6d_high": 28.68,
+        "recent_12d_low": 27.63
+      },
+      "minute_date": "20260922",
+      "minute_last_time": "2026-09-22T14:34:00+08:00",
+      "minute_last_price": 28.05,
+      "secondary_source": "eastmoney_push2",
+      "secondary_price": 28.05,
+      "secondary_time": "2026-09-22T14:33:25+08:00",
+      "route": "standard",
+      "m5": {
+        "source": "eastmoney_klt5",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 28.035272
+      },
+      "m15": {
+        "source": "eastmoney_klt15",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 28.035272
+      },
+      "gate": {
+        "tencent_fresh": true,
+        "minute_query_fresh": true,
+        "secondary_quote_source": "eastmoney_push2",
+        "secondary_fresh": true,
+        "dual_agree": true,
+        "deep_kline_ready": true,
+        "route": "standard"
+      }
+    },
+    "sh688676": {
+      "name": "金盘科技",
+      "price": 64.71,
+      "quote_time": "2026-09-22T14:33:12+08:00",
+      "change_pct": 0.29,
+      "high": 66.4,
+      "low": 64.64,
+      "daily": {
+        "ma5": 64.572,
+        "ma10": 64.367,
+        "ma20": 65.6775,
+        "ma60": 69.358167,
+        "atr14": 2.640714,
+        "recent_6d_low": 61.9,
+        "recent_6d_high": 66.4,
+        "recent_12d_low": 61.9
+      },
+      "minute_date": "20260922",
+      "minute_last_time": "2026-09-22T14:34:00+08:00",
+      "minute_last_price": 64.74,
+      "secondary_source": "eastmoney_push2",
+      "secondary_price": 64.72,
+      "secondary_time": "2026-09-22T14:33:27+08:00",
+      "route": "standard",
+      "m5": {
+        "source": "eastmoney_klt5",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 65.559617
+      },
+      "m15": {
+        "source": "eastmoney_klt15",
+        "quality": "primary",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 65.560371
+      },
+      "gate": {
+        "tencent_fresh": true,
+        "minute_query_fresh": true,
+        "secondary_quote_source": "eastmoney_push2",
+        "secondary_fresh": true,
+        "dual_agree": true,
+        "deep_kline_ready": true,
+        "route": "standard"
+      }
+    }
+  }
+}
