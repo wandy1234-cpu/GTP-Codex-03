@@ -6,10 +6,16 @@ on:
     paths:
       - 'scripts/market_relay.py'
       - 'scripts/market_relay_post.py'
+      - 'scripts/market_audit_bridge.py'
       - '.github/workflows/market-relay.yml'
   workflow_dispatch:
   schedule:
-    - cron: '*/5 1-7 * * 1-5'
+    # UTC: mainland sessions only, plus the 11:30 and 15:00 frozen snapshots.
+    - cron: '30-55/5 1 * * 1-5'
+    - cron: '*/5 2 * * 1-5'
+    - cron: '0-30/5 3 * * 1-5'
+    - cron: '*/5 5-6 * * 1-5'
+    - cron: '0 7 * * 1-5'
 
 permissions:
   contents: write
@@ -21,36 +27,38 @@ concurrency:
 jobs:
   relay:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: Refresh market snapshot
+      - name: Validate scripts
+        run: python3 -m py_compile scripts/market_relay.py scripts/market_relay_post.py scripts/market_audit_bridge.py
+      - name: Refresh market snapshot and audit evidence
         run: |
           python3 scripts/market_relay.py
           python3 scripts/market_relay_post.py
-      - name: Commit snapshot
+          python3 scripts/market_audit_bridge.py
+      - name: Commit snapshot and evidence
         shell: bash
         run: |
-          if [ ! -f data/latest_market.json ]; then
-            echo "latest_market.json not generated"
-            exit 1
-          fi
-          if [ ! -f data/radar_summary.json ]; then
-            echo "radar_summary.json not generated"
-            exit 1
-          fi
-          cp data/latest_market.json /tmp/latest_market.json
-          cp data/radar_summary.json /tmp/radar_summary.json
+          set -euo pipefail
+          files=(latest_market.json radar_summary.json watch_assets.json ic_snapshot.json audit_receipt.json)
+          for file in "${files[@]}"; do
+            test -s "data/$file" || { echo "Missing $file"; exit 1; }
+          done
+          if [ -s data/universe_latest.json ]; then files+=(universe_latest.json); fi
+          mkdir -p /tmp/market-relay-data
+          for file in "${files[@]}"; do cp "data/$file" "/tmp/market-relay-data/$file"; done
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git reset --hard origin/main
-          cp /tmp/latest_market.json data/latest_market.json
-          cp /tmp/radar_summary.json data/radar_summary.json
-          git add data/latest_market.json data/radar_summary.json
+          for file in "${files[@]}"; do
+            cp "/tmp/market-relay-data/$file" "data/$file"
+            git add "data/$file"
+          done
           if git diff --cached --quiet; then
             echo "No snapshot changes"
             exit 0
           fi
-          git commit -m "Update market relay snapshot"
+          git commit -m "Update market relay snapshot and audit evidence"
           git push
