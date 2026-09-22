@@ -44,3 +44,5 @@ jobs:
           fi
           git commit -m "Update market relay snapshot"
           git push
+
+# manual trigger: 2026-09-22 10:03 BJT
