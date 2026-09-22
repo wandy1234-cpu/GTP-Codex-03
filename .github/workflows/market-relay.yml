@@ -7,6 +7,7 @@ on:
       - 'scripts/market_relay.py'
       - 'scripts/market_relay_post.py'
       - 'scripts/market_audit_bridge.py'
+      - 'scripts/market_pagination_resume.py'
       - 'scripts/market_gate_finalize.py'
       - '.github/workflows/market-relay.yml'
   workflow_dispatch:
@@ -32,12 +33,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Validate scripts
-        run: python3 -m py_compile scripts/market_relay.py scripts/market_relay_post.py scripts/market_audit_bridge.py scripts/market_gate_finalize.py
+        run: python3 -m py_compile scripts/market_relay.py scripts/market_relay_post.py scripts/market_audit_bridge.py scripts/market_pagination_resume.py scripts/market_gate_finalize.py
       - name: Refresh market snapshot and audit evidence
         run: |
           python3 scripts/market_relay.py
           python3 scripts/market_relay_post.py
           python3 scripts/market_audit_bridge.py
+          python3 scripts/market_pagination_resume.py
           python3 scripts/market_gate_finalize.py
       - name: Commit snapshot and evidence
         shell: bash
@@ -54,7 +56,7 @@ jobs:
           for file in "${files[@]}"; do cp "data/$file" "/tmp/market-relay-data/$file"; done
           if [ -d data/universe_pages ]; then cp -r data/universe_pages /tmp/market-relay-data/; fi
           git config user.name "github-actions[bot]"
-          git config user.email "41898298282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git reset --hard origin/main
           for file in "${files[@]}"; do
