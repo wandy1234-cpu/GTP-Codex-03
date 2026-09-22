@@ -7,10 +7,11 @@ on:
       - 'scripts/market_relay.py'
       - 'scripts/market_relay_post.py'
       - 'scripts/market_audit_bridge.py'
+      - 'scripts/market_gate_finalize.py'
       - '.github/workflows/market-relay.yml'
   workflow_dispatch:
   schedule:
-    # UTC: mainland sessions only, plus the 11:30 and 15:00 frozen snapshots.
+    # UTC: mainland sessions, including the 11:30 and 15:00 frozen snapshots.
     - cron: '30-55/5 1 * * 1-5'
     - cron: '*/5 2 * * 1-5'
     - cron: '0-30/5 3 * * 1-5'
@@ -31,12 +32,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Validate scripts
-        run: python3 -m py_compile scripts/market_relay.py scripts/market_relay_post.py scripts/market_audit_bridge.py
+        run: python3 -m py_compile scripts/market_relay.py scripts/market_relay_post.py scripts/market_audit_bridge.py scripts/market_gate_finalize.py
       - name: Refresh market snapshot and audit evidence
         run: |
           python3 scripts/market_relay.py
           python3 scripts/market_relay_post.py
           python3 scripts/market_audit_bridge.py
+          python3 scripts/market_gate_finalize.py
       - name: Commit snapshot and evidence
         shell: bash
         run: |
@@ -45,20 +47,28 @@ jobs:
           for file in "${files[@]}"; do
             test -s "data/$file" || { echo "Missing $file"; exit 1; }
           done
-          if [ -s data/universe_latest.json ]; then files+=(universe_latest.json); fi
+          for file in universe_latest.json universe_summary.json; do
+            if [ -s "data/$file" ]; then files+=("$file"); fi
+          done
           mkdir -p /tmp/market-relay-data
           for file in "${files[@]}"; do cp "data/$file" "/tmp/market-relay-data/$file"; done
+          if [ -d data/universe_pages ]; then cp -r data/universe_pages /tmp/market-relay-data/; fi
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898298282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git reset --hard origin/main
           for file in "${files[@]}"; do
             cp "/tmp/market-relay-data/$file" "data/$file"
             git add "data/$file"
           done
+          if [ -d /tmp/market-relay-data/universe_pages ]; then
+            mkdir -p data/universe_pages
+            cp /tmp/market-relay-data/universe_pages/*.json data/universe_pages/
+            git add data/universe_pages
+          fi
           if git diff --cached --quiet; then
             echo "No snapshot changes"
             exit 0
           fi
-          git commit -m "Update market relay snapshot and audit evidence"
+          git commit -m "Update market relay snapshot and verified audit evidence"
           git push
