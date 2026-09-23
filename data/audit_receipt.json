@@ -1,41 +1,18 @@
 {
   "schema_version": "2.6.0",
-  "generated_at_beijing": "2026-09-23T11:09:09.637401+08:00",
-  "run_id": "35813084421",
-  "commit": "895bfab62d97bda3ff398475a6f5c7a260489ada",
+  "generated_at_beijing": "2026-09-23T13:35:11.409372+08:00",
+  "run_id": "35822890595",
+  "commit": "7294731f29db8466902592d98f6c6c07d11fea77",
   "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
   "personal_candidate_gates": {
-    "sh600926": {
+    "sh600150": {
       "health": "YELLOW",
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 17.04193374,
-        "volume_unit": "lot_100_shares",
-        "amount_unit": "CNY",
-        "excluded_out_of_session_rows": [],
-        "anomalies": [],
-        "sampled_prices_are_not_true_intraminute_ohlc": true
-      },
-      "independent_quote_agrees": true,
-      "true_5m_15m_ohlc_ready": true,
-      "daily_sequence_ready": true,
-      "live_action_allowed": false,
-      "official_iopv_verified": null,
-      "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false,
-      "reason": "true_ohlc_time_gate_failed"
-    },
-    "sh600900": {
-      "health": "YELLOW",
-      "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
-      "minute_gate": {
-        "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
-        "fresh_for_live": true,
-        "vwap": 28.03231927,
+        "vwap": 39.12025434,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -56,9 +33,9 @@
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 42.69079862,
+        "vwap": 42.76298942,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -74,14 +51,37 @@
       "true_5m_15m_ohlc_time_verified": false,
       "reason": "true_ohlc_time_gate_failed"
     },
-    "sh600150": {
+    "sh600926": {
       "health": "YELLOW",
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 39.2101532,
+        "vwap": 17.05329356,
+        "volume_unit": "lot_100_shares",
+        "amount_unit": "CNY",
+        "excluded_out_of_session_rows": [],
+        "anomalies": [],
+        "sampled_prices_are_not_true_intraminute_ohlc": true
+      },
+      "independent_quote_agrees": true,
+      "true_5m_15m_ohlc_ready": true,
+      "daily_sequence_ready": true,
+      "live_action_allowed": false,
+      "official_iopv_verified": null,
+      "premium_action_allowed": null,
+      "true_5m_15m_ohlc_time_verified": false,
+      "reason": "true_ohlc_time_gate_failed"
+    },
+    "sh600900": {
+      "health": "YELLOW",
+      "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
+      "minute_gate": {
+        "security_date": "20260923",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
+        "fresh_for_live": true,
+        "vwap": 28.04049401,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -102,7 +102,7 @@
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
         "vwap": null,
         "volume_unit": "lot_100_shares",
@@ -128,14 +128,14 @@
       "reason": "HK_adapter_validation_required",
       "true_5m_15m_ohlc_time_verified": false
     },
-    "sh603993": {
+    "sh600989": {
       "health": "YELLOW",
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 17.72956451,
+        "vwap": 22.67593082,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -143,22 +143,43 @@
         "sampled_prices_are_not_true_intraminute_ohlc": true
       },
       "independent_quote_agrees": true,
-      "true_5m_15m_ohlc_ready": true,
+      "true_5m_15m_ohlc_ready": false,
       "daily_sequence_ready": true,
       "live_action_allowed": false,
       "official_iopv_verified": null,
       "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false,
-      "reason": "true_ohlc_time_gate_failed"
+      "true_5m_15m_ohlc_time_verified": false
+    },
+    "sz000703": {
+      "health": "YELLOW",
+      "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
+      "minute_gate": {
+        "security_date": "20260923",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
+        "fresh_for_live": true,
+        "vwap": 17.08258386,
+        "volume_unit": "lot_100_shares",
+        "amount_unit": "CNY",
+        "excluded_out_of_session_rows": [],
+        "anomalies": [],
+        "sampled_prices_are_not_true_intraminute_ohlc": true
+      },
+      "independent_quote_agrees": true,
+      "true_5m_15m_ohlc_ready": false,
+      "daily_sequence_ready": true,
+      "live_action_allowed": false,
+      "official_iopv_verified": null,
+      "premium_action_allowed": null,
+      "true_5m_15m_ohlc_time_verified": false
     },
     "sh518880": {
       "health": "YELLOW",
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 8.90741122,
+        "vwap": 8.90860616,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -178,9 +199,9 @@
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 2.71758175,
+        "vwap": 2.717723,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -201,32 +222,9 @@
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 0.94128609,
-        "volume_unit": "lot_100_shares",
-        "amount_unit": "CNY",
-        "excluded_out_of_session_rows": [],
-        "anomalies": [],
-        "sampled_prices_are_not_true_intraminute_ohlc": true
-      },
-      "independent_quote_agrees": true,
-      "true_5m_15m_ohlc_ready": true,
-      "daily_sequence_ready": true,
-      "live_action_allowed": false,
-      "official_iopv_verified": null,
-      "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false,
-      "reason": "true_ohlc_time_gate_failed"
-    },
-    "sh600989": {
-      "health": "YELLOW",
-      "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
-      "minute_gate": {
-        "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
-        "fresh_for_live": true,
-        "vwap": 22.74000128,
+        "vwap": 0.94171364,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -247,9 +245,9 @@
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 13.30680864,
+        "vwap": 13.31039906,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -257,21 +255,22 @@
         "sampled_prices_are_not_true_intraminute_ohlc": true
       },
       "independent_quote_agrees": true,
-      "true_5m_15m_ohlc_ready": false,
+      "true_5m_15m_ohlc_ready": true,
       "daily_sequence_ready": true,
       "live_action_allowed": false,
       "official_iopv_verified": null,
       "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false
+      "true_5m_15m_ohlc_time_verified": false,
+      "reason": "true_ohlc_time_gate_failed"
     },
-    "sz000703": {
+    "sz002838": {
       "health": "YELLOW",
       "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
       "minute_gate": {
         "security_date": "20260923",
-        "last_continuous_minute": "2026-09-23T11:08:00+08:00",
+        "last_continuous_minute": "2026-09-23T13:34:00+08:00",
         "fresh_for_live": true,
-        "vwap": 17.0814185,
+        "vwap": 25.60567938,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [],
@@ -279,18 +278,19 @@
         "sampled_prices_are_not_true_intraminute_ohlc": true
       },
       "independent_quote_agrees": true,
-      "true_5m_15m_ohlc_ready": false,
+      "true_5m_15m_ohlc_ready": true,
       "daily_sequence_ready": true,
       "live_action_allowed": false,
       "official_iopv_verified": null,
       "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false
+      "true_5m_15m_ohlc_time_verified": false,
+      "reason": "true_ohlc_time_gate_failed"
     }
   },
   "coverage": {
     "universe": {
       "schema_version": "2.6.0",
-      "captured_at_beijing": "2026-09-23T11:08:01.485456+08:00",
+      "captured_at_beijing": "2026-09-23T13:33:59.175390+08:00",
       "nodes": {
         "sh_a": {
           "successful_pages": [
@@ -382,142 +382,142 @@
       },
       "stratified_checks": [
         {
-          "symbol": "sh600630",
-          "tencent_time": "2026-09-23T11:09:03+08:00",
-          "sina_ticktime": "11:08:06",
+          "symbol": "sh601091",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:06",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh603007",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:08:06",
+          "symbol": "sh603887",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:18",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh603613",
-          "tencent_time": "2026-09-23T11:09:02+08:00",
-          "sina_ticktime": "11:08:14",
+          "symbol": "sh605499",
+          "tencent_time": "2026-09-23T13:35:07+08:00",
+          "sina_ticktime": "13:34:22",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh600389",
-          "tencent_time": "2026-09-23T11:09:07+08:00",
-          "sina_ticktime": "11:08:01",
+          "symbol": "sh688343",
+          "tencent_time": "2026-09-23T13:35:07+08:00",
+          "sina_ticktime": "13:34:22",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh603719",
-          "tencent_time": "2026-09-23T11:09:03+08:00",
-          "sina_ticktime": "11:08:11",
+          "symbol": "sh600372",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:33:59",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh603858",
-          "tencent_time": "2026-09-23T11:09:04+08:00",
-          "sina_ticktime": "11:08:19",
+          "symbol": "sh600098",
+          "tencent_time": "2026-09-23T13:35:06+08:00",
+          "sina_ticktime": "13:33:51",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh688109",
-          "tencent_time": "2026-09-23T11:08:54+08:00",
-          "sina_ticktime": "11:08:21",
+          "symbol": "sh688119",
+          "tencent_time": "2026-09-23T13:35:06+08:00",
+          "sina_ticktime": "13:34:24",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh600820",
-          "tencent_time": "2026-09-23T11:09:05+08:00",
-          "sina_ticktime": "11:07:59",
+          "symbol": "sh603997",
+          "tencent_time": "2026-09-23T13:35:06+08:00",
+          "sina_ticktime": "13:34:18",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sh688399",
-          "tencent_time": "2026-09-23T11:09:07+08:00",
-          "sina_ticktime": "11:08:10",
+          "symbol": "sh603757",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:18",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
           "symbol": "sh688656",
-          "tencent_time": "2026-09-23T11:08:55+08:00",
-          "sina_ticktime": "11:08:22",
+          "tencent_time": "2026-09-23T13:34:52+08:00",
+          "sina_ticktime": "13:34:22",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
           "symbol": "sz301686",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:09:03",
+          "tencent_time": "2026-09-23T13:35:06+08:00",
+          "sina_ticktime": "13:35:06",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz300256",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:08:45",
+          "symbol": "sz001389",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:36",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz300822",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:08:54",
+          "symbol": "sz000737",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:33",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz002476",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:08:42",
+          "symbol": "sz301235",
+          "tencent_time": "2026-09-23T13:35:06+08:00",
+          "sina_ticktime": "13:35:03",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz300218",
-          "tencent_time": "2026-09-23T11:09:03+08:00",
-          "sina_ticktime": "11:08:33",
+          "symbol": "sz300531",
+          "tencent_time": "2026-09-23T13:34:57+08:00",
+          "sina_ticktime": "13:34:51",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz000950",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:08:30",
+          "symbol": "sz002009",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:36",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz300436",
-          "tencent_time": "2026-09-23T11:09:03+08:00",
-          "sina_ticktime": "11:08:45",
+          "symbol": "sz300474",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:54",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz300816",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:08:54",
+          "symbol": "sz300318",
+          "tencent_time": "2026-09-23T13:35:09+08:00",
+          "sina_ticktime": "13:34:51",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
-          "symbol": "sz000995",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:08:33",
+          "symbol": "sz300460",
+          "tencent_time": "2026-09-23T13:34:57+08:00",
+          "sina_ticktime": "13:34:51",
           "same_time_gate": true,
           "price_agrees": true
         },
         {
           "symbol": "sz301150",
-          "tencent_time": "2026-09-23T11:09:06+08:00",
-          "sina_ticktime": "11:09:00",
+          "tencent_time": "2026-09-23T13:35:03+08:00",
+          "sina_ticktime": "13:35:03",
           "same_time_gate": true,
           "price_agrees": true
         }
@@ -531,11 +531,11 @@
       "market_breadth": {
         "scope": "sh_a+sz_a",
         "valid_returns": 5221,
-        "advancing": 1682,
-        "declining": 3396,
-        "unchanged": 143,
-        "median_change_pct": -0.577,
-        "amount_sum_raw_CNY": 1081348447469.0
+        "advancing": 1830,
+        "declining": 3249,
+        "unchanged": 142,
+        "median_change_pct": -0.496,
+        "amount_sum_raw_CNY": 1319357710566.0
       },
       "no_future_data_permission": true
     }
@@ -544,5 +544,5 @@
   "iopv_verified": false,
   "actual_agent_execution_not_proved_by_relay": true,
   "raw_shard_count": 54,
-  "finalized_at_beijing": "2026-09-23T11:09:09.916306+08:00"
+  "finalized_at_beijing": "2026-09-23T13:35:11.835608+08:00"
 }
