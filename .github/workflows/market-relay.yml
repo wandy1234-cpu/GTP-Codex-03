@@ -1,6 +1,6 @@
 name: Market relay
 
-# manual refresh 2026-09-24 10:57 BJT
+# manual refresh 2026-09-24 11:18 BJT
 on:
   push:
     branches: [main]
