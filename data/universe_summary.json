@@ -1,19 +1,38 @@
 {
   "schema_version": "2.6.0",
-  "captured_at_beijing": "2026-09-24T10:59:11.020783+08:00",
+  "captured_at_beijing": "2026-09-24T13:31:26.740112+08:00",
   "nodes": {
     "sh_a": {
       "successful_pages": [
         1,
         2,
-        3
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
       ],
-      "missing_pages": [
-        4
-      ],
-      "terminal_page": null,
-      "raw_row_count": 300,
-      "unique_count": 300
+      "missing_pages": [],
+      "terminal_page": 24,
+      "raw_row_count": 2319,
+      "unique_count": 2319
     },
     "sz_a": {
       "successful_pages": [
@@ -54,7 +73,7 @@
       "unique_count": 2902
     }
   },
-  "unique_code_count": 3202,
+  "unique_code_count": 5221,
   "missing_fields": {
     "symbol": 0,
     "name": 0,
@@ -73,142 +92,142 @@
   },
   "stratified_checks": [
     {
-      "symbol": "sh600228",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:06",
+      "symbol": "sh688837",
+      "tencent_time": "2026-09-24T13:32:56+08:00",
+      "sina_ticktime": "13:32:08",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600378",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:06",
+      "symbol": "sh600622",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:31:30",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600276",
-      "tencent_time": "2026-09-24T11:00:05+08:00",
-      "sina_ticktime": "10:59:05",
+      "symbol": "sh600410",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:31:30",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600008",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:03",
+      "symbol": "sh601886",
+      "tencent_time": "2026-09-24T13:32:55+08:00",
+      "sina_ticktime": "13:31:43",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600111",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:03",
+      "symbol": "sh603004",
+      "tencent_time": "2026-09-24T13:32:56+08:00",
+      "sina_ticktime": "13:31:43",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600017",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:06",
+      "symbol": "sh688385",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:32:03",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600148",
-      "tencent_time": "2026-09-24T11:00:02+08:00",
-      "sina_ticktime": "10:58:50",
+      "symbol": "sh600262",
+      "tencent_time": "2026-09-24T13:32:55+08:00",
+      "sina_ticktime": "13:31:19",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600037",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:06",
+      "symbol": "sh688584",
+      "tencent_time": "2026-09-24T13:32:55+08:00",
+      "sina_ticktime": "13:32:04",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600118",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:03",
+      "symbol": "sh600019",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:31:24",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sh600189",
-      "tencent_time": "2026-09-24T11:00:07+08:00",
-      "sina_ticktime": "10:59:01",
+      "symbol": "sh688682",
+      "tencent_time": "2026-09-24T13:32:52+08:00",
+      "sina_ticktime": "13:31:55",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
       "symbol": "sz300931",
-      "tencent_time": "2026-09-24T11:00:03+08:00",
-      "sina_ticktime": "10:59:57",
+      "tencent_time": "2026-09-24T13:32:54+08:00",
+      "sina_ticktime": "13:32:45",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz300696",
-      "tencent_time": "2026-09-24T11:00:03+08:00",
-      "sina_ticktime": "10:59:45",
+      "symbol": "sz300302",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:32:36",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz002693",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:42",
+      "symbol": "sz002645",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:32:27",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz300181",
-      "tencent_time": "2026-09-24T11:00:03+08:00",
-      "sina_ticktime": "10:59:45",
+      "symbol": "sz300410",
+      "tencent_time": "2026-09-24T13:32:54+08:00",
+      "sina_ticktime": "13:32:39",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz003042",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:42",
+      "symbol": "sz301212",
+      "tencent_time": "2026-09-24T13:32:33+08:00",
+      "sina_ticktime": "13:32:33",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz300206",
-      "tencent_time": "2026-09-24T10:59:57+08:00",
-      "sina_ticktime": "10:59:42",
+      "symbol": "sz300065",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:32:30",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz300825",
-      "tencent_time": "2026-09-24T11:00:00+08:00",
-      "sina_ticktime": "10:59:54",
+      "symbol": "sz000030",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:32:09",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz002067",
-      "tencent_time": "2026-09-24T11:00:06+08:00",
-      "sina_ticktime": "10:59:33",
+      "symbol": "sz002290",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:32:21",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
-      "symbol": "sz300185",
-      "tencent_time": "2026-09-24T11:00:03+08:00",
-      "sina_ticktime": "10:59:45",
+      "symbol": "sz002446",
+      "tencent_time": "2026-09-24T13:32:57+08:00",
+      "sina_ticktime": "13:32:21",
       "same_time_gate": true,
       "price_agrees": true
     },
     {
       "symbol": "sz301699",
-      "tencent_time": "2026-09-24T11:00:03+08:00",
-      "sina_ticktime": "11:00:03",
+      "tencent_time": "2026-09-24T13:32:54+08:00",
+      "sina_ticktime": "13:32:54",
       "same_time_gate": true,
       "price_agrees": true
     }
@@ -216,183 +235,288 @@
   "security_dates_from_samples": [
     "2026-09-24"
   ],
-  "complete_pagination": false,
-  "stock_pick_gate": "INCOMPLETE",
+  "complete_pagination": true,
+  "stock_pick_gate": "VERIFIED_DATASET",
   "point_in_time_note": "Consumer must verify dataset security date and cutoff; retrieval time is not trade time.",
   "market_breadth": {
     "scope": "sh_a+sz_a",
-    "valid_returns": 3202,
-    "advancing": 868,
-    "declining": 2214,
-    "unchanged": 120,
-    "median_change_pct": -0.658,
-    "amount_sum_raw_CNY": 553882761084.0
+    "valid_returns": 5221,
+    "advancing": 1338,
+    "declining": 3713,
+    "unchanged": 170,
+    "median_change_pct": -0.857,
+    "amount_sum_raw_CNY": 1204136946900.0
   },
   "raw_shards": [
     {
       "path": "data/universe_pages/sh_a_001.json",
       "count": 100,
-      "sha256": "7d10d2590f0c3fa95137d8280466570774dde4e2aabe566eb30ed3f57d6abaa9"
+      "sha256": "dc8d28aab0f5be79c07917ee1b3e26dac0af873cfca5382f173f31b69343029e"
     },
     {
       "path": "data/universe_pages/sh_a_002.json",
       "count": 100,
-      "sha256": "a2633e31a2c3a01ef80fe87fa5d24abf9af5c1a5ab02c1589def1a85716701ba"
+      "sha256": "1ec0bbdb435d35ef45208a012d182d21a193092c164146a48385942aa7a888bf"
     },
     {
       "path": "data/universe_pages/sh_a_003.json",
       "count": 100,
-      "sha256": "4927cb84fd4c36667448941860765940788d3571e0db3767241c190dbd203ed6"
+      "sha256": "07f1a76fe18ac6dce1cd865cab697168e3a3aabe62a522b808fa8b118e9a9413"
+    },
+    {
+      "path": "data/universe_pages/sh_a_004.json",
+      "count": 100,
+      "sha256": "5a07adfbabdc7e2d70f1580940258d0556bd1c2fc672e60b701141cbc250a08e"
+    },
+    {
+      "path": "data/universe_pages/sh_a_005.json",
+      "count": 100,
+      "sha256": "e89ea1c4cc4736ca308ec4c070d8902a8eec377428641e409d25bd82319ba490"
+    },
+    {
+      "path": "data/universe_pages/sh_a_006.json",
+      "count": 100,
+      "sha256": "22a4cc29aeae2decd4fcc7816a174c8fb5ba7eb888768dba4fc8a6aea72c794c"
+    },
+    {
+      "path": "data/universe_pages/sh_a_007.json",
+      "count": 100,
+      "sha256": "8954ce44e5579aef6daeea75865364bfe4d0e13697f4d8dc394c2d4367991dc5"
+    },
+    {
+      "path": "data/universe_pages/sh_a_008.json",
+      "count": 100,
+      "sha256": "326dc0826856d3220ac5109513e840c68daa92ec23854b7ae23f5f30f3e44e35"
+    },
+    {
+      "path": "data/universe_pages/sh_a_009.json",
+      "count": 100,
+      "sha256": "c5fde7f32b853a34da5445fc56b52e7a9fc41d7499cebc62a84a805b69f901b2"
+    },
+    {
+      "path": "data/universe_pages/sh_a_010.json",
+      "count": 100,
+      "sha256": "f23376e18905bfff62aa8625b77f2c58c529ef8213c8ef59d712494bdb9d2099"
+    },
+    {
+      "path": "data/universe_pages/sh_a_011.json",
+      "count": 100,
+      "sha256": "dbe9304ede83fcc156f8fb8762b973b6ceb648cd3722b2f756d4ecfd1345e261"
+    },
+    {
+      "path": "data/universe_pages/sh_a_012.json",
+      "count": 100,
+      "sha256": "a6c29474cd31c4fc91a1c2a43650096d04ff6772e2bb730f184cb9dacf96525d"
+    },
+    {
+      "path": "data/universe_pages/sh_a_013.json",
+      "count": 100,
+      "sha256": "503975940f5148600ff561fd5e76243a4e88c439d059433f7661769fdd4a3721"
+    },
+    {
+      "path": "data/universe_pages/sh_a_014.json",
+      "count": 100,
+      "sha256": "cd5bfd2c905d4ad2b0ab9d253c2557677f7a6526f1b2e8b08689ce83e3434727"
+    },
+    {
+      "path": "data/universe_pages/sh_a_015.json",
+      "count": 100,
+      "sha256": "e7e096d671eaced699a2573f466c3f814bb65f09a33f1425b26e73ad93e3b4b4"
+    },
+    {
+      "path": "data/universe_pages/sh_a_016.json",
+      "count": 100,
+      "sha256": "655594cd371b11839cdd117b14b4faca1b5b0f5504835694f3b069e1bfbe2d3a"
+    },
+    {
+      "path": "data/universe_pages/sh_a_017.json",
+      "count": 100,
+      "sha256": "a6cfb151498e6b036a1048c01e49f9f357978171a8b05785a3278be49f8c1a23"
+    },
+    {
+      "path": "data/universe_pages/sh_a_018.json",
+      "count": 100,
+      "sha256": "985cdcfd7b485eee9500a086204c0e099d9ed867a4686ad7fd5afb266d5b038d"
+    },
+    {
+      "path": "data/universe_pages/sh_a_019.json",
+      "count": 100,
+      "sha256": "d6369d1081bed10c79fcf8650ed6c5b7dd293e188fc9e3ce4c7968281cc83a40"
+    },
+    {
+      "path": "data/universe_pages/sh_a_020.json",
+      "count": 100,
+      "sha256": "cee25d53297246e34094989fbbf077b95e2fdd5d9fa05574639b1f27bb4f72cb"
+    },
+    {
+      "path": "data/universe_pages/sh_a_021.json",
+      "count": 100,
+      "sha256": "30114b0e75880eff86bdb2eea8ab65338a456c364d60054049681b12b2eccc0f"
+    },
+    {
+      "path": "data/universe_pages/sh_a_022.json",
+      "count": 100,
+      "sha256": "e5e1d5fef4109c8c3068c4117310ca344e49aaea4a09cc7feee6dbc24a02362f"
+    },
+    {
+      "path": "data/universe_pages/sh_a_023.json",
+      "count": 100,
+      "sha256": "6fa5bcfb1a6a6034a8a44c64641d06a3fae437477709b45cb9e4f22290b582c9"
+    },
+    {
+      "path": "data/universe_pages/sh_a_024.json",
+      "count": 19,
+      "sha256": "07169c1d1a8f71103d1c3f502f4aa2cd9301c105548c5910b5ec72c2aefd641c"
     },
     {
       "path": "data/universe_pages/sz_a_001.json",
       "count": 100,
-      "sha256": "3e89aebedc18b41b844c066925f3d081d33ec25839aa548e37cc96c1d9836642"
+      "sha256": "6857d217e338ed3aef2c5e758a5a990d8d94ab3d0dadf57fed230bf048ae2b91"
     },
     {
       "path": "data/universe_pages/sz_a_002.json",
       "count": 100,
-      "sha256": "99dc8c70fa49677adccb89f6a1579b91c79e182a3803dcf6dc4e68861a9720c6"
+      "sha256": "a6e58e75ec123f68b37b1f9d2aa75d5b3fc499973269115f7d0ace54d3e8cd10"
     },
     {
       "path": "data/universe_pages/sz_a_003.json",
       "count": 100,
-      "sha256": "5a0fc7c2785270e2d1b748471227ae1902bc67b1e0841890cca4b4819560006b"
+      "sha256": "261f1c014985c7f31912e49d9706a86c8607cf4018a37c3de963c81727190040"
     },
     {
       "path": "data/universe_pages/sz_a_004.json",
       "count": 100,
-      "sha256": "38a44dea782729380130556bbf0b87bdc82b17fe805c8f5ae8f3df8bde4e54dc"
+      "sha256": "d2ef30985042f0e124d1bcd4a448002c8f97ed76afc993ce4e95f0cb07488421"
     },
     {
       "path": "data/universe_pages/sz_a_005.json",
       "count": 100,
-      "sha256": "aa249b991bc2a77b2b099b7fc272c6bc3801a83f9c42323ca964a92c8de369ce"
+      "sha256": "894ed96f88b547f6e72c2bf261dfeab1ee97c0c314867d0df64bb8bb5af0118b"
     },
     {
       "path": "data/universe_pages/sz_a_006.json",
       "count": 100,
-      "sha256": "38fdb583feb39ae4a20b0aa62fd3895314787d95cbfc01a21d0eddaf56aac044"
+      "sha256": "293cfc33c86f834f7de24d42929251deafcb9c388809c7f23c575987cbfde092"
     },
     {
       "path": "data/universe_pages/sz_a_007.json",
       "count": 100,
-      "sha256": "b754de559fa1b3e4b313dc21cc031de42f05ca1f5518b28d4c675cd37bf9c663"
+      "sha256": "fecb2879ddf79cd29c8530338d2699ca7209a9f331a728f79b0bd25f3991b8ed"
     },
     {
       "path": "data/universe_pages/sz_a_008.json",
       "count": 100,
-      "sha256": "0f957fc3fbc154f6c392880c74f857d8bd9d3ae56c062938b469200f500ca959"
+      "sha256": "6e24171aedbd6da954889653c65246ee84170aa8e8f32e506a4f898c226e030b"
     },
     {
       "path": "data/universe_pages/sz_a_009.json",
       "count": 100,
-      "sha256": "8313206ec22b5d7f71e0d694177b3ef4d8fc5bf03fc58557c648220b7603e269"
+      "sha256": "8320f9822fba74f4bba1dcbcc075abb035814710ba1ed3fecb575b0c95735eed"
     },
     {
       "path": "data/universe_pages/sz_a_010.json",
       "count": 100,
-      "sha256": "c1ebb05f60449f3a08f10399797a42dae4424be2392c64e477086c7f2acac227"
+      "sha256": "17d678e72fe6c313ea5fdb0b16c132910a64b03bd4e881d7a5940d06960cab4d"
     },
     {
       "path": "data/universe_pages/sz_a_011.json",
       "count": 100,
-      "sha256": "96888f9294b6b706084f93e6dd9c5f9052ccddde29c8fd9dd4eabb3bb62315ed"
+      "sha256": "c767dd481429f76372920c8700bf0c63dcbe16b0d4836f684f36f5e68259a326"
     },
     {
       "path": "data/universe_pages/sz_a_012.json",
       "count": 100,
-      "sha256": "efe70765f551aef54f4db54cb46f34480276034c02197317d45097d9e4f7747f"
+      "sha256": "f2e7efdce938381fedccab6a4800cbcd84e9afc08d5e36b4a165784e8674c647"
     },
     {
       "path": "data/universe_pages/sz_a_013.json",
       "count": 100,
-      "sha256": "b324323110da2f136f212062471989fe8093c7f40529dacd35ae451c2ab6745f"
+      "sha256": "706a268866b37cfef808eb78f11376cd1269bec6e5ade4a2960338fcef6c6f06"
     },
     {
       "path": "data/universe_pages/sz_a_014.json",
       "count": 100,
-      "sha256": "5c16baf42de194fd1e253ebcce44e30e0d96c305a2922c97a90df12fba444731"
+      "sha256": "80d23916c3949d1fdf48f1c9f193dad69b1c6cc24fa0e2aed956aea5b29908f5"
     },
     {
       "path": "data/universe_pages/sz_a_015.json",
       "count": 100,
-      "sha256": "01112e78623a59c70eaddbc95b30b21ed217eac545b92bde0ad6ebb7205384f1"
+      "sha256": "ed9026f0bd2e6aec40afdd913ae5673413eedd388cd727d687847b9455598939"
     },
     {
       "path": "data/universe_pages/sz_a_016.json",
       "count": 100,
-      "sha256": "8e557813088f1962dfec7f0c1a7683d465de1c3d8079d4774ce9c040c7a72ada"
+      "sha256": "ad5ba3d4e77865400e94d16ed1c5b5b0dea6965f43144a97693fee24b5572275"
     },
     {
       "path": "data/universe_pages/sz_a_017.json",
       "count": 100,
-      "sha256": "a4073134436387b34b0e0fcc63c16a1df1f15629fa840e82e30d8b79c7c711b5"
+      "sha256": "811bdfbe083d61f9018b488294c123c9c585122474ea39ac2620a6e0c17be799"
     },
     {
       "path": "data/universe_pages/sz_a_018.json",
       "count": 100,
-      "sha256": "c802b9efd5ced7be3643eed7f88b59f433e77febddfbe42dff0a6dc29b6adfdb"
+      "sha256": "5ff963ab22c674e8f20cff0b6e2535a03f82cd12baf7d1550a7339d4615a9134"
     },
     {
       "path": "data/universe_pages/sz_a_019.json",
       "count": 100,
-      "sha256": "5c86686955c0ee33bb7b439178e72f2e2c5f8f2ab30b85600bb5e0507a961040"
+      "sha256": "c434f2c51d67ca685645d1497c00e98931f5cb346236cc32e4fe5b84988d120e"
     },
     {
       "path": "data/universe_pages/sz_a_020.json",
       "count": 100,
-      "sha256": "1af57c568c6b2bc8795cbed9594088d754cb2703457f080aca5060cdd2e5ca20"
+      "sha256": "a60270dd0c5157673178bb9d38528de3a0035270009e1fca8198260d88a1eb32"
     },
     {
       "path": "data/universe_pages/sz_a_021.json",
       "count": 100,
-      "sha256": "4348341ab3a1cf69368a14c4686f02e89168f1edba3be22c552e5140f875249a"
+      "sha256": "e9c3d3ed0e9a766735f15412e0077197a5229af540790ee685f48b26567968a7"
     },
     {
       "path": "data/universe_pages/sz_a_022.json",
       "count": 100,
-      "sha256": "19783c2d45d551df9cbe31b66a01be6b3a08be70680c8a60627a8d8d9b5ce50c"
+      "sha256": "07100d99af3c72bb41f334ac52ad766598d6b0ae589623f980f6203f5b1d7646"
     },
     {
       "path": "data/universe_pages/sz_a_023.json",
       "count": 100,
-      "sha256": "8ada1d3f020261022f820bdda8587b0af4a647787e5eb69e9e10f1cfbc8b470d"
+      "sha256": "73da3bbfbc6d8451ec38a10070bdd60ac39039f841e037fca19db4a7e7fa89f5"
     },
     {
       "path": "data/universe_pages/sz_a_024.json",
       "count": 100,
-      "sha256": "488c2594ed60033b46d5ab62a60b56a3527e90fbb7f8005578242313c583914a"
+      "sha256": "246ea4aac1d0d720dce65b3b67552c76a1121f09e5bb28f5d1f8e5d4a4a9b810"
     },
     {
       "path": "data/universe_pages/sz_a_025.json",
       "count": 100,
-      "sha256": "e1738af4c8b553daeb23848d2151ab9ca9e9494d84e062f1d3098e265f22fb12"
+      "sha256": "0dd06581a57639180751099b0bc2cab38791e2396bf7cfa3a01b10247a7bc41d"
     },
     {
       "path": "data/universe_pages/sz_a_026.json",
       "count": 100,
-      "sha256": "ae47f507450c669cad5ba6c0f72d6b97937aaa246a4df450083cd12cc7d5a6e7"
+      "sha256": "4afa1510a5eca62e1ce3caeab75fbe6bba0c14eb9975c7ece7203ef0835c6a93"
     },
     {
       "path": "data/universe_pages/sz_a_027.json",
       "count": 100,
-      "sha256": "0a7130660ed6263528e201494fecafbcc81df8996e02aefbfa189871742f6161"
+      "sha256": "ede05f0fd2ca3e29705f4c99a8148dcd1c9caeb63e574576bd20e27343b143f4"
     },
     {
       "path": "data/universe_pages/sz_a_028.json",
       "count": 100,
-      "sha256": "3cfb53cd3bb916d29179196fdf0292c459d2a4afc34aaac8d558c5076a577c5a"
+      "sha256": "cb73a3b466e02f829a878f2d78fa1e1b9999a54c3437d8537f27c924365ffc52"
     },
     {
       "path": "data/universe_pages/sz_a_029.json",
       "count": 100,
-      "sha256": "7eb037d30376dfa809a1040ea0aec571c1cc535265af14a113c22f2b377ddda6"
+      "sha256": "5970bf53736ef8202929d9d4eb977718a8efca371d7ba32b23b2ed7545ef3dfe"
     },
     {
       "path": "data/universe_pages/sz_a_030.json",
       "count": 2,
-      "sha256": "7bf6a468a12268afce4a2198bf863ce6ceb68526e00a269be73fb1c5b0852e57"
+      "sha256": "c000200fbdc96b6f6539af2888ac945ddbda9222e06300d5ae1a617717f97584"
     }
   ],
   "no_future_data_permission": true
