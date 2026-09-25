@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-09-25T14:20:00.596417+08:00",
+  "generated_at_beijing": "2026-09-25T14:49:41.802828+08:00",
   "data_health": "RED",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -32,8 +32,8 @@
       "minute_last_time": "2026-09-24T15:30:00+08:00",
       "minute_last_price": 44.15,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 44.15,
-      "secondary_time": "2026-09-24T15:34:09+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -84,8 +84,8 @@
       "minute_last_time": "2026-09-24T15:30:00+08:00",
       "minute_last_price": 40.28,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 40.28,
-      "secondary_time": "2026-09-24T16:12:00+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -136,8 +136,8 @@
       "minute_last_time": "2026-09-24T15:30:00+08:00",
       "minute_last_price": 23.26,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 23.26,
-      "secondary_time": "2026-09-24T16:11:34+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -188,8 +188,8 @@
       "minute_last_time": "2026-09-24T15:30:00+08:00",
       "minute_last_price": 62.06,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 62.06,
-      "secondary_time": "2026-09-24T16:11:45+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -240,8 +240,8 @@
       "minute_last_time": "2026-09-24T15:30:00+08:00",
       "minute_last_price": 178.85,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 178.85,
-      "secondary_time": "2026-09-24T16:11:36+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-09-25T14:20:15.271989+08:00",
+    "evaluated_at_beijing": "2026-09-25T14:49:51.290293+08:00",
     "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
     "symbols": {
       "sz300765": {
