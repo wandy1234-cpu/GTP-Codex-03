@@ -1,6 +1,6 @@
 {
-  "generated_at_beijing": "2026-09-24T20:35:17.407710+08:00",
-  "data_health": "NOT_LIVE",
+  "generated_at_beijing": "2026-09-25T14:20:00.596417+08:00",
+  "data_health": "RED",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
   "deep_candidates": [
@@ -42,7 +42,7 @@
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 44.914492
+        "vwap": null
       },
       "m15": {
         "source": "tencent_minute_query_derived_m15",
@@ -51,7 +51,7 @@
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 44.914492
+        "vwap": null
       },
       "gate": {
         "tencent_fresh": false,
@@ -94,16 +94,16 @@
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 40.934675
+        "vwap": null
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
-        "lower_highs": false,
+        "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 40.938452
+        "vwap": null
       },
       "gate": {
         "tencent_fresh": false,
@@ -146,16 +146,16 @@
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 23.499146
+        "vwap": null
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 23.499739
+        "vwap": null
       },
       "gate": {
         "tencent_fresh": false,
@@ -198,7 +198,7 @@
         "lower_highs": true,
         "higher_lows": true,
         "higher_highs": false,
-        "vwap": 62.817681
+        "vwap": null
       },
       "m15": {
         "source": "tencent_minute_query_derived_m15",
@@ -207,7 +207,7 @@
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 62.817681
+        "vwap": null
       },
       "gate": {
         "tencent_fresh": false,
@@ -250,7 +250,7 @@
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 181.753701
+        "vwap": null
       },
       "m15": {
         "source": "tencent_minute_query_derived_m15",
@@ -259,7 +259,7 @@
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 181.753701
+        "vwap": null
       },
       "gate": {
         "tencent_fresh": false,
@@ -274,12 +274,12 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-09-24T20:35:33.843872+08:00",
-    "market_phase": "CLOSED",
+    "evaluated_at_beijing": "2026-09-25T14:20:15.271989+08:00",
+    "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
     "symbols": {
       "sz300765": {
-        "health": "NOT_LIVE",
-        "market_phase": "CLOSED",
+        "health": "RED",
+        "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
         "minute_gate": {
           "security_date": "20260924",
           "last_continuous_minute": "2026-09-24T15:00:00+08:00",
@@ -326,8 +326,8 @@
         "true_5m_15m_ohlc_time_verified": false
       },
       "sh600988": {
-        "health": "NOT_LIVE",
-        "market_phase": "CLOSED",
+        "health": "RED",
+        "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
         "minute_gate": {
           "security_date": "20260924",
           "last_continuous_minute": "2026-09-24T15:00:00+08:00",
@@ -374,8 +374,8 @@
         "true_5m_15m_ohlc_time_verified": false
       },
       "sh601233": {
-        "health": "NOT_LIVE",
-        "market_phase": "CLOSED",
+        "health": "RED",
+        "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
         "minute_gate": {
           "security_date": "20260924",
           "last_continuous_minute": "2026-09-24T15:00:00+08:00",
@@ -422,8 +422,8 @@
         "true_5m_15m_ohlc_time_verified": false
       },
       "sh688676": {
-        "health": "NOT_LIVE",
-        "market_phase": "CLOSED",
+        "health": "RED",
+        "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
         "minute_gate": {
           "security_date": "20260924",
           "last_continuous_minute": "2026-09-24T15:00:00+08:00",
@@ -472,8 +472,8 @@
         "true_5m_15m_ohlc_time_verified": false
       },
       "sh688002": {
-        "health": "NOT_LIVE",
-        "market_phase": "CLOSED",
+        "health": "RED",
+        "market_phase": "SESSION_WINDOW_CALENDAR_UNCONFIRMED",
         "minute_gate": {
           "security_date": "20260924",
           "last_continuous_minute": "2026-09-24T15:00:00+08:00",
