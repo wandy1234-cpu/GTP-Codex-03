@@ -115321,7 +115321,7 @@
     }
   },
   "frozen_verification": {
-    "checked_at_beijing": "2026-09-28T15:16:27.440410+08:00",
+    "checked_at_beijing": "2026-09-28T15:56:01.522103+08:00",
     "cutoff_hhmm": "1500",
     "security_date": "20260928",
     "sample_count": 20,
@@ -115338,10 +115338,10 @@
         "daily_close": 17.26,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600089&_ts=1790579782096",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600089&_ts=1790582157454",
         "symbol": "sh600089",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600089,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:20+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:41+08:00"
       },
       {
         "passed": true,
@@ -115354,10 +115354,10 @@
         "daily_close": 12.31,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600216&_ts=1790579782097",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600216&_ts=1790582157455",
         "symbol": "sh600216",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600216,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:01+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:31+08:00"
       },
       {
         "passed": true,
@@ -115370,10 +115370,10 @@
         "daily_close": 3.84,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600530&_ts=1790579782096",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600530&_ts=1790582157454",
         "symbol": "sh600530",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600530,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:20+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:50+08:00"
       },
       {
         "passed": true,
@@ -115386,10 +115386,10 @@
         "daily_close": 7.35,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600589&_ts=1790579782095",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600589&_ts=1790582157453",
         "symbol": "sh600589",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600589,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:15+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:45+08:00"
       },
       {
         "passed": true,
@@ -115402,10 +115402,10 @@
         "daily_close": 10.33,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601966&_ts=1790579782097",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601966&_ts=1790582157454",
         "symbol": "sh601966",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601966,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:02+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:32+08:00"
       },
       {
         "passed": true,
@@ -115418,10 +115418,10 @@
         "daily_close": 6.14,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603828&_ts=1790579784429",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603828&_ts=1790582158808",
         "symbol": "sh603828",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603828,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:11+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:52+08:00"
       },
       {
         "passed": true,
@@ -115434,10 +115434,10 @@
         "daily_close": 7.2,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688096&_ts=1790579782096",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688096&_ts=1790582157454",
         "symbol": "sh688096",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688096,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:16+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:46+08:00"
       },
       {
         "passed": true,
@@ -115450,10 +115450,10 @@
         "daily_close": 19.8,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688244&_ts=1790579784430",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688244&_ts=1790582158810",
         "symbol": "sh688244",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688244,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:14+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:54+08:00"
       },
       {
         "passed": true,
@@ -115466,10 +115466,10 @@
         "daily_close": 198.25,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688525&_ts=1790579782095",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688525&_ts=1790582157453",
         "symbol": "sh688525",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688525,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:18+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:42+08:00"
       },
       {
         "passed": true,
@@ -115482,10 +115482,10 @@
         "daily_close": 91.99,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688628&_ts=1790579782095",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688628&_ts=1790582157453",
         "symbol": "sh688628",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688628,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:19+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:49+08:00"
       },
       {
         "passed": true,
@@ -115498,10 +115498,10 @@
         "daily_close": 22.1,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002963&_ts=1790579784437",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002963&_ts=1790582158823",
         "symbol": "sz002963",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002963,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:15:30+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:51+08:00"
       },
       {
         "passed": true,
@@ -115514,10 +115514,10 @@
         "daily_close": 5.22,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz003035&_ts=1790579784447",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz003035&_ts=1790582158841",
         "symbol": "sz003035",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz003035,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:00+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:21+08:00"
       },
       {
         "passed": true,
@@ -115530,10 +115530,10 @@
         "daily_close": 11.03,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300092&_ts=1790579785921",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300092&_ts=1790582160116",
         "symbol": "sz300092",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300092,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:00+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:42+08:00"
       },
       {
         "passed": true,
@@ -115546,10 +115546,10 @@
         "daily_close": 7.99,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300527&_ts=1790579784446",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300527&_ts=1790582158836",
         "symbol": "sz300527",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300527,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:15+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:03+08:00"
       },
       {
         "passed": true,
@@ -115562,10 +115562,10 @@
         "daily_close": 13.83,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300585&_ts=1790579784437",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300585&_ts=1790582158823",
         "symbol": "sz300585",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300585,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:15:30+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:51+08:00"
       },
       {
         "passed": true,
@@ -115578,10 +115578,10 @@
         "daily_close": 25.44,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300890&_ts=1790579784439",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300890&_ts=1790582158834",
         "symbol": "sz300890",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300890,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:15+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:03+08:00"
       },
       {
         "passed": true,
@@ -115594,10 +115594,10 @@
         "daily_close": 25.51,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300973&_ts=1790579785927",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300973&_ts=1790582160163",
         "symbol": "sz300973",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300973,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:15:45+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:36+08:00"
       },
       {
         "passed": true,
@@ -115610,10 +115610,10 @@
         "daily_close": 34.02,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300979&_ts=1790579785925",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300979&_ts=1790582160162",
         "symbol": "sz300979",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300979,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:15:15+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:39+08:00"
       },
       {
         "passed": true,
@@ -115626,10 +115626,10 @@
         "daily_close": 24.95,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301190&_ts=1790579785939",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301190&_ts=1790582160164",
         "symbol": "sz301190",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301190,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:00+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:18+08:00"
       },
       {
         "passed": true,
@@ -115642,10 +115642,10 @@
         "daily_close": 30.79,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301468&_ts=1790579784438",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301468&_ts=1790582158832",
         "symbol": "sz301468",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301468,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-09-28T15:16:00+08:00"
+        "tencent_snapshot_update_time": "2026-09-28T15:55:27+08:00"
       }
     ],
     "state": "PASS",
