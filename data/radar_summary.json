@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-09-28T19:22:05.589935+08:00",
+  "generated_at_beijing": "2026-09-28T23:02:17.000328+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -84,8 +84,8 @@
       "minute_last_time": "2026-09-28T15:30:00+08:00",
       "minute_last_price": 38.07,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 38.07,
-      "secondary_time": "2026-09-28T16:11:33+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -240,8 +240,8 @@
       "minute_last_time": "2026-09-28T15:30:00+08:00",
       "minute_last_price": 175.66,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 175.66,
+      "secondary_time": "2026-09-28T16:11:42+08:00",
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-09-28T19:22:20.890843+08:00",
+    "evaluated_at_beijing": "2026-09-28T23:02:39.899217+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh688766": {
