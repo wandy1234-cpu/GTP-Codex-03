@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-09-29T18:59:51.963309+08:00",
+  "generated_at_beijing": "2026-09-29T21:49:26.661724+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -240,8 +240,8 @@
       "minute_last_time": "2026-09-29T15:30:00+08:00",
       "minute_last_price": 61.55,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 61.55,
-      "secondary_time": "2026-09-29T16:11:52+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-09-29T19:00:04.677877+08:00",
+    "evaluated_at_beijing": "2026-09-29T21:49:41.446364+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh601233": {
