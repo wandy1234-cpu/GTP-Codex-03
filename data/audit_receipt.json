@@ -1,8 +1,8 @@
 {
   "schema_version": "2.6.0",
-  "generated_at_beijing": "2026-09-30T18:50:46.712503+08:00",
-  "run_id": "36704825405",
-  "commit": "9d8d04955b63eec468214ab04fd18cfd3e14970f",
+  "generated_at_beijing": "2026-09-30T21:24:13.346499+08:00",
+  "run_id": "36721221364",
+  "commit": "53b6a608f4ae6de104dabe6a1bc4c3d8937d59a0",
   "market_phase": "CLOSED",
   "personal_candidate_gates": {
     "sh688766": {
@@ -48,7 +48,7 @@
         "sampled_prices_are_not_true_intraminute_ohlc": true
       },
       "independent_quote_agrees": false,
-      "true_5m_15m_ohlc_ready": false,
+      "true_5m_15m_ohlc_ready": true,
       "daily_sequence_ready": true,
       "live_action_allowed": false,
       "official_iopv_verified": null,
@@ -246,7 +246,7 @@
         "sampled_prices_are_not_true_intraminute_ohlc": true
       },
       "independent_quote_agrees": false,
-      "true_5m_15m_ohlc_ready": false,
+      "true_5m_15m_ohlc_ready": true,
       "daily_sequence_ready": true,
       "live_action_allowed": false,
       "official_iopv_verified": null,
@@ -258,6 +258,102 @@
     "hk01530": {
       "health": "UNVERIFIED",
       "reason": "HK_adapter_validation_required",
+      "true_5m_15m_ohlc_time_verified": false
+    },
+    "sh600299": {
+      "health": "NOT_LIVE",
+      "market_phase": "CLOSED",
+      "minute_gate": {
+        "security_date": "20260930",
+        "last_continuous_minute": "2026-09-30T15:00:00+08:00",
+        "fresh_for_live": false,
+        "vwap": 8.18587473,
+        "volume_unit": "lot_100_shares",
+        "amount_unit": "CNY",
+        "excluded_out_of_session_rows": [
+          "1506",
+          "1507",
+          "1508",
+          "1509",
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1516",
+          "1517",
+          "1518",
+          "1519",
+          "1520",
+          "1521",
+          "1522",
+          "1523",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1529",
+          "1530"
+        ],
+        "anomalies": [],
+        "sampled_prices_are_not_true_intraminute_ohlc": true
+      },
+      "independent_quote_agrees": false,
+      "true_5m_15m_ohlc_ready": false,
+      "daily_sequence_ready": true,
+      "live_action_allowed": false,
+      "official_iopv_verified": null,
+      "premium_action_allowed": null,
+      "true_5m_15m_ohlc_time_verified": false
+    },
+    "sh589720": {
+      "health": "NOT_LIVE",
+      "market_phase": "CLOSED",
+      "minute_gate": {
+        "security_date": "20260930",
+        "last_continuous_minute": "2026-09-30T15:00:00+08:00",
+        "fresh_for_live": false,
+        "vwap": 0.91518871,
+        "volume_unit": "lot_100_shares",
+        "amount_unit": "CNY",
+        "excluded_out_of_session_rows": [
+          "1506",
+          "1507",
+          "1508",
+          "1509",
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1516",
+          "1517",
+          "1518",
+          "1519",
+          "1520",
+          "1521",
+          "1522",
+          "1523",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1529",
+          "1530"
+        ],
+        "anomalies": [],
+        "sampled_prices_are_not_true_intraminute_ohlc": true
+      },
+      "independent_quote_agrees": false,
+      "true_5m_15m_ohlc_ready": false,
+      "daily_sequence_ready": true,
+      "live_action_allowed": false,
+      "official_iopv_verified": null,
+      "premium_action_allowed": null,
       "true_5m_15m_ohlc_time_verified": false
     },
     "sh513500": {
@@ -356,54 +452,6 @@
       "premium_action_allowed": null,
       "true_5m_15m_ohlc_time_verified": false
     },
-    "sh589720": {
-      "health": "NOT_LIVE",
-      "market_phase": "CLOSED",
-      "minute_gate": {
-        "security_date": "20260930",
-        "last_continuous_minute": "2026-09-30T15:00:00+08:00",
-        "fresh_for_live": false,
-        "vwap": 0.91518871,
-        "volume_unit": "lot_100_shares",
-        "amount_unit": "CNY",
-        "excluded_out_of_session_rows": [
-          "1506",
-          "1507",
-          "1508",
-          "1509",
-          "1510",
-          "1511",
-          "1512",
-          "1513",
-          "1514",
-          "1515",
-          "1516",
-          "1517",
-          "1518",
-          "1519",
-          "1520",
-          "1521",
-          "1522",
-          "1523",
-          "1524",
-          "1525",
-          "1526",
-          "1527",
-          "1528",
-          "1529",
-          "1530"
-        ],
-        "anomalies": [],
-        "sampled_prices_are_not_true_intraminute_ohlc": true
-      },
-      "independent_quote_agrees": false,
-      "true_5m_15m_ohlc_ready": false,
-      "daily_sequence_ready": true,
-      "live_action_allowed": false,
-      "official_iopv_verified": null,
-      "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false
-    },
     "sh518880": {
       "health": "NOT_LIVE",
       "market_phase": "CLOSED",
@@ -452,14 +500,14 @@
       "premium_action_allowed": false,
       "true_5m_15m_ohlc_time_verified": false
     },
-    "sh600299": {
+    "sz002838": {
       "health": "NOT_LIVE",
       "market_phase": "CLOSED",
       "minute_gate": {
         "security_date": "20260930",
         "last_continuous_minute": "2026-09-30T15:00:00+08:00",
         "fresh_for_live": false,
-        "vwap": 8.18587473,
+        "vwap": 24.7369478,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [
@@ -508,54 +556,6 @@
         "last_continuous_minute": "2026-09-30T15:00:00+08:00",
         "fresh_for_live": false,
         "vwap": 25.81139528,
-        "volume_unit": "lot_100_shares",
-        "amount_unit": "CNY",
-        "excluded_out_of_session_rows": [
-          "1506",
-          "1507",
-          "1508",
-          "1509",
-          "1510",
-          "1511",
-          "1512",
-          "1513",
-          "1514",
-          "1515",
-          "1516",
-          "1517",
-          "1518",
-          "1519",
-          "1520",
-          "1521",
-          "1522",
-          "1523",
-          "1524",
-          "1525",
-          "1526",
-          "1527",
-          "1528",
-          "1529",
-          "1530"
-        ],
-        "anomalies": [],
-        "sampled_prices_are_not_true_intraminute_ohlc": true
-      },
-      "independent_quote_agrees": false,
-      "true_5m_15m_ohlc_ready": false,
-      "daily_sequence_ready": true,
-      "live_action_allowed": false,
-      "official_iopv_verified": null,
-      "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false
-    },
-    "sz002838": {
-      "health": "NOT_LIVE",
-      "market_phase": "CLOSED",
-      "minute_gate": {
-        "security_date": "20260930",
-        "last_continuous_minute": "2026-09-30T15:00:00+08:00",
-        "fresh_for_live": false,
-        "vwap": 24.7369478,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [
@@ -839,7 +839,7 @@
       "stock_pick_gate": "VERIFIED_CLOSED_DATASET",
       "point_in_time_note": "Consumer must verify dataset security date and cutoff; retrieval time is not trade time.",
       "frozen_verification": {
-        "checked_at_beijing": "2026-09-30T18:50:50.816075+08:00",
+        "checked_at_beijing": "2026-09-30T21:24:18.830848+08:00",
         "cutoff_hhmm": "1500",
         "security_date": "20260930",
         "sample_count": 20,
@@ -856,7 +856,7 @@
             "daily_close": 9.4,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600099&_ts=1790765447544",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600099&_ts=1790774654427",
             "symbol": "sh600099",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600099,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:51+08:00"
@@ -872,7 +872,7 @@
             "daily_close": 7.0,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600138&_ts=1790765447544",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600138&_ts=1790774654428",
             "symbol": "sh600138",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600138,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:43+08:00"
@@ -888,7 +888,7 @@
             "daily_close": 18.71,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603211&_ts=1790765447543",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603211&_ts=1790774654427",
             "symbol": "sh603211",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603211,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:15:00+08:00"
@@ -904,7 +904,7 @@
             "daily_close": 10.27,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603278&_ts=1790765447543",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603278&_ts=1790774654426",
             "symbol": "sh603278",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603278,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:51+08:00"
@@ -920,7 +920,7 @@
             "daily_close": 71.36,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603306&_ts=1790765447543",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603306&_ts=1790774654427",
             "symbol": "sh603306",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603306,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:55+08:00"
@@ -936,7 +936,7 @@
             "daily_close": 44.57,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603389&_ts=1790765448631",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603389&_ts=1790774655867",
             "symbol": "sh603389",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603389,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:46+08:00"
@@ -952,7 +952,7 @@
             "daily_close": 8.07,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603779&_ts=1790765447544",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603779&_ts=1790774654428",
             "symbol": "sh603779",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603779,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:47+08:00"
@@ -968,7 +968,7 @@
             "daily_close": 25.62,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603995&_ts=1790765447544",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603995&_ts=1790774654428",
             "symbol": "sh603995",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603995,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:40+08:00"
@@ -984,7 +984,7 @@
             "daily_close": 102.64,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688185&_ts=1790765448632",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688185&_ts=1790774655868",
             "symbol": "sh688185",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688185,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:42+08:00"
@@ -1000,7 +1000,7 @@
             "daily_close": 119.6,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688622&_ts=1790765447543",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688622&_ts=1790774654426",
             "symbol": "sh688622",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688622,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:55+08:00"
@@ -1016,7 +1016,7 @@
             "daily_close": 2.4,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz000008&_ts=1790765449714",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz000008&_ts=1790774657309",
             "symbol": "sz000008",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz000008,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:15:00+08:00"
@@ -1032,7 +1032,7 @@
             "daily_close": 11.4,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz000995&_ts=1790765449716",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz000995&_ts=1790774657316",
             "symbol": "sz000995",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz000995,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:15:00+08:00"
@@ -1048,7 +1048,7 @@
             "daily_close": 65.09,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz001246&_ts=1790765449717",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz001246&_ts=1790774657317",
             "symbol": "sz001246",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz001246,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:45+08:00"
@@ -1064,7 +1064,7 @@
             "daily_close": 7.97,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002660&_ts=1790765448637",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002660&_ts=1790774655879",
             "symbol": "sz002660",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002660,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:51+08:00"
@@ -1080,7 +1080,7 @@
             "daily_close": 6.15,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300311&_ts=1790765448639",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300311&_ts=1790774655879",
             "symbol": "sz300311",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300311,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:21+08:00"
@@ -1096,7 +1096,7 @@
             "daily_close": 20.6,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300662&_ts=1790765448642",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300662&_ts=1790774655880",
             "symbol": "sz300662",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300662,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:45+08:00"
@@ -1112,7 +1112,7 @@
             "daily_close": 64.97,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300820&_ts=1790765448633",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300820&_ts=1790774655876",
             "symbol": "sz300820",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300820,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:57+08:00"
@@ -1128,7 +1128,7 @@
             "daily_close": 17.23,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300908&_ts=1790765449716",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300908&_ts=1790774657316",
             "symbol": "sz300908",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300908,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:57+08:00"
@@ -1144,7 +1144,7 @@
             "daily_close": 0.91,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301139&_ts=1790765448632",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301139&_ts=1790774655875",
             "symbol": "sz301139",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301139,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:45+08:00"
@@ -1160,7 +1160,7 @@
             "daily_close": 95.43,
             "daily_close_checked": true,
             "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301680&_ts=1790765448633",
+            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301680&_ts=1790774655878",
             "symbol": "sz301680",
             "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301680,day,,,5,qfq",
             "tencent_snapshot_update_time": "2026-09-30T16:14:54+08:00"
@@ -1186,5 +1186,5 @@
   "iopv_verified": false,
   "actual_agent_execution_not_proved_by_relay": true,
   "raw_shard_count": 54,
-  "finalized_at_beijing": "2026-09-30T18:50:50.963378+08:00"
+  "finalized_at_beijing": "2026-09-30T21:24:19.014803+08:00"
 }
