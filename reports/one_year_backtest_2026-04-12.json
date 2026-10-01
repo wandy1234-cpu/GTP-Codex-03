@@ -1,0 +1,58 @@
+{
+  "status": "ok_with_warnings",
+  "rows": 4662,
+  "symbol_count": 18,
+  "metrics": {
+    "top_n": 5,
+    "start": "2025-08-12",
+    "end": "2026-03-30",
+    "strategy_cum_ret": 1.2231495371203498,
+    "cum_excess_vs_shanghai": 1.110621836103547,
+    "max_drawdown": -0.20263663024311573,
+    "hit_rate": 0.6129032258064516,
+    "barra": {
+      "status": "ok",
+      "top_n": 5,
+      "style_exposure": {
+        "style_size": 0.5617071248538231,
+        "style_momentum": -0.2857600802227469,
+        "style_volatility": -0.1004010287506107,
+        "style_liquidity": 0.39131339732975834
+      },
+      "max_abs_style_exposure": 0.5617071248538231,
+      "industry_exposure": {},
+      "risk_flag": false
+    },
+    "universe": {
+      "before_count": 4662,
+      "before_symbol_count": 18,
+      "before_by_market": {
+        "A": 18
+      },
+      "removed_by_rule": {
+        "st": 0,
+        "suspended": 0,
+        "amount": 0,
+        "min_price": 0
+      },
+      "removed_by_rule_by_market": {
+        "st": {},
+        "suspended": {},
+        "amount": {},
+        "min_price": {}
+      },
+      "missing_fields": [
+        "list_date"
+      ],
+      "after_count": 4662,
+      "after_symbol_count": 18,
+      "after_by_market": {
+        "A": 18
+      }
+    }
+  },
+  "warnings": [
+    "used_cached_one_year_history:symbols=18"
+  ],
+  "curve_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\reports\\one_year_backtest_2026-04-12.parquet"
+}

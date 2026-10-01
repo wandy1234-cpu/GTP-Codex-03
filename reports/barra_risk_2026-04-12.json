@@ -1,0 +1,13 @@
+{
+  "status": "ok",
+  "top_n": 10,
+  "style_exposure": {
+    "style_size": -3.7188724053390088,
+    "style_momentum": -0.018220859713418608,
+    "style_volatility": -0.018206268725262608,
+    "style_liquidity": -0.026043356631952792
+  },
+  "max_abs_style_exposure": 3.7188724053390088,
+  "industry_exposure": {},
+  "risk_flag": true
+}
