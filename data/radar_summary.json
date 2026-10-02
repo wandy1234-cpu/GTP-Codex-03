@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-02T18:49:18.868059+08:00",
+  "generated_at_beijing": "2026-10-02T21:39:08.125688+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-02T18:49:34.281146+08:00",
+    "evaluated_at_beijing": "2026-10-02T21:39:25.959140+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh688766": {
