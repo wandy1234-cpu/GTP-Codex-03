@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-02T21:39:08.125688+08:00",
+  "generated_at_beijing": "2026-10-05T15:21:59.543007+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -32,8 +32,8 @@
       "minute_last_time": "2026-09-30T15:30:00+08:00",
       "minute_last_price": 356.64,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 356.64,
+      "secondary_time": "2026-09-30T16:11:47+08:00",
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -45,8 +45,8 @@
         "vwap": null
       },
       "m15": {
-        "source": "tencent_minute_query_derived_m15",
-        "quality": "derived",
+        "source": "eastmoney_klt15",
+        "quality": "primary",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
@@ -84,8 +84,8 @@
       "minute_last_time": "2026-09-30T15:30:00+08:00",
       "minute_last_price": 202.31,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 202.31,
+      "secondary_time": "2026-09-30T16:11:49+08:00",
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -97,8 +97,8 @@
         "vwap": null
       },
       "m15": {
-        "source": "tencent_minute_query_derived_m15",
-        "quality": "derived",
+        "source": "eastmoney_klt15",
+        "quality": "primary",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
@@ -136,8 +136,8 @@
       "minute_last_time": "2026-09-30T15:30:00+08:00",
       "minute_last_price": 173.42,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 173.42,
+      "secondary_time": "2026-09-30T16:11:44+08:00",
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -188,8 +188,8 @@
       "minute_last_time": "2026-09-30T15:30:00+08:00",
       "minute_last_price": 61.53,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 61.53,
+      "secondary_time": "2026-09-30T16:11:59+08:00",
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -240,14 +240,14 @@
       "minute_last_time": "2026-09-30T15:30:00+08:00",
       "minute_last_price": 22.73,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 22.73,
+      "secondary_time": "2026-09-30T16:11:47+08:00",
       "route": "tencent-rebuild",
       "m5": {
-        "source": "tencent_minute_query_derived_m5",
-        "quality": "derived",
+        "source": "eastmoney_klt5",
+        "quality": "primary",
         "lower_lows": false,
-        "lower_highs": true,
+        "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
         "vwap": null
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-02T21:39:25.959140+08:00",
+    "evaluated_at_beijing": "2026-10-05T15:22:13.291648+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh688766": {
