@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-05T15:21:59.543007+08:00",
+  "generated_at_beijing": "2026-10-05T15:53:42.636598+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -45,8 +45,8 @@
         "vwap": null
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
@@ -97,8 +97,8 @@
         "vwap": null
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
@@ -244,10 +244,10 @@
       "secondary_time": "2026-09-30T16:11:47+08:00",
       "route": "tencent-rebuild",
       "m5": {
-        "source": "eastmoney_klt5",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m5",
+        "quality": "derived",
         "lower_lows": false,
-        "lower_highs": false,
+        "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
         "vwap": null
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-05T15:22:13.291648+08:00",
+    "evaluated_at_beijing": "2026-10-05T15:54:04.624329+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh688766": {
