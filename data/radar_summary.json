@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-08T19:42:37.958935+08:00",
+  "generated_at_beijing": "2026-10-08T22:25:04.573643+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -32,8 +32,8 @@
       "minute_last_time": "2026-10-08T15:30:00+08:00",
       "minute_last_price": 333.79,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 333.79,
+      "secondary_time": "2026-10-08T16:11:37+08:00",
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -45,13 +45,13 @@
         "vwap": 342.015708
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 342.091037
+        "vwap": 342.015708
       },
       "gate": {
         "tencent_fresh": false,
@@ -84,8 +84,8 @@
       "minute_last_time": "2026-10-08T15:30:00+08:00",
       "minute_last_price": 197.01,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 197.01,
+      "secondary_time": "2026-10-08T16:11:43+08:00",
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -97,13 +97,13 @@
         "vwap": 201.042731
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 201.055122
+        "vwap": 201.042731
       },
       "gate": {
         "tencent_fresh": false,
@@ -149,13 +149,13 @@
         "vwap": 46.08524
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
-        "lower_highs": false,
+        "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 46.095117
+        "vwap": 46.08524
       },
       "gate": {
         "tencent_fresh": false,
@@ -253,13 +253,13 @@
         "vwap": 30.103339
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 30.104174
+        "vwap": 30.103339
       },
       "gate": {
         "tencent_fresh": false,
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-08T19:42:53.848111+08:00",
+    "evaluated_at_beijing": "2026-10-08T22:25:18.650859+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh688766": {
