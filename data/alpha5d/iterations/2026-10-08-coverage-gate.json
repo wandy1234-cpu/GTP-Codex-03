@@ -1,0 +1,55 @@
+{
+  "schema_version": "alpha5d-iteration-1",
+  "forecast_date": "2026-10-08",
+  "cutoff": "2026-10-08T08:50:00+08:00",
+  "model_version": "V8.0-bootstrap-1",
+  "iteration_status": "proposed",
+  "type": "DATA_COVERAGE_AND_PROVENANCE_REPAIR",
+  "main_goal": "Predict the five fastest rising A-share stocks across five trading sessions, without imputing unverified full-market rank.",
+  "current_result": "NO_RANK",
+  "forecast_sessions": [
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14"
+  ],
+  "observed_evidence": {
+    "original_universe_repo_blob_sha": "9fb610fea9f5aa453388bf320e9961a435723e8a",
+    "original_universe_capture_at": "2026-10-02T15:14:43+08:00",
+    "actual_security_date": "2026-09-30",
+    "sh_a_pages": 24,
+    "sh_a_rows": 2319,
+    "sz_a_pages": 30,
+    "sz_a_rows": 2904,
+    "merged_unique": 5223,
+    "missing_pages": 0,
+    "crosschecked_20_tencent_snapshot_price_agreement": 20,
+    "frozen_verification_strict_20_passed": 0,
+    "frozen_verification_invalid_expected_security_date": "2026-10-02",
+    "frozen_verification_original_actual_date": "2026-09-30",
+    "daily_k_close_null_in_frozen_checks": true,
+    "full_61_day_industry_normalized_universe": "NOT_AVAILABLE",
+    "rank_engine_found": true,
+    "full_production_ranking_executed": false,
+    "official_cohort_created": false
+  },
+  "root_causes": [
+    "During National Day holiday, strict verifier erroneously expected 2026-10-02 security date rather than last valid trading session 2026-09-30.",
+    "Tencent intraday and snapshot price agreement does not replace missing independent daily close checks.",
+    "Full-universe 61-session daily K and industry features are not yet adapted to V8 rank engine.",
+    "GitHub contents fetch of 2.8MB returned empty string; GitHub fetch_blob by SHA did recover full original snapshot."
+  ],
+  "repair_plan": [
+    "Make cross-check calendar aware and resolve prior valid exchange session before verifying minute or daily-K data.",
+    "Use daily-K failover and record 20 independent daily closes for the stratified samples.",
+    "Cache and incrementally adapt >=61 genuine sessions for each eligible A-share and as-of industry classification.",
+    "Execute actual rank(data) over the complete eligible universe, save hashes and full ranking with create-only frozen cohort, then score D5 out-of-sample."
+  ],
+  "success_criteria": "All eligible A-shares have sufficient as-of daily history and sector, 20/20 sample cross-check passes with independent daily K, full ranking hash is persisted, forecast frozen by 08:50 next eligible run.",
+  "model_weights_changed": false,
+  "production_promotion": false,
+  "tests_run_for_this_change": 0,
+  "risk": "Avoid converting a proposed data pipeline fix into an unproven improvement in trading accuracy.",
+  "privacy": "Only public market data; contains no account or personal holdings."
+}
