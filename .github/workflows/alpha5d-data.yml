@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/alpha5d_pipeline.py'
       - 'scripts/alpha5d_source_fixes.py'
+      - 'scripts/alpha5d_runtime.py'
       - 'scripts/alpha5d_engine.py'
       - 'scripts/test_alpha5d_*.py'
       - '.github/workflows/alpha5d-data.yml'
@@ -39,7 +40,7 @@ jobs:
       - name: Collect dated public universe and run unchanged score model
         id: collect
         continue-on-error: true
-        run: timeout --signal=INT 900s python scripts/alpha5d_source_fixes.py --output .cache/alpha5d --workers 8
+        run: timeout --signal=INT --kill-after=45s 900s python scripts/alpha5d_runtime.py --output .cache/alpha5d --workers 8
       - name: Preserve collected history even when acceptance fails
         if: always()
         uses: actions/cache/save@v4
@@ -53,7 +54,9 @@ jobs:
           name: alpha5d-public-evidence-${{ github.run_id }}
           path: |
             .cache/alpha5d/runs
+            .cache/alpha5d/history
             .cache/alpha5d/pipeline_status.json
+            .cache/alpha5d/retrieval_progress.json
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 90
@@ -69,6 +72,10 @@ jobs:
           destination.mkdir(parents=True,exist_ok=True)
           payload=json.loads(source.read_text()) if source.exists() else {'status':'FAILED_BEFORE_COLLECTION'}
           if payload.get('status')=='RUNNING': payload['status']='INTERRUPTED'
+          progress=pathlib.Path('.cache/alpha5d/retrieval_progress.json')
+          if progress.exists():payload['retrieval_progress']=json.loads(progress.read_text())
+          previous=payload.get('previous_session')
+          if previous:payload['cached_history_files']=len(list((pathlib.Path('.cache/alpha5d/history')/previous).glob('*.json')))
           payload['workflow_run_id']=os.environ['GITHUB_RUN_ID']
           payload['evidence_artifact_name']='alpha5d-public-evidence-'+os.environ['GITHUB_RUN_ID']
           payload['persisted_at']=dt.datetime.now(dt.timezone.utc).isoformat()
