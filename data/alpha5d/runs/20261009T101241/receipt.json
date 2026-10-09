@@ -204,18 +204,5 @@
   },
   "error": "ValueError: Current industry membership incomplete: [\"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response']\"]",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-09T10:21:25.060621+08:00",
-  "retrieval_progress": {
-    "attempted": 0,
-    "succeeded": 0,
-    "failed": 0,
-    "consecutive_failures": 0,
-    "circuit_open": false,
-    "last_error": null,
-    "recorded_at": "2026-10-09T10:21:25.061501+08:00"
-  },
-  "cached_history_files": 4193,
-  "workflow_run_id": "37873432661",
-  "evidence_artifact_name": "alpha5d-public-evidence-37873432661",
-  "persisted_at": "2026-10-09T02:22:12.803224+00:00"
+  "ended_at": "2026-10-09T10:21:25.060621+08:00"
 }
