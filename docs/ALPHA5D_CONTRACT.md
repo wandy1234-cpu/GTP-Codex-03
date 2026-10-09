@@ -2,14 +2,32 @@
 
 配置升级日期：2026-10-06。目标是预测未来5个A股交易日累计涨幅领先的5只股票，不是预测5只防御股，也不是提高一句“NO TRADE”的正确率。
 
+## 2026-10-09 生产接入修复：先读新的实际执行回执
+
+用户要求修复反复NO RANK的问题。新增的生产代码是scripts/alpha5d_pipeline.py、scripts/alpha5d_source_fixes.py和.github/workflows/alpha5d-data.yml。原排序权重保持V8.0-bootstrap-1，不将数据工程修复说成预测准确率提升。
+
+每次双报读取本合同后，先读取data/alpha5d/pipeline_status.json，再读取其指向的data/alpha5d/runs/<真实运行标识>/receipt.json与ranking.json；不要只读取旧data/universe_summary.json而漏掉新流水线的结果。完整原始输入、沪深分页、行业来源与错误记录在回执指向的GitHub Actions原始证据artifact中，artifact名称和workflow_run_id均应为真实值。摘要和status标签不能代替原始数据验收。
+
+数据准备工作流计划在北京时间15:25和08:05运行，仅为既有双报提供公开市场数据缓存，不是额外用户晨报。原用户任务仍08:35启动、08:50截止、09:00交付目标；本修复不改变它的schedule、timing_mode或启用状态，不连接券商、不下单、不写私人持仓。
+
+适配器独立取得完整沪深A股票池、历史日K和成交额、行业归属、20只跨板块腾讯与独立日K样本，实际调用排序器。失败也保存原因；不能把GitHub作业完成或缓存存在称为行情已通过。数据错误不等于合法排除；新股、停牌等排除需独立依据。所有采集和排序实际证券日期必须匹配previous_session。
+
+行业来源为新浪行业分类，不得冒充申万分类。同一行业页面重复成员仅在代码和名称一致时去重并记录原始重复数；全沪深股票池仍要求分页无缺页且重复清楚对账。同一股票有多个行业归属时保留全部候选归属，对最多16种组合穷举运行原模型；只有所有组合下前五名及顺序完全相同时才通过，并展示分数范围。超过组合预算或前五改变即需解决行业归属，不静默挑对排名有利的分类。
+
+ranking_health=COMPLETE表示输入检查及技术排序通过；publication_state=AWAITING_EVIDENCE_REVIEW表示尚需读取真实前20、完成行业/消息时间/事件证据复核。它不是永久NO RANK开关：当数据和外部证据门槛都通过，应直接完成研究卡、正式五只冻结和交付；即便建议WAIT/NO TRADE，五只仍必须接受研究考核。没有独立证据不擅自加事件分或手工换榜。
+
+人工盘中修复运行必须明确run_kind=late_research，使用真实生成时间，不回填成08:50。其截止线只是为当日补跑使用的实际公开信息时点，不授权任何未来数据。适配层只允许在真实同日、08:50后且生成时间不晚于当前时钟的情况下处理原执行器固定08:50的时钟检查；其他价格、分页、历史、来源、行业、样本和上市资格门槛不放松，评分公式不改变。
+
+迟到的正式研究批次与原08:50批次分开归档：使用data/alpha5d/cohorts/<date>-late-<HHMMSS>.json，只创建，不覆盖原预测。披露D1已部分经过、原前收至D5的研究口径包含此前已发生涨跌；必须另外记录真实发布时间的可核参考价格和发布后至D5的表现，不能把发布前收益算成预测功劳。若生产排序尚未通过，则具体错误保留，不能在报告中把INCOMPLETE改成COMPLETE。
+
 ## 已实现与尚未验收
 
 - scripts/alpha5d_engine.py：独立的、可复现的全输入截面排序器与五日成绩核验器；不读取个人持仓，不连接券商，不下单。
 - scripts/test_alpha5d_engine.py：13项合成数据单元测试。本次本地13/13通过。合成证券、日期和行情只是软件测试，不是历史回测，更不是实盘收益。
 - 模型状态为 HEURISTIC_NOT_TRAINED_OR_VALIDATED。未训练机器学习模型，未取得滚动样本外优于基准的证据。
-- 尚未验收：全部合格沪深A股至少61日历史K线/行业字段的真实输入适配、完整生产排序以及成熟五日成绩。不把已存在的 universe 快照冒充这项验收，不把字段缺失股票悄悄排除。
-- 原 market_relay.py 的 deep_candidates 是个人持仓风险排序，不是全A选股，禁止作为本系统候选池。
-- 未改动原市场中继的工作流、定时频率或私人持仓文件；执行器由升级后的盘前任务调用。没有另外开启付费服务或声称存在已部署的后台训练。
+- 全量历史适配已新增代码并启动真实生产试跑，但每一期完整生产排序以及成熟五日成绩仍以实际产物验收。未通过的运行保持失败状态，不把已存在的universe快照冒充验收，不把字段缺失股票悄悄排除。
+- 原market_relay.py的deep_candidates是个人持仓风险排序，不是全A选股，禁止作为本系统候选池。
+- 原市场中继和私人持仓文件未改；新增独立公开研究数据准备流程。没有另外开启付费服务或声称存在已部署的后台训练。
 
 ## 目标与口径
 
@@ -51,9 +69,10 @@ bars至少61根截至previous_session的日线，字段date/open/high/low/close/
 python scripts/alpha5d_engine.py rank <verified-input.json> <new-ranking.json>
 python scripts/alpha5d_engine.py evaluate <frozen-cohort.json> <new-evaluation.json> --outcomes <verified-outcomes.json>
 PYTHONPATH=scripts python -m unittest -v scripts/test_alpha5d_engine.py
+python scripts/alpha5d_source_fixes.py --output .cache/alpha5d --workers 8
 ```
 
-程序不自带全A供应商适配，不能假装输入已经存在。盘前任务需从Data Route V2.6取得并核验真实完整输入，在真实Python环境执行；无法取得则明确E_HISTORY_INPUT_NOT_READY/INPUT_INCOMPLETE，不生成伪正式Top5。原始输入和全排序应归档或分片并记录hash，摘要不能代替执行产物。
+排序器自身不承担供应商采集；新增适配器负责取得真实输入，盘前任务须读取并复核其实际产物。无法取得则明确E_HISTORY_INPUT_NOT_READY/INPUT_INCOMPLETE，不生成伪正式Top5。原始输入和全排序应归档或分片并记录hash，摘要不能代替执行产物。
 
 ## 不可改写的两本账
 
