@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-"""Preserve all observed industry memberships and prove Top5 invariance.
-Repeated membership is deduplicated with identity checks and audit counts.
-The SH/SZ universe paginator remains strictly duplicate-free. Alternative
-industry assignments must produce identical ordered Top5 before acceptance.
+"""Audited industry memberships with retries, same-day cache and rank invariance.
+Only industry memberships may be deduplicated; SH/SZ universe remains strict.
 """
 import copy
 import itertools
+import json
 import math
+import sys
+import time
 import urllib.parse as up
+from pathlib import Path
 import concurrent.futures as cf
 import alpha5d_pipeline as p
 
 BASE_ASSEMBLE=p.assemble
 BASE_RANK=p.run_rank
+CACHE_DIR=None
 
 def merge_membership(result,symbol,name,urls):
     item=result.setdefault(symbol,{'sector_options':[],'source_urls':[]})
@@ -22,13 +25,27 @@ def merge_membership(result,symbol,name,urls):
     item['assignment_state']='UNIQUE' if len(item['sector_options'])==1 else 'REQUIRES_RANK_INVARIANCE'
 
 def industry_pages(node):
-    """Industry membership may repeat; do not apply this to market universe."""
     if node in ('sh_a','sz_a'):raise ValueError('Use strict universe paginator')
-    rows=[];pages=[];urls=[];counts=[]
+    cache=(CACHE_DIR/(node+'.json')) if CACHE_DIR else None
+    if cache and cache.exists():
+        saved=json.loads(cache.read_text())
+        manifest=saved.get('manifest',{});terminal=manifest.get('terminal_page',0)
+        if (saved.get('observed_date')==p.now().date().isoformat() and saved.get('records')
+            and terminal and manifest.get('terminal_verified') and not manifest.get('missing_pages')
+            and manifest.get('successful_pages')==list(range(1,terminal+1))):
+            manifest['reused_cache_at']=p.now().isoformat()
+            return saved['records'],manifest
+    rows=[];pages=[];urls=[];counts=[];retries={}
     for page in range(1,201):
         url=p.SINA+'?'+up.urlencode({'node':node,'page':page,'num':100,'sort':'symbol','asc':1})
-        batch=p.json_body(p.http(url))
-        if not isinstance(batch,list) or (page==1 and not batch):raise ValueError(node+': invalid industry first page')
+        batch=None
+        for attempt in range(3):
+            batch=p.json_body(p.http(url))
+            if isinstance(batch,list) and (page!=1 or bool(batch)):break
+            if attempt<2:time.sleep(.5*(attempt+1))
+        if not isinstance(batch,list) or (page==1 and not batch):
+            raise ValueError(node+': invalid industry page after payload retries: '+str(page))
+        retries[str(page)]=attempt
         pages.append(page);urls.append(url);counts.append(len(batch));rows.extend(batch)
         if len(batch)<100:break
     else:raise ValueError(node+': no verified terminal page')
@@ -42,8 +59,11 @@ def industry_pages(node):
         unique[sym]=r
     manifest={'successful_pages':pages,'terminal_page':page,'terminal_verified':True,'missing_pages':[],
               'raw_rows':len(rows),'unique_memberships':len(unique),'duplicate_memberships':duplicates,
-              'page_counts':counts,'source_urls':urls}
-    return list(unique.values()),manifest
+              'page_counts':counts,'source_urls':urls,'payload_retries':retries,
+              'observed_at':p.now().isoformat()}
+    records=list(unique.values())
+    if cache:p.atomic(cache,{'observed_date':p.now().date().isoformat(),'records':records,'manifest':manifest})
+    return records,manifest
 
 def industries(workers):
     url='https://vip.stock.finance.sina.com.cn/q/view/newSinaHy.php'
@@ -62,7 +82,8 @@ def industries(workers):
                     result[r['symbol']].setdefault('membership_page_audit',[]).append({
                         'node':str(manifest['source_urls'][0]).split('node=',1)[-1].split('&',1)[0],
                         'raw_rows':manifest['raw_rows'],'unique_memberships':manifest['unique_memberships'],
-                        'duplicate_memberships':manifest['duplicate_memberships']})
+                        'duplicate_memberships':manifest['duplicate_memberships'],
+                        'observed_at':manifest.get('observed_at'),'reused_cache_at':manifest.get('reused_cache_at')})
             except Exception as e:errors.append(str(e))
     if errors:raise ValueError('Industry pages failed: '+repr(errors[:5]))
     return result,url
@@ -112,7 +133,10 @@ def robust_rank(engine,payload):
     return baseline
 
 def main():
-    p.VERSION='alpha5d-pipeline-1.0.2'
+    global CACHE_DIR
+    root=Path(sys.argv[sys.argv.index('--output')+1]) if '--output' in sys.argv else Path('data/alpha5d')
+    CACHE_DIR=root/'history'/'_industry'/p.now().date().isoformat()
+    p.VERSION='alpha5d-pipeline-1.0.3'
     p.CALENDAR_SOURCE='https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml'
     p.industries=industries;p.assemble=assemble;p.run_rank=robust_rank
     p.main()
