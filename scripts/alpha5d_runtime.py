@@ -11,6 +11,7 @@ import urllib.parse as up
 from pathlib import Path
 import alpha5d_pipeline as p
 import alpha5d_source_fixes as fixes
+import alpha5d_classification as classification
 
 ORIGINAL_POOL=cf.ThreadPoolExecutor
 ORIGINAL_DAILY=p.east_bars
@@ -92,6 +93,7 @@ def main():
     guard=RetrievalGuard(bounded_daily,root/'retrieval_progress.json')
     cf.ThreadPoolExecutor=CancelPendingPool
     p.east_bars=guard
+    classification.install()
     try:
         fixes.main()
     except KeyboardInterrupt:
@@ -101,7 +103,7 @@ def main():
         cached=list((root/'history'/str(previous)).glob('*.json')) if previous else []
         data.update(status='INCOMPLETE',error='Collection interrupted; pending requests cancelled; cached histories retained',
                     cached_history_files=len(cached),formal_top5_allowed=False,
-                    runtime_version='alpha5d-runtime-1.0.1',ended_at=p.now().isoformat())
+                    runtime_version='alpha5d-runtime-1.0.2',ended_at=p.now().isoformat())
         p.atomic(file,data)
         raise SystemExit(2)
     finally:
