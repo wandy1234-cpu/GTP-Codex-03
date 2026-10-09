@@ -204,8 +204,5 @@
   },
   "error": "ValueError: Industry pages failed: ['new_fdc: duplicate pagination', 'new_hghy: duplicate pagination', 'new_swzz: duplicate pagination']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-09T09:38:30.301631+08:00",
-  "workflow_run_id": "37870631385",
-  "evidence_artifact_name": "alpha5d-public-evidence-37870631385",
-  "persisted_at": "2026-10-09T01:38:31.804578+00:00"
+  "ended_at": "2026-10-09T09:38:30.301631+08:00"
 }
