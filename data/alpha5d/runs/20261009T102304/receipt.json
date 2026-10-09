@@ -204,18 +204,5 @@
   },
   "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-09T10:24:51.990749+08:00",
-  "retrieval_progress": {
-    "attempted": 0,
-    "succeeded": 0,
-    "failed": 0,
-    "consecutive_failures": 0,
-    "circuit_open": false,
-    "last_error": null,
-    "recorded_at": "2026-10-09T10:24:51.991792+08:00"
-  },
-  "cached_history_files": 4193,
-  "workflow_run_id": "37874292118",
-  "evidence_artifact_name": "alpha5d-public-evidence-37874292118",
-  "persisted_at": "2026-10-09T02:25:40.482149+00:00"
+  "ended_at": "2026-10-09T10:24:51.990749+08:00"
 }
