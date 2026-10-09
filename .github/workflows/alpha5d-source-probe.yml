@@ -1,0 +1,47 @@
+name: Alpha5d source diagnostic
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/alpha5d-source-probe.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe public response structure without ranking or private data
+        run: |
+          python - <<'PY'
+          import concurrent.futures as cf,datetime as dt,json,urllib.request as ur,urllib.parse as up,pathlib,os
+          params={'pn':1,'pz':100,'po':0,'np':1,'fltt':2,'invt':2,'fid':'f12','fs':'m:90 t:2 f:!50','fields':'f12,f13,f14'}
+          hosts=['https://push2.eastmoney.com','https://82.push2.eastmoney.com','https://79.push2.eastmoney.com']
+          urls=[h+'/api/qt/clist/get?'+up.urlencode(params) for h in hosts]
+          urls.append(hosts[0]+'/api/qt/stock/get?secid=1.600026&fltt=2&invt=2&fields=f57,f58,f127,f189')
+          def one(url):
+              try:
+                  req=ur.Request(url,headers={'User-Agent':'Mozilla/5.0','Referer':'https://quote.eastmoney.com/'})
+                  with ur.urlopen(req,timeout=10) as r: body=r.read(300000).decode('utf8')
+                  return {'url':url,'received_at':dt.datetime.now(dt.timezone.utc).isoformat(),'payload':json.loads(body)}
+              except Exception as e:return {'url':url,'error':repr(e)}
+          with cf.ThreadPoolExecutor(max_workers=4) as ex:results=list(ex.map(one,urls))
+          path=pathlib.Path('data/alpha5d/diagnostics')/('source-probe-'+os.environ['GITHUB_RUN_ID']+'.json')
+          path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps({'probe_only':True,'results':results},ensure_ascii=False,indent=2)+'\n')
+          print(path)
+          PY
+      - name: Save bounded diagnostic only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/alpha5d/diagnostics/source-probe-*.json
+          git commit -m 'Store actual public industry source probe'
+          for i in 1 2 3 4; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 2
+          done
+          exit 1
