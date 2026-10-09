@@ -6,8 +6,9 @@ on:
     branches: [main]
     paths:
       - 'scripts/alpha5d_pipeline.py'
+      - 'scripts/alpha5d_source_fixes.py'
       - 'scripts/alpha5d_engine.py'
-      - 'scripts/test_alpha5d_pipeline.py'
+      - 'scripts/test_alpha5d_*.py'
       - '.github/workflows/alpha5d-data.yml'
   schedule:
     # Data preparation only: 15:25 after close and 08:05 before the existing report.
@@ -28,8 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Regression tests (not an investment backtest)
-        run: PYTHONPATH=scripts python -m unittest -v scripts/test_alpha5d_engine.py scripts/test_alpha5d_pipeline.py
-      - uses: actions/cache@v4
+        run: PYTHONPATH=scripts python -m unittest discover -s scripts -p 'test_alpha5d_*.py' -v
+      - uses: actions/cache/restore@v4
         with:
           path: .cache/alpha5d/history
           key: alpha5d-history-v1-${{ github.run_id }}
@@ -38,7 +39,13 @@ jobs:
       - name: Collect dated public universe and run unchanged score model
         id: collect
         continue-on-error: true
-        run: timeout --signal=INT 900s python scripts/alpha5d_pipeline.py --output .cache/alpha5d --workers 8
+        run: timeout --signal=INT 900s python scripts/alpha5d_source_fixes.py --output .cache/alpha5d --workers 8
+      - name: Preserve collected history even when acceptance fails
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/alpha5d/history
+          key: alpha5d-history-v1-${{ github.run_id }}
       - name: Archive actual inputs and outputs
         if: always()
         uses: actions/upload-artifact@v4
