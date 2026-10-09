@@ -204,18 +204,5 @@
   },
   "error": "ValueError: Industry pages failed: ['new_hqhy: invalid industry first page']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-09T10:04:38.713261+08:00",
-  "retrieval_progress": {
-    "attempted": 0,
-    "succeeded": 0,
-    "failed": 0,
-    "consecutive_failures": 0,
-    "circuit_open": false,
-    "last_error": null,
-    "recorded_at": "2026-10-09T10:04:38.714184+08:00"
-  },
-  "cached_history_files": 4075,
-  "workflow_run_id": "37872685163",
-  "evidence_artifact_name": "alpha5d-public-evidence-37872685163",
-  "persisted_at": "2026-10-09T02:05:28.419662+00:00"
+  "ended_at": "2026-10-09T10:04:38.713261+08:00"
 }
