@@ -1,0 +1,92 @@
+name: Alpha5d public data and ranking
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/alpha5d_pipeline.py'
+      - 'scripts/alpha5d_engine.py'
+      - 'scripts/test_alpha5d_pipeline.py'
+      - '.github/workflows/alpha5d-data.yml'
+  schedule:
+    # Data preparation only: 15:25 after close and 08:05 before the existing report.
+    - cron: '25 7 * * 1-5'
+    - cron: '5 0 * * 1-5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: alpha5d-public-data
+  cancel-in-progress: false
+
+jobs:
+  build-public-input:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regression tests (not an investment backtest)
+        run: PYTHONPATH=scripts python -m unittest -v scripts/test_alpha5d_engine.py scripts/test_alpha5d_pipeline.py
+      - uses: actions/cache@v4
+        with:
+          path: .cache/alpha5d/history
+          key: alpha5d-history-v1-${{ github.run_id }}
+          restore-keys: |
+            alpha5d-history-v1-
+      - name: Collect dated public universe and run unchanged score model
+        id: collect
+        continue-on-error: true
+        run: timeout --signal=INT 900s python scripts/alpha5d_pipeline.py --output .cache/alpha5d --workers 8
+      - name: Archive actual inputs and outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alpha5d-public-evidence-${{ github.run_id }}
+          path: |
+            .cache/alpha5d/runs
+            .cache/alpha5d/pipeline_status.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Persist public result or failure (never claim a failed collector succeeded)
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import datetime as dt, json, os, pathlib, shutil
+          source=pathlib.Path('.cache/alpha5d/pipeline_status.json')
+          destination=pathlib.Path('data/alpha5d')
+          destination.mkdir(parents=True,exist_ok=True)
+          payload=json.loads(source.read_text()) if source.exists() else {'status':'FAILED_BEFORE_COLLECTION'}
+          if payload.get('status')=='RUNNING': payload['status']='INTERRUPTED'
+          payload['workflow_run_id']=os.environ['GITHUB_RUN_ID']
+          payload['evidence_artifact_name']='alpha5d-public-evidence-'+os.environ['GITHUB_RUN_ID']
+          payload['persisted_at']=dt.datetime.now(dt.timezone.utc).isoformat()
+          (destination/'pipeline_status.json').write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
+          for source in pathlib.Path('.cache/alpha5d/runs').glob('*'):
+              target=destination/'runs'/source.name
+              target.mkdir(parents=True,exist_ok=True)
+              for name in ('receipt.json','ranking.json'):
+                  if (source/name).exists():shutil.copy2(source/name,target/name)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/alpha5d/pipeline_status.json
+          if [ -d data/alpha5d/runs ]; then git add data/alpha5d/runs; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record actual alpha5d public-data and ranking run'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Enforce data acceptance independently of successful job plumbing
+        if: always()
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('data/alpha5d/pipeline_status.json')
+          d=json.loads(p.read_text()) if p.exists() else {}
+          assert d.get('status') in ('COMPLETE','NOT_TRADING_DAY'), d.get('error',d.get('status','NO_RECEIPT'))
+          PY
