@@ -1,0 +1,48 @@
+{
+  "schema_version": "alpha5d-iteration-1",
+  "diagnosed_on": "2026-10-09",
+  "target_forecast_date": "2026-10-09",
+  "model_version": "V8.0-bootstrap-1",
+  "status": "proposed",
+  "iteration_type": "DATA_COVERAGE_AND_PROVENANCE_REPAIR",
+  "evidence": {
+    "repo": "wandy1234-cpu/GTP-Codex-03",
+    "universe_summary_blob_sha": "8f7a8928bce8bfb05099aa3bdc22c03e975d099f",
+    "universe_summary_captured_at_beijing": "2026-10-02T15:14:43.354313+08:00",
+    "universe_actual_security_date": "2026-09-30",
+    "expected_previous_session": "2026-10-08",
+    "stale_sessions": 1,
+    "historic_sh_rows": 2319,
+    "historic_sz_rows": 2904,
+    "historic_merged_unique": 5223,
+    "last_in_repo_full_universe_crosscheck_status": "INCOMPLETE",
+    "latest_relay_receipt_generated_at_beijing": "2026-10-08T22:25:35.113514+08:00",
+    "latest_relay_market_phase": "CLOSED",
+    "latest_relay_scope": "14 personal watch symbols only, not complete sh_a+sz_a",
+    "previous_formal_cohort_2026_10_08": "NOT_FOUND",
+    "expected_new_formal_cohort": "NOT_CREATED",
+    "sixty_one_day_full_universe_inputs": "NOT_VERIFIED",
+    "confirmed_2026_10_08_market_fact": "2026-10-08 SSE fell 0.79%, CSI300 fell 1.09%; strong oil/power/shipping and weak electronics/telecom. These public summaries are not normalized 61-day per-stock inputs.",
+    "public_sources": [
+      "https://www.stcn.com/article/detail/4208170.html",
+      "https://www.chinanews.com/cj/2026/10-08/10709104.shtml"
+    ]
+  },
+  "root_cause": [
+    "Previous validated full-market source is 2026-09-30, one trading session stale for 2026-10-09 08:50 research.",
+    "10/08 generated latest_market.json and audit_receipt.json are watchlist relay with private-holder identifiers; cannot be used as universe or published downstream.",
+    "No proof of all-eligible-stock 61 daily bars/industry, strict daily-close cross-source samples or a production rank() output.",
+    "Historical on-page 20/20 Tencent/Sina close agreement was for 09/30; frozen independent daily K was 0/20."
+  ],
+  "implementable_repair": [
+    "Enhance market relay to write full closed sh_a+sz_a snapshot at each effective trading day 15:00+ with exchange session date and raw page provenance; fail closed if market closed snapshot is stale.",
+    "Provide independent 20-sample daily K check for exact 10/08 close with real security date and last continuous 15:00 minute.",
+    "Build immutable, cached and incremental 61 completed trading-day OHLCVA and as-of sector input for each eligible A share; never repurpose personal deep_candidates.",
+    "Only after both gates pass call real V8.0-bootstrap-1 rank(data) in Python, create-only ranking and cohort, and compute D5 original-universe outcomes."
+  ],
+  "status_of_changes": "PROPOSED_ONLY_NOT_CODED_NOT_TESTED_NOT_PROMOTED",
+  "weights_changed": false,
+  "trained_model": false,
+  "accuracy_improvement_claim": false,
+  "privacy": "No account identifiers, holdings or trade details included."
+}
