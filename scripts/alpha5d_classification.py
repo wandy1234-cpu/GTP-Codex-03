@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
-"""Current industry classification adapter, separate from market prices.
-Provider field mapping is documented by upstream akshare stock_info_em.py:
-f127=industry, f189=listing date. Do not mix this scheme with SW or Sina.
+"""Coherent Eastmoney first-level industry classification, not mixed levels.
+The provider upgraded to a three-level 496-board taxonomy in February 2026.
+Never interpret all 496 boards as alternative peer industry assignments.
 """
 import concurrent.futures as cf
 import datetime as dt
 import json
 import sys
-import time
 import urllib.parse as up
 from pathlib import Path
 import alpha5d_pipeline as p
 import alpha5d_source_fixes as fixes
 
 ORIGINAL_ASSEMBLE=fixes.assemble
-HOSTS=('https://push2.eastmoney.com','https://82.push2.eastmoney.com','https://79.push2.eastmoney.com')
+# Actual cloud probe 37874129625: primary host TLS times out; 82/79 respond.
+HOSTS=('https://82.push2.eastmoney.com','https://79.push2.eastmoney.com','https://push2.eastmoney.com')
+FIRST_LEVEL=set('农林牧渔 基础化工 钢铁 有色金属 电子 家用电器 食品饮料 纺织服饰 轻工制造 医药生物 公用事业 交通运输 房地产 商贸零售 社会服务 综合 建筑材料 建筑装饰 电力设备 国防军工 计算机 传媒 通信 银行 非银金融 汽车 机械设备 煤炭 石油石化 环保 美容护理'.split())
+TAXONOMY_SOURCE='https://caifuhao.eastmoney.com/news/20260212141558284153090'
 
 def root():
     return Path(sys.argv[sys.argv.index('--output')+1]) if '--output' in sys.argv else Path('data/alpha5d')
@@ -49,6 +51,13 @@ def page_list(fs):
     if len(keys)!=len(set(keys)):raise ValueError('Industry membership pagination duplicate')
     return rows,{'source_urls':urls,'total':expected,'pages':page,'page_counts':counts,'observed_at':p.now().isoformat()}
 
+def select_first_level(boards):
+    selected=[b for b in boards if b['f14'] in FIRST_LEVEL]
+    names=[b['f14'] for b in selected]
+    if len(selected)!=31 or set(names)!=FIRST_LEVEL:
+        raise ValueError('First-level taxonomy not fully verified: missing='+repr(sorted(FIRST_LEVEL-set(names))))
+    return selected
+
 def profile(symbol):
     file=root()/'history'/'_profiles'/p.now().date().isoformat()/(symbol+'.json')
     if file.exists():return json.loads(file.read_text())
@@ -70,8 +79,11 @@ def listing_info(symbol,asof):
     return {'date':date.isoformat(),'sessions':sessions,'source_url':data['source_url'],'retrieved_at':data['retrieved_at']}
 
 def industries(workers):
-    cache=root()/'history'/'_em_industry'/p.now().date().isoformat()
-    boards,board_audit=page_list('m:90 t:2 f:!50')
+    cache=root()/'history'/'_em_industry_l1'/p.now().date().isoformat()
+    all_boards,board_audit=page_list('m:90 t:2 f:!50')
+    boards=select_first_level(all_boards)
+    p.atomic(cache/'taxonomy_audit.json',{'all_catalog_count':len(all_boards),'selected':boards,
+               'source':TAXONOMY_SOURCE,'catalog':board_audit})
     result={};errors=[]
     def one(board):
         code,name=str(board['f12']),str(board['f14'])
@@ -90,32 +102,17 @@ def industries(workers):
                     if len(code)!=6 or code[0] not in '036':continue
                     sym=('sh' if str(r.get('f13'))=='1' or code.startswith('6') else 'sz')+code
                     fixes.merge_membership(result,sym,name,audit['source_urls'])
-                    result[sym]['classification']='Eastmoney industry'
+                    result[sym]['classification']='Eastmoney level1'
             except Exception as e:errors.append(str(e))
-    if errors:raise ValueError('Current industry membership incomplete: '+repr(errors[:8]))
-    # Fill genuinely unassigned companies from the SAME provider classification,
-    # not a guessed label or a second, incompatible industry taxonomy.
-    run_dirs=sorted((root()/'runs').glob('*'))
-    if not run_dirs:raise ValueError('No source universe available for classification audit')
-    rows=[]
-    for node in ('sh_a','sz_a'):rows+=json.loads((run_dirs[-1]/(node+'.json')).read_text())['records']
-    missing=[r['symbol'] for r in rows if r['symbol'] not in result and 'ST' not in r['name'].upper()]
-    with cf.ThreadPoolExecutor(max_workers=workers) as pool:
-        futures={pool.submit(profile,s):s for s in missing}
-        for fut in cf.as_completed(futures):
-            sym=futures[fut]
-            try:
-                info=fut.result();sector=info.get('sector')
-                if not isinstance(sector,str) or sector in ('','-'):raise ValueError('No verified industry label')
-                fixes.merge_membership(result,sym,sector,[info['source_url']])
-                result[sym]['classification']='Eastmoney industry profile'
-            except Exception as e:errors.append(sym+': '+str(e))
-    if errors:raise ValueError('Unmapped industry profiles: '+repr(errors[:12]))
+    if errors:raise ValueError('Current level1 industry membership incomplete: '+repr(errors[:8]))
+    # Missing labels stay missing; base input validation names each affected
+    # company instead of mixing a leaf profile into a first-level taxonomy.
     return result,board_audit['source_urls'][0]
 
 def assemble(*args,**kwargs):
     payload,errors=ORIGINAL_ASSEMBLE(*args,**kwargs)
-    payload['industry_classification']='Eastmoney industry; not Shenwan or legacy Sina'
+    payload['industry_classification']='Eastmoney first-level industry; not Shenwan or legacy Sina'
+    payload['industry_taxonomy_source']=TAXONOMY_SOURCE
     return payload,errors
 
 def install():
