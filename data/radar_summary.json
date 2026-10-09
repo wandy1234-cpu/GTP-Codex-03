@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-09T19:35:57.939976+08:00",
+  "generated_at_beijing": "2026-10-09T22:11:30.184527+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -32,8 +32,8 @@
       "minute_last_time": "2026-10-09T15:30:00+08:00",
       "minute_last_price": 203.5,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 203.5,
-      "secondary_time": "2026-10-09T16:11:51+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -84,8 +84,8 @@
       "minute_last_time": "2026-10-09T15:30:00+08:00",
       "minute_last_price": 59.16,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 59.16,
-      "secondary_time": "2026-10-09T16:11:49+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -136,8 +136,8 @@
       "minute_last_time": "2026-10-09T15:30:00+08:00",
       "minute_last_price": 38.54,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 38.54,
-      "secondary_time": "2026-10-09T16:11:41+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -188,8 +188,8 @@
       "minute_last_time": "2026-10-09T15:30:00+08:00",
       "minute_last_price": 29.06,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 29.06,
-      "secondary_time": "2026-10-09T16:11:38+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -240,8 +240,8 @@
       "minute_last_time": "2026-10-09T15:30:00+08:00",
       "minute_last_price": 327.75,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 327.75,
-      "secondary_time": "2026-10-09T16:11:36+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-09T19:36:08.675280+08:00",
+    "evaluated_at_beijing": "2026-10-09T22:11:43.606701+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh603268": {
