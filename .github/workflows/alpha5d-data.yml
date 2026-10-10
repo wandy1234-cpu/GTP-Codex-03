@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/alpha5d_pipeline.py'
+      - 'scripts/alpha5d_classification.py'
       - 'scripts/alpha5d_source_fixes.py'
       - 'scripts/alpha5d_runtime.py'
       - 'scripts/alpha5d_engine.py'
