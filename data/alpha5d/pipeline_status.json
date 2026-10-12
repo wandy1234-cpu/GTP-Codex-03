@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-10-09T22:27:02.666763+08:00",
+  "started_at": "2026-10-12T13:20:49.732424+08:00",
   "forecast_date": "2026-10-12",
   "previous_session": "2026-10-09",
   "sessions": [
@@ -202,9 +202,9 @@
       ]
     }
   },
-  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
+  "error": "ValueError: Current level1 industry membership incomplete: [\"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\"]",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-09T22:28:35.518966+08:00",
+  "ended_at": "2026-10-12T13:23:01.791698+08:00",
   "retrieval_progress": {
     "attempted": 0,
     "succeeded": 0,
@@ -212,10 +212,10 @@
     "consecutive_failures": 0,
     "circuit_open": false,
     "last_error": null,
-    "recorded_at": "2026-10-09T22:28:35.520032+08:00"
+    "recorded_at": "2026-10-12T13:23:01.792702+08:00"
   },
   "cached_history_files": 0,
-  "workflow_run_id": "37944233016",
-  "evidence_artifact_name": "alpha5d-public-evidence-37944233016",
-  "persisted_at": "2026-10-09T14:29:31.639626+00:00"
+  "workflow_run_id": "38207522382",
+  "evidence_artifact_name": "alpha5d-public-evidence-38207522382",
+  "persisted_at": "2026-10-12T05:23:50.014246+00:00"
 }
