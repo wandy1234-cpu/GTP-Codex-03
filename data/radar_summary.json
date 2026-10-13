@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-13T16:41:24.581173+08:00",
+  "generated_at_beijing": "2026-10-13T18:16:56.310553+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -32,8 +32,8 @@
       "minute_last_time": "2026-10-13T15:30:00+08:00",
       "minute_last_price": 61.91,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 61.91,
+      "secondary_time": "2026-10-13T15:34:51+08:00",
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -84,8 +84,8 @@
       "minute_last_time": "2026-10-13T15:30:00+08:00",
       "minute_last_price": 184.8,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 184.8,
+      "secondary_time": "2026-10-13T16:12:01+08:00",
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -188,8 +188,8 @@
       "minute_last_time": "2026-10-13T15:30:00+08:00",
       "minute_last_price": 40.6,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": null,
-      "secondary_time": null,
+      "secondary_price": 40.6,
+      "secondary_time": "2026-10-13T15:34:18+08:00",
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-13T16:41:46.087405+08:00",
+    "evaluated_at_beijing": "2026-10-13T18:17:07.224433+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sz002768": {
