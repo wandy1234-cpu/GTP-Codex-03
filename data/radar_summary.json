@@ -1,7 +1,7 @@
 {
-  "generated_at_beijing": "2026-10-13T15:59:46.887358+08:00",
+  "generated_at_beijing": "2026-10-13T16:41:24.581173+08:00",
   "data_health": "NOT_LIVE",
-  "fresh_quotes_le_10m": 14,
+  "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
   "deep_candidates": [
     "sz002768",
@@ -14,7 +14,7 @@
     "sz002768": {
       "name": "国恩股份",
       "price": 61.91,
-      "quote_time": "2026-10-13T15:59:00+08:00",
+      "quote_time": "2026-10-13T16:14:51+08:00",
       "change_pct": -10.0,
       "high": 66.0,
       "low": 61.91,
@@ -32,8 +32,8 @@
       "minute_last_time": "2026-10-13T15:30:00+08:00",
       "minute_last_price": 61.91,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 61.91,
-      "secondary_time": "2026-10-13T15:34:51+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -54,7 +54,7 @@
         "vwap": 62.509918
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
         "secondary_fresh": false,
@@ -66,7 +66,7 @@
     "sh688008": {
       "name": "澜起科技",
       "price": 184.8,
-      "quote_time": "2026-10-13T15:59:32+08:00",
+      "quote_time": "2026-10-13T16:14:32+08:00",
       "change_pct": -3.67,
       "high": 187.97,
       "low": 177.6,
@@ -84,8 +84,8 @@
       "minute_last_time": "2026-10-13T15:30:00+08:00",
       "minute_last_price": 184.8,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 184.8,
-      "secondary_time": "2026-10-13T15:59:31+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -106,11 +106,11 @@
         "vwap": 182.537587
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
         "route": "standard"
       }
@@ -118,7 +118,7 @@
     "sh688758": {
       "name": "赛分科技",
       "price": 27.61,
-      "quote_time": "2026-10-13T15:59:42+08:00",
+      "quote_time": "2026-10-13T16:14:59+08:00",
       "change_pct": -2.95,
       "high": 28.47,
       "low": 26.8,
@@ -137,7 +137,7 @@
       "minute_last_price": 27.61,
       "secondary_source": "eastmoney_push2",
       "secondary_price": 27.61,
-      "secondary_time": "2026-10-13T15:59:59+08:00",
+      "secondary_time": "2026-10-13T16:11:59+08:00",
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -158,11 +158,11 @@
         "vwap": 27.501737
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
         "route": "standard"
       }
@@ -170,7 +170,7 @@
     "sz300759": {
       "name": "康龙化成",
       "price": 40.6,
-      "quote_time": "2026-10-13T15:59:18+08:00",
+      "quote_time": "2026-10-13T16:14:45+08:00",
       "change_pct": -2.87,
       "high": 41.7,
       "low": 38.71,
@@ -188,8 +188,8 @@
       "minute_last_time": "2026-10-13T15:30:00+08:00",
       "minute_last_price": 40.6,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 40.6,
-      "secondary_time": "2026-10-13T15:34:18+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -210,7 +210,7 @@
         "vwap": 39.97468
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
         "secondary_fresh": false,
@@ -222,7 +222,7 @@
     "sh601233": {
       "name": "桐昆股份",
       "price": 20.62,
-      "quote_time": "2026-10-13T15:59:45+08:00",
+      "quote_time": "2026-10-13T16:14:58+08:00",
       "change_pct": -2.09,
       "high": 20.93,
       "low": 20.19,
@@ -241,7 +241,7 @@
       "minute_last_price": 20.62,
       "secondary_source": "eastmoney_push2",
       "secondary_price": 20.62,
-      "secondary_time": "2026-10-13T15:59:58+08:00",
+      "secondary_time": "2026-10-13T16:11:58+08:00",
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -262,11 +262,11 @@
         "vwap": 20.578886
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
         "route": "standard"
       }
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-13T16:00:01.971629+08:00",
+    "evaluated_at_beijing": "2026-10-13T16:41:46.087405+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sz002768": {
@@ -367,7 +367,7 @@
           ],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
+        "independent_quote_agrees": false,
         "true_5m_15m_ohlc_ready": true,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
@@ -417,7 +417,7 @@
           ],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
+        "independent_quote_agrees": false,
         "true_5m_15m_ohlc_ready": true,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
@@ -513,7 +513,7 @@
           "anomalies": [],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
+        "independent_quote_agrees": false,
         "true_5m_15m_ohlc_ready": true,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
@@ -524,6 +524,6 @@
     },
     "legacy_health_is_not_authoritative": true
   },
-  "legacy_data_health": "YELLOW",
+  "legacy_data_health": "RED",
   "live_action_allowed": false
 }
