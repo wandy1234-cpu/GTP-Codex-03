@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-10-13T00:51:04.506139+08:00",
+  "started_at": "2026-10-13T14:19:17.180179+08:00",
   "forecast_date": "2026-10-13",
   "previous_session": "2026-10-12",
   "sessions": [
@@ -12,8 +12,8 @@
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
   "status": "INCOMPLETE",
-  "run_kind": "prefetch",
-  "raw_count": 5223,
+  "run_kind": "late_research",
+  "raw_count": 5224,
   "coverage": {
     "sh_a": {
       "successful_pages": [
@@ -135,7 +135,7 @@
       "terminal_page": 30,
       "terminal_verified": true,
       "missing_pages": [],
-      "raw_rows": 2904,
+      "raw_rows": 2905,
       "page_counts": [
         100,
         100,
@@ -166,7 +166,7 @@
         100,
         100,
         100,
-        4
+        5
       ],
       "source_urls": [
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?node=sz_a&page=1&num=100&sort=symbol&asc=1",
@@ -202,20 +202,24 @@
       ]
     }
   },
-  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
-  "formal_top5_allowed": false,
-  "ended_at": "2026-10-13T00:52:05.254018+08:00",
-  "retrieval_progress": {
-    "attempted": 0,
-    "succeeded": 0,
-    "failed": 0,
-    "consecutive_failures": 0,
-    "circuit_open": false,
-    "last_error": null,
-    "recorded_at": "2026-10-13T00:52:05.255095+08:00"
+  "history_success": 5025,
+  "history_missing": {
+    "sz301660": "sz301660: empty daily history"
   },
-  "cached_history_files": 0,
-  "workflow_run_id": "38280218360",
-  "evidence_artifact_name": "alpha5d-public-evidence-38280218360",
-  "persisted_at": "2026-10-12T16:52:59.026778+00:00"
+  "error": "ValueError: INPUT_INCOMPLETE: ['sample sz301660: sz301660: empty daily history', 'sh600293: last daily bar stale (suspension not yet independently verified)', 'sh601059: last daily bar stale (suspension not yet independently verified)', 'sh601198: last daily bar stale (suspension not yet independently verified)', 'sz000668: last daily bar stale (suspension not yet independently verified)', 'sz002388: last daily bar stale (suspension not yet independently verified)', 'sz002813: last daily bar stale (suspension not yet independently verified)', 'sz002860: last daily bar stale (suspension not yet independently verified)', 'sz300082: last daily bar stale (suspension not yet independently verified)', 'sz300773: last daily bar stale (suspension not yet independently verified)', 'sz301660: daily history not available']",
+  "formal_top5_allowed": false,
+  "ended_at": "2026-10-13T14:30:34.626963+08:00",
+  "retrieval_progress": {
+    "attempted": 5046,
+    "succeeded": 5044,
+    "failed": 2,
+    "consecutive_failures": 1,
+    "circuit_open": false,
+    "last_error": "sz301660: empty daily history",
+    "recorded_at": "2026-10-13T14:30:34.627748+08:00"
+  },
+  "cached_history_files": 5025,
+  "workflow_run_id": "38356016928",
+  "evidence_artifact_name": "alpha5d-public-evidence-38356016928",
+  "persisted_at": "2026-10-13T06:31:15.178619+00:00"
 }
