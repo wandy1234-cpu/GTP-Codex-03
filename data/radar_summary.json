@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-14T16:30:07.411010+08:00",
+  "generated_at_beijing": "2026-10-14T17:51:43.667896+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -36,22 +36,22 @@
       "secondary_time": "2026-10-14T15:34:48+08:00",
       "route": "tencent-rebuild",
       "m5": {
-        "source": "tencent_minute_query_derived_m5",
-        "quality": "derived",
-        "lower_lows": true,
-        "lower_highs": true,
-        "higher_lows": true,
-        "higher_highs": true,
-        "vwap": 56.165712
-      },
-      "m15": {
-        "source": "eastmoney_klt15",
+        "source": "eastmoney_klt5",
         "quality": "primary",
         "lower_lows": true,
         "lower_highs": true,
         "higher_lows": true,
         "higher_highs": true,
         "vwap": 56.217713
+      },
+      "m15": {
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
+        "lower_lows": true,
+        "lower_highs": true,
+        "higher_lows": true,
+        "higher_highs": true,
+        "vwap": 56.165712
       },
       "gate": {
         "tencent_fresh": false,
@@ -86,15 +86,15 @@
       "secondary_source": "eastmoney_push2",
       "secondary_price": 55.05,
       "secondary_time": "2026-10-14T16:11:38+08:00",
-      "route": "tencent-rebuild",
+      "route": "standard",
       "m5": {
-        "source": "tencent_minute_query_derived_m5",
-        "quality": "derived",
+        "source": "eastmoney_klt5",
+        "quality": "primary",
         "lower_lows": false,
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 56.303592
+        "vwap": 56.326037
       },
       "m15": {
         "source": "eastmoney_klt15",
@@ -112,7 +112,7 @@
         "secondary_fresh": false,
         "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "tencent-rebuild"
+        "route": "standard"
       }
     },
     "sh688008": {
@@ -140,22 +140,22 @@
       "secondary_time": "2026-10-14T16:11:33+08:00",
       "route": "tencent-rebuild",
       "m5": {
-        "source": "tencent_minute_query_derived_m5",
-        "quality": "derived",
+        "source": "eastmoney_klt5",
+        "quality": "primary",
         "lower_lows": false,
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 178.309073
+        "vwap": 178.333685
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 178.334306
+        "vwap": 178.309073
       },
       "gate": {
         "tencent_fresh": false,
@@ -192,13 +192,13 @@
       "secondary_time": "2026-10-14T16:11:58+08:00",
       "route": "tencent-rebuild",
       "m5": {
-        "source": "eastmoney_klt5",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m5",
+        "quality": "derived",
         "lower_lows": false,
-        "lower_highs": false,
+        "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 300.278425
+        "vwap": 300.240117
       },
       "m15": {
         "source": "tencent_minute_query_derived_m15",
@@ -253,13 +253,13 @@
         "vwap": 27.121178
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 27.12292
+        "vwap": 27.121178
       },
       "gate": {
         "tencent_fresh": false,
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-14T16:30:26.281901+08:00",
+    "evaluated_at_beijing": "2026-10-14T17:51:58.066785+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sz002768": {
@@ -368,7 +368,7 @@
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
         "independent_quote_agrees": false,
-        "true_5m_15m_ohlc_ready": false,
+        "true_5m_15m_ohlc_ready": true,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
         "official_iopv_verified": null,
