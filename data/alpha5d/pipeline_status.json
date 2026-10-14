@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-10-13T23:09:46.149237+08:00",
+  "started_at": "2026-10-14T12:21:02.839477+08:00",
   "forecast_date": "2026-10-14",
   "previous_session": "2026-10-13",
   "sessions": [
@@ -202,22 +202,20 @@
       ]
     }
   },
-  "history_success": 5026,
-  "history_missing": {},
-  "error": "ValueError: INPUT_INCOMPLETE: ['sh600293: last daily bar stale (suspension not yet independently verified)', 'sh600825: last daily bar stale (suspension not yet independently verified)', 'sh601059: last daily bar stale (suspension not yet independently verified)', 'sh601198: last daily bar stale (suspension not yet independently verified)', 'sz002388: last daily bar stale (suspension not yet independently verified)', 'sz002813: last daily bar stale (suspension not yet independently verified)', 'sz002860: last daily bar stale (suspension not yet independently verified)', 'sz300773: last daily bar stale (suspension not yet independently verified)', 'sz301314: last daily bar stale (suspension not yet independently verified)']",
+  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-13T23:22:45.692373+08:00",
+  "ended_at": "2026-10-14T12:22:38.345244+08:00",
   "retrieval_progress": {
-    "attempted": 5046,
-    "succeeded": 5046,
+    "attempted": 0,
+    "succeeded": 0,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "last_error": null,
-    "recorded_at": "2026-10-13T23:22:45.693170+08:00"
+    "recorded_at": "2026-10-14T12:22:38.346176+08:00"
   },
   "cached_history_files": 5026,
-  "workflow_run_id": "38419607668",
-  "evidence_artifact_name": "alpha5d-public-evidence-38419607668",
-  "persisted_at": "2026-10-13T15:23:47.197371+00:00"
+  "workflow_run_id": "38510910677",
+  "evidence_artifact_name": "alpha5d-public-evidence-38510910677",
+  "persisted_at": "2026-10-14T04:23:45.487429+00:00"
 }
