@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-16T17:25:12.043866+08:00",
+  "generated_at_beijing": "2026-10-16T20:08:00.405908+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -86,7 +86,7 @@
       "secondary_source": "eastmoney_push2",
       "secondary_price": 25.1,
       "secondary_time": "2026-10-16T16:11:37+08:00",
-      "route": "standard",
+      "route": "tencent-rebuild",
       "m5": {
         "source": "eastmoney_klt5",
         "quality": "primary",
@@ -97,13 +97,13 @@
         "vwap": 26.066758
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
-        "lower_lows": true,
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
+        "lower_lows": false,
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 26.067262
+        "vwap": 26.065124
       },
       "gate": {
         "tencent_fresh": false,
@@ -112,7 +112,7 @@
         "secondary_fresh": false,
         "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "standard"
+        "route": "tencent-rebuild"
       }
     },
     "sz002768": {
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-16T17:25:24.716806+08:00",
+    "evaluated_at_beijing": "2026-10-16T20:08:16.261107+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sz300759": {
@@ -368,7 +368,7 @@
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
         "independent_quote_agrees": false,
-        "true_5m_15m_ohlc_ready": true,
+        "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
         "official_iopv_verified": null,
