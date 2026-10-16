@@ -1,14 +1,14 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-10-16T11:59:30.439955+08:00",
-  "forecast_date": "2026-10-16",
-  "previous_session": "2026-10-15",
+  "started_at": "2026-10-16T20:34:13.767198+08:00",
+  "forecast_date": "2026-10-19",
+  "previous_session": "2026-10-16",
   "sessions": [
-    "2026-10-16",
     "2026-10-19",
     "2026-10-20",
     "2026-10-21",
-    "2026-10-22"
+    "2026-10-22",
+    "2026-10-23"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
   "status": "INCOMPLETE",
@@ -202,22 +202,20 @@
       ]
     }
   },
-  "history_success": 5027,
-  "history_missing": {},
-  "error": "ValueError: INPUT_INCOMPLETE: ['sh600293: last daily bar stale (suspension not yet independently verified)', 'sh600825: last daily bar stale (suspension not yet independently verified)', 'sh601059: last daily bar stale (suspension not yet independently verified)', 'sh601198: last daily bar stale (suspension not yet independently verified)', 'sz002388: last daily bar stale (suspension not yet independently verified)', 'sz300773: last daily bar stale (suspension not yet independently verified)', 'sz301314: last daily bar stale (suspension not yet independently verified)']",
+  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-16T12:09:53.102111+08:00",
+  "ended_at": "2026-10-16T20:35:45.180581+08:00",
   "retrieval_progress": {
-    "attempted": 5047,
-    "succeeded": 5047,
+    "attempted": 0,
+    "succeeded": 0,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "last_error": null,
-    "recorded_at": "2026-10-16T12:09:53.103000+08:00"
+    "recorded_at": "2026-10-16T20:35:45.181849+08:00"
   },
-  "cached_history_files": 5027,
-  "workflow_run_id": "38848248952",
-  "evidence_artifact_name": "alpha5d-public-evidence-38848248952",
-  "persisted_at": "2026-10-16T04:11:16.058731+00:00"
+  "cached_history_files": 0,
+  "workflow_run_id": "38901409731",
+  "evidence_artifact_name": "alpha5d-public-evidence-38901409731",
+  "persisted_at": "2026-10-16T12:36:58.893363+00:00"
 }
