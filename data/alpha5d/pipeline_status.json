@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-10-16T20:34:13.767198+08:00",
+  "started_at": "2026-10-19T12:05:16.186151+08:00",
   "forecast_date": "2026-10-19",
   "previous_session": "2026-10-16",
   "sessions": [
@@ -13,7 +13,7 @@
   "calendar_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
   "status": "INCOMPLETE",
   "run_kind": "late_research",
-  "raw_count": 5225,
+  "raw_count": 5223,
   "coverage": {
     "sh_a": {
       "successful_pages": [
@@ -45,7 +45,7 @@
       "terminal_page": 24,
       "terminal_verified": true,
       "missing_pages": [],
-      "raw_rows": 2319,
+      "raw_rows": 2317,
       "page_counts": [
         100,
         100,
@@ -70,7 +70,7 @@
         100,
         100,
         100,
-        19
+        17
       ],
       "source_urls": [
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?node=sh_a&page=1&num=100&sort=symbol&asc=1",
@@ -204,7 +204,7 @@
   },
   "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-16T20:35:45.180581+08:00",
+  "ended_at": "2026-10-19T12:06:39.327103+08:00",
   "retrieval_progress": {
     "attempted": 0,
     "succeeded": 0,
@@ -212,10 +212,10 @@
     "consecutive_failures": 0,
     "circuit_open": false,
     "last_error": null,
-    "recorded_at": "2026-10-16T20:35:45.181849+08:00"
+    "recorded_at": "2026-10-19T12:06:39.328381+08:00"
   },
   "cached_history_files": 0,
-  "workflow_run_id": "38901409731",
-  "evidence_artifact_name": "alpha5d-public-evidence-38901409731",
-  "persisted_at": "2026-10-16T12:36:58.893363+00:00"
+  "workflow_run_id": "39197705899",
+  "evidence_artifact_name": "alpha5d-public-evidence-39197705899",
+  "persisted_at": "2026-10-19T04:07:54.710167+00:00"
 }
