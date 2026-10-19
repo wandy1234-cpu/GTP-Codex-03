@@ -1,8 +1,8 @@
 {
-  "generated_at_beijing": "2026-10-19T15:05:32.281193+08:00",
+  "generated_at_beijing": "2026-10-19T16:36:30.991769+08:00",
   "data_health": "NOT_LIVE",
-  "fresh_quotes_le_10m": 14,
-  "deep_gate_ready": 4,
+  "fresh_quotes_le_10m": 0,
+  "deep_gate_ready": 0,
   "deep_candidates": [
     "sh688002",
     "sh688008",
@@ -14,7 +14,7 @@
     "sh688002": {
       "name": "睿创微纳",
       "price": 157.79,
-      "quote_time": "2026-10-19T15:05:18+08:00",
+      "quote_time": "2026-10-19T16:14:48+08:00",
       "change_pct": -4.24,
       "high": 163.68,
       "low": 153.31,
@@ -29,12 +29,12 @@
         "recent_12d_low": 153.31
       },
       "minute_date": "20261019",
-      "minute_last_time": "2026-10-19T15:06:00+08:00",
+      "minute_last_time": "2026-10-19T15:30:00+08:00",
       "minute_last_price": 157.79,
       "secondary_source": "eastmoney_push2",
       "secondary_price": 157.79,
-      "secondary_time": "2026-10-19T15:05:34+08:00",
-      "route": "standard",
+      "secondary_time": "2026-10-19T16:11:48+08:00",
+      "route": "tencent-rebuild",
       "m5": {
         "source": "eastmoney_klt5",
         "quality": "primary",
@@ -45,28 +45,28 @@
         "vwap": 158.245702
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 158.252995
+        "vwap": 158.222358
       },
       "gate": {
-        "tencent_fresh": true,
-        "minute_query_fresh": true,
+        "tencent_fresh": false,
+        "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "standard"
+        "route": "tencent-rebuild"
       }
     },
     "sh688008": {
       "name": "澜起科技",
       "price": 165.25,
-      "quote_time": "2026-10-19T15:05:22+08:00",
+      "quote_time": "2026-10-19T16:14:52+08:00",
       "change_pct": -2.33,
       "high": 170.49,
       "low": 164.6,
@@ -81,11 +81,11 @@
         "recent_12d_low": 157.65
       },
       "minute_date": "20261019",
-      "minute_last_time": "2026-10-19T15:06:00+08:00",
+      "minute_last_time": "2026-10-19T15:30:00+08:00",
       "minute_last_price": 165.25,
       "secondary_source": "eastmoney_push2",
       "secondary_price": 165.25,
-      "secondary_time": "2026-10-19T15:05:34+08:00",
+      "secondary_time": "2026-10-19T16:11:50+08:00",
       "route": "standard",
       "m5": {
         "source": "eastmoney_klt5",
@@ -106,11 +106,11 @@
         "vwap": 166.921964
       },
       "gate": {
-        "tencent_fresh": true,
-        "minute_query_fresh": true,
+        "tencent_fresh": false,
+        "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
         "route": "standard"
       }
@@ -118,7 +118,7 @@
     "sh688758": {
       "name": "赛分科技",
       "price": 24.54,
-      "quote_time": "2026-10-19T15:05:18+08:00",
+      "quote_time": "2026-10-19T16:14:48+08:00",
       "change_pct": -2.23,
       "high": 25.52,
       "low": 23.85,
@@ -133,20 +133,20 @@
         "recent_12d_low": 23.85
       },
       "minute_date": "20261019",
-      "minute_last_time": "2026-10-19T15:06:00+08:00",
+      "minute_last_time": "2026-10-19T15:30:00+08:00",
       "minute_last_price": 24.54,
-      "secondary_source": "sina_hq",
+      "secondary_source": "eastmoney_push2",
       "secondary_price": 24.54,
-      "secondary_time": "2026-10-19T15:00:00+08:00",
-      "route": "standard",
+      "secondary_time": "2026-10-19T16:11:48+08:00",
+      "route": "tencent-rebuild",
       "m5": {
-        "source": "eastmoney_klt5",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m5",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 24.449558
+        "vwap": 24.447738
       },
       "m15": {
         "source": "eastmoney_klt15",
@@ -158,19 +158,19 @@
         "vwap": 24.448891
       },
       "gate": {
-        "tencent_fresh": true,
-        "minute_query_fresh": true,
-        "secondary_quote_source": "sina_hq",
-        "secondary_fresh": true,
-        "dual_agree": false,
+        "tencent_fresh": false,
+        "minute_query_fresh": false,
+        "secondary_quote_source": "eastmoney_push2",
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "standard"
+        "route": "tencent-rebuild"
       }
     },
     "sz002768": {
       "name": "国恩股份",
       "price": 52.24,
-      "quote_time": "2026-10-19T15:05:03+08:00",
+      "quote_time": "2026-10-19T16:14:03+08:00",
       "change_pct": -1.08,
       "high": 53.48,
       "low": 48.0,
@@ -185,20 +185,20 @@
         "recent_12d_low": 48.0
       },
       "minute_date": "20261019",
-      "minute_last_time": "2026-10-19T15:06:00+08:00",
+      "minute_last_time": "2026-10-19T15:30:00+08:00",
       "minute_last_price": 52.24,
-      "secondary_source": "sina_hq",
+      "secondary_source": "eastmoney_push2",
       "secondary_price": 52.24,
-      "secondary_time": "2026-10-19T15:05:00+08:00",
-      "route": "standard",
+      "secondary_time": "2026-10-19T15:34:03+08:00",
+      "route": "tencent-rebuild",
       "m5": {
-        "source": "eastmoney_klt5",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m5",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 50.935917
+        "vwap": 50.92646
       },
       "m15": {
         "source": "eastmoney_klt15",
@@ -207,22 +207,22 @@
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 50.936299
+        "vwap": 50.93672
       },
       "gate": {
-        "tencent_fresh": true,
-        "minute_query_fresh": true,
-        "secondary_quote_source": "sina_hq",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "tencent_fresh": false,
+        "minute_query_fresh": false,
+        "secondary_quote_source": "eastmoney_push2",
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "standard"
+        "route": "tencent-rebuild"
       }
     },
     "sz300765": {
       "name": "石药创新",
       "price": 43.8,
-      "quote_time": "2026-10-19T15:05:09+08:00",
+      "quote_time": "2026-10-19T16:14:30+08:00",
       "change_pct": -0.68,
       "high": 44.85,
       "low": 42.86,
@@ -237,20 +237,20 @@
         "recent_12d_low": 41.5
       },
       "minute_date": "20261019",
-      "minute_last_time": "2026-10-19T15:06:00+08:00",
+      "minute_last_time": "2026-10-19T15:30:00+08:00",
       "minute_last_price": 43.8,
       "secondary_source": "eastmoney_push2",
       "secondary_price": 43.8,
-      "secondary_time": "2026-10-19T15:05:30+08:00",
-      "route": "standard",
+      "secondary_time": "2026-10-19T15:34:09+08:00",
+      "route": "tencent-rebuild",
       "m5": {
-        "source": "eastmoney_klt5",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m5",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 43.522199
+        "vwap": 43.521812
       },
       "m15": {
         "source": "eastmoney_klt15",
@@ -262,19 +262,19 @@
         "vwap": 43.522199
       },
       "gate": {
-        "tencent_fresh": true,
-        "minute_query_fresh": true,
+        "tencent_fresh": false,
+        "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "standard"
+        "route": "tencent-rebuild"
       }
     }
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-19T15:05:52.516011+08:00",
+    "evaluated_at_beijing": "2026-10-19T16:36:47.393177+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh688002": {
@@ -283,20 +283,44 @@
         "minute_gate": {
           "security_date": "20261019",
           "last_continuous_minute": "2026-10-19T15:00:00+08:00",
-          "fresh_for_live": true,
+          "fresh_for_live": false,
           "vwap": null,
           "volume_unit": "lot_100_shares",
           "amount_unit": "CNY",
           "excluded_out_of_session_rows": [
-            "1506"
+            "1506",
+            "1507",
+            "1508",
+            "1509",
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1516",
+            "1517",
+            "1518",
+            "1519",
+            "1520",
+            "1521",
+            "1522",
+            "1523",
+            "1524",
+            "1525",
+            "1526",
+            "1527",
+            "1528",
+            "1529",
+            "1530"
           ],
           "anomalies": [
             "vwap_units_or_daily_range_unverified"
           ],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
-        "true_5m_15m_ohlc_ready": true,
+        "independent_quote_agrees": false,
+        "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
         "official_iopv_verified": null,
@@ -309,38 +333,36 @@
         "minute_gate": {
           "security_date": "20261019",
           "last_continuous_minute": "2026-10-19T15:00:00+08:00",
-          "fresh_for_live": true,
+          "fresh_for_live": false,
           "vwap": null,
           "volume_unit": "lot_100_shares",
           "amount_unit": "CNY",
           "excluded_out_of_session_rows": [
-            "1506"
-          ],
-          "anomalies": [
-            "vwap_units_or_daily_range_unverified"
-          ],
-          "sampled_prices_are_not_true_intraminute_ohlc": true
-        },
-        "independent_quote_agrees": true,
-        "true_5m_15m_ohlc_ready": true,
-        "daily_sequence_ready": true,
-        "live_action_allowed": false,
-        "official_iopv_verified": null,
-        "premium_action_allowed": null,
-        "true_5m_15m_ohlc_time_verified": false
-      },
-      "sh688758": {
-        "health": "NOT_LIVE",
-        "market_phase": "CLOSED",
-        "minute_gate": {
-          "security_date": "20261019",
-          "last_continuous_minute": "2026-10-19T15:00:00+08:00",
-          "fresh_for_live": true,
-          "vwap": null,
-          "volume_unit": "lot_100_shares",
-          "amount_unit": "CNY",
-          "excluded_out_of_session_rows": [
-            "1506"
+            "1506",
+            "1507",
+            "1508",
+            "1509",
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1516",
+            "1517",
+            "1518",
+            "1519",
+            "1520",
+            "1521",
+            "1522",
+            "1523",
+            "1524",
+            "1525",
+            "1526",
+            "1527",
+            "1528",
+            "1529",
+            "1530"
           ],
           "anomalies": [
             "vwap_units_or_daily_range_unverified"
@@ -355,24 +377,98 @@
         "premium_action_allowed": null,
         "true_5m_15m_ohlc_time_verified": false
       },
+      "sh688758": {
+        "health": "NOT_LIVE",
+        "market_phase": "CLOSED",
+        "minute_gate": {
+          "security_date": "20261019",
+          "last_continuous_minute": "2026-10-19T15:00:00+08:00",
+          "fresh_for_live": false,
+          "vwap": null,
+          "volume_unit": "lot_100_shares",
+          "amount_unit": "CNY",
+          "excluded_out_of_session_rows": [
+            "1506",
+            "1507",
+            "1508",
+            "1509",
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1516",
+            "1517",
+            "1518",
+            "1519",
+            "1520",
+            "1521",
+            "1522",
+            "1523",
+            "1524",
+            "1525",
+            "1526",
+            "1527",
+            "1528",
+            "1529",
+            "1530"
+          ],
+          "anomalies": [
+            "vwap_units_or_daily_range_unverified"
+          ],
+          "sampled_prices_are_not_true_intraminute_ohlc": true
+        },
+        "independent_quote_agrees": false,
+        "true_5m_15m_ohlc_ready": false,
+        "daily_sequence_ready": true,
+        "live_action_allowed": false,
+        "official_iopv_verified": null,
+        "premium_action_allowed": null,
+        "true_5m_15m_ohlc_time_verified": false
+      },
       "sz002768": {
         "health": "NOT_LIVE",
         "market_phase": "CLOSED",
         "minute_gate": {
           "security_date": "20261019",
           "last_continuous_minute": "2026-10-19T15:00:00+08:00",
-          "fresh_for_live": true,
+          "fresh_for_live": false,
           "vwap": 50.93580879,
           "volume_unit": "lot_100_shares",
           "amount_unit": "CNY",
           "excluded_out_of_session_rows": [
-            "1506"
+            "1506",
+            "1507",
+            "1508",
+            "1509",
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1516",
+            "1517",
+            "1518",
+            "1519",
+            "1520",
+            "1521",
+            "1522",
+            "1523",
+            "1524",
+            "1525",
+            "1526",
+            "1527",
+            "1528",
+            "1529",
+            "1530"
           ],
           "anomalies": [],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
-        "true_5m_15m_ohlc_ready": true,
+        "independent_quote_agrees": false,
+        "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
         "official_iopv_verified": null,
@@ -385,18 +481,42 @@
         "minute_gate": {
           "security_date": "20261019",
           "last_continuous_minute": "2026-10-19T15:00:00+08:00",
-          "fresh_for_live": true,
+          "fresh_for_live": false,
           "vwap": 43.52190915,
           "volume_unit": "lot_100_shares",
           "amount_unit": "CNY",
           "excluded_out_of_session_rows": [
-            "1506"
+            "1506",
+            "1507",
+            "1508",
+            "1509",
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1516",
+            "1517",
+            "1518",
+            "1519",
+            "1520",
+            "1521",
+            "1522",
+            "1523",
+            "1524",
+            "1525",
+            "1526",
+            "1527",
+            "1528",
+            "1529",
+            "1530"
           ],
           "anomalies": [],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
-        "true_5m_15m_ohlc_ready": true,
+        "independent_quote_agrees": false,
+        "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
         "official_iopv_verified": null,
@@ -406,6 +526,6 @@
     },
     "legacy_health_is_not_authoritative": true
   },
-  "legacy_data_health": "GREEN-T",
+  "legacy_data_health": "RED",
   "live_action_allowed": false
 }
