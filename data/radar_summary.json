@@ -1,7 +1,7 @@
 {
-  "generated_at_beijing": "2026-10-20T16:17:26.939798+08:00",
+  "generated_at_beijing": "2026-10-20T17:44:38.205781+08:00",
   "data_health": "NOT_LIVE",
-  "fresh_quotes_le_10m": 14,
+  "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
   "deep_candidates": [
     "sh603268",
@@ -32,8 +32,8 @@
       "minute_last_time": "2026-10-20T15:30:00+08:00",
       "minute_last_price": 190.7,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 190.7,
-      "secondary_time": "2026-10-20T16:11:37+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -54,11 +54,11 @@
         "vwap": 192.502377
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
         "route": "tencent-rebuild"
       }
@@ -84,35 +84,35 @@
       "minute_last_time": "2026-10-20T15:30:00+08:00",
       "minute_last_price": 16.85,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 16.85,
-      "secondary_time": "2026-10-20T16:12:01+08:00",
-      "route": "standard",
+      "secondary_price": null,
+      "secondary_time": null,
+      "route": "tencent-rebuild",
       "m5": {
-        "source": "eastmoney_klt5",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m5",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
-        "higher_lows": false,
+        "higher_lows": true,
         "higher_highs": false,
-        "vwap": 16.940053
+        "vwap": 16.939506
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 16.940019
+        "vwap": 16.939506
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "standard"
+        "route": "tencent-rebuild"
       }
     },
     "sh600150": {
@@ -136,8 +136,8 @@
       "minute_last_time": "2026-10-20T15:30:00+08:00",
       "minute_last_price": 35.22,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 35.22,
-      "secondary_time": "2026-10-20T16:11:52+08:00",
+      "secondary_price": null,
+      "secondary_time": null,
       "route": "tencent-rebuild",
       "m5": {
         "source": "tencent_minute_query_derived_m5",
@@ -158,11 +158,11 @@
         "vwap": 35.199535
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
         "route": "tencent-rebuild"
       }
@@ -188,35 +188,35 @@
       "minute_last_time": "2026-10-20T15:30:00+08:00",
       "minute_last_price": 280.08,
       "secondary_source": "eastmoney_push2",
-      "secondary_price": 280.08,
-      "secondary_time": "2026-10-20T16:11:44+08:00",
-      "route": "standard",
+      "secondary_price": null,
+      "secondary_time": null,
+      "route": "tencent-rebuild",
       "m5": {
-        "source": "eastmoney_klt5",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m5",
+        "quality": "derived",
         "lower_lows": false,
-        "lower_highs": false,
+        "lower_highs": true,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 282.88815
+        "vwap": 282.92621
       },
       "m15": {
-        "source": "eastmoney_klt15",
-        "quality": "primary",
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 282.892054
+        "vwap": 282.92621
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
-        "route": "standard"
+        "route": "tencent-rebuild"
       }
     },
     "sh688676": {
@@ -244,29 +244,29 @@
       "secondary_time": "2026-10-20T16:11:33+08:00",
       "route": "tencent-rebuild",
       "m5": {
-        "source": "tencent_minute_query_derived_m5",
-        "quality": "derived",
-        "lower_lows": false,
-        "lower_highs": false,
-        "higher_lows": true,
-        "higher_highs": false,
-        "vwap": 52.757768
-      },
-      "m15": {
-        "source": "eastmoney_klt15",
+        "source": "eastmoney_klt5",
         "quality": "primary",
         "lower_lows": false,
         "lower_highs": false,
         "higher_lows": false,
         "higher_highs": false,
-        "vwap": 52.759076
+        "vwap": 52.760709
+      },
+      "m15": {
+        "source": "tencent_minute_query_derived_m15",
+        "quality": "derived",
+        "lower_lows": false,
+        "lower_highs": false,
+        "higher_lows": false,
+        "higher_highs": false,
+        "vwap": 52.757768
       },
       "gate": {
-        "tencent_fresh": true,
+        "tencent_fresh": false,
         "minute_query_fresh": false,
         "secondary_quote_source": "eastmoney_push2",
-        "secondary_fresh": true,
-        "dual_agree": true,
+        "secondary_fresh": false,
+        "dual_agree": null,
         "deep_kline_ready": true,
         "route": "tencent-rebuild"
       }
@@ -274,7 +274,7 @@
   },
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-20T16:17:42.149748+08:00",
+    "evaluated_at_beijing": "2026-10-20T17:44:58.714913+08:00",
     "market_phase": "CLOSED",
     "symbols": {
       "sh603268": {
@@ -317,7 +317,7 @@
           "anomalies": [],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
+        "independent_quote_agrees": false,
         "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
@@ -365,8 +365,8 @@
           "anomalies": [],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
-        "true_5m_15m_ohlc_ready": true,
+        "independent_quote_agrees": false,
+        "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
         "official_iopv_verified": null,
@@ -413,7 +413,7 @@
           "anomalies": [],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
+        "independent_quote_agrees": false,
         "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
@@ -463,8 +463,8 @@
           ],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
-        "true_5m_15m_ohlc_ready": true,
+        "independent_quote_agrees": false,
+        "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
         "official_iopv_verified": null,
@@ -513,7 +513,7 @@
           ],
           "sampled_prices_are_not_true_intraminute_ohlc": true
         },
-        "independent_quote_agrees": true,
+        "independent_quote_agrees": false,
         "true_5m_15m_ohlc_ready": false,
         "daily_sequence_ready": true,
         "live_action_allowed": false,
@@ -524,6 +524,6 @@
     },
     "legacy_health_is_not_authoritative": true
   },
-  "legacy_data_health": "YELLOW",
+  "legacy_data_health": "RED",
   "live_action_allowed": false
 }
