@@ -1,14 +1,14 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-10-20T12:18:18.877845+08:00",
-  "forecast_date": "2026-10-20",
-  "previous_session": "2026-10-19",
+  "started_at": "2026-10-20T20:48:45.075836+08:00",
+  "forecast_date": "2026-10-21",
+  "previous_session": "2026-10-20",
   "sessions": [
-    "2026-10-20",
     "2026-10-21",
     "2026-10-22",
     "2026-10-23",
-    "2026-10-26"
+    "2026-10-26",
+    "2026-10-27"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
   "status": "INCOMPLETE",
@@ -202,9 +202,9 @@
       ]
     }
   },
-  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
+  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway', 'HTTPError: HTTP Error 502: Bad Gateway']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-20T12:20:50.520599+08:00",
+  "ended_at": "2026-10-20T20:50:24.695774+08:00",
   "retrieval_progress": {
     "attempted": 0,
     "succeeded": 0,
@@ -212,10 +212,10 @@
     "consecutive_failures": 0,
     "circuit_open": false,
     "last_error": null,
-    "recorded_at": "2026-10-20T12:20:50.521433+08:00"
+    "recorded_at": "2026-10-20T20:50:24.696559+08:00"
   },
   "cached_history_files": 0,
-  "workflow_run_id": "39368842626",
-  "evidence_artifact_name": "alpha5d-public-evidence-39368842626",
-  "persisted_at": "2026-10-20T04:22:05.641268+00:00"
+  "workflow_run_id": "39425158571",
+  "evidence_artifact_name": "alpha5d-public-evidence-39425158571",
+  "persisted_at": "2026-10-20T12:51:38.457628+00:00"
 }
