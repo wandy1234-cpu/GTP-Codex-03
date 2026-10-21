@@ -1,0 +1,123 @@
+{
+  "run_id": "run_20260412T062547Z_221e1a58",
+  "model_version": "wf_2026-04-12",
+  "timestamp": "2026-04-12T06:27:14.276966+00:00",
+  "config_snapshot": {
+    "filters": {
+      "min_avg_amount": 5000000,
+      "min_listing_days": 60,
+      "min_price": 1.0
+    },
+    "walk_forward": {
+      "train_window_days": 120,
+      "valid_window_days": 20,
+      "step_days": 5
+    },
+    "weekly": {
+      "holding_horizon_days": 5
+    },
+    "smoke": false,
+    "governance": {
+      "min_composite_improvement": 0.01,
+      "min_fold_win_rate": 0.55,
+      "max_drawdown_deterioration": 0.03,
+      "max_turnover_deterioration": 0.2,
+      "max_instability_deterioration": 0.1,
+      "rollback_underperformance_threshold": -0.01
+    },
+    "drift": {
+      "psi_warn": 0.2,
+      "psi_alert": 0.35,
+      "mean_shift_sigma": 2.0,
+      "perf_drop_threshold": 0.03,
+      "recent_window_days": 20
+    }
+  },
+  "feature_families": {
+    "price_momentum": true,
+    "volatility": true,
+    "liquidity": true,
+    "relative_strength": true
+  },
+  "model_params": {
+    "engine": "lgbm_ranker",
+    "notes": "defaults + walk-forward"
+  },
+  "train_period": {
+    "start": "2026-04-12 00:00:00",
+    "end": "2026-04-12 00:00:00"
+  },
+  "validation_period": {
+    "fold_count": 0
+  },
+  "evaluation_metrics": {
+    "fold_count": 0,
+    "rank_ic": 0.0,
+    "avg_topn_excess_ret": 0.0,
+    "stability_score": 1.0,
+    "drawdown_penalty": 0.0,
+    "turnover_penalty": 0.2,
+    "fold_win_rate": 0.0,
+    "recent_window_excess_ret": 0.0,
+    "instability_score": 0.0
+  },
+  "recommendation_metrics": {
+    "winner_precision": 0.0,
+    "benchmark_hit_rate": 0.0
+  },
+  "promotion_decision": {
+    "timestamp": "2026-04-12T06:27:14.267999+00:00",
+    "type": "challenger_eval",
+    "challenger": {
+      "run_id": "run_20260412T062547Z_221e1a58",
+      "model_version": "wf_2026-04-12",
+      "metrics": {
+        "fold_count": 0,
+        "rank_ic": 0.0,
+        "avg_topn_excess_ret": 0.0,
+        "stability_score": 1.0,
+        "drawdown_penalty": 0.0,
+        "turnover_penalty": 0.2,
+        "fold_win_rate": 0.0,
+        "recent_window_excess_ret": 0.0,
+        "instability_score": 0.0,
+        "winner_precision": 0.0,
+        "benchmark_hit_rate": 0.0,
+        "composite_score": 0.09
+      }
+    },
+    "decision": {
+      "action": "reject",
+      "accepted": false,
+      "rationale": "promotion_thresholds_not_met",
+      "composite_delta": -0.010000000000000009,
+      "details": {
+        "champion_composite": 0.1,
+        "challenger_composite": 0.09,
+        "fold_win_rate": 0.0,
+        "drawdown_deterioration": 0.0,
+        "turnover_deterioration": 0.2,
+        "instability_deterioration": 0.0,
+        "recent_window_deterioration": 0.0
+      }
+    }
+  },
+  "notes": [
+    "bounded_self_adjustment_logged_only",
+    "release_gate=fail"
+  ],
+  "warnings": [
+    "model_fallback:feature dataframe is empty after dropna",
+    "insufficient_fold_count"
+  ],
+  "artifacts": {
+    "model_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\models\\ranker_2026-04-12.joblib",
+    "feature_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\data\\feature\\features_2026-04-12.parquet",
+    "topn_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\reports\\topn_2026-04-12.parquet",
+    "review_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\reports\\review_2026-04-12.parquet",
+    "drift_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\reports\\drift_2026-04-12.json",
+    "quality_gate_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\reports\\quality_gate_2026-04-12.json",
+    "optimization_study_file": "",
+    "optimization_trials_file": ""
+  }
+}

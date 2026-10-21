@@ -1,0 +1,74 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "name": "fold_count",
+      "passed": true,
+      "value": 221,
+      "threshold": 1,
+      "severity": "error"
+    },
+    {
+      "name": "fold_win_rate",
+      "passed": true,
+      "value": 0.5248868778280543,
+      "threshold": 0.35000000000000003,
+      "severity": "error"
+    },
+    {
+      "name": "rank_ic",
+      "passed": true,
+      "value": 0.06129164952694363,
+      "threshold": -0.05,
+      "severity": "error"
+    },
+    {
+      "name": "max_drawdown",
+      "passed": true,
+      "value": 0.09025820356268388,
+      "threshold": 0.35,
+      "severity": "error"
+    },
+    {
+      "name": "turnover",
+      "passed": true,
+      "value": 0.19999999999999993,
+      "threshold": 2.0,
+      "severity": "error"
+    },
+    {
+      "name": "drift_alerts",
+      "passed": false,
+      "value": [
+        "feature_mean_shift:ret_1d:581.48sigma",
+        "feature_psi_alert:ret_1d:12.430",
+        "feature_mean_shift:ret_5d:266.85sigma",
+        "feature_psi_alert:ret_5d:12.430",
+        "feature_mean_shift:ret_20d:132.34sigma",
+        "feature_psi_alert:ret_20d:12.430",
+        "feature_mean_shift:vol_20d:305.93sigma",
+        "feature_psi_alert:vol_20d:12.430",
+        "feature_psi_alert:amt_20d_mean:12.430"
+      ],
+      "threshold": "no alerts",
+      "severity": "warning"
+    },
+    {
+      "name": "pipeline_error_warnings",
+      "passed": true,
+      "value": [],
+      "threshold": 0,
+      "severity": "error"
+    }
+  ],
+  "failed_checks": [],
+  "warning_checks": [
+    "drift_alerts"
+  ],
+  "summary": {
+    "error_count": 0,
+    "warning_count": 1,
+    "drift_alert_count": 9,
+    "pipeline_error_warning_count": 0
+  }
+}

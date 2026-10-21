@@ -1,0 +1,10 @@
+{
+  "status": "ok_with_warnings",
+  "topn_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\reports\\etf_topn_2026-04-12.parquet",
+  "data_file": "C:\\Users\\Admin\\Desktop\\GTP-Codex-03\\data\\etf\\etf_bars.parquet",
+  "rows": 3300,
+  "etf_count": 15,
+  "warnings": [
+    "used_cached_etf_bars"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "best_params": {
+    "top_n": 10,
+    "train_window_days": 135,
+    "step_days": 5
+  },
+  "best_value": -1.0,
+  "n_trials": 20,
+  "timestamp": "20260411T150238Z"
+}
