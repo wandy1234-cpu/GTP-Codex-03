@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-10-21T21:01:37.167811+08:00",
+  "started_at": "2026-10-22T12:07:32.874985+08:00",
   "forecast_date": "2026-10-22",
   "previous_session": "2026-10-21",
   "sessions": [
@@ -13,7 +13,7 @@
   "calendar_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
   "status": "INCOMPLETE",
   "run_kind": "late_research",
-  "raw_count": 5223,
+  "raw_count": 5224,
   "coverage": {
     "sh_a": {
       "successful_pages": [
@@ -135,7 +135,7 @@
       "terminal_page": 30,
       "terminal_verified": true,
       "missing_pages": [],
-      "raw_rows": 2906,
+      "raw_rows": 2907,
       "page_counts": [
         100,
         100,
@@ -166,7 +166,7 @@
         100,
         100,
         100,
-        6
+        7
       ],
       "source_urls": [
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?node=sz_a&page=1&num=100&sort=symbol&asc=1",
@@ -202,9 +202,9 @@
       ]
     }
   },
-  "error": "RuntimeError: Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
+  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-10-21T21:03:15.164409+08:00",
+  "ended_at": "2026-10-22T12:08:59.339652+08:00",
   "retrieval_progress": {
     "attempted": 0,
     "succeeded": 0,
@@ -212,10 +212,10 @@
     "consecutive_failures": 0,
     "circuit_open": false,
     "last_error": null,
-    "recorded_at": "2026-10-21T21:03:15.165138+08:00"
+    "recorded_at": "2026-10-22T12:08:59.340385+08:00"
   },
   "cached_history_files": 0,
-  "workflow_run_id": "39604336904",
-  "evidence_artifact_name": "alpha5d-public-evidence-39604336904",
-  "persisted_at": "2026-10-21T13:04:24.190277+00:00"
+  "workflow_run_id": "39720579523",
+  "evidence_artifact_name": "alpha5d-public-evidence-39720579523",
+  "persisted_at": "2026-10-22T04:10:21.593540+00:00"
 }
