@@ -18,6 +18,14 @@ HOLIDAYS_2026 = [('2026-01-01','2026-01-03'),('2026-02-15','2026-02-23'),
 SINA = 'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData'
 HEADERS = {'User-Agent':'Mozilla/5.0','Referer':'https://finance.sina.com.cn/'}
 
+def request_headers(url):
+    """Match the public data provider without changing existing call signatures."""
+    headers=HEADERS.copy()
+    host=(up.urlsplit(url).hostname or '').lower()
+    if host=='eastmoney.com' or host.endswith('.eastmoney.com'):
+        headers['Referer']='https://quote.eastmoney.com/'
+    return headers
+
 def now(): return dt.datetime.now(TZ)
 def sha(obj): return hashlib.sha256(json.dumps(obj,ensure_ascii=False,sort_keys=True,allow_nan=False).encode()).hexdigest()
 def trading(d):
@@ -48,7 +56,7 @@ def http(url):
     error=None
     for attempt in range(2):
         try:
-            req=ur.Request(url,headers=HEADERS)
+            req=ur.Request(url,headers=request_headers(url))
             with ur.urlopen(req,timeout=12) as r: body=r.read(12_000_000)
             text=body.decode('utf-8-sig') if b'charset=gb' not in body[:100].lower() else body.decode('gb18030')
             if '\ufffd' in text: raise ValueError('decoding failure')
@@ -58,7 +66,7 @@ def http(url):
         except Exception as e:
             error=e
             if attempt==0: time.sleep(.4)
-    raise RuntimeError(f'{type(error).__name__}: {error}')
+    raise RuntimeError(f'{type(error).__name__}: {error}; url={url}; attempts=2') from error
 
 def json_body(text):
     text=text.strip()
@@ -283,6 +291,7 @@ def main():
         manifest['formal_top5_allowed']=False
     except Exception as e:
         manifest.update(status='INCOMPLETE',error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)
+        if getattr(e,'source_errors',None):manifest['source_errors']=e.source_errors
     finally:
         manifest['ended_at']=now().isoformat();atomic(run_dir/'receipt.json',manifest)
         atomic(root/'pipeline_status.json',manifest)
