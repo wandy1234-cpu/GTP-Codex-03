@@ -204,7 +204,14 @@ def full_market(core,now):
          'point_in_time_note':'Consumer must verify dataset security date and cutoff; retrieval time is not trade time.',
          'source_requests':urls,'records':records}
     write('universe_latest.json',out)
-    return {k:v for k,v in out.items() if k not in ('records','source_requests')}
+    # This is only the first-pass cross-source check. The separate 15:00 freeze
+    # verifier must confirm daily close and 20 stratified securities.
+    summary={k:v for k,v in out.items() if k not in ('records','source_requests')}
+    summary['preliminary_stock_pick_gate']=summary['stock_pick_gate']
+    summary['stock_pick_gate']='INCOMPLETE'
+    summary['requires_final_close_verification']=True
+    write('universe_summary.json',summary)
+    return summary
 
 def main():
     import market_relay as core
@@ -216,12 +223,16 @@ def main():
     for s in obj.get('deep_candidates',[]):
         item=(obj.get('symbols') or {}).get(s,{})
         audited[s]=evaluate(s,qrec.get(s,{}),item.get('deep',{}),item.get('daily_metrics',{}),now)
+    obj['legacy_schema_version']=obj.get('schema_version')
+    obj['schema_version']=SCHEMA
     obj['audit_v26']={'schema_version':SCHEMA,'evaluated_at_beijing':now.isoformat(),'market_phase':phase(now),
                        'symbols':audited,'legacy_health_is_not_authoritative':True}
     write('latest_market.json',obj)
     radar=json.loads((ROOT/'radar_summary.json').read_text(encoding='utf-8'))
+    radar['legacy_schema_version']=radar.get('schema_version')
+    radar['schema_version']=SCHEMA
     radar['audit_v26']=obj['audit_v26']
-    radar['legacy_data_health']=radar.get('data_health')
+    radar['legacy_data_health']=radar.get('legacy_data_health',radar.get('data_health'))
     states=[x['health'] for x in audited.values()]
     radar['data_health']=('NOT_LIVE' if phase(now)!='SESSION_WINDOW_CALENDAR_UNCONFIRMED' else
                          'GREEN' if states and all(x=='GREEN' for x in states) else
@@ -258,7 +269,24 @@ def main():
                              'cffex_identity_verified':False,'roll_action_allowed':False,
                              'note':'Raw evidence only. Agent must verify CFFEX listed identities, contemporaneous bids/asks and net >=4% gate.'})
     hm=now.hour*60+now.minute
-    do_universe=os.getenv('GITHUB_EVENT_NAME') in ('push','workflow_dispatch') or 690<=hm<=700 or 900<=hm<=915
+    # Weekday alone is not an exchange calendar. Demand same-day Shanghai AND
+    # Shenzhen Tencent quote timestamps before fetching the full universe.
+    # Post-close scheduled relay runs may be delayed well beyond 15:15.
+    today=now.date().isoformat()
+    def has_current_quote(exchange):
+        for symbol,quote in qrec.items():
+            if not symbol.startswith(exchange) or not isinstance(quote,dict):
+                continue
+            try:
+                stamp=dt.datetime.fromisoformat(quote.get('quote_time') or '')
+                if stamp.tzinfo and stamp.astimezone(TZ).date().isoformat()==today and stamp<=now+dt.timedelta(seconds=30):
+                    return True
+            except (ValueError,TypeError):
+                continue
+        return False
+    current_session=now.weekday()<5 and has_current_quote('sh') and has_current_quote('sz')
+    requested=os.getenv('GITHUB_EVENT_NAME') in ('push','workflow_dispatch')
+    do_universe=current_session and (requested or 690<=hm<=700 or hm>=900)
     if do_universe: paths['universe']=full_market(core,dt.datetime.now(TZ))
     elif (ROOT/'universe_latest.json').exists():
         old=json.loads((ROOT/'universe_latest.json').read_text(encoding='utf8'))
