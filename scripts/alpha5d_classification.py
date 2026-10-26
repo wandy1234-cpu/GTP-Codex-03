@@ -18,19 +18,31 @@ HOSTS=('https://82.push2.eastmoney.com','https://79.push2.eastmoney.com','https:
 FIRST_LEVEL=set('农林牧渔 基础化工 钢铁 有色金属 电子 家用电器 食品饮料 纺织服饰 轻工制造 医药生物 公用事业 交通运输 房地产 商贸零售 社会服务 综合 建筑材料 建筑装饰 电力设备 国防军工 计算机 传媒 通信 银行 非银金融 汽车 机械设备 煤炭 石油石化 环保 美容护理'.split())
 TAXONOMY_SOURCE='https://caifuhao.eastmoney.com/news/20260212141558284153090'
 
+class IndustryRequestError(RuntimeError):
+    def __init__(self,errors):
+        self.source_errors=errors
+        super().__init__('Industry/profile access failed: '+repr(errors))
+
 def root():
     return Path(sys.argv[sys.argv.index('--output')+1]) if '--output' in sys.argv else Path('data/alpha5d')
 
 def request(path,params):
     errors=[]
+    stage=('industry_catalog' if params.get('fs')=='m:90 t:2 f:!50' else
+           'industry_membership' if path=='/api/qt/clist/get' else 'profile')
     for host in HOSTS:
         url=host+path+'?'+up.urlencode(params)
         try:
             data=p.json_body(p.http(url)).get('data')
             if not data:raise ValueError('Empty provider data')
             return data,url
-        except Exception as e:errors.append(str(e))
-    raise RuntimeError('Industry/profile access failed: '+repr(errors))
+        except Exception as e:
+            errors.append({'stage':stage,'url':url,'host':host,
+                           'referer':p.request_headers(url)['Referer'],
+                           'page':params.get('pn'),'filter':params.get('fs'),
+                           'secid':params.get('secid'),'error_type':type(e).__name__,
+                           'error':str(e),'observed_at':p.now().isoformat()})
+    raise IndustryRequestError(errors)
 
 def page_list(fs):
     rows=[];urls=[];expected=None;counts=[]
