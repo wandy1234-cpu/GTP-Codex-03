@@ -21,12 +21,25 @@
     "explanation": "Moved industry() after history loop."
   },
   "model": "V8.0-bootstrap-1 unchanged",
-  "state": "已编码",
-  "tests": "PENDING",
-  "production_run": "PENDING",
+  "state": "已编码；真实生产未通过验收",
+  "tests": "Local regression NOT_RUN; production has real errors, does not establish test success.",
+  "production_run": "INCOMPLETE; 37 attempted, 0 succeeded, network circuit open, commit provenance unverified.",
   "forward_results": "NONE",
   "expected_metric": "Raise successfully cached previous-session historical bars above zero even when industry supplier fails. Formal Top5 still blocked if industry unavailable.",
   "possible_side_effects": "Cold-start 5000+ HTTP lookups can exceed 15min GitHub Actions timeout before hitting sector API. Network circuit and caching must be observed; adjust bounded incremental retrieval under same eligibility gate.",
   "acceptance": "Next real pipeline should show history attempted >0 and cached files >0; after sector recovery, all eligible >61 bars and 20 samples, real full rank artifact, immutable cohort and actual D5 evaluation. No scoring accuracy claim.",
-  "account_privacy": "No private positions, balances or trades included."
+  "account_privacy": "No private positions, balances or trades included.",
+  "production_observation": {
+    "status": "INCOMPLETE",
+    "reported_start": "2026-10-26T09:07:06+08:00",
+    "run_id": "40252594791",
+    "history_attempted": 37,
+    "history_succeeded": 0,
+    "history_failed": 37,
+    "circuit_open": true,
+    "last_error": "RemoteDisconnected: Remote end closed connection without response",
+    "observation_time": "2026-10-26 after 09:11 Beijing",
+    "code_revision_used_by_run": "UNVERIFIED",
+    "conclusion": "Sequential stage bottleneck was lifted or history step was entered, but upstream Kline connection failed. This is NOT production acceptance."
+  }
 }
