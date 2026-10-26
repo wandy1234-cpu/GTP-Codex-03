@@ -1,0 +1,32 @@
+{
+  "schema": "alpha5d_iteration_v1",
+  "date": "2026-10-26",
+  "change_id": "history-before-industry",
+  "classification": "A_process_order_bug",
+  "problem": "Industry/profile HTTP 502 aborts pipeline before any daily history retrieval; last observed 2026-10-23 20:42 pipeline had 5223 universe rows, retrieval attempted 0, cache 0.",
+  "evidence": {
+    "pipeline": "data/alpha5d/pipeline_status.json",
+    "previous_status": "INCOMPLETE",
+    "previous_error": "industry/profile connection interrupted",
+    "rows": 5223,
+    "history_attempted": 0
+  },
+  "proposed_change": "Run daily Kline history retrieval and caching independently before industry lookup; retain sector membership as required gate before any formal V8 ranking.",
+  "actual_change": {
+    "repo": "wandy1234-cpu/GTP-Codex-03",
+    "commit": "196c9ad879789d03cb423bf8466dfadb26ef6fd3",
+    "path": "scripts/alpha5d_pipeline.py",
+    "content_sha": "f199ab29219951c9486222bc0c1f18575d258d5f",
+    "readback_verified": true,
+    "explanation": "Moved industry() after history loop."
+  },
+  "model": "V8.0-bootstrap-1 unchanged",
+  "state": "已编码",
+  "tests": "PENDING",
+  "production_run": "PENDING",
+  "forward_results": "NONE",
+  "expected_metric": "Raise successfully cached previous-session historical bars above zero even when industry supplier fails. Formal Top5 still blocked if industry unavailable.",
+  "possible_side_effects": "Cold-start 5000+ HTTP lookups can exceed 15min GitHub Actions timeout before hitting sector API. Network circuit and caching must be observed; adjust bounded incremental retrieval under same eligibility gate.",
+  "acceptance": "Next real pipeline should show history attempted >0 and cached files >0; after sector recovery, all eligible >61 bars and 20 samples, real full rank artifact, immutable cohort and actual D5 evaluation. No scoring accuracy claim.",
+  "account_privacy": "No private positions, balances or trades included."
+}
