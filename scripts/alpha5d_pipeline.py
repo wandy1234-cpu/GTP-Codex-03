@@ -253,7 +253,7 @@ def main():
             batch,g=paged(node);rows+=batch;cover[node]=g;atomic(run_dir/(node+'.json'),{'records':batch,'manifest':g})
         if len(rows)!=len({r['symbol'] for r in rows}):raise ValueError('Cross-exchange duplicate')
         manifest.update(raw_count=len(rows),coverage=cover)
-        industry,url=industries(args.workers);atomic(run_dir/'industry.json',{'source':url,'memberships':industry})
+        # Daily history retrieval is independent of industry availability; cache it first.
         histories={};history_errors={}
         targets=[r for r in rows if 'ST' not in r['name'].upper()]
         def load(r):
@@ -269,6 +269,7 @@ def main():
                 try:_,histories[sym]=f.result()
                 except Exception as e:history_errors[sym]=str(e)
         manifest.update(history_success=len(histories),history_missing=history_errors)
+        industry,url=industries(args.workers);atomic(run_dir/'industry.json',{'source':url,'memberships':industry})
         quotes=tencent(sample_codes(rows))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)
