@@ -227,6 +227,13 @@ def main():
     obj['schema_version']=SCHEMA
     obj['audit_v26']={'schema_version':SCHEMA,'evaluated_at_beijing':now.isoformat(),'market_phase':phase(now),
                        'symbols':audited,'legacy_health_is_not_authoritative':True}
+    # Legacy quote-age RED is not a live-session data health verdict.
+    # Preserve raw evidence while making non-session consumers fail closed.
+    legacy_health = obj.get('health')
+    if isinstance(legacy_health, dict) and phase(now) != 'SESSION_WINDOW_CALENDAR_UNCONFIRMED':
+        legacy_health['legacy_quote_health'] = legacy_health.get('quote_health')
+        legacy_health['quote_health'] = 'NOT_LIVE'
+        legacy_health['quote_health_context'] = 'Non-session only; raw legacy result retained separately'
     write('latest_market.json',obj)
     radar=json.loads((ROOT/'radar_summary.json').read_text(encoding='utf-8'))
     radar['legacy_schema_version']=radar.get('schema_version')
