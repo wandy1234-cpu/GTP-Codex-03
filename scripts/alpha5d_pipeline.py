@@ -151,17 +151,35 @@ def reference(sina, qq, asof):
     if d==step(target,1):return float(sina['settlement']),qq['previous']
     raise ValueError('Quote security date incompatible with required close')
 
-def sample_codes(rows):
+# Session-scoped exchange-announcement reproductions. Never carry a halt into a later session:
+# notably sz301314 resumed trading on 2026-10-26.
+VERIFIED_HALTS = {
+    '2026-10-23': {
+        'sh601326': {'first_public': '2026-10-20', 'halt_from': '2026-10-21',
+                     'source_url': 'https://finance.sina.com.cn/jjxw/2026-10-21/doc-inivwyrf6436359.shtml'},
+        'sz301314': {'first_public': '2026-10-12', 'halt_from': '2026-10-13',
+                     'source_url': 'https://www.cfi.net.cn/p20261012002119.html'},
+        'sz301468': {'first_public': '2026-10-18', 'halt_from': '2026-10-19',
+                     'source_url': 'https://cfi.net.cn/p20261018000136.html'},
+    }
+}
+
+def verified_halt(symbol, session):
+    """Return prior-public dated halt evidence, otherwise None; never infer from stale bars."""
+    return VERIFIED_HALTS.get(session, {}).get(symbol)
+
+def sample_codes(rows, asof=None):
     result=[]
     for label in ('sh_main','star','sz_main','chinext'):
-        group=sorted((r for r in rows if board(r['symbol'])==label and 'ST' not in r['name'].upper()),
+        group=sorted((r for r in rows if board(r['symbol'])==label and 'ST' not in r['name'].upper()
+                      and not verified_halt(r['symbol'], asof)),
                      key=lambda r:float(r.get('changepercent') or 0))
         if len(group)<5:raise ValueError('Missing sample board '+label)
         result += [group[round(i*(len(group)-1)/4)]['symbol'] for i in range(5)]
     return result
 
 def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff, generated_at):
-    errors=[]; normalized=[]; codes=sample_codes(rows); by_code={r['symbol']:r for r in rows}
+    errors=[]; normalized=[]; codes=sample_codes(rows,asof); by_code={r['symbol']:r for r in rows}
     samples=[]
     for symbol in codes:
         try:
@@ -186,6 +204,12 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
             'amount_unit':'CNY','raw_close':None,'adjustment_basis':None,'bars':[]}
         if 'ST' in r['name'].upper():
             record.update(eligible=False,exclude_reason='st',exclusion_evidence='Sina current name: '+r['name'])
+        elif verified_halt(symbol, asof):
+            record.update(eligible=False, exclude_reason='known_suspension',
+                          exclusion_evidence=verified_halt(symbol, asof))
+            record['source_urls'].append(verified_halt(symbol, asof)['source_url'])
+            # This stock did not trade in the previous session; a stale daily bar is correct.
+            # No synthetic OHLCVA and no retrospective exclusion on a later session.
         elif h is None:errors.append(symbol+': daily history not available')
         else:
             record.update(bars=h['bars'],adjustment_basis=h['adjustment_basis'])
@@ -270,7 +294,7 @@ def main():
                 except Exception as e:history_errors[sym]=str(e)
         manifest.update(history_success=len(histories),history_missing=history_errors)
         industry,url=industries(args.workers);atomic(run_dir/'industry.json',{'source':url,'memberships':industry})
-        quotes=tencent(sample_codes(rows))
+        quotes=tencent(sample_codes(rows,asof))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)
         atomic(run_dir/'input.json',payload)
