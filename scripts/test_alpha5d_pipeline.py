@@ -71,4 +71,24 @@ class LateClockTest(unittest.TestCase):
         e=self.make_engine([]);original=e.validate
         with patch.object(p,'now',return_value=dt.datetime(2026,10,9,10,tzinfo=p.TZ)):p.run_rank(e,self.payload())
         self.assertIs(e.validate,original)
+
+class VerifiedSessionHaltTest(unittest.TestCase):
+    def test_halt_is_only_excluded_on_verified_previous_session(self):
+        for code in ('sh601326','sz301314','sz301468'):
+            self.assertIsNotNone(p.verified_halt(code,'2026-10-23'))
+            self.assertIsNone(p.verified_halt(code,'2026-10-26'))
+        self.assertIsNone(p.verified_halt('sh600000','2026-10-23'))
+
+    def test_halted_symbol_not_selected_for_twenty_daily_crosschecks(self):
+        rows = []
+        for prefix,begin in (('sh600',100),('sh688',100),('sz000',100),('sz301',310)):
+            for i in range(7):
+                rows.append({'symbol': prefix+str(begin+i).zfill(3),
+                             'name':'test-stock','changepercent':str(i)})
+        rows[24]['symbol']='sz301314'
+        selected=p.sample_codes(rows,'2026-10-23')
+        self.assertEqual(len(selected),20)
+        self.assertNotIn('sz301314',selected)
+        self.assertIn('sz301314',p.sample_codes(rows,'2026-10-26'))
+
 if __name__=='__main__':unittest.main()
