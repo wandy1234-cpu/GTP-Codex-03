@@ -85,7 +85,7 @@ class VerifiedSessionHaltTest(unittest.TestCase):
             for i in range(7):
                 rows.append({'symbol': prefix+str(begin+i).zfill(3),
                              'name':'test-stock','changepercent':str(i)})
-        rows[24]['symbol']='sz301314'
+        rows[24]['symbol']='sz301399'
         selected=p.sample_codes(rows,'2026-10-23')
         self.assertEqual(len(selected),20)
         self.assertNotIn('sz301314',selected)
