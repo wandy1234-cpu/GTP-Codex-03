@@ -14,23 +14,10 @@ NOW = dt.datetime.now(TZ)
 OUT = Path("data/latest_market.json")
 OUT.parent.mkdir(parents=True, exist_ok=True)
 
-# Wandy personal credit-account holdings, 2026-09-18 15:43 baseline.
-HOLDINGS = [
-    "sh603268",  # 松发股份
-    "sh688766",  # 普冉股份
-    "sh688008",  # 澜起科技
-    "sh688758",  # 赛分科技
-    "sh600988",  # 赤峰黄金
-    "sz300765",  # 石药创新
-    "sh688002",  # 睿创微纳
-    "sh600150",  # 中国船舶
-    "sz002768",  # 国恩股份
-    "sh601233",  # 桐昆股份
-    "sh688676",  # 金盘科技
-    "sh600926",  # 杭州银行
-    "sz300759",  # 康龙化成
-    "sh600900",  # 长江电力
-]
+# Privacy boundary: no user-confirmed account positions in this public relay.
+# Historical account-linked lists are deliberately not republished.
+# Private portfolio monitoring must use a separate, verified private source.
+HOLDINGS = []
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
@@ -94,6 +81,10 @@ def secid(sym):
 
 
 def tencent_quotes(symbols):
+    if not symbols:
+        return {"source": "not_requested", "url": None,
+                "transport": {"reason": "no_personal_positions_in_public_relay"},
+                "records": {}}
     url = "https://qt.gtimg.cn/q=" + ",".join(symbols)
     r = get(url, "https://gu.qq.com/")
     out = {"source": "tencent_qt", "url": url,
@@ -464,7 +455,7 @@ def main():
     qrec = tq.get("records") or {}
     result = {"schema_version": "2.5", "generated_at_beijing": NOW.isoformat(),
               "holdings": HOLDINGS,
-              "policy": "Wandy personal holdings only. Tencent batch + minute-query gate; Eastmoney/Tencent K-line fallback.",
+              "policy": "Public feed: no personal positions. Universe and tactical watch data are separate; account-level positions require a verified private source.",
               "tencent_quote": tq, "symbols": {}}
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
@@ -536,7 +527,7 @@ def main():
     result["health"] = {"holdings": total, "fresh_quotes_le_10m": fresh,
                         "deep_candidates": len(candidates), "deep_green": green,
                         "deep_green_t": green_t, "quote_health": health,
-                        "per_holding": per}
+                        "per_holding": per, "personal_position_gate": "BLOCKED_UNVERIFIED_PUBLIC"}
 
     tmp = OUT.with_suffix(".tmp")
     tmp.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
