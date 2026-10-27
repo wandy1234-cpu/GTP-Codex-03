@@ -84,7 +84,7 @@ class VerifiedSessionHaltTest(unittest.TestCase):
         for prefix,begin in (('sh600',100),('sh688',100),('sz000',100),('sz301',310)):
             for i in range(7):
                 rows.append({'symbol': prefix+str(begin+i).zfill(3),
-                             'name':'test-stock','changepercent':str(i)})
+                             'name':'exampleco','changepercent':str(i)})
         rows[24]['symbol']='sz301399'
         selected=p.sample_codes(rows,'2026-10-23')
         self.assertEqual(len(selected),20)
