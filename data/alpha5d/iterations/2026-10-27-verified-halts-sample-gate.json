@@ -1,0 +1,70 @@
+{
+  "schema": "alpha5d_iteration_v1",
+  "date": "2026-10-27",
+  "change_id": "verified-halts-sample-gate",
+  "classification": "A_verified_point_in_time_input_defect",
+  "state": "已编码；测试和生产验收待核",
+  "problem": "2026-10-26 12:08 Beijing late_research for forecast 2026-10-26, previous_session 2026-10-23 found 5029 historical bars caches and complete SH/SZ pages but failed before ranking for one halted sample and 3 stale day-bars. Stocks with confirmed 2026-10-23 suspensions must not be marked invalid histories or treated as active sample candidates.",
+  "prior_receipt": {
+    "source": "data/alpha5d/pipeline_status.json",
+    "workflow_run_id": "40267525889",
+    "forecast_date": "2026-10-26",
+    "previous_session": "2026-10-23",
+    "status": "INCOMPLETE",
+    "raw_count": 5223,
+    "history_success": 5029,
+    "history_attempted": 5049,
+    "history_succeeded": 5049,
+    "history_failed": 0,
+    "cached_history_files": 5029,
+    "errors": [
+      "sample sz301314: Missing final sample bar",
+      "sh601326: last daily bar stale",
+      "sz301314: last daily bar stale",
+      "sz301468: last daily bar stale"
+    ]
+  },
+  "exante_evidence": [
+    {
+      "symbol": "sh601326",
+      "first_public": "2026-10-20",
+      "halt_from": "2026-10-21",
+      "source": "https://finance.sina.com.cn/jjxw/2026-10-21/doc-inivwyrf6436359.shtml"
+    },
+    {
+      "symbol": "sz301314",
+      "first_public": "2026-10-12",
+      "halt_from": "2026-10-13",
+      "source": "https://www.cfi.net.cn/p20261012002119.html",
+      "resume": "2026-10-26",
+      "resume_source": "https://www.cfi.net.cn/p20261025000316.html"
+    },
+    {
+      "symbol": "sz301468",
+      "first_public": "2026-10-18",
+      "halt_from": "2026-10-19",
+      "source": "https://cfi.net.cn/p20261018000136.html"
+    }
+  ],
+  "implemented": {
+    "path": "scripts/alpha5d_pipeline.py",
+    "commit": "5768f3aa327bd1ea6050887023e4ef291ce361f2",
+    "blob_sha": "e9379ac5ac3600b6e7ba85b67d5271ee38d4a1d4",
+    "details": "Only for previous_session=2026-10-23, mark three as known_suspension with evidence, replace halted symbols from the 20 cross-source sample stratification, never invent final daily OHLC. They are not excluded on future sessions."
+  },
+  "tests": {
+    "path": "scripts/test_alpha5d_pipeline.py",
+    "commits": [
+      "c2824c78dc405ff0bb3bf468e0c96de187198924",
+      "bf71fb7392f358a9c8c2b7143cc7e899d5f8b1f9"
+    ],
+    "blob_sha": "f5ff9fae6af71056f0ed91b3ba46f410e32d9bbc",
+    "local": "NOT_RUN",
+    "github_actions": "PENDING_AT_RECORD_CREATION"
+  },
+  "model": "V8.0-bootstrap-1 unchanged",
+  "forward_results": "NONE",
+  "risks": "Future halts must be verified independently each session. A post-suspension resumption cannot inherit prior halt exclusion, especially sz301314 which resumed 2026-10-26. Source-page availability, asof timestamp, source identity and all other gates remain strict.",
+  "acceptance": "Pass synthetic regression and re-run unchanged ranker on a true verified full-universe asof snapshot; confirm 20/20 independent samples, required 61 bars for all eligible, complete industry memberships and immutable full ranking, without any retroactive substitution of Oct27 forecast inputs.",
+  "privacy": "Public market only; no portfolio, balance, or private trades"
+}
