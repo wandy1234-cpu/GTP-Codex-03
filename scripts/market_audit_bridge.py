@@ -281,7 +281,9 @@ def main():
     # Post-close scheduled relay runs may be delayed well beyond 15:15.
     today=now.date().isoformat()
     def has_current_quote(exchange):
-        for symbol,quote in qrec.items():
+        # Public personal holdings are intentionally empty. Use independent public
+        # SH/SZ watch quotes only as session evidence; never infer account holdings.
+        for symbol,quote in (snapshot.get('records') or {}).items():
             if not symbol.startswith(exchange) or not isinstance(quote,dict):
                 continue
             try:
