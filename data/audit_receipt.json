@@ -1,8 +1,8 @@
 {
   "schema_version": "2.6.0",
-  "generated_at_beijing": "2026-10-28T17:25:43.740108+08:00",
-  "run_id": "40664093924",
-  "commit": "5864f52acc1ebb5fb87504a391600a2128b75535",
+  "generated_at_beijing": "2026-10-28T18:00:33.930632+08:00",
+  "run_id": "40668514935",
+  "commit": "3fd45485458b71af62b1d9f6264c6cbe1ca5450b",
   "market_phase": "CLOSED",
   "personal_candidate_gates": {},
   "watch_candidate_gates": {
@@ -49,6 +49,56 @@
           "1530"
         ],
         "anomalies": [],
+        "sampled_prices_are_not_true_intraminute_ohlc": true
+      },
+      "independent_quote_agrees": false,
+      "true_5m_15m_ohlc_ready": false,
+      "daily_sequence_ready": true,
+      "live_action_allowed": false,
+      "official_iopv_verified": null,
+      "premium_action_allowed": null,
+      "true_5m_15m_ohlc_time_verified": false
+    },
+    "sh688331": {
+      "health": "NOT_LIVE",
+      "market_phase": "CLOSED",
+      "minute_gate": {
+        "security_date": "20261028",
+        "last_continuous_minute": "2026-10-28T15:00:00+08:00",
+        "fresh_for_live": false,
+        "vwap": null,
+        "volume_unit": "lot_100_shares",
+        "amount_unit": "CNY",
+        "excluded_out_of_session_rows": [
+          "1506",
+          "1507",
+          "1508",
+          "1509",
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1516",
+          "1517",
+          "1518",
+          "1519",
+          "1520",
+          "1521",
+          "1522",
+          "1523",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1529",
+          "1530"
+        ],
+        "anomalies": [
+          "vwap_units_or_daily_range_unverified"
+        ],
         "sampled_prices_are_not_true_intraminute_ohlc": true
       },
       "independent_quote_agrees": false,
@@ -107,6 +157,54 @@
       "premium_action_allowed": false,
       "true_5m_15m_ohlc_time_verified": false
     },
+    "sz000703": {
+      "health": "NOT_LIVE",
+      "market_phase": "CLOSED",
+      "minute_gate": {
+        "security_date": "20261028",
+        "last_continuous_minute": "2026-10-28T15:00:00+08:00",
+        "fresh_for_live": false,
+        "vwap": 12.9184394,
+        "volume_unit": "lot_100_shares",
+        "amount_unit": "CNY",
+        "excluded_out_of_session_rows": [
+          "1506",
+          "1507",
+          "1508",
+          "1509",
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1516",
+          "1517",
+          "1518",
+          "1519",
+          "1520",
+          "1521",
+          "1522",
+          "1523",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1529",
+          "1530"
+        ],
+        "anomalies": [],
+        "sampled_prices_are_not_true_intraminute_ohlc": true
+      },
+      "independent_quote_agrees": false,
+      "true_5m_15m_ohlc_ready": false,
+      "daily_sequence_ready": true,
+      "live_action_allowed": false,
+      "official_iopv_verified": null,
+      "premium_action_allowed": null,
+      "true_5m_15m_ohlc_time_verified": false
+    },
     "sh513500": {
       "health": "NOT_LIVE",
       "market_phase": "CLOSED",
@@ -155,64 +253,14 @@
       "premium_action_allowed": false,
       "true_5m_15m_ohlc_time_verified": false
     },
-    "sh688331": {
+    "sz002001": {
       "health": "NOT_LIVE",
       "market_phase": "CLOSED",
       "minute_gate": {
         "security_date": "20261028",
         "last_continuous_minute": "2026-10-28T15:00:00+08:00",
         "fresh_for_live": false,
-        "vwap": null,
-        "volume_unit": "lot_100_shares",
-        "amount_unit": "CNY",
-        "excluded_out_of_session_rows": [
-          "1506",
-          "1507",
-          "1508",
-          "1509",
-          "1510",
-          "1511",
-          "1512",
-          "1513",
-          "1514",
-          "1515",
-          "1516",
-          "1517",
-          "1518",
-          "1519",
-          "1520",
-          "1521",
-          "1522",
-          "1523",
-          "1524",
-          "1525",
-          "1526",
-          "1527",
-          "1528",
-          "1529",
-          "1530"
-        ],
-        "anomalies": [
-          "vwap_units_or_daily_range_unverified"
-        ],
-        "sampled_prices_are_not_true_intraminute_ohlc": true
-      },
-      "independent_quote_agrees": false,
-      "true_5m_15m_ohlc_ready": false,
-      "daily_sequence_ready": true,
-      "live_action_allowed": false,
-      "official_iopv_verified": null,
-      "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false
-    },
-    "sz000703": {
-      "health": "NOT_LIVE",
-      "market_phase": "CLOSED",
-      "minute_gate": {
-        "security_date": "20261028",
-        "last_continuous_minute": "2026-10-28T15:00:00+08:00",
-        "fresh_for_live": false,
-        "vwap": 12.9184394,
+        "vwap": 25.54867212,
         "volume_unit": "lot_100_shares",
         "amount_unit": "CNY",
         "excluded_out_of_session_rows": [
@@ -300,60 +348,12 @@
       "official_iopv_verified": null,
       "premium_action_allowed": null,
       "true_5m_15m_ohlc_time_verified": false
-    },
-    "sz002001": {
-      "health": "NOT_LIVE",
-      "market_phase": "CLOSED",
-      "minute_gate": {
-        "security_date": "20261028",
-        "last_continuous_minute": "2026-10-28T15:00:00+08:00",
-        "fresh_for_live": false,
-        "vwap": 25.54867212,
-        "volume_unit": "lot_100_shares",
-        "amount_unit": "CNY",
-        "excluded_out_of_session_rows": [
-          "1506",
-          "1507",
-          "1508",
-          "1509",
-          "1510",
-          "1511",
-          "1512",
-          "1513",
-          "1514",
-          "1515",
-          "1516",
-          "1517",
-          "1518",
-          "1519",
-          "1520",
-          "1521",
-          "1522",
-          "1523",
-          "1524",
-          "1525",
-          "1526",
-          "1527",
-          "1528",
-          "1529",
-          "1530"
-        ],
-        "anomalies": [],
-        "sampled_prices_are_not_true_intraminute_ohlc": true
-      },
-      "independent_quote_agrees": false,
-      "true_5m_15m_ohlc_ready": false,
-      "daily_sequence_ready": true,
-      "live_action_allowed": false,
-      "official_iopv_verified": null,
-      "premium_action_allowed": null,
-      "true_5m_15m_ohlc_time_verified": false
     }
   },
   "coverage": {
     "universe": {
       "schema_version": "2.6.0",
-      "captured_at_beijing": "2026-10-27T16:46:16.473273+08:00",
+      "captured_at_beijing": "2026-10-28T17:59:50.758232+08:00",
       "nodes": {
         "sh_a": {
           "successful_pages": [
@@ -374,18 +374,14 @@
             15,
             16,
             17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24
+            18
           ],
-          "missing_pages": [],
-          "terminal_page": 24,
-          "raw_row_count": 2317,
-          "unique_count": 2317
+          "missing_pages": [
+            19
+          ],
+          "terminal_page": null,
+          "raw_row_count": 1800,
+          "unique_count": 1800
         },
         "sz_a": {
           "successful_pages": [
@@ -416,17 +412,17 @@
             25,
             26,
             27,
-            28,
-            29,
-            30
+            28
           ],
-          "missing_pages": [],
-          "terminal_page": 30,
-          "raw_row_count": 2906,
-          "unique_count": 2906
+          "missing_pages": [
+            29
+          ],
+          "terminal_page": null,
+          "raw_row_count": 2800,
+          "unique_count": 2800
         }
       },
-      "unique_code_count": 5223,
+      "unique_code_count": 4600,
       "missing_fields": {
         "symbol": 0,
         "name": 0,
@@ -445,492 +441,297 @@
       },
       "stratified_checks": [
         {
-          "symbol": "sh688203",
-          "tencent_time": "2026-10-27T16:14:47+08:00",
-          "sina_ticktime": "15:34:59",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh688066",
+          "refresh_required": true
         },
         {
-          "symbol": "sh688670",
-          "tencent_time": "2026-10-27T16:14:59+08:00",
-          "sina_ticktime": "15:00:00",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh688036",
+          "refresh_required": true
         },
         {
-          "symbol": "sh688281",
-          "tencent_time": "2026-10-27T16:14:39+08:00",
-          "sina_ticktime": "15:00:01",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh600388",
+          "refresh_required": true
         },
         {
-          "symbol": "sh688018",
-          "tencent_time": "2026-10-27T16:14:47+08:00",
-          "sina_ticktime": "15:34:59",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh601798",
+          "refresh_required": true
         },
         {
-          "symbol": "sh603567",
-          "tencent_time": "2026-10-27T16:15:00+08:00",
-          "sina_ticktime": "15:34:59",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh600874",
+          "refresh_required": true
         },
         {
-          "symbol": "sh600218",
-          "tencent_time": "2026-10-27T16:14:32+08:00",
-          "sina_ticktime": "15:34:59",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh603183",
+          "refresh_required": true
         },
         {
-          "symbol": "sh601163",
-          "tencent_time": "2026-10-27T16:15:00+08:00",
-          "sina_ticktime": "15:00:00",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh600925",
+          "refresh_required": true
         },
         {
-          "symbol": "sh600690",
-          "tencent_time": "2026-10-27T16:14:43+08:00",
-          "sina_ticktime": "15:34:59",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh603156",
+          "refresh_required": true
         },
         {
-          "symbol": "sh600395",
-          "tencent_time": "2026-10-27T16:14:53+08:00",
-          "sina_ticktime": "15:34:59",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh603650",
+          "refresh_required": true
         },
         {
-          "symbol": "sh600828",
-          "tencent_time": "2026-10-27T16:14:57+08:00",
-          "sina_ticktime": "15:34:59",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sh688045",
+          "refresh_required": true
         },
         {
-          "symbol": "sz300618",
-          "tencent_time": "2026-10-27T16:14:48+08:00",
-          "sina_ticktime": "15:35:15",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz301207",
+          "refresh_required": true
         },
         {
-          "symbol": "sz300540",
-          "tencent_time": "2026-10-27T16:14:15+08:00",
-          "sina_ticktime": "15:35:15",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz301096",
+          "refresh_required": true
         },
         {
-          "symbol": "sz300365",
-          "tencent_time": "2026-10-27T16:14:45+08:00",
-          "sina_ticktime": "15:35:45",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz001227",
+          "refresh_required": true
         },
         {
-          "symbol": "sz301217",
-          "tencent_time": "2026-10-27T16:14:54+08:00",
-          "sina_ticktime": "15:35:45",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz002073",
+          "refresh_required": true
         },
         {
-          "symbol": "sz300865",
-          "tencent_time": "2026-10-27T16:14:39+08:00",
-          "sina_ticktime": "15:35:00",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz301181",
+          "refresh_required": true
         },
         {
-          "symbol": "sz002938",
-          "tencent_time": "2026-10-27T16:14:45+08:00",
-          "sina_ticktime": "15:35:45",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz000049",
+          "refresh_required": true
         },
         {
-          "symbol": "sz300712",
-          "tencent_time": "2026-10-27T16:14:42+08:00",
-          "sina_ticktime": "15:35:00",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz002030",
+          "refresh_required": true
         },
         {
-          "symbol": "sz000531",
-          "tencent_time": "2026-10-27T16:14:33+08:00",
-          "sina_ticktime": "15:35:30",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz002384",
+          "refresh_required": true
         },
         {
-          "symbol": "sz000828",
-          "tencent_time": "2026-10-27T16:14:48+08:00",
-          "sina_ticktime": "15:35:45",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz300746",
+          "refresh_required": true
         },
         {
-          "symbol": "sz300504",
-          "tencent_time": "2026-10-27T16:14:45+08:00",
-          "sina_ticktime": "15:35:45",
-          "same_time_gate": false,
-          "price_agrees": true
+          "symbol": "sz301359",
+          "refresh_required": true
         }
       ],
-      "security_dates_from_samples": [
-        "2026-10-27"
-      ],
-      "complete_pagination": true,
-      "stock_pick_gate": "VERIFIED_CLOSED_DATASET",
+      "security_dates_from_samples": [],
+      "complete_pagination": false,
+      "stock_pick_gate": "INCOMPLETE",
       "point_in_time_note": "Consumer must verify dataset security date and cutoff; retrieval time is not trade time.",
-      "frozen_verification": {
-        "checked_at_beijing": "2026-10-27T21:02:04.460644+08:00",
-        "cutoff_hhmm": "1500",
-        "security_date": "20261027",
-        "sample_count": 20,
-        "passed_count": 20,
-        "checks": [
+      "pagination_recovery": {
+        "started_at_beijing": "2026-10-28T18:00:34.015280+08:00",
+        "completed_at_beijing": "2026-10-28T18:02:14.423860+08:00",
+        "recovered_pages": [
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 7.22,
-            "sina_price": 7.22,
-            "tencent_snapshot_price": 7.22,
-            "minute_price_agrees": true,
-            "daily_close": 7.22,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600218&_ts=1793106120300",
-            "symbol": "sh600218",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600218,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:32+08:00"
+            "node": "sh_a",
+            "page": 1,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 4.8,
-            "sina_price": 4.8,
-            "tencent_snapshot_price": 4.8,
-            "minute_price_agrees": true,
-            "daily_close": 4.8,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600395&_ts=1793106121673",
-            "symbol": "sh600395",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600395,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:53+08:00"
+            "node": "sh_a",
+            "page": 2,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 19.36,
-            "sina_price": 19.36,
-            "tencent_snapshot_price": 19.36,
-            "minute_price_agrees": true,
-            "daily_close": 19.36,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600690&_ts=1793106120301",
-            "symbol": "sh600690",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600690,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:43+08:00"
+            "node": "sh_a",
+            "page": 3,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 4.47,
-            "sina_price": 4.47,
-            "tencent_snapshot_price": 4.47,
-            "minute_price_agrees": true,
-            "daily_close": 4.47,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600828&_ts=1793106121678",
-            "symbol": "sh600828",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600828,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:57+08:00"
+            "node": "sh_a",
+            "page": 4,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 12.0,
-            "sina_price": 12.0,
-            "tencent_snapshot_price": 12.0,
-            "minute_price_agrees": true,
-            "daily_close": 12.0,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601163&_ts=1793106120301",
-            "symbol": "sh601163",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601163,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:15:00+08:00"
+            "node": "sh_a",
+            "page": 5,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 4.73,
-            "sina_price": 4.73,
-            "tencent_snapshot_price": 4.73,
-            "minute_price_agrees": true,
-            "daily_close": 4.73,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603567&_ts=1793106120300",
-            "symbol": "sh603567",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603567,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:15:00+08:00"
+            "node": "sh_a",
+            "page": 6,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 138.0,
-            "sina_price": 138.0,
-            "tencent_snapshot_price": 138.0,
-            "minute_price_agrees": true,
-            "daily_close": 138.0,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688018&_ts=1793106120300",
-            "symbol": "sh688018",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688018,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:47+08:00"
+            "node": "sh_a",
+            "page": 7,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 13.4,
-            "sina_price": 13.4,
-            "tencent_snapshot_price": 13.4,
-            "minute_price_agrees": true,
-            "daily_close": 13.4,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688203&_ts=1793106120299",
-            "symbol": "sh688203",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688203,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:47+08:00"
+            "node": "sh_a",
+            "page": 8,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 40.28,
-            "sina_price": 40.28,
-            "tencent_snapshot_price": 40.28,
-            "minute_price_agrees": true,
-            "daily_close": 40.28,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688281&_ts=1793106120300",
-            "symbol": "sh688281",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688281,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:39+08:00"
+            "node": "sh_a",
+            "page": 9,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 12.68,
-            "sina_price": 12.68,
-            "tencent_snapshot_price": 12.68,
-            "minute_price_agrees": true,
-            "daily_close": 12.68,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688670&_ts=1793106120299",
-            "symbol": "sh688670",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688670,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:59+08:00"
+            "node": "sh_a",
+            "page": 10,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 5.15,
-            "sina_price": 5.15,
-            "tencent_snapshot_price": 5.15,
-            "minute_price_agrees": true,
-            "daily_close": 5.15,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz000531&_ts=1793106123048",
-            "symbol": "sz000531",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz000531,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:33+08:00"
+            "node": "sh_a",
+            "page": 11,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 9.75,
-            "sina_price": 9.75,
-            "tencent_snapshot_price": 9.75,
-            "minute_price_agrees": true,
-            "daily_close": 9.75,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz000828&_ts=1793106123051",
-            "symbol": "sz000828",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz000828,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:48+08:00"
+            "node": "sh_a",
+            "page": 12,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 65.52,
-            "sina_price": 65.52,
-            "tencent_snapshot_price": 65.52,
-            "minute_price_agrees": true,
-            "daily_close": 65.52,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002938&_ts=1793106121718",
-            "symbol": "sz002938",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002938,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:45+08:00"
+            "node": "sh_a",
+            "page": 13,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 4.13,
-            "sina_price": 4.13,
-            "tencent_snapshot_price": 4.13,
-            "minute_price_agrees": true,
-            "daily_close": 4.13,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300365&_ts=1793106121688",
-            "symbol": "sz300365",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300365,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:45+08:00"
+            "node": "sh_a",
+            "page": 14,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 17.69,
-            "sina_price": 17.69,
-            "tencent_snapshot_price": 17.69,
-            "minute_price_agrees": true,
-            "daily_close": 17.69,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300504&_ts=1793106123058",
-            "symbol": "sz300504",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300504,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:45+08:00"
+            "node": "sh_a",
+            "page": 15,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 20.65,
-            "sina_price": 20.65,
-            "tencent_snapshot_price": 20.65,
-            "minute_price_agrees": true,
-            "daily_close": 20.65,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300540&_ts=1793106121682",
-            "symbol": "sz300540",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300540,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:15+08:00"
+            "node": "sh_a",
+            "page": 16,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 24.18,
-            "sina_price": 24.18,
-            "tencent_snapshot_price": 24.18,
-            "minute_price_agrees": true,
-            "daily_close": 24.18,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300618&_ts=1793106121679",
-            "symbol": "sz300618",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300618,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:48+08:00"
+            "node": "sh_a",
+            "page": 17,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 18.32,
-            "sina_price": 18.32,
-            "tencent_snapshot_price": 18.32,
-            "minute_price_agrees": true,
-            "daily_close": 18.32,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300712&_ts=1793106123041",
-            "symbol": "sz300712",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300712,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:42+08:00"
+            "node": "sh_a",
+            "page": 18,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 23.47,
-            "sina_price": 23.47,
-            "tencent_snapshot_price": 23.47,
-            "minute_price_agrees": true,
-            "daily_close": 23.47,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300865&_ts=1793106121701",
-            "symbol": "sz300865",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300865,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:39+08:00"
+            "node": "sz_a",
+            "page": 9,
+            "row_count": 100
           },
           {
-            "passed": true,
-            "security_date": "20261027",
-            "cutoff_hhmm": "1500",
-            "cutoff_price": 74.2,
-            "sina_price": 74.2,
-            "tencent_snapshot_price": 74.2,
-            "minute_price_agrees": true,
-            "daily_close": 74.2,
-            "daily_close_checked": true,
-            "daily_close_agrees": true,
-            "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301217&_ts=1793106121690",
-            "symbol": "sz301217",
-            "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301217,day,,,5,qfq",
-            "tencent_snapshot_update_time": "2026-10-27T16:14:54+08:00"
+            "node": "sz_a",
+            "page": 10,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 11,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 12,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 13,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 14,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 15,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 16,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 17,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 18,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 19,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 20,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 21,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 22,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 23,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 24,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 25,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 26,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 27,
+            "row_count": 100
+          },
+          {
+            "node": "sz_a",
+            "page": 28,
+            "row_count": 100
           }
         ],
-        "state": "PASS",
-        "live_action_allowed": false,
-        "note": "Frozen dataset verification is not real-time execution or proof of an earlier agent run."
+        "same_stable_window": true,
+        "original_capture_time_preserved": true,
+        "independent_frozen_checks_required": true
       },
       "market_breadth": {
         "scope": "sh_a+sz_a",
-        "valid_returns": 5223,
-        "advancing": 576,
-        "declining": 4600,
-        "unchanged": 47,
-        "median_change_pct": -3.013,
-        "amount_sum_raw_CNY": 1460160295611.0
+        "valid_returns": 4600,
+        "advancing": 3300,
+        "declining": 1127,
+        "unchanged": 173,
+        "median_change_pct": 1.145,
+        "amount_sum_raw_CNY": 1392007623146.0
       },
       "no_future_data_permission": true
     }
@@ -938,6 +739,6 @@
   "analysis_signals_not_generated_here": true,
   "iopv_verified": false,
   "actual_agent_execution_not_proved_by_relay": true,
-  "raw_shard_count": 54,
-  "finalized_at_beijing": "2026-10-28T17:25:44.060209+08:00"
+  "raw_shard_count": 46,
+  "finalized_at_beijing": "2026-10-28T18:02:14.706244+08:00"
 }
