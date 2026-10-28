@@ -1,9 +1,9 @@
 {
-  "captured_at_beijing": "2026-10-28T17:59:50.758232+08:00",
+  "captured_at_beijing": "2026-10-28T18:04:13.043154+08:00",
   "node": "sh_a",
   "page": 10,
   "record_count": 100,
-  "stock_pick_gate": "INCOMPLETE",
+  "stock_pick_gate": "VERIFIED_CLOSED_DATASET",
   "records": {
     "sh601700": {
       "symbol": "sh601700",
