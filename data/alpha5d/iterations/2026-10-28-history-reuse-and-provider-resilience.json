@@ -1,0 +1,69 @@
+{
+  "schema_version": "alpha5d-iteration-audit-v1",
+  "date": "2026-10-28",
+  "change_id": "history-reuse-and-provider-resilience",
+  "type": "A_DATA_AND_ENGINEERING_COVERAGE",
+  "state": "建议",
+  "implementation_status": "NOT_IMPLEMENTED",
+  "problem": "A formally complete five-day research ranking is still blocked by missing per-stock 61-session daily bars and industry taxonomy; source failures and runtime cache reuse are not yet resolved.",
+  "observed_run_receipts": [
+    {
+      "path": "data/alpha5d/runs/20261026T120859/receipt.json",
+      "forecast_date": "2026-10-26",
+      "previous_session": "2026-10-23",
+      "history_success": 5029,
+      "history_missing": 0,
+      "status": "INCOMPLETE",
+      "first_blocker": "known halts / samples"
+    },
+    {
+      "path": "data/alpha5d/runs/20261027T122839/receipt.json",
+      "forecast_date": "2026-10-27",
+      "previous_session": "2026-10-26",
+      "history_success": 221,
+      "history_missing": 4808,
+      "status": "INCOMPLETE",
+      "first_blocker": "industry/profile RemoteDisconnected / 502"
+    },
+    {
+      "path": "data/alpha5d/runs/20261027T212355/receipt.json",
+      "forecast_date": "2026-10-28",
+      "previous_session": "2026-10-27",
+      "history_success": 89,
+      "history_missing": 4940,
+      "history_retrieval_attempted": 151,
+      "consecutive_errors": 57,
+      "status": "INCOMPLETE",
+      "first_blocker": "history source circuit opened; industry/profile RemoteDisconnected / 502"
+    }
+  ],
+  "hypothesis": "History cache may be run-scoped/ephemeral, making prior completed 5029 historical series unavailable on the next session; provider host failures are also independently observed. Hypothesis not proven.",
+  "proposed_fix": [
+    "Inspect actual GitHub Actions artifacts/cache restore/save evidence, including keys and cache hit status; no assumption of automatic persistence.",
+    "Persist per-security history across sessions and fetch incremental closed bars only, with actual retrieval timestamps, security dates, adjustment basis and content hashes; preserve 61-bar validity gate.",
+    "Introduce a verified free Tencent daily-fqkline fallback with identity and price-unit cross checks; do not mix forward-adjusted Eastmoney with inconsistent Tencent OHLCVA.",
+    "Separate missing source retrieval from formal ST/IPO/halts eligibility exclusions; do not silently remove failed names or reconstruct Kline from minute quote.",
+    "Run 20 cross-board/size samples, complete industry membership and actual alpha5d_engine.rank on frozen full universe; before passing, NO RANK."
+  ],
+  "acceptance": {
+    "must_have": "all pre-eligible symbols >=61 consistent available historical daily bars + dated industry mapping + 20/20 independent samples + actual full rank artifact and hash",
+    "target": "first fully accepted exact-date complete ranked cohort",
+    "current": "FAILED"
+  },
+  "model_version": "V8.0-bootstrap-1",
+  "model_weight_change": false,
+  "market_alpha_claim": "NONE",
+  "version_change": false,
+  "possible_side_effects": [
+    "cache staleness",
+    "incorrect corporate-action adjustment",
+    "point-in-time industry mapping leakage",
+    "timezone and source quote reconciliation",
+    "falsely excluded missing names"
+  ],
+  "tests": "NOT_RUN_FOR_THIS_PROPOSAL",
+  "shadow_validation": "NOT_RUN",
+  "production_validation": "FAILED_PRIOR_RUN",
+  "privacy": "PUBLIC_MARKET_AND_ENGINEERING_ONLY; NO_PERSONAL_HOLDINGS",
+  "notes": "Created as an evidence-led engineering challenge record, not as a corrected model, deployed fix or verified 08:50 batch."
+}
