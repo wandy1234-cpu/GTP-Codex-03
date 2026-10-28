@@ -33,12 +33,18 @@ def main():
         first=min(missing) if missing else max(good,default=0)+1
         for page in range(first,101):
             if page in good: continue
-            if time.monotonic()-started>100:
+            # Bounded post-close recovery; never extend beyond the action budget.
+            if time.monotonic()-started>175:
                 missing.add(page);break
             url=('https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/'
                  f'Market_Center.getHQNodeData?page={page}&num=100&sort=symbol&asc=1&node={node}')
-            rows,errors=fetch_json(core,url)
-            obj.setdefault('source_requests',[]).append({'url':url,'errors':errors,'resumed':True})
+            rows=None
+            for retry in range(3):
+                if time.monotonic()-started>175:break
+                rows,errors=fetch_json(core,url)
+                obj.setdefault('source_requests',[]).append({'url':url,'errors':errors,'resumed':True,'retry':retry})
+                if isinstance(rows,list):break
+                if retry<2:time.sleep(0.5)
             if not isinstance(rows,list):
                 missing.add(page);break
             good.add(page);missing.discard(page)
