@@ -1,0 +1,45 @@
+{
+  "schema_version": "alpha5d-iteration-audit-v1",
+  "date": "2026-10-29",
+  "change_id": "market-regime-whipsaw-shadow",
+  "type": "B_MARKET_FORECAST_CHALLENGE_NOT_RANKER",
+  "state": "建议",
+  "implementation_status": "NOT_IMPLEMENTED",
+  "original_forecast": {
+    "date": "2026-10-28",
+    "market_score": 48,
+    "market_signal": "红黄灯",
+    "regime": "Distribution",
+    "market_direction": "偏弱震荡，存在反转",
+    "confidence": "低",
+    "source": "2026-10-28 original report recorded in automation footer"
+  },
+  "realized_market": {
+    "security_date": "2026-10-28",
+    "shanghai_close": 3681.47,
+    "shanghai_change_pct": 0.91,
+    "chinext_change_pct": 3.4,
+    "sh_sz_universe": 5222,
+    "raw_advancing": 3872,
+    "raw_declining": 1175,
+    "raw_unchanged": 175,
+    "original_a_market_score_vs_close": "WRONG_DIRECTION",
+    "heat_real": "UNVERIFIED"
+  },
+  "error_audit": {
+    "original_judgment": "Weak bearish market priority after prior day selloff; reversal acknowledged but underweighted",
+    "actual_counterevidence": "Broad-based buying on Oct 28 with semiconductor/robotics and life science strength",
+    "ex_ante_pre_0850_sources": "Verify 2026-10-28 08:50 original source times; do not assume every afternoon event was known before cutoff",
+    "causal_claim": "INSUFFICIENT_TO_IDENTIFY_DETERMINISTIC_CAUSE",
+    "failure_labels": [
+      "Regime",
+      "Causality",
+      "Sector"
+    ]
+  },
+  "proposed_shadow_rule": "Evaluate prior-day breadth extremes, rebound exhaustion, current price-in evidence and Japan/Korea opening gap+follow-through as separate directional versus risk signals, without double-counting correlated indicators.",
+  "metric_and_eval": "Directional hit rate, red-light missed upside, weighted scoring error and upside reversal conditional on prior breadth across >=20 matured grouped dates; compare original five-dimension score, naive prior-day trend, opposite-day baseline, and shadow; preserve independent chronological test",
+  "status": "PROPOSED_NOT_CODED_OR_CALIBRATED",
+  "ranker_V8_weights_changed": false,
+  "public_only": true
+}
