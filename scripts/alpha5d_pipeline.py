@@ -161,6 +161,28 @@ VERIFIED_HALTS = {
                      'source_url': 'https://www.cfi.net.cn/p20261012002119.html'},
         'sz301468': {'first_public': '2026-10-18', 'halt_from': '2026-10-19',
                      'source_url': 'https://cfi.net.cn/p20261018000136.html'},
+    },
+    # Dated public halt announcements; do not carry these exclusions past Oct 29.
+    # Every item below had a prior-public notice covering the specific session.
+    '2026-10-28': {
+        'sh601326': {'first_public': '2026-10-21', 'halt_from': '2026-10-21',
+                     'source_url': 'https://static.cninfo.com.cn/finalpage/2026-10-21/1225612840.PDF'},
+        'sh605258': {'first_public': '2026-10-27', 'halt_from': '2026-10-28',
+                     'source_url': 'https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-28/605258_20261028_5MJ7.pdf'},
+        'sz002827': {'first_public': '2026-10-26', 'halt_from': '2026-10-26',
+                     'source_url': 'https://static.cninfo.com.cn/finalpage/2026-10-26/1225621271.PDF'},
+        'sz301468': {'first_public': '2026-10-19', 'halt_from': '2026-10-19',
+                     'source_url': 'https://static.cninfo.com.cn/finalpage/2026-10-19/1225609720.PDF'},
+    },
+    '2026-10-29': {
+        'sh601326': {'first_public': '2026-10-21', 'halt_from': '2026-10-21',
+                     'source_url': 'https://static.cninfo.com.cn/finalpage/2026-10-21/1225612840.PDF'},
+        'sh605258': {'first_public': '2026-10-27', 'halt_from': '2026-10-28',
+                     'source_url': 'https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-28/605258_20261028_5MJ7.pdf'},
+        'sz002827': {'first_public': '2026-10-26', 'halt_from': '2026-10-26',
+                     'source_url': 'https://static.cninfo.com.cn/finalpage/2026-10-26/1225621271.PDF'},
+        'sz301468': {'first_public': '2026-10-19', 'halt_from': '2026-10-19',
+                     'source_url': 'https://static.cninfo.com.cn/finalpage/2026-10-19/1225609720.PDF'},
     }
 }
 
