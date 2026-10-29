@@ -1,0 +1,55 @@
+{
+  "schema_version": "alpha5d-iteration-audit-v1",
+  "date": "2026-10-29",
+  "change_id": "asof-cache-and-transient-failure",
+  "type": "A_CONFIRMED_CODE_DESIGN_WITH_PARTIAL_CAUSAL_ATTRIBUTION",
+  "status": "建议",
+  "implementation_status": "NOT_IMPLEMENTED",
+  "problem": "Formal full A-share five-session ranking blocked for 2026-10-29: only 98 of 5028 non-ST series successfully loaded; 4930 unavailable; industry/profile source disconnected or HTTP502; full ranking absent.",
+  "observed_source": {
+    "pipeline_status_blob_sha": "be23646eaf678c3a117e14782806e699d39d6ccd",
+    "workflow_run_id": "40703094444",
+    "security_date": "2026-10-28",
+    "full_market_rows": 5222,
+    "sh_pages": "24/24",
+    "sz_pages": "30/30",
+    "history_attempted": 161,
+    "history_success": 98,
+    "history_missing": 4930,
+    "consecutive_failures": 57,
+    "circuit_open": true,
+    "industry_errors": [
+      "RemoteDisconnected",
+      "HTTP 502"
+    ],
+    "ranker_version": "V8.0-bootstrap-1"
+  },
+  "code_evidence": {
+    "pipeline_py_blob": "e9379ac5ac3600b6e7ba85b67d5271ee38d4a1d4",
+    "load_path": "root/'history'/asof/(sym+'.json')",
+    "workflow_yml_blob": "fbc8566c1f46dd992f00dc19f9e09e36493b8a1b",
+    "cache_path": ".cache/alpha5d/history",
+    "cache_key": "alpha5d-history-v1-${{ github.run_id }}",
+    "runtime_py_blob": "dcf5629f2a603f82203b72adcb471a30faaa8c7b",
+    "runtime_guard": ">=50 consecutive errors opens circuit"
+  },
+  "finding": "Cross-session cache restore has a likely design mismatch: restored <prior_session> history directory is not reused when loader checks <new_asof> only. This explains repeated whole-market requests even if GitHub Actions restores the cache, but cannot alone prove the upstream provider disconnects.",
+  "proposed_fixes": [
+    "Before retrieval, inspect actual actions/cache hit/restored file manifest and asof date; reject any future-stamped records.",
+    "Implement incremental prior-session history reuse with per-symbol close/date verification, 61+ complete bars and consistent forward-adjusted basis; avoid reusing stale qfq histories across corporate actions without verified rebase.",
+    "Introduce bounded independent fallback Eastmoney -> Tencent daily fqkline only with source/date/identity and adjustment-unit tests; keep original complete-data gate.",
+    "Allow independent history retrieval and sector classification retries; segregate provider access failure from unknown eligibility; never convert missing bars to exclusion.",
+    "Prove 20 stratified independent samples, industry taxonomy consistency, full eligible 61-bar histories and rank-engine output sha256 before formal Top5."
+  ],
+  "validation_plan": {
+    "unit_tests": "NOT_RUN",
+    "CI": "NOT_RUN",
+    "production_acceptance": "FAILED",
+    "target": ">=61 consistent time-stamped OHLCVA bars for all ex-ante eligible, verified taxonomy, 20/20 cross source, rank completed with immutable cohort",
+    "independent_leakage_review": "PENDING"
+  },
+  "model_weight_change": false,
+  "market_backtest": "NOT_CLAIMED",
+  "privacy": "PUBLIC_ONLY_NO_PERSONAL_HOLDINGS",
+  "note": "Do not infer 08:50 success from this 2026-10-28 late_research status; latest premarket run must be rechecked."
+}
