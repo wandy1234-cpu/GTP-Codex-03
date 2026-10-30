@@ -281,6 +281,66 @@ def run_rank(engine, payload):
     result['is_0850_live_prediction']=False if payload.get('run_kind')=='late_research' else None
     return result
 
+
+def incremental_cached_history(root, asof, row):
+    """Extend only a verified immediately-prior Eastmoney fqt=1 cache with the dated Sina close.
+
+    Fail closed when a split, adjustment, stale cache, unit mismatch or missing
+    daily field might silently corrupt 61-bar technical features. The current
+    Sina page and prior Eastmoney URL must both remain in the evidence chain.
+    """
+    symbol = row.get('symbol')
+    if not symbol or asof is None:
+        return None
+    try:
+        previous = step(dt.date.fromisoformat(asof), -1).isoformat()
+        source = Path(root) / 'history' / previous / (symbol + '.json')
+        if not source.exists():
+            return None
+        h = json.loads(source.read_text(encoding='utf-8'))
+        bars = h.get('bars') or []
+        if (len(bars) < 61 or bars[-1].get('date') != previous
+                or not str(h.get('adjustment_basis', '')).startswith('Eastmoney_fqt=1')
+                or not h.get('source_url') or h.get('volume_unit') != 'lots_100_shares'
+                or h.get('amount_unit') != 'CNY'):
+            return None
+        prior_close = float(bars[-1]['close'])
+        reference = float(row['settlement'])
+        opening = float(row['open'])
+        closing = float(row['trade'])
+        high = float(row['high'])
+        low = float(row['low'])
+        shares = float(row['volume'])
+        amount = float(row['amount'])
+        prices = (prior_close, reference, opening, closing, high, low)
+        if (not all(math.isfinite(x) and x > 0 for x in prices)
+                or not math.isfinite(shares) or shares <= 0
+                or not math.isfinite(amount) or amount <= 0
+                or abs(prior_close / reference - 1) > .005
+                or not low <= min(opening, closing) <= max(opening, closing) <= high):
+            return None
+        vwap = amount / shares
+        if not low * .995 <= vwap <= high * 1.005:
+            return None
+        dates = [b.get('date') for b in bars]
+        if dates != sorted(set(dates)):
+            return None
+        new = dict(h)
+        new['bars'] = (bars + [{
+            'date': asof, 'open': opening, 'close': closing,
+            'high': high, 'low': low, 'volume': shares / 100, 'amount': amount,
+        }])[-240:]
+        new['adjustment_basis'] = 'Eastmoney_fqt=1_verified_Sina_incremental_asof=' + asof
+        new['incremental_source_url'] = SINA
+        new['retrieved_at'] = now().isoformat()
+        new['retained_bars'] = len(new['bars'])
+        new['incremental_guard'] = {'prior_close_matches_sina_settlement': True,
+                                     'price_volume_amount_units_verified': True,
+                                     'corporate_action_rebase_not_needed': True}
+        return new
+    except (ValueError, TypeError, KeyError, OSError, json.JSONDecodeError):
+        return None
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--forecast');ap.add_argument('--workers',type=int,default=8)
     ap.add_argument('--output',default='data/alpha5d')
@@ -307,6 +367,10 @@ def main():
             if path.exists():
                 h=json.loads(path.read_text());
                 if h.get('bars') and h['bars'][-1]['date']==asof:return sym,h
+            h=incremental_cached_history(root,asof,r)
+            if h is not None:
+                atomic(path,h)
+                return sym,h
             h=east_bars(sym,asof);atomic(path,h);return sym,h
         with cf.ThreadPoolExecutor(max_workers=args.workers) as pool:
             futures={pool.submit(load,r):r['symbol'] for r in targets}
