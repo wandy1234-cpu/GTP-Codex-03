@@ -1,0 +1,35 @@
+{
+  "schema_version": "alpha5d-iteration-audit-v1",
+  "date": "2026-10-30",
+  "change_id": "verified-adjacent-cache-guard",
+  "type": "A_CONFIRMED_ENGINEERING_DEFECT",
+  "model_weight_change": false,
+  "original_model": "V8.0-bootstrap-1",
+  "change_applies_after_cutoff": "2026-10-30T08:50:00+08:00",
+  "status": "已测试（软件回归）/生产未验收",
+  "description": "Existing load function reuses history only if cached under exact current asof date; verified immediate prior-session histories were not reused. Add guarded prior-session cache extension using same security raw close, no-corporate-action close agreement, OHLC range and turnover VWAP, share-to-lot conversion, complete ≥61 pre-existing daily bars and date adjacency. Fall back to original source on any mismatch, never exclude stock or silently fill unknown days.",
+  "old_pipeline_blob": "f02b581f6ccd69422e96011b00e85161c5ad0482",
+  "old_runtime_blob": "dcf5629f2a603f82203b72adcb471a30faaa8c7b",
+  "commit": "75ffd1ed6468ab381203acb1575258cd8b22ac70",
+  "changed_files": [
+    "scripts/alpha5d_pipeline.py",
+    "scripts/test_alpha5d_cache_incremental.py"
+  ],
+  "test_evidence": {
+    "ci_run_id": 40982467465,
+    "ci_job_id": 123825554737,
+    "regression_tests": "COMPLETED_SUCCESS_GITHUB_ACTIONS",
+    "production_collector": "IN_PROGRESS_AT_AUDIT_TIME",
+    "market_backtest": "NOT_CLAIMED"
+  },
+  "expected_change": "Avoid new historical API calls for stocks whose last previous A-share trading session has 61+ valid cached daily bars and raw-close agreement. Previously cached histories with multi-session gaps are NOT fabricated or backfilled by this change.",
+  "possible_side_effects": [
+    "Prior cache from a different adjustment basis must never be reused; guard requires Eastmoney fqt=1.",
+    "Volume shares vs lots are converted only after VWAP price-range test.",
+    "Source corporate-action information not sufficient when price mismatch; fallback to original fetch.",
+    "Does not repair industry membership source HTTP502.",
+    "Does not automatically solve old cached 2026-10-23 to 2026-10-29 multi-day gaps."
+  ],
+  "acceptance": "Require CI production full A-shares with all 61-bars and industry, 20/20 cross-price, actual ranker artifact and complete outcome baseline; until then formal Top5 NO RANK.",
+  "privacy": "PUBLIC_ONLY"
+}
