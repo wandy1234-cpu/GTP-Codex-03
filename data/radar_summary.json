@@ -1,5 +1,5 @@
 {
-  "generated_at_beijing": "2026-10-30T15:27:27.829357+08:00",
+  "generated_at_beijing": "2026-10-30T15:53:02.126828+08:00",
   "data_health": "NOT_LIVE",
   "fresh_quotes_le_10m": 0,
   "deep_gate_ready": 0,
@@ -9,7 +9,7 @@
   "schema_version": "2.6.0",
   "audit_v26": {
     "schema_version": "2.6.0",
-    "evaluated_at_beijing": "2026-10-30T15:27:27.922850+08:00",
+    "evaluated_at_beijing": "2026-10-30T15:53:02.206337+08:00",
     "market_phase": "CLOSED",
     "symbols": {},
     "legacy_health_is_not_authoritative": true
