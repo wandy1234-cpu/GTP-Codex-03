@@ -65,17 +65,61 @@ def json_body(text):
     if text.startswith(('var ','let ','const ')):text=text.split('=',1)[1].strip().rstrip(';')
     return json.loads(text)
 
-def paged(node):
+def verified_market_minima(previous_session):
+    """Never certify an A-share universe against an unchecked or wrong-date baseline."""
+    path=Path('data/universe_summary.json')
+    if not path.is_file():
+        raise ValueError('No previously verified full-market baseline; refuse formal ranking')
+    baseline=json.loads(path.read_text(encoding='utf8'))
+    frozen=baseline.get('frozen_verification') or {}
+    if (baseline.get('stock_pick_gate')!='VERIFIED_CLOSED_DATASET'
+            or str(frozen.get('security_date'))!=previous_session.replace('-','')
+            or int(frozen.get('passed_count') or 0)<20):
+        raise ValueError('Previous-session market baseline not verified for '+previous_session)
+    minima={}
+    for node in ('sh_a','sz_a'):
+        ref=int((baseline.get('nodes') or {}).get(node,{}).get('unique_count') or 0)
+        if ref<100:raise ValueError('Missing verified baseline count for '+node)
+        # Fail closed on unexplained drops (a 100-name lost page cannot pass).
+        minima[node]=math.ceil(ref*0.998)
+    return minima
+
+def paged(node, minimum_rows=0):
     records=[];pages=[];urls=[];counts=[]
     for page in range(1,201):
         url=SINA+'?'+up.urlencode({'node':node,'page':page,'num':100,'sort':'symbol','asc':1})
-        batch=json_body(http(url))
-        if not isinstance(batch,list) or (page==1 and not batch): raise ValueError(node+': invalid first page')
+        batch=None
+        for attempt in range(4 if minimum_rows else 1):
+            candidate=json_body(http(url))
+            if not isinstance(candidate,list):
+                raise ValueError(node+': invalid page response '+str(page))
+            # Empty/short pages before independent expected coverage are transient,
+            # not proof that a market has ended. Never save terminal_verified=True.
+            premature=(page==1 and not candidate) or (
+                minimum_rows and len(records)+len(candidate)<minimum_rows and len(candidate)<100)
+            if premature:
+                if attempt<3:
+                    time.sleep(.5*(attempt+1))
+                    continue
+                raise ValueError(node+': false terminal/short page '+str(page)
+                                 +' before minimum verified coverage '+str(minimum_rows))
+            batch=candidate
+            break
+        if batch is None:raise ValueError(node+': missing page '+str(page))
+        if minimum_rows and len(batch)<100:
+            # Confirm the next page really has no records, rather than silently
+            # terminating after a shortened page while later pages exist.
+            next_url=SINA+'?'+up.urlencode({'node':node,'page':page+1,'num':100,'sort':'symbol','asc':1})
+            probe=json_body(http(next_url))
+            if not isinstance(probe,list) or probe:
+                raise ValueError(node+': terminal page unconfirmed '+str(page))
         pages.append(page);urls.append(url);counts.append(len(batch));records.extend(batch)
-        if len(batch)<100: break
-    else: raise ValueError(node+': no terminal page')
+        if len(batch)<100:break
+    else:raise ValueError(node+': no terminal page')
     symbols=[r['symbol'] for r in records]
-    if len(set(symbols)) != len(symbols):raise ValueError(node+': duplicate pagination')
+    if len(set(symbols))!=len(symbols):raise ValueError(node+': duplicate pagination')
+    if minimum_rows and len(records)<minimum_rows:
+        raise ValueError(node+': market coverage below previous verified close')
     return records,{'successful_pages':pages,'terminal_page':page,'terminal_verified':True,
         'missing_pages':[],'raw_rows':len(records),'page_counts':counts,'source_urls':urls}
 
@@ -355,8 +399,11 @@ def main():
     atomic(root/'pipeline_status.json',manifest)
     try:
         rows=[];cover={}
+        verified_minima=verified_market_minima(asof)
         for node in ('sh_a','sz_a'):
-            batch,g=paged(node);rows+=batch;cover[node]=g;atomic(run_dir/(node+'.json'),{'records':batch,'manifest':g})
+            batch,g=paged(node,minimum_rows=verified_minima[node])
+            rows+=batch;cover[node]=g
+            atomic(run_dir/(node+'.json'),{'records':batch,'manifest':g})
         if len(rows)!=len({r['symbol'] for r in rows}):raise ValueError('Cross-exchange duplicate')
         manifest.update(raw_count=len(rows),coverage=cover)
         # Daily history retrieval is independent of industry availability; cache it first.
