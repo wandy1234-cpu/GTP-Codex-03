@@ -234,7 +234,6 @@ def main():
         legacy_health['legacy_quote_health'] = legacy_health.get('quote_health')
         legacy_health['quote_health'] = 'NOT_LIVE'
         legacy_health['quote_health_context'] = 'Non-session only; raw legacy result retained separately'
-    write('latest_market.json',obj)
     radar=json.loads((ROOT/'radar_summary.json').read_text(encoding='utf-8'))
     radar['legacy_schema_version']=radar.get('schema_version')
     radar['schema_version']=SCHEMA
@@ -246,6 +245,11 @@ def main():
                          'GREEN-T' if states and all(x in ('GREEN','GREEN-T') for x in states) else
                          'RED' if 'RED' in states else 'YELLOW')
     radar['live_action_allowed']=radar['data_health'] in ('GREEN','GREEN-T')
+    # Keep the embedded legacy-facing summary consistent with the canonical V2.6 file.
+    # Preserve legacy_data_health as evidence, but never expose raw legacy RED as
+    # authoritative on a normal non-live session.
+    obj['radar_summary']=dict(radar)
+    write('latest_market.json',obj)
     write('radar_summary.json',radar)
     symbols=sorted(set(sum(GROUPS.values(),[])))
     snapshot=core.tencent_quotes(symbols)
