@@ -1,18 +1,18 @@
 {
   "adapter_version": "alpha5d-pipeline-1.0.3",
-  "started_at": "2026-11-02T13:24:16.426331+08:00",
-  "forecast_date": "2026-11-02",
-  "previous_session": "2026-10-30",
+  "started_at": "2026-11-03T01:15:49.321002+08:00",
+  "forecast_date": "2026-11-03",
+  "previous_session": "2026-11-02",
   "sessions": [
-    "2026-11-02",
     "2026-11-03",
     "2026-11-04",
     "2026-11-05",
-    "2026-11-06"
+    "2026-11-06",
+    "2026-11-09"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
   "status": "INCOMPLETE",
-  "run_kind": "late_research",
+  "run_kind": "prefetch",
   "raw_count": 5222,
   "coverage": {
     "sh_a": {
@@ -202,25 +202,54 @@
       ]
     }
   },
-  "history_success": 5026,
+  "history_success": 4997,
   "history_missing": {
+    "sh601326": "RemoteDisconnected: Remote end closed connection without response",
+    "sh601091": "RemoteDisconnected: Remote end closed connection without response",
+    "sh603468": "RemoteDisconnected: Remote end closed connection without response",
     "sh605258": "RemoteDisconnected: Remote end closed connection without response",
-    "sz002827": "RemoteDisconnected: Remote end closed connection without response"
+    "sh601123": "RemoteDisconnected: Remote end closed connection without response",
+    "sh603448": "RemoteDisconnected: Remote end closed connection without response",
+    "sh688828": "RemoteDisconnected: Remote end closed connection without response",
+    "sh688835": "RemoteDisconnected: Remote end closed connection without response",
+    "sh688836": "RemoteDisconnected: Remote end closed connection without response",
+    "sh688801": "RemoteDisconnected: Remote end closed connection without response",
+    "sh688826": "RemoteDisconnected: Remote end closed connection without response",
+    "sh688837": "RemoteDisconnected: Remote end closed connection without response",
+    "sz000831": "RemoteDisconnected: Remote end closed connection without response",
+    "sz001393": "RemoteDisconnected: Remote end closed connection without response",
+    "sz002129": "RemoteDisconnected: Remote end closed connection without response",
+    "sz001232": "RemoteDisconnected: Remote end closed connection without response",
+    "sz001246": "RemoteDisconnected: Remote end closed connection without response",
+    "sz002827": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301569": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301688": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301689": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301697": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301686": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301655": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301536": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301660": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301717": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301716": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301707": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301718": "RemoteDisconnected: Remote end closed connection without response",
+    "sz301699": "RemoteDisconnected: Remote end closed connection without response"
   },
-  "error": "RuntimeError: Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']",
+  "error": "ValueError: INPUT_INCOMPLETE: ['sample sh603838: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh603568: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh603060: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh600006: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh601599: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh688613: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh688799: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh688377: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh688569: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sh688518: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz000915: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz002999: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz002997: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz002926: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz002425: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz301227: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz301601: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz301056: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz300943: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion', 'sample sz300085: Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-02T13:25:53.886505+08:00",
+  "ended_at": "2026-11-03T01:17:57.892069+08:00",
   "retrieval_progress": {
-    "attempted": 3,
-    "succeeded": 1,
-    "failed": 2,
-    "consecutive_failures": 2,
-    "circuit_open": false,
+    "attempted": 31,
+    "succeeded": 0,
+    "failed": 31,
+    "consecutive_failures": 31,
+    "circuit_open": true,
     "last_error": "RemoteDisconnected: Remote end closed connection without response",
-    "recorded_at": "2026-11-02T13:25:53.887272+08:00"
+    "recorded_at": "2026-11-03T01:17:57.892864+08:00"
   },
-  "cached_history_files": 5028,
-  "workflow_run_id": "41393789779",
-  "evidence_artifact_name": "alpha5d-public-evidence-41393789779",
-  "persisted_at": "2026-11-02T05:27:46.040056+00:00"
+  "cached_history_files": 4997,
+  "workflow_run_id": "41489436587",
+  "evidence_artifact_name": "alpha5d-public-evidence-41489436587",
+  "persisted_at": "2026-11-02T17:20:05.183062+00:00"
 }
