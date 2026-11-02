@@ -9,6 +9,7 @@ on:
       - 'scripts/alpha5d_source_fixes.py'
       - 'scripts/alpha5d_runtime.py'
       - 'scripts/alpha5d_classification.py'
+      - 'scripts/alpha5d_publish.py'
       - 'scripts/alpha5d_engine.py'
       - 'scripts/test_alpha5d_*.py'
       - '.github/workflows/alpha5d-data.yml'
@@ -66,43 +67,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          import datetime as dt, json, os, pathlib, shutil
-          source=pathlib.Path('.cache/alpha5d/pipeline_status.json')
-          destination=pathlib.Path('data/alpha5d')
-          destination.mkdir(parents=True,exist_ok=True)
-          payload=json.loads(source.read_text()) if source.exists() else {'status':'FAILED_BEFORE_COLLECTION'}
-          if payload.get('status')=='RUNNING': payload['status']='INTERRUPTED'
-          progress=pathlib.Path('.cache/alpha5d/retrieval_progress.json')
-          if progress.exists():payload['retrieval_progress']=json.loads(progress.read_text())
-          previous=payload.get('previous_session')
-          if previous:payload['cached_history_files']=len(list((pathlib.Path('.cache/alpha5d/history')/previous).glob('*.json')))
-          payload['workflow_run_id']=os.environ['GITHUB_RUN_ID']
-          payload['workflow_run_attempt']=int(os.environ['GITHUB_RUN_ATTEMPT'])
-          payload['evidence_artifact_name']='alpha5d-public-evidence-'+os.environ['GITHUB_RUN_ID']+'-'+os.environ['GITHUB_RUN_ATTEMPT']
-          payload['persisted_at']=dt.datetime.now(dt.timezone.utc).isoformat()
-          (destination/'pipeline_status.json').write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
-          for source in pathlib.Path('.cache/alpha5d/runs').glob('*'):
-              target=destination/'runs'/source.name
-              target.mkdir(parents=True,exist_ok=True)
-              for name in ('receipt.json','ranking.json'):
-                  if (source/name).exists():shutil.copy2(source/name,target/name)
-          PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/alpha5d/pipeline_status.json
-          if [ -d data/alpha5d/runs ]; then git add data/alpha5d/runs; fi
-          if ! git diff --cached --quiet; then
-            git commit -m 'Record actual alpha5d public-data and ranking run'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+          # Refreshing main must not replace the executing publisher mid-run.
+          cp scripts/alpha5d_publish.py "$RUNNER_TEMP/alpha5d-publish.py"
+          python "$RUNNER_TEMP/alpha5d-publish.py"
       - name: Enforce data acceptance independently of successful job plumbing
         if: always()
         run: |
           python - <<'PY'
           import json,pathlib
-          p=pathlib.Path('data/alpha5d/pipeline_status.json')
+          p=pathlib.Path('.cache/alpha5d/pipeline_status.json')
           d=json.loads(p.read_text()) if p.exists() else {}
           assert d.get('status') in ('COMPLETE','NOT_TRADING_DAY'), d.get('error',d.get('status','NO_RECEIPT'))
           PY
