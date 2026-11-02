@@ -91,4 +91,19 @@ class VerifiedSessionHaltTest(unittest.TestCase):
         self.assertNotIn('sz301314',selected)
         self.assertIn('sz301314',p.sample_codes(rows,'2026-10-26'))
 
+class FailureReceiptTest(unittest.TestCase):
+    def test_industry_outage_preserves_history_checkpoint_and_true_clock(self):
+        with tempfile.TemporaryDirectory() as directory:
+            current=dt.datetime(2026,11,2,13,40,tzinfo=p.TZ)
+            args=['pipeline','--output',directory,'--forecast','2026-11-02']
+            with patch('sys.argv',args),patch.object(p,'now',return_value=current),patch.object(p,'verified_market_minima',return_value={'sh_a':0,'sz_a':0}),patch.object(p,'paged',return_value=([],{})),patch.object(p,'industries',side_effect=RuntimeError('502')):
+                with self.assertRaises(SystemExit):p.main()
+            receipt=json.loads((Path(directory)/'pipeline_status.json').read_text())
+            self.assertEqual(receipt['failed_stage'],'industry_catalog_and_memberships')
+            self.assertEqual(receipt['history_success'],0)
+            self.assertEqual(receipt['run_kind'],'late_research')
+            self.assertEqual(receipt['started_at'],current.isoformat())
+            self.assertFalse(receipt['formal_top5_allowed'])
+            self.assertEqual(receipt,json.loads(next((Path(directory)/'runs').glob('*/receipt.json')).read_text()))
+
 if __name__=='__main__':unittest.main()
