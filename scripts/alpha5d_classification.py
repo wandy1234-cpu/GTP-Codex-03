@@ -29,7 +29,7 @@ def request(path,params):
             data=p.json_body(p.http(url)).get('data')
             if not data:raise ValueError('Empty provider data')
             return data,url
-        except Exception as e:errors.append(str(e))
+        except Exception as e:errors.append({'url':url,'error':str(e)})
     raise RuntimeError('Industry/profile access failed: '+repr(errors))
 
 def page_list(fs):
@@ -58,6 +58,38 @@ def select_first_level(boards):
         raise ValueError('First-level taxonomy not fully verified: missing='+repr(sorted(FIRST_LEVEL-set(names))))
     return selected
 
+def validate_page(rows,audit):
+    """Only complete, same-day provider pages can be reused during an outage."""
+    observed=dt.datetime.fromisoformat(audit['observed_at']).astimezone(p.TZ)
+    current=p.now()
+    if observed.date()!=current.date() or observed>current:
+        raise ValueError('Industry cache is stale or from the future')
+    counts=audit['page_counts']
+    keys=[(str(r.get('f13','')),str(r['f12'])) for r in rows]
+    if (not rows or len(rows)!=audit['total'] or len(keys)!=len(set(keys))
+        or len(counts)!=audit['pages'] or sum(counts)!=len(rows)
+        or any(n!=100 for n in counts[:-1]) or not 0<counts[-1]<=100
+        or len(audit['source_urls'])!=len(counts)
+        or any(not any(url.startswith(host+'/api/qt/clist/get?') for host in HOSTS)
+               for url in audit['source_urls'])):
+        raise ValueError('Industry cache page manifest incomplete')
+
+def cached_pages(file,fs,name=None):
+    file=Path(file)
+    if file.exists():
+        try:
+            saved=json.loads(file.read_text())
+            if saved.get('query')!=fs or saved.get('name')!=name:
+                raise ValueError('Industry cache identity mismatch')
+            validate_page(saved['members'],saved['audit'])
+            return saved['members'],saved['audit']
+        except (ValueError,KeyError,TypeError,OSError):
+            pass  # Invalid cache never certifies coverage; fetch the original source.
+    rows,audit=page_list(fs)
+    validate_page(rows,audit)
+    p.atomic(file,{'query':fs,'name':name,'members':rows,'audit':audit})
+    return rows,audit
+
 def profile(symbol):
     file=root()/'history'/'_profiles'/p.now().date().isoformat()/(symbol+'.json')
     if file.exists():return json.loads(file.read_text())
@@ -80,7 +112,7 @@ def listing_info(symbol,asof):
 
 def industries(workers):
     cache=root()/'history'/'_em_industry_l1'/p.now().date().isoformat()
-    all_boards,board_audit=page_list('m:90 t:2 f:!50')
+    all_boards,board_audit=cached_pages(cache/'catalog.json','m:90 t:2 f:!50')
     boards=select_first_level(all_boards)
     p.atomic(cache/'taxonomy_audit.json',{'all_catalog_count':len(all_boards),'selected':boards,
                'source':TAXONOMY_SOURCE,'catalog':board_audit})
@@ -88,10 +120,7 @@ def industries(workers):
     def one(board):
         code,name=str(board['f12']),str(board['f14'])
         file=cache/(code+'.json')
-        if file.exists():saved=json.loads(file.read_text());members,audit=saved['members'],saved['audit']
-        else:
-            members,audit=page_list('b:'+code+' f:!50')
-            p.atomic(file,{'members':members,'audit':audit,'name':name})
+        members,audit=cached_pages(file,'b:'+code+' f:!50',name)
         return name,members,audit
     with cf.ThreadPoolExecutor(max_workers=workers) as pool:
         for fut in cf.as_completed([pool.submit(one,b) for b in boards]):

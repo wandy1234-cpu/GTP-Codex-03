@@ -395,9 +395,14 @@ def main():
     asof=step(fday,-1).isoformat();forecast=fday.isoformat();run_id=started.strftime('%Y%m%dT%H%M%S')
     run_dir=root/'runs'/run_id; manifest={'adapter_version':VERSION,'started_at':started.isoformat(),
        'forecast_date':forecast,'previous_session':asof,'sessions':forecast_sessions(fday),
-       'calendar_source':CALENDAR_SOURCE,'status':'RUNNING','run_kind':'late_research' if started.time()>dt.time(8,50) else 'prefetch'}
+       'calendar_source':CALENDAR_SOURCE,'status':'RUNNING','run_kind':'late_research' if started.date()==fday and started.time()>dt.time(8,50) else 'prefetch'}
     atomic(root/'pipeline_status.json',manifest)
+    def checkpoint(stage):
+        manifest.update(stage=stage,checkpoint_at=now().isoformat())
+        atomic(root/'pipeline_status.json',manifest)
+        atomic(run_dir/'receipt.json',manifest)
     try:
+        checkpoint('universe')
         rows=[];cover={}
         verified_minima=verified_market_minima(asof)
         for node in ('sh_a','sz_a'):
@@ -407,6 +412,7 @@ def main():
         if len(rows)!=len({r['symbol'] for r in rows}):raise ValueError('Cross-exchange duplicate')
         manifest.update(raw_count=len(rows),coverage=cover)
         # Daily history retrieval is independent of industry availability; cache it first.
+        checkpoint('daily_history')
         histories={};history_errors={}
         targets=[r for r in rows if 'ST' not in r['name'].upper()]
         def load(r):
@@ -426,13 +432,17 @@ def main():
                 try:_,histories[sym]=f.result()
                 except Exception as e:history_errors[sym]=str(e)
         manifest.update(history_success=len(histories),history_missing=history_errors)
+        checkpoint('industry_catalog_and_memberships')
         industry,url=industries(args.workers);atomic(run_dir/'industry.json',{'source':url,'memberships':industry})
+        checkpoint('sample_quotes')
         quotes=tencent(sample_codes(rows,asof))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
+        checkpoint('input_validation')
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)
         atomic(run_dir/'input.json',payload)
         if errors:raise ValueError('INPUT_INCOMPLETE: '+repr(errors[:20]))
         import alpha5d_engine as engine
+        checkpoint('ranking')
         result=run_rank(engine,payload);atomic(run_dir/'ranking.json',result)
         manifest.update(status=result['ranking_health'],input_sha256=sha(payload),
                         ranking_path=str(run_dir/'ranking.json'),ranker_version=engine.VERSION,
@@ -440,7 +450,8 @@ def main():
         manifest['publication_state']='AWAITING_EVIDENCE_REVIEW'
         manifest['formal_top5_allowed']=False
     except Exception as e:
-        manifest.update(status='INCOMPLETE',error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)
+        manifest.update(status='INCOMPLETE',failed_stage=manifest.get('stage'),
+                        error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)
     finally:
         manifest['ended_at']=now().isoformat();atomic(run_dir/'receipt.json',manifest)
         atomic(root/'pipeline_status.json',manifest)
