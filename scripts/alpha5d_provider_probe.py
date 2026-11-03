@@ -111,12 +111,6 @@ def main():
     with cf.ThreadPoolExecutor(max_workers=4) as pool:results=list(pool.map(one,active.items()))
     try:
         import alpha5d_classification as classification
-        boards,audit=classification.page_list('m:90 t:2 f:!50')
-        names=[b['f14'] for b in boards]
-        print('TAXONOMY '+json.dumps({'count':len(boards),'missing':sorted(classification.FIRST_LEVEL-set(names)),
-              'matching':[b for b in boards if b['f14'] in classification.FIRST_LEVEL],
-              'names':names,'audit':audit},ensure_ascii=False),flush=True)
-        selected=classification.select_first_level(boards)
         members,url=classification.industries(8)
         import shutil
         snapshot=classification.LAST_INDUSTRY_AUDIT.get('snapshot_path')

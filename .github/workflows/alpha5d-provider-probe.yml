@@ -28,27 +28,27 @@ jobs:
       - name: Persist independently inspectable complete industry pages
         run: |
           set -euo pipefail
-          if [ ! -f provider-probe-industry.json ]; then exit 0; fi
           PYTHONPATH=scripts python - <<'PY'
-          import json,pathlib
+          import json,pathlib,datetime as dt
           import alpha5d_classification as c
           import alpha5d_pipeline as p
-          data=json.loads(pathlib.Path('provider-probe-industry.json').read_text())
-          members=c.snapshot_memberships(data)
-          universe=json.loads(pathlib.Path('data/universe_latest.json').read_text())['records']
-          if isinstance(universe,dict):universe=list(universe.values())
-          required={r['symbol'] for r in universe if 'ST' not in r['name'].upper()}
-          assert not required-set(members), sorted(required-set(members))[:20]
-          import datetime as dt
-          identity=dt.datetime.fromisoformat(data['observed_at']).strftime('%Y-%m-%d-%H%M%S')+'-'+data['boards_sha256'][:12]
-          p.atomic(pathlib.Path('data/alpha5d/industry')/(identity+'.json'),data)
+          industry=pathlib.Path('provider-probe-industry.json')
+          if industry.exists():
+              data=json.loads(industry.read_text())
+              members=c.snapshot_memberships(data)
+              universe=json.loads(pathlib.Path('data/universe_latest.json').read_text())['records']
+              if isinstance(universe,dict):universe=list(universe.values())
+              required={r['symbol'] for r in universe if 'ST' not in r['name'].upper()}
+              assert not required-set(members), sorted(required-set(members))[:20]
+              identity=dt.datetime.fromisoformat(data['observed_at']).strftime('%Y-%m-%d-%H%M%S')+'-'+data['boards_sha256'][:12]
+              p.atomic(pathlib.Path('data/alpha5d/industry')/(identity+'.json'),data)
+              print('Verified industry coverage',len(required),'of',len(required))
           publication=pathlib.Path('provider-probe-publication.json')
           if publication.exists():
               observed=json.loads(publication.read_text())
               assert len(observed['checks'])==5 and all(x['passed'] for x in observed['checks'])
               name=dt.datetime.fromisoformat(observed['observed_at']).strftime('%Y-%m-%d-%H%M%S')+'-'+observed['input_sha256'][:12]+'.json'
               p.atomic(pathlib.Path('data/alpha5d/publication_references')/name,observed)
-          print('Verified industry coverage',len(required),'of',len(required))
           PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
