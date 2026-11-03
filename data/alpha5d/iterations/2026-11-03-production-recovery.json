@@ -1,0 +1,45 @@
+{
+  "schema": "alpha5d-recovery-1",
+  "accepted_at": "2026-11-03T09:41:26.922500+08:00",
+  "source_commit": "86c92a839409e17fd65dc71a07d12da85ce2bf8e",
+  "successful_workflow_run": "41560749446",
+  "first_successful_workflow_run": "41558931234",
+  "local_reproduction": {
+    "verified_at": "2026-11-03T09:26:30.956231+08:00",
+    "input_sha256": "11d95c7123a4a834c8aab6593dc1a8ed176ed4e1d93679ac54577cf7d034c932",
+    "artifact_zip_sha256": "957f86598473cdef0eb6240e9b02b3dfd8559e6b83e28b418e6323cb5a6fd795",
+    "full_ranking_identical": true,
+    "ranking_count": 3846,
+    "final_ranking_identical_to_locally_reproduced_features": true
+  },
+  "regression_tests": 85,
+  "production_status": "COMPLETE",
+  "coverage": {
+    "raw_count": 5222,
+    "history_success": 5023,
+    "history_missing_count": 0,
+    "required_industry_codes": 4999,
+    "covered_industry_codes": 4999,
+    "eligible_count": 3846,
+    "sample_checks_passed": 20,
+    "exclusions": {
+      "liquidity_lt_50m": 1153,
+      "st": 194,
+      "listing_lt_60_sessions": 24,
+      "known_suspension": 5
+    }
+  },
+  "cohort_path": "data/alpha5d/cohorts/2026-11-03-late-094126.json",
+  "publications_path": "data/alpha5d/publication_latest.json",
+  "unchanged_ranker_version": "V8.0-bootstrap-1",
+  "ranking_weights_changed": false,
+  "performance_improvement_claimed": false,
+  "fixes": [
+    "Authentic Sina KLC2 OHLCVA/factor fallback and provider-scoped failure circuits",
+    "Dated full-session suspension evidence including already-known forecast-day halts",
+    "Complete coherent first-level industry pages with dated/hash-checked snapshot reuse",
+    "Frozen closing universes preserved independently of intraday latest files",
+    "Immutable run evidence promotion with actual-time latest status; no shared-file rebase conflicts",
+    "Readable review.json and report workflow publication protocol"
+  ]
+}

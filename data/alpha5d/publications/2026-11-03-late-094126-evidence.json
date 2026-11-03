@@ -1,0 +1,674 @@
+{
+  "cohort_id": "2026-11-03-late-094126",
+  "reviewed_at": "2026-11-03T09:41:26.922500+08:00",
+  "ranking_cutoff": "2026-11-03T09:36:18.587535+08:00",
+  "input_sha256": "718142c94c2934b4a4b0a94ec2f16e286a0b57e0f810ed59f00aa3fd26339ceb",
+  "ranking_path": "data/alpha5d/runs/20261103T093614/ranking.json",
+  "top20": [
+    {
+      "symbol": "sh600715",
+      "name": "文投控股",
+      "sector": "传媒",
+      "score": 87.36007802,
+      "features": {
+        "r5": 0.3176470588235296,
+        "r10": 0.3176470588235296,
+        "r20": 0.3827160493827162,
+        "breakout": -0.013215859030836885,
+        "close_pos": 1,
+        "volume_ratio": 1.8334306008277286,
+        "trend": 0.07486033519553059,
+        "above_ma10": true,
+        "overheat": 0.014241164241164311,
+        "sector": "传媒"
+      },
+      "penalty": 0,
+      "reference_raw_close": 2.24,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 1,
+      "evidence_review": {
+        "public_date": "2026-10-30",
+        "source_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-10-30/1225644055.PDF",
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12679144&stockid=600715"
+        ],
+        "finding": "前三季度归母净利润为负；10月30日风险提示明确连续上涨及经营不确定性。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh603198",
+      "name": "迎驾贡酒",
+      "sector": "食品饮料",
+      "score": 87.12088831,
+      "features": {
+        "r5": 0.1378663540445486,
+        "r10": 0.19679408138101118,
+        "r20": 0.3080862533692723,
+        "breakout": 0.09129750393523728,
+        "close_pos": 0.9053398058252426,
+        "volume_ratio": 1.6150043162632606,
+        "trend": 0.035450957026886165,
+        "above_ma10": true,
+        "overheat": 0.013537845548922262,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 48.53,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 2,
+      "evidence_review": {
+        "public_date": "2026-10-30",
+        "source_urls": [
+          "https://paper.cnstock.com/html/2026-10/30/content_2283878.htm"
+        ],
+        "finding": "三季报已经公开；绝对增长不等于超出一致预期，维持业绩加分0。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh600189",
+      "name": "泉阳泉",
+      "sector": "食品饮料",
+      "score": 86.83055917,
+      "features": {
+        "r5": 0.14757969303423857,
+        "r10": 0.20446096654275103,
+        "r20": 0.18681318681318704,
+        "breakout": 0.06813186813186833,
+        "close_pos": 1,
+        "volume_ratio": 1.3871714075736525,
+        "trend": 0.024071358748778193,
+        "above_ma10": true,
+        "overheat": 0.009766137692399562,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 9.72,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 3,
+      "evidence_review": {
+        "public_date": "2026-11-03",
+        "source_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-11-03/1225654040.PDF",
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12688458&stockid=600189"
+        ],
+        "finding": "披露大股东大宗交易减持及异动风险；巨潮列表显示11月2日16:00已公开。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz000596",
+      "name": "古井贡酒",
+      "sector": "食品饮料",
+      "score": 86.25820068,
+      "features": {
+        "r5": 0.16694772344013487,
+        "r10": 0.16629213483146055,
+        "r20": 0.18088737201365168,
+        "breakout": 0.02599584857171089,
+        "close_pos": 0.8498122653316641,
+        "volume_ratio": 1.5963565442700791,
+        "trend": 0.033381627836328365,
+        "above_ma10": true,
+        "overheat": 0.02363725789491547,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 103.8,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 4,
+      "evidence_review": {
+        "public_date": "2026-10-30",
+        "source_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-10-30/1225642369.PDF"
+        ],
+        "finding": "前三季度归母净利润同比下降42.94%，不能把价格修复称为盈利已经反转。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh600020",
+      "name": "中原高速",
+      "sector": "交通运输",
+      "score": 85.6663199,
+      "features": {
+        "r5": 0.12207792207792223,
+        "r10": 0.09090909090909105,
+        "r20": 0.1368421052631581,
+        "breakout": 0.07196029776674928,
+        "close_pos": 1,
+        "volume_ratio": 1.7135770215402244,
+        "trend": 0.0069641475367552275,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "交通运输"
+      },
+      "penalty": 0,
+      "reference_raw_close": 4.32,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 5,
+      "evidence_review": {
+        "public_date": "2026-10-31",
+        "source_urls": [
+          "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12684146&stockid=600020",
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12684144&stockid=600020"
+        ],
+        "finding": "三季报及减值公告已经公开；4月至9月计提减值1.756758亿元，避免只看利润增长。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh603886",
+      "name": "元祖股份",
+      "sector": "食品饮料",
+      "score": 85.32157216,
+      "features": {
+        "r5": 0.08662026295436975,
+        "r10": 0.15637860082304522,
+        "r20": 0.12670408981555736,
+        "breakout": 0.008614501076812608,
+        "close_pos": 0.7798165137614693,
+        "volume_ratio": 1.8804485416503864,
+        "trend": 0.038483168635012444,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 14.05,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 6,
+      "evidence_review": {
+        "public_date": "2026-10-28",
+        "source_urls": [
+          "https://paper.cnstock.com/html/2026-10/28/content_2282304.htm"
+        ],
+        "finding": "已定位季度原始公告；未核实新的未定价短期催化。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh600506",
+      "name": "统一股份",
+      "sector": "石油石化",
+      "score": 85.27048114,
+      "features": {
+        "r5": 0.07526881720430101,
+        "r10": 0.24590163934426235,
+        "r20": 0.16065974343310918,
+        "breakout": 0.02425876010781658,
+        "close_pos": 1,
+        "volume_ratio": 1.8037419914024189,
+        "trend": 0.04809348093480925,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "石油石化"
+      },
+      "penalty": 0,
+      "reference_raw_close": 19,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 7,
+      "evidence_review": {
+        "public_date": "2026-10-29",
+        "source_urls": [
+          "https://www.sse.com.cn/assortment/stock/list/info/announcement/index.shtml?productId=600506"
+        ],
+        "finding": "交易所列表列有季度报告和前三季度经营公告；新催化未授分。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh600757",
+      "name": "长江传媒",
+      "sector": "传媒",
+      "score": 84.94893546,
+      "features": {
+        "r5": 0.09079754601226986,
+        "r10": 0.11403508771929816,
+        "r20": 0.212824010914052,
+        "breakout": 0.03372093023255829,
+        "close_pos": 0.960784313725491,
+        "volume_ratio": 1.401551570128081,
+        "trend": 0.026361819090454874,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "传媒"
+      },
+      "penalty": 0,
+      "reference_raw_close": 8.89,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 8,
+      "evidence_review": {
+        "public_date": "2026-10-29",
+        "source_urls": [
+          "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12673877&stockid=600757"
+        ],
+        "finding": "传媒价格扩散已发生；三季报是已有公开信息，增长不等于预期差。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh601900",
+      "name": "南方传媒",
+      "sector": "传媒",
+      "score": 84.90281611,
+      "features": {
+        "r5": 0.07142857142857162,
+        "r10": 0.1383928571428572,
+        "r20": 0.25102207686017985,
+        "breakout": 0.03518267929634655,
+        "close_pos": 0.8494623655913991,
+        "volume_ratio": 1.7235993690780549,
+        "trend": 0.033220388921626265,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "传媒"
+      },
+      "penalty": 0,
+      "reference_raw_close": 15.3,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 9,
+      "evidence_review": {
+        "public_date": "2026-10-24",
+        "source_urls": [
+          "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12658472&stockid=601900"
+        ],
+        "finding": "已定位季度报告；不能把整个传媒的AI主题当成个股新增订单。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz000995",
+      "name": "皇台酒业",
+      "sector": "食品饮料",
+      "score": 84.65214564,
+      "features": {
+        "r5": 0.16679132385938678,
+        "r10": 0.1190817790530847,
+        "r20": 0.37687555163283304,
+        "breakout": 0.09243697478991608,
+        "close_pos": 1,
+        "volume_ratio": 1.2298666660278585,
+        "trend": 0.008048889551349081,
+        "above_ma10": true,
+        "overheat": 0.0033343190891616248,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 15.6,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 10,
+      "evidence_review": {
+        "public_date": "2026-11-03",
+        "source_urls": [
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12688332&stockid=000995"
+        ],
+        "finding": "公司异动公告重申季度亏损与交易风险，不能将短期连续上涨当作经营反转。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz002582",
+      "name": "好想你",
+      "sector": "食品饮料",
+      "score": 84.4249053,
+      "features": {
+        "r5": 0.14301310043668125,
+        "r10": 0.15946843853820614,
+        "r20": 0.12459720730397428,
+        "breakout": -0.10969387755102034,
+        "close_pos": 0.9565217391304357,
+        "volume_ratio": 2.336129389123241,
+        "trend": 0.025154457193292012,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 10.47,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 11,
+      "evidence_review": {
+        "public_date": "2026-10-30",
+        "source_urls": [
+          "https://paper.cnstock.com/html/2026-10/30/content_2284222.htm"
+        ],
+        "finding": "已定位季度原始公告；缺少一致预期，不授业绩预期差分。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz300494",
+      "name": "盛天网络",
+      "sector": "传媒",
+      "score": 84.39125052,
+      "features": {
+        "r5": 0.05364372469635614,
+        "r10": 0.23487544483985778,
+        "r20": 0.33461538461538476,
+        "breakout": 0.025615763546797954,
+        "close_pos": 0.8110236220472439,
+        "volume_ratio": 1.6384651892556565,
+        "trend": 0.05058191584601612,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "传媒"
+      },
+      "penalty": 0,
+      "reference_raw_close": 10.41,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 12,
+      "evidence_review": {
+        "public_date": "2026-10-28",
+        "source_urls": [
+          "https://shengtian.com/Investor/base"
+        ],
+        "finding": "公司IR列出三季报、共同投资及募集资金用途变化；未验证未来五日新增收入。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz300529",
+      "name": "健帆生物",
+      "sector": "医药生物",
+      "score": 84.07577559,
+      "features": {
+        "r5": 0.2121794871794873,
+        "r10": 0.2391874180865008,
+        "r20": 0.2606666666666666,
+        "breakout": 0.001058761249338236,
+        "close_pos": 0.8928571428571438,
+        "volume_ratio": 2.3857095071939884,
+        "trend": 0.058550913838119945,
+        "above_ma10": true,
+        "overheat": 0.016060307085157627,
+        "sector": "医药生物"
+      },
+      "penalty": 0,
+      "reference_raw_close": 18.91,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 13,
+      "evidence_review": {
+        "public_date": "2026-10-28",
+        "source_urls": [
+          "https://paper.cnstock.com/html/2026-10/28/content_2282225.htm"
+        ],
+        "finding": "血液净化器械方向进入医药复核；季度利润增长不能直接称为超预期。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh600809",
+      "name": "山西汾酒",
+      "sector": "食品饮料",
+      "score": 84.03866827,
+      "features": {
+        "r5": 0.13889372064706884,
+        "r10": 0.10042016806722676,
+        "r20": 0.18764737892254657,
+        "breakout": 0.02915749764225084,
+        "close_pos": 0.7051282051282025,
+        "volume_ratio": 1.5997164319148485,
+        "trend": 0.019808228302978348,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 130.95,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 14,
+      "evidence_review": {
+        "public_date": "2026-10-29",
+        "source_urls": [
+          "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12672141&stockid=600809"
+        ],
+        "finding": "三季报盈利下降，区分股价反弹与经营拐点。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh601528",
+      "name": "瑞丰银行",
+      "sector": "银行",
+      "score": 83.67363209,
+      "features": {
+        "r5": 0.07058823529411762,
+        "r10": 0.05405405405405417,
+        "r20": 0.094188376753507,
+        "breakout": 0.003676470588235281,
+        "close_pos": 0.8461538461538435,
+        "volume_ratio": 1.4451027487763421,
+        "trend": 0.01782566111655237,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "银行"
+      },
+      "penalty": 0,
+      "reference_raw_close": 5.46,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 15,
+      "evidence_review": {
+        "public_date": "2026-10-29",
+        "source_urls": [
+          "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12671246&stockid=601528"
+        ],
+        "finding": "已定位银行季度报告；仅按实际价格/行业分数排序，不因昨日银行偏弱手工剔除。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz000860",
+      "name": "顺鑫农业",
+      "sector": "食品饮料",
+      "score": 83.60228044,
+      "features": {
+        "r5": 0.0762489044697634,
+        "r10": 0.11941659070191424,
+        "r20": 0.21463897131552923,
+        "breakout": 0.0558899398108339,
+        "close_pos": 0.8414634146341454,
+        "volume_ratio": 1.2315951703395414,
+        "trend": 0.03063814358230621,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 12.28,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 16,
+      "evidence_review": {
+        "public_date": "2026-10-30",
+        "source_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-10-30/1225641098.PDF"
+        ],
+        "finding": "前三季度亏损，白酒价格强势不能替代公司盈利核验。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz301052",
+      "name": "果麦文化",
+      "sector": "传媒",
+      "score": 83.59050715,
+      "features": {
+        "r5": 0.2500797448165868,
+        "r10": 0.15264705882352936,
+        "r20": 0.6598898771706903,
+        "breakout": 0.030502235077570328,
+        "close_pos": 1,
+        "volume_ratio": 1.2259599298895472,
+        "trend": 0.005595904274318553,
+        "above_ma10": true,
+        "overheat": 0.010016575893914276,
+        "sector": "传媒"
+      },
+      "penalty": 0,
+      "reference_raw_close": 39.19,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 17,
+      "evidence_review": {
+        "public_date": "2026-10-23",
+        "source_urls": [
+          "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12654816&stockid=301052"
+        ],
+        "finding": "三季报亏损，AI叙事与已实现收入分开；涨幅大不自动删除研究排名。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh600872",
+      "name": "中炬高新",
+      "sector": "食品饮料",
+      "score": 83.44928479,
+      "features": {
+        "r5": 0.08215451577801969,
+        "r10": 0.08333333333333348,
+        "r20": 0.16112084063047294,
+        "breakout": -0.02067946824224509,
+        "close_pos": 0.8200000000000003,
+        "volume_ratio": 1.4250714685420485,
+        "trend": 0.022545614905462807,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "食品饮料"
+      },
+      "penalty": 0,
+      "reference_raw_close": 19.89,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 18,
+      "evidence_review": {
+        "public_date": "2026-10-28",
+        "source_urls": [
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12666041&stockid=600872"
+        ],
+        "finding": "已定位季度报告及月度回购进展；不把例行进展当成当日新增买单。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sh600754",
+      "name": "锦江酒店",
+      "sector": "社会服务",
+      "score": 83.35825748,
+      "features": {
+        "r5": 0.12342981977061718,
+        "r10": 0.14596100278551538,
+        "r20": 0.14980435997764108,
+        "breakout": 0.031077694235589037,
+        "close_pos": 1,
+        "volume_ratio": 1.77254644537412,
+        "trend": 0.019468531468531447,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "社会服务"
+      },
+      "penalty": 0,
+      "reference_raw_close": 20.57,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 19,
+      "evidence_review": {
+        "public_date": "2026-10-31",
+        "source_urls": [
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=10000703&gather=1&id=12684089"
+        ],
+        "finding": "社会服务强势进入复核；已定位季度报告，未授新增事件分。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    },
+    {
+      "symbol": "sz002086",
+      "name": "东方海洋",
+      "sector": "农林牧渔",
+      "score": 83.34486346,
+      "features": {
+        "r5": 0.3521739130434782,
+        "r10": 0.460093896713615,
+        "r20": 0.5396039603960396,
+        "breakout": 0.09893992932862195,
+        "close_pos": 1,
+        "volume_ratio": 1.6697143868837614,
+        "trend": 0.09950472760018014,
+        "above_ma10": true,
+        "overheat": 0.12354627354627348,
+        "sector": "农林牧渔"
+      },
+      "penalty": 0,
+      "reference_raw_close": 3.11,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 20,
+      "evidence_review": {
+        "public_date": "2026-10-31",
+        "source_urls": [
+          "https://epaper.cs.com.cn/zgzqb/html/2026-10/31/nw.D110000zgzqb_20261031_4-B416.htm"
+        ],
+        "finding": "公司异动公告及季度亏损风险已记录；强趋势不等于盈利改善已经完成。",
+        "event_points_awarded": 0,
+        "earnings_points_awarded": 0,
+        "review_scope": "Technical features and located recent public disclosures; no exhaustive news or consensus coverage claim"
+      }
+    }
+  ],
+  "scope": "Research publication review of actual deterministic ranking; technical checks and located public filings. Zero added event/earnings points is not proof of no events.",
+  "positive_event_evidence_changed_ranking": false
+}
