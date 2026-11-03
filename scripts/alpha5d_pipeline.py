@@ -472,10 +472,10 @@ def main():
                 'publication_state':'AWAITING_EVIDENCE_REVIEW','is_0850_live_prediction':False if payload['run_kind']=='late_research' else None}
         atomic(run_dir/'review.json',review)
         manifest.update(status=result['ranking_health'],input_sha256=sha(payload),
-                        ranking_path=str(run_dir/'ranking.json'),ranker_version=engine.VERSION,
+                        ranking_path='data/alpha5d/runs/'+run_id+'/ranking.json',ranker_version=engine.VERSION,
                         top5=result.get('top5',[]),errors=result.get('errors',[]))
         manifest['publication_state']='AWAITING_EVIDENCE_REVIEW'
-        manifest.update(review_path=str(run_dir/'review.json'),run_kind=payload['run_kind'],generated_at=actual,
+        manifest.update(review_path='data/alpha5d/runs/'+run_id+'/review.json',run_kind=payload['run_kind'],generated_at=actual,
                         provider_route_health=payload.get('provider_route_health'),industry_classification=payload.get('industry_classification'),
                         verified_sample_count=len(payload['coverage']['samples']),is_0850_live_prediction=result.get('is_0850_live_prediction'))
         manifest['formal_top5_allowed']=False

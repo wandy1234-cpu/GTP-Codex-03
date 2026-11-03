@@ -66,6 +66,14 @@ class Failover(unittest.TestCase):
             self.assertTrue(guard('good')['bars']);self.assertFalse(guard.stats['circuit_open'])
 
 class EligibilityEvidence(unittest.TestCase):
+    def test_dated_suspension_request_includes_both_required_filters(self):
+        import urllib.parse as up
+        response={'success':True,'result':{'count':0,'pages':1,'data':[]}}
+        with tempfile.TemporaryDirectory() as directory,patch.object(r,'ROOT',Path(directory)),patch.object(p,'http',return_value=json.dumps(response)) as request:
+            out,audit=r.session_halts('2026-11-02',[])
+        filters=up.parse_qs(up.urlparse(request.call_args.args[0]).query)['filter'][0]
+        self.assertIn('(MARKET="全部")',filters);self.assertIn("(DATETIME='2026-11-02')",filters)
+        self.assertTrue(audit['complete']);self.assertEqual(out,{})
     def test_zero_volume_is_not_a_suspension_notice(self):
         self.assertEqual(r.parse_session_halts([],'2026-11-02',[dict(symbol='sh601326',volume=0,amount=0)],'url'),{})
     def test_dated_notice_covers_nontrading_security(self):

@@ -14,7 +14,7 @@ import alpha5d_pipeline as p
 import alpha5d_source_fixes as fixes
 import alpha5d_classification as classification
 
-VERSION='alpha5d-sources-1.1.0'
+VERSION='alpha5d-sources-1.1.1'
 ROOT=Path('data/alpha5d')
 PRIMARY_DAILY=None
 LEGACY_INDUSTRIES=fixes.industries
@@ -140,7 +140,7 @@ def parse_session_halts(items,asof,rows,source_url):
     return out
 
 def session_halts(asof,rows):
-    params={'reportName':'RPT_CUSTOM_SUSPEND_DATA_INTERFACE','columns':'ALL','pageNumber':1,'pageSize':500,'source':'WEB','client':'WEB','filter':"(DATETIME='"+asof+"')"}
+    params={'reportName':'RPT_CUSTOM_SUSPEND_DATA_INTERFACE','columns':'ALL','pageNumber':1,'pageSize':500,'source':'WEB','client':'WEB','filter':'(MARKET="全部")'+"(DATETIME='"+asof+"')"}
     items=[];urls=[];expected=None
     for page in range(1,21):
         params['pageNumber']=page;url='https://datacenter-web.eastmoney.com/api/data/v1/get?'+up.urlencode(params)
@@ -155,7 +155,7 @@ def session_halts(asof,rows):
         if page>=pages:break
     else:raise ValueError('Halt pagination over budget')
     if len(items)!=expected:raise ValueError('Halt report incomplete')
-    out=parse_session_halts(items,asof,rows,urls[0]);audit={'security_date':asof,'source_urls':urls,'rows':len(items),'whole_session_nontrading_codes':sorted(out),'complete':True}
+    out=parse_session_halts(items,asof,rows,urls[0]);audit={'security_date':asof,'source_urls':urls,'rows':len(items),'provider_rows':items,'whole_session_nontrading_codes':sorted(out),'complete':True}
     p.atomic(ROOT/'history'/'_halts'/(asof+'.json'),{'audit':audit,'records':out});return out,audit
 
 def frozen_universe(asof):
