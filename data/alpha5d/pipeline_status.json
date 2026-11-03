@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-03T09:36:14.087849+08:00",
+  "started_at": "2026-11-03T14:02:39.445282+08:00",
   "forecast_date": "2026-11-03",
   "previous_session": "2026-11-02",
   "sessions": [
@@ -214,7 +214,7 @@
     "source_urls": [
       "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29"
     ],
-    "rows": 10,
+    "rows": 11,
     "provider_rows": [
       {
         "SECURITY_CODE": "688121",
@@ -355,6 +355,20 @@
         "TRADE_MARKET_CODE": "069001002001",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "002129.SZ"
+      },
+      {
+        "SECURITY_CODE": "001381",
+        "SECURITY_NAME_ABBR": "皇冠新材",
+        "SUSPEND_START_TIME": "2026-11-03 10:45:52",
+        "SUSPEND_END_TIME": "2026-11-03 10:55:53",
+        "SUSPEND_EXPIRE": "盘中停牌",
+        "SUSPEND_REASON": "交易异常波动",
+        "TRADE_MARKET": "深交所主板",
+        "SUSPEND_START_DATE": "2026-11-03 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001002001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "001381.SZ"
       }
     ],
     "whole_session_nontrading_codes": [
@@ -390,13 +404,13 @@
     "membership_count": 5223,
     "snapshot": {
       "route": "verified_published_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-03-091935-906d0543291c.json",
+      "snapshot_path": "data/alpha5d/industry/2026-11-03.json",
       "observed_at": "2026-11-03T09:19:35.894714+08:00",
       "boards_sha256": "906d0543291c468aa2bf37978ba70f47c0fed41403e1995dc5f7f3741a441418"
     }
   },
-  "input_sha256": "718142c94c2934b4a4b0a94ec2f16e286a0b57e0f810ed59f00aa3fd26339ceb",
-  "ranking_path": "data/alpha5d/runs/20261103T093614/ranking.json",
+  "input_sha256": "0c8afb07a2ec7cfbfc130150ccf68bb4411d21291a0a700b2da45c480084db17",
+  "ranking_path": "data/alpha5d/runs/20261103T140239/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
@@ -517,20 +531,20 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261103T093614/review.json",
-  "generated_at": "2026-11-03T09:36:18.587535+08:00",
+  "review_path": "data/alpha5d/runs/20261103T140239/review.json",
+  "generated_at": "2026-11-03T14:02:44.722557+08:00",
   "provider_route_health": {
     "sample_eastmoney_daily": {
-      "attempted": 8,
-      "succeeded": 0,
-      "failed": 8,
+      "attempted": 13,
+      "succeeded": 2,
+      "failed": 11,
       "data_errors": 0,
       "consecutive_failures": 8,
       "circuit_open": true
     },
     "sample_sina_klc2": {
-      "attempted": 20,
-      "succeeded": 20,
+      "attempted": 18,
+      "succeeded": 18,
       "failed": 0,
       "data_errors": 0,
       "consecutive_failures": 0,
@@ -541,7 +555,7 @@
   "verified_sample_count": 20,
   "is_0850_live_prediction": false,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-03T09:36:58.293680+08:00",
+  "ended_at": "2026-11-03T14:04:19.036543+08:00",
   "retrieval_progress": {
     "attempted": 0,
     "succeeded": 0,
@@ -550,10 +564,10 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-03T09:36:58.491320+08:00"
+    "recorded_at": "2026-11-03T14:04:19.240273+08:00"
   },
   "cached_history_files": 5028,
-  "workflow_run_id": "41560749446",
-  "evidence_artifact_name": "alpha5d-public-evidence-41560749446",
-  "persisted_at": "2026-11-03T01:37:14.324636+00:00"
+  "workflow_run_id": "41587374196",
+  "evidence_artifact_name": "alpha5d-public-evidence-41587374196",
+  "persisted_at": "2026-11-03T06:04:35.378725+00:00"
 }
