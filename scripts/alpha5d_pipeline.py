@@ -71,7 +71,8 @@ def json_body(text):
 
 def verified_market_minima(previous_session):
     """Never certify an A-share universe against an unchecked or wrong-date baseline."""
-    path=Path('data/universe_summary.json')
+    path=Path('data/alpha5d/market')/(previous_session+'.json')
+    if not path.is_file():path=Path('data/universe_summary.json')
     if not path.is_file():
         raise ValueError('No previously verified full-market baseline; refuse formal ranking')
     baseline=json.loads(path.read_text(encoding='utf8'))

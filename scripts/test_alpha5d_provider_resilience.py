@@ -124,7 +124,7 @@ class FrozenPreviousClose(unittest.TestCase):
     def call(self,data):
         with tempfile.TemporaryDirectory() as directory:
             file=Path(directory)/'frozen.json';file.write_text(json.dumps(data))
-            with patch.object(r,'Path',return_value=file):return r.frozen_universe('2026-11-02')
+            with patch.object(r,'ROOT',Path(directory)),patch.object(r,'Path',return_value=file):return r.frozen_universe('2026-11-02')
     def test_verified_previous_close_used_even_during_next_session(self):
         rows,cover,audit=self.call(self.dataset())
         self.assertEqual(rows[0]['_security_date'],'2026-11-02');self.assertEqual(audit['frozen_samples_verified'],20)

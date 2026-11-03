@@ -191,7 +191,8 @@ def session_halts(asof,rows,forecast=None):
     p.atomic(ROOT/'history'/'_halts'/(asof+'.json'),{'audit':audit,'records':out});return out,audit
 
 def frozen_universe(asof):
-    file=Path('data/universe_latest.json')
+    file=Path('data/alpha5d/market')/(asof+'.json')
+    if not file.is_file():file=Path('data/universe_latest.json')
     if not file.is_file():return None
     data=json.loads(file.read_text());verified=data.get('frozen_verification') or {}
     if str(verified.get('security_date'))!=asof.replace('-',''):return None
@@ -217,6 +218,13 @@ def frozen_universe(asof):
         cover[node]={'successful_pages':meta['successful_pages'],'terminal_page':last,'terminal_verified':True,'missing_pages':[],
                      'raw_rows':len(group),'page_counts':[100]*(last-1)+[len(group)-100*(last-1)],'source_urls':urls}
     audit={'security_date':asof,'captured_at':data['captured_at_beijing'],'sha256':raw_hash,'frozen_samples_verified':len(checks),'source':'data/universe_latest.json'}
+    audit['source']=str(file)
+    archive=ROOT/'market'/(asof+'.json')
+    if not archive.exists():
+        # Keep provider bytes logically unchanged; internal date tags are adapter metadata.
+        for row in records:row.pop('_security_date',None)
+        p.atomic(archive,data)
+        for row in records:row['_security_date']=asof
     return records,cover,audit
 
 def industries(workers):

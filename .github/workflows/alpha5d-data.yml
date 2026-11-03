@@ -13,6 +13,7 @@ on:
       - 'scripts/alpha5d_runtime.py'
       - 'scripts/alpha5d_engine.py'
       - 'scripts/alpha5d_provider_resilience.py'
+      - 'scripts/alpha5d_persist.py'
       - 'scripts/alpha5d_classification.py'
       - 'scripts/vendor/sina_klc_decode.cjs'
       - 'scripts/test_alpha5d_*.py'
@@ -64,6 +65,7 @@ jobs:
             .cache/alpha5d/pipeline_status.json
             .cache/alpha5d/retrieval_progress.json
             .cache/alpha5d/industry_snapshots
+            .cache/alpha5d/market
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 90
@@ -72,47 +74,31 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          import datetime as dt, json, os, pathlib, shutil
-          source=pathlib.Path('.cache/alpha5d/pipeline_status.json')
-          destination=pathlib.Path('data/alpha5d')
-          destination.mkdir(parents=True,exist_ok=True)
-          payload=json.loads(source.read_text()) if source.exists() else {'status':'FAILED_BEFORE_COLLECTION'}
-          if payload.get('status')=='RUNNING': payload['status']='INTERRUPTED'
-          progress=pathlib.Path('.cache/alpha5d/retrieval_progress.json')
-          if progress.exists():payload['retrieval_progress']=json.loads(progress.read_text())
-          previous=payload.get('previous_session')
-          if previous:payload['cached_history_files']=len(list((pathlib.Path('.cache/alpha5d/history')/previous).glob('*.json')))
-          payload['workflow_run_id']=os.environ['GITHUB_RUN_ID']
-          payload['evidence_artifact_name']='alpha5d-public-evidence-'+os.environ['GITHUB_RUN_ID']
-          payload['persisted_at']=dt.datetime.now(dt.timezone.utc).isoformat()
-          (destination/'pipeline_status.json').write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
-          for source in pathlib.Path('.cache/alpha5d/runs').glob('*'):
-              target=destination/'runs'/source.name
-              target.mkdir(parents=True,exist_ok=True)
-              for name in ('receipt.json','ranking.json','review.json'):
-                  if (source/name).exists():shutil.copy2(source/name,target/name)
-          for source in pathlib.Path('.cache/alpha5d/industry_snapshots').glob('*.json'):
-              target=destination/'industry'/source.name
-              target.parent.mkdir(parents=True,exist_ok=True)
-              if not target.exists():shutil.copy2(source,target)
-          PY
+          stage_dir="$RUNNER_TEMP/alpha5d-public-$GITHUB_RUN_ID"
+          python scripts/alpha5d_persist.py stage --stage "$stage_dir" --run-id "$GITHUB_RUN_ID"
+          cp scripts/alpha5d_persist.py "$RUNNER_TEMP/alpha5d-persist.py"
+          cp scripts/alpha5d_pipeline.py "$RUNNER_TEMP/alpha5d_pipeline.py"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/alpha5d/pipeline_status.json
-          if [ -d data/alpha5d/runs ]; then git add data/alpha5d/runs; fi
-          if [ -d data/alpha5d/industry ]; then git add data/alpha5d/industry; fi
-          if ! git diff --cached --quiet; then
-            git commit -m 'Record actual alpha5d public-data and ranking run'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python "$RUNNER_TEMP/alpha5d-persist.py" apply --stage "$stage_dir"
+            git add data/alpha5d/pipeline_status.json data/alpha5d/runs
+            for directory in industry market; do
+              if [ -d "data/alpha5d/$directory" ]; then git add "data/alpha5d/$directory"; fi
+            done
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Record immutable alpha5d run evidence and advance actual latest status'
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
       - name: Enforce data acceptance independently of successful job plumbing
         if: always()
         run: |
           python - <<'PY'
           import json,pathlib
-          p=pathlib.Path('data/alpha5d/pipeline_status.json')
+          p=pathlib.Path('.cache/alpha5d/pipeline_status.json')
           d=json.loads(p.read_text()) if p.exists() else {}
           assert d.get('status') in ('COMPLETE','NOT_TRADING_DAY'), d.get('error',d.get('status','NO_RECEIPT'))
           PY
