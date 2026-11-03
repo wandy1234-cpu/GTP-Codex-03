@@ -9,6 +9,9 @@ on:
       - 'scripts/alpha5d_source_fixes.py'
       - 'scripts/alpha5d_runtime.py'
       - 'scripts/alpha5d_engine.py'
+      - 'scripts/alpha5d_provider_resilience.py'
+      - 'scripts/alpha5d_classification.py'
+      - 'scripts/vendor/sina_klc_decode.cjs'
       - 'scripts/test_alpha5d_*.py'
       - '.github/workflows/alpha5d-data.yml'
   schedule:
@@ -54,7 +57,6 @@ jobs:
           name: alpha5d-public-evidence-${{ github.run_id }}
           path: |
             .cache/alpha5d/runs
-            .cache/alpha5d/history
             .cache/alpha5d/pipeline_status.json
             .cache/alpha5d/retrieval_progress.json
           include-hidden-files: true
@@ -83,7 +85,7 @@ jobs:
           for source in pathlib.Path('.cache/alpha5d/runs').glob('*'):
               target=destination/'runs'/source.name
               target.mkdir(parents=True,exist_ok=True)
-              for name in ('receipt.json','ranking.json'):
+              for name in ('receipt.json','ranking.json','review.json'):
                   if (source/name).exists():shutil.copy2(source/name,target/name)
           PY
           git config user.name 'github-actions[bot]'

@@ -136,8 +136,8 @@ def main():
     global CACHE_DIR
     root=Path(sys.argv[sys.argv.index('--output')+1]) if '--output' in sys.argv else Path('data/alpha5d')
     CACHE_DIR=root/'history'/'_industry'/p.now().date().isoformat()
-    p.VERSION='alpha5d-pipeline-1.0.3'
-    p.CALENDAR_SOURCE='https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml'
+    p.VERSION='alpha5d-pipeline-1.1.0'
+    p.CALENDAR_SOURCE='https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml'
     p.industries=industries;p.assemble=assemble;p.run_rank=robust_rank
     p.main()
 

@@ -19,7 +19,7 @@ SINA = 'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Mar
 HEADERS = {'User-Agent':'Mozilla/5.0','Referer':'https://finance.sina.com.cn/'}
 
 def now(): return dt.datetime.now(TZ)
-def sha(obj): return hashlib.sha256(json.dumps(obj,ensure_ascii=False,sort_keys=True,allow_nan=False).encode()).hexdigest()
+def sha(obj): return hashlib.sha256(json.dumps(obj,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
 def trading(d):
     if d.year != 2026: raise ValueError('Calendar year not verified; refresh official calendar')
     return d.weekday()<5 and not any(a<=d.isoformat()<=b for a,b in HOLIDAYS_2026)
@@ -48,7 +48,11 @@ def http(url):
     error=None
     for attempt in range(2):
         try:
-            req=ur.Request(url,headers=HEADERS)
+            headers=dict(HEADERS);host=up.urlparse(url).hostname or ''
+            if host.endswith('.eastmoney.com'):headers['Referer']='https://quote.eastmoney.com/'
+            elif host.endswith('.sse.com.cn'):headers['Referer']='https://www.sse.com.cn/'
+            elif host.endswith('.gtimg.cn') or host.endswith('.qq.com'):headers['Referer']='https://gu.qq.com/'
+            req=ur.Request(url,headers=headers)
             with ur.urlopen(req,timeout=12) as r: body=r.read(12_000_000)
             text=body.decode('utf-8-sig') if b'charset=gb' not in body[:100].lower() else body.decode('gb18030')
             if '\ufffd' in text: raise ValueError('decoding failure')
@@ -192,7 +196,7 @@ def reference(sina, qq, asof):
     d=dt.datetime.strptime(qq['stamp'][:8],'%Y%m%d').date()
     target=dt.date.fromisoformat(asof)
     if d==target:return float(sina['trade']),qq['price']
-    if d==step(target,1):return float(sina['settlement']),qq['previous']
+    if d==step(target,1):return float(sina['trade'] if sina.get('_security_date')==asof else sina['settlement']),qq['previous']
     raise ValueError('Quote security date incompatible with required close')
 
 # Session-scoped exchange-announcement reproductions. Never carry a halt into a later session:
@@ -230,14 +234,21 @@ VERIFIED_HALTS = {
     }
 }
 
+SESSION_HALTS={}
+
+def session_halts(asof,rows):return {},{'security_date':asof,'complete':False,'reason':'No dynamic source installed'}
+def independent_sample_bars(symbol,asof):return east_bars(symbol,asof,0)
+def frozen_universe(asof):return None
+
 def verified_halt(symbol, session):
     """Return prior-public dated halt evidence, otherwise None; never infer from stale bars."""
-    return VERIFIED_HALTS.get(session, {}).get(symbol)
+    return SESSION_HALTS.get(session,{}).get(symbol) or VERIFIED_HALTS.get(session, {}).get(symbol)
 
 def sample_codes(rows, asof=None):
     result=[]
     for label in ('sh_main','star','sz_main','chinext'):
         group=sorted((r for r in rows if board(r['symbol'])==label and 'ST' not in r['name'].upper()
+                      and float(r.get('trade') or 0)>0 and float(r.get('volume') or 0)>0
                       and not verified_halt(r['symbol'], asof)),
                      key=lambda r:float(r.get('changepercent') or 0))
         if len(group)<5:raise ValueError('Missing sample board '+label)
@@ -250,7 +261,7 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
     for symbol in codes:
         try:
             q=quotes[symbol];p,t=reference(by_code[symbol],q,asof)
-            h=east_bars(symbol,asof,0)
+            h=independent_sample_bars(symbol,asof)
             daily=h['bars'][-1]
             if daily['date']!=asof:raise ValueError('Missing final sample bar')
             if max(p,t,daily['close'])/min(p,t,daily['close'])-1>.005:raise ValueError('Close mismatch')
@@ -276,10 +287,15 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
             record['source_urls'].append(verified_halt(symbol, asof)['source_url'])
             # This stock did not trade in the previous session; a stale daily bar is correct.
             # No synthetic OHLCVA and no retrospective exclusion on a later session.
-        elif h is None:errors.append(symbol+': daily history not available')
+        elif h is None:
+            try:
+                ipo=listing_info(symbol,asof)
+                if ipo['sessions']<60:record.update(eligible=False,exclude_reason='listing_lt_60_sessions',exclusion_evidence=ipo)
+                else:errors.append(symbol+': daily history not available for established listing')
+            except Exception as e:errors.append(symbol+': missing history and independent listing evidence: '+str(e))
         else:
             record.update(bars=h['bars'],adjustment_basis=h['adjustment_basis'])
-            record['source_urls'] = list(record['source_urls']) + [h['source_url']]
+            record['source_urls'] = list(record['source_urls']) + list(h.get('source_urls') or [h['source_url']])
             if h['bars'][-1]['date']!=asof:errors.append(symbol+': last daily bar stale (suspension not yet independently verified)')
             if len(h['bars'])<61:
                 try:
@@ -288,7 +304,8 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
                         record.update(eligible=False,exclude_reason='listing_lt_60_sessions',exclusion_evidence=ipo)
                     else:errors.append(symbol+': fewer than61 bars for established listing')
                 except Exception as e:errors.append(symbol+': listing status unverified: '+str(e))
-            if len(dates)==1:
+            if r.get('_security_date')==asof:record['raw_close']=float(r['trade'])
+            elif len(dates)==1:
                 record['raw_close']=float(r['trade'] if target.strftime('%Y%m%d') in dates else r['settlement'])
             else:errors.append(symbol+': mixed quote dates require per-symbol snapshot')
             if record['eligible'] and not record['sector']:errors.append(symbol+': missing industry membership')
@@ -400,21 +417,31 @@ def main():
     try:
         rows=[];cover={}
         verified_minima=verified_market_minima(asof)
-        for node in ('sh_a','sz_a'):
-            batch,g=paged(node,minimum_rows=verified_minima[node])
-            rows+=batch;cover[node]=g
-            atomic(run_dir/(node+'.json'),{'records':batch,'manifest':g})
+        frozen=frozen_universe(asof)
+        if frozen:
+            rows,cover,market_audit=frozen;manifest['market_snapshot_audit']=market_audit
+            for node,prefix in [('sh_a','sh'),('sz_a','sz')]:
+                if cover[node]['raw_rows']<verified_minima[node]:raise ValueError('Frozen universe below verified coverage')
+                atomic(run_dir/(node+'.json'),{'records':[r for r in rows if r['symbol'].startswith(prefix)],'manifest':cover[node]})
+        else:
+            for node in ('sh_a','sz_a'):
+                batch,g=paged(node,minimum_rows=verified_minima[node]);rows+=batch;cover[node]=g
+                atomic(run_dir/(node+'.json'),{'records':batch,'manifest':g})
         if len(rows)!=len({r['symbol'] for r in rows}):raise ValueError('Cross-exchange duplicate')
         manifest.update(raw_count=len(rows),coverage=cover)
+        try:
+            halts,halt_audit=session_halts(asof,rows);SESSION_HALTS[asof]=halts;manifest['session_halt_audit']=halt_audit
+        except Exception as error:
+            SESSION_HALTS[asof]={};manifest['session_halt_audit']={'complete':False,'error':str(error)}
         # Daily history retrieval is independent of industry availability; cache it first.
         histories={};history_errors={}
-        targets=[r for r in rows if 'ST' not in r['name'].upper()]
+        targets=[r for r in rows if 'ST' not in r['name'].upper() and not verified_halt(r['symbol'],asof)]
         def load(r):
             sym=r['symbol'];path=root/'history'/asof/(sym+'.json')
             if path.exists():
                 h=json.loads(path.read_text());
                 if h.get('bars') and h['bars'][-1]['date']==asof:return sym,h
-            h=incremental_cached_history(root,asof,r)
+            h=incremental_cached_history(root,asof,r) if r.get('_security_date')==asof else None
             if h is not None:
                 atomic(path,h)
                 return sym,h
@@ -434,10 +461,23 @@ def main():
         if errors:raise ValueError('INPUT_INCOMPLETE: '+repr(errors[:20]))
         import alpha5d_engine as engine
         result=run_rank(engine,payload);atomic(run_dir/'ranking.json',result)
+        review={'forecast_date':forecast,'previous_session':asof,'sessions':manifest['sessions'],'cutoff':cutoff,
+                'generated_at':actual,'run_kind':payload['run_kind'],'input_sha256':result['input_sha256'],
+                'data_commit':payload['data_commit'],'ranker_version':engine.VERSION,'ranking_health':result['ranking_health'],
+                'input_count':len(rows),'eligible_count':len(result.get('eligible_codes',[])),
+                'eligible_codes':result.get('eligible_codes',[]),'excluded':result.get('excluded',{}),
+                'industry_classification':payload.get('industry_classification'),'industry_source_audit':payload.get('industry_source_audit'),
+                'provider_route_health':payload.get('provider_route_health'),'sample_checks':payload['coverage']['samples'],
+                'top20':result.get('ranking',[])[:20],'top5':result.get('top5',[]),'baselines':result.get('baselines',{}),
+                'publication_state':'AWAITING_EVIDENCE_REVIEW','is_0850_live_prediction':False if payload['run_kind']=='late_research' else None}
+        atomic(run_dir/'review.json',review)
         manifest.update(status=result['ranking_health'],input_sha256=sha(payload),
                         ranking_path=str(run_dir/'ranking.json'),ranker_version=engine.VERSION,
                         top5=result.get('top5',[]),errors=result.get('errors',[]))
         manifest['publication_state']='AWAITING_EVIDENCE_REVIEW'
+        manifest.update(review_path=str(run_dir/'review.json'),run_kind=payload['run_kind'],generated_at=actual,
+                        provider_route_health=payload.get('provider_route_health'),industry_classification=payload.get('industry_classification'),
+                        verified_sample_count=len(payload['coverage']['samples']),is_0850_live_prediction=result.get('is_0850_live_prediction'))
         manifest['formal_top5_allowed']=False
     except Exception as e:
         manifest.update(status='INCOMPLETE',error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)

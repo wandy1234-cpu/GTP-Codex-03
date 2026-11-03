@@ -12,6 +12,7 @@ from pathlib import Path
 import alpha5d_pipeline as p
 import alpha5d_source_fixes as fixes
 import alpha5d_classification as classification
+import alpha5d_provider_resilience as resilient
 
 ORIGINAL_POOL=cf.ThreadPoolExecutor
 ORIGINAL_DAILY=p.east_bars
@@ -37,8 +38,7 @@ def bounded_daily(symbol,asof,adjust=1):
         if v[0]>asof:raise ValueError('Future bar from provider')
         bars.append({'date':v[0],'open':float(v[1]),'close':float(v[2]),'high':float(v[3]),
                      'low':float(v[4]),'volume':float(v[5]),'amount':float(v[6])})
-    if len(bars)<61:
-        return compact_history((symbol,ORIGINAL_DAILY(symbol,asof,adjust)))[1]
+    if not bars:raise ValueError(symbol+': empty daily response')
     return {'bars':bars[-240:],'source_url':url,'retrieved_at':p.now().isoformat(),
             'adjustment_basis':f'Eastmoney_fqt={adjust}_end={asof}',
             'amount_unit':'CNY','volume_unit':'lots_100_shares','retained_bars':min(240,len(bars))}
@@ -58,11 +58,9 @@ class RetrievalGuard:
         self.function,self.checkpoint=function,checkpoint
         self.lock=threading.Lock()
         self.stats={'attempted':0,'succeeded':0,'failed':0,'consecutive_failures':0,
-                    'circuit_open':False,'last_error':None}
+                    'circuit_open':False,'circuit_scope':'per_provider_only','last_error':None}
     def __call__(self,*args,**kwargs):
         with self.lock:
-            if self.stats['circuit_open']:
-                raise RuntimeError('Local daily-data circuit open after repeated retrieval failures; not an eligibility exclusion')
             self.stats['attempted']+=1
         try:
             result=self.function(*args,**kwargs)
@@ -71,9 +69,6 @@ class RetrievalGuard:
                 self.stats['failed']+=1
                 self.stats['consecutive_failures']+=1
                 self.stats['last_error']=str(error)
-                if ((self.stats['failed']>=30 and self.stats['succeeded']==0)
-                    or self.stats['consecutive_failures']>=50):
-                    self.stats['circuit_open']=True
                 self.save()
             raise
         with self.lock:
@@ -90,10 +85,11 @@ def output_root(argv):
 
 def main():
     root=output_root(sys.argv)
-    guard=RetrievalGuard(bounded_daily,root/'retrieval_progress.json')
+    guard=RetrievalGuard(resilient.daily_history,root/'retrieval_progress.json')
     cf.ThreadPoolExecutor=CancelPendingPool
     p.east_bars=guard
     classification.install()
+    resilient.install(bounded_daily,root)
     try:
         fixes.main()
     except KeyboardInterrupt:
