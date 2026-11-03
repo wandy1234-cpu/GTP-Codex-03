@@ -236,9 +236,11 @@ VERIFIED_HALTS = {
 
 SESSION_HALTS={}
 
-def session_halts(asof,rows):return {},{'security_date':asof,'complete':False,'reason':'No dynamic source installed'}
+def session_halts(asof,rows,forecast=None):return {},{'security_date':asof,'complete':False,'reason':'No dynamic source installed'}
 def independent_sample_bars(symbol,asof):return east_bars(symbol,asof,0)
 def frozen_universe(asof):return None
+def set_industry_context(rows,histories,asof):pass
+def industry_audit():return {}
 
 def verified_halt(symbol, session):
     """Return prior-public dated halt evidence, otherwise None; never infer from stale bars."""
@@ -277,14 +279,15 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
         symbol=r['symbol']; h=histories.get(symbol)
         record={'symbol':symbol,'name':r['name'],'eligible':True,'sector':sector_map.get(symbol,{}).get('sector'),
             'asof_date':asof,'available_at':generated_at,'retrieved_at':generated_at,
-            'source_urls':cover['sh_a' if symbol.startswith('sh') else 'sz_a']['source_urls'],
+            'source_urls':list(cover['sh_a' if symbol.startswith('sh') else 'sz_a']['source_urls']),
             'amount_unit':'CNY','raw_close':None,'adjustment_basis':None,'bars':[]}
         if 'ST' in r['name'].upper():
             record.update(eligible=False,exclude_reason='st',exclusion_evidence='Sina current name: '+r['name'])
-        elif verified_halt(symbol, asof):
+        elif verified_halt(symbol, asof) or verified_halt(symbol, forecast):
+            halt=verified_halt(symbol, asof) or verified_halt(symbol, forecast)
             record.update(eligible=False, exclude_reason='known_suspension',
-                          exclusion_evidence=verified_halt(symbol, asof))
-            record['source_urls'].append(verified_halt(symbol, asof)['source_url'])
+                          exclusion_evidence=halt)
+            record['source_urls'].append(halt['source_url'])
             # This stock did not trade in the previous session; a stale daily bar is correct.
             # No synthetic OHLCVA and no retrospective exclusion on a later session.
         elif h is None:
@@ -430,12 +433,12 @@ def main():
         if len(rows)!=len({r['symbol'] for r in rows}):raise ValueError('Cross-exchange duplicate')
         manifest.update(raw_count=len(rows),coverage=cover)
         try:
-            halts,halt_audit=session_halts(asof,rows);SESSION_HALTS[asof]=halts;manifest['session_halt_audit']=halt_audit
+            halts,halt_audit=session_halts(asof,rows,forecast);SESSION_HALTS[asof]=halts;manifest['session_halt_audit']=halt_audit
         except Exception as error:
             SESSION_HALTS[asof]={};manifest['session_halt_audit']={'complete':False,'error':str(error)}
         # Daily history retrieval is independent of industry availability; cache it first.
         histories={};history_errors={}
-        targets=[r for r in rows if 'ST' not in r['name'].upper() and not verified_halt(r['symbol'],asof)]
+        targets=[r for r in rows if 'ST' not in r['name'].upper() and not verified_halt(r['symbol'],asof) and not verified_halt(r['symbol'],forecast)]
         def load(r):
             sym=r['symbol'];path=root/'history'/asof/(sym+'.json')
             if path.exists():
@@ -453,7 +456,10 @@ def main():
                 try:_,histories[sym]=f.result()
                 except Exception as e:history_errors[sym]=str(e)
         manifest.update(history_success=len(histories),history_missing=history_errors)
-        industry,url=industries(args.workers);atomic(run_dir/'industry.json',{'source':url,'memberships':industry})
+        set_industry_context(rows,histories,asof)
+        try:industry,url=industries(args.workers)
+        finally:manifest['industry_source_audit']=industry_audit()
+        atomic(run_dir/'industry.json',{'source':url,'memberships':industry,'audit':industry_audit()})
         quotes=tencent(sample_codes(rows,asof))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)

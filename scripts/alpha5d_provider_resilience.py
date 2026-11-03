@@ -14,11 +14,23 @@ import alpha5d_pipeline as p
 import alpha5d_source_fixes as fixes
 import alpha5d_classification as classification
 
-VERSION='alpha5d-sources-1.1.1'
+VERSION='alpha5d-sources-1.1.2'
 ROOT=Path('data/alpha5d')
 PRIMARY_DAILY=None
 LEGACY_INDUSTRIES=fixes.industries
 INDUSTRY_AUDIT={}
+REQUIRED_INDUSTRIES=set()
+
+def set_industry_context(rows,histories,asof):
+    global REQUIRED_INDUSTRIES,INDUSTRY_AUDIT
+    REQUIRED_INDUSTRIES={r['symbol'] for r in rows if 'ST' not in r['name'].upper()
+        and not p.verified_halt(r['symbol'],asof) and len(histories.get(r['symbol'],{}).get('bars',[]))>=61}
+    INDUSTRY_AUDIT={'required_codes':len(REQUIRED_INDUSTRIES),'attempts':[]}
+
+def require_industry_coverage(result):
+    missing=sorted(code for code in REQUIRED_INDUSTRIES if not result.get(code,{}).get('sector'))
+    if missing:raise ValueError('Industry map incomplete: '+str(len(missing))+' missing; first='+repr(missing[:20]))
+    return result
 
 class ProviderCircuits:
     def __init__(self,limit=8):
@@ -139,7 +151,24 @@ def parse_session_halts(items,asof,rows,source_url):
         out[row['symbol']]={'session':asof,'halt_from':start,'reason':item.get('SUSPEND_REASON'),'source_url':source_url,'provider_row':item,'retrieved_at':p.now().isoformat()}
     return out
 
-def session_halts(asof,rows):
+def parse_forecast_halts(items,asof,forecast,rows,source_url):
+    """Only explicit whole-day notices already present in the dated report."""
+    by_code={r['symbol'][2:]:r for r in rows};out={}
+    for item in items:
+        row=by_code.get(str(item.get('SECURITY_CODE','')).zfill(6))
+        if row is None:continue
+        start=str(item.get('SUSPEND_START_DATE') or '')[:10];end=str(item.get('SUSPEND_END_TIME') or '')
+        resume=str(item.get('PREDICT_RESUME_DATE') or '')[:10]
+        start_time=str(item.get('SUSPEND_START_TIME') or '')[11:19]
+        if not start or start>forecast or (end and end[:10]<forecast) or (resume and resume<=forecast):continue
+        if item.get('SUSPEND_EXPIRE') not in ('连续停牌','停牌一天') or start_time!='09:30:00':continue
+        if end and end[:10]==forecast and end[11:19]<'15:00:00':continue
+        if str(item.get('DATETIME') or asof)[:10]!=asof:raise ValueError('Suspension report date mismatch')
+        out[row['symbol']]={'session':forecast,'notice_report_date':asof,'halt_from':start,
+            'reason':item.get('SUSPEND_REASON'),'source_url':source_url,'provider_row':item,'retrieved_at':p.now().isoformat()}
+    return out
+
+def session_halts(asof,rows,forecast=None):
     params={'reportName':'RPT_CUSTOM_SUSPEND_DATA_INTERFACE','columns':'ALL','pageNumber':1,'pageSize':500,'source':'WEB','client':'WEB','filter':'(MARKET="全部")'+"(DATETIME='"+asof+"')"}
     items=[];urls=[];expected=None
     for page in range(1,21):
@@ -156,6 +185,9 @@ def session_halts(asof,rows):
     else:raise ValueError('Halt pagination over budget')
     if len(items)!=expected:raise ValueError('Halt report incomplete')
     out=parse_session_halts(items,asof,rows,urls[0]);audit={'security_date':asof,'source_urls':urls,'rows':len(items),'provider_rows':items,'whole_session_nontrading_codes':sorted(out),'complete':True}
+    if forecast:
+        future=parse_forecast_halts(items,asof,forecast,rows,urls[0]);p.SESSION_HALTS[forecast]=future
+        audit.update(forecast_session=forecast,known_forecast_whole_session_codes=sorted(future))
     p.atomic(ROOT/'history'/'_halts'/(asof+'.json'),{'audit':audit,'records':out});return out,audit
 
 def frozen_universe(asof):
@@ -189,18 +221,23 @@ def frozen_universe(asof):
 
 def industries(workers):
     global INDUSTRY_AUDIT
-    try:
-        result,url=classification.industries(workers);INDUSTRY_AUDIT={'classification':'Eastmoney first-level industry','fallback':False,'source_url':url};return result,url
-    except Exception as error:
-        result,url=LEGACY_INDUSTRIES(workers)
-        for row in result.values():row['classification']='Sina industry'
-        INDUSTRY_AUDIT={'classification':'Sina industry; coherent whole-source fallback, not Shenwan','fallback':True,'primary_error':str(error),'source_url':url}
-        return result,url
+    errors=[]
+    for label,fetch in [('Eastmoney first-level industry',classification.industries),('Sina industry',LEGACY_INDUSTRIES)]:
+        try:
+            result,url=fetch(workers);require_industry_coverage(result)
+            for row in result.values():row['classification']=label
+            INDUSTRY_AUDIT.update(classification=label,fallback=bool(errors),source_url=url,
+                covered_required_codes=len(REQUIRED_INDUSTRIES),membership_count=len(result))
+            return result,url
+        except Exception as error:
+            errors.append({'source':label,'error':str(error)});INDUSTRY_AUDIT['attempts']=list(errors)
+    raise ValueError('All coherent industry sources incomplete: '+json.dumps(errors,ensure_ascii=False))
 
 def install(primary_daily,root):
     global ROOT,PRIMARY_DAILY,CIRCUITS
     ROOT=Path(root);PRIMARY_DAILY=primary_daily;CIRCUITS=ProviderCircuits()
     p.independent_sample_bars=independent_sample_bars;p.listing_info=listing_info;p.session_halts=session_halts;p.frozen_universe=frozen_universe
+    p.set_industry_context=set_industry_context;p.industry_audit=lambda:dict(INDUSTRY_AUDIT)
     fixes.industries=industries;original=fixes.assemble
     def assemble(*args,**kwargs):
         payload,errors=original(*args,**kwargs);payload['industry_classification']=INDUSTRY_AUDIT.get('classification','UNVERIFIED')

@@ -83,6 +83,18 @@ class EligibilityEvidence(unittest.TestCase):
     def test_intraday_pause_does_not_remove_traded_security(self):
         notice=dict(SECURITY_CODE='601326',DATETIME='2026-11-02',SUSPEND_START_DATE='2026-11-02')
         self.assertEqual(r.parse_session_halts([notice],'2026-11-02',[dict(symbol='sh601326',volume=10,amount=100)],'url'),{})
+    def forecast_notice(self,**kw):
+        return dict(SECURITY_CODE='002623',SUSPEND_START_DATE='2026-11-03',SUSPEND_START_TIME='2026-11-03 09:30:00',SUSPEND_EXPIRE='连续停牌',**kw)
+    def test_known_next_session_halt_excludes_even_if_previous_session_traded(self):
+        notice=self.forecast_notice()
+        out=r.parse_forecast_halts([notice],'2026-11-02','2026-11-03',[dict(symbol='sz002623',volume=100,amount=1000)],'url')
+        self.assertEqual(out['sz002623']['session'],'2026-11-03')
+    def test_intraday_forecast_pause_is_not_whole_session_exclusion(self):
+        notice=self.forecast_notice(SUSPEND_END_TIME='2026-11-03 10:00:00')
+        self.assertEqual(r.parse_forecast_halts([notice],'2026-11-02','2026-11-03',[dict(symbol='sz002623')],'url'),{})
+    def test_already_resumed_stock_is_not_carryover_halt(self):
+        notice=self.forecast_notice(PREDICT_RESUME_DATE='2026-11-03')
+        self.assertEqual(r.parse_forecast_halts([notice],'2026-11-02','2026-11-03',[dict(symbol='sz002623')],'url'),{})
     def test_other_session_notice_cannot_be_carried_forward(self):
         notice=dict(SECURITY_CODE='601326',DATETIME='2026-10-30',SUSPEND_START_DATE='2026-10-21')
         with self.assertRaises(ValueError):r.parse_session_halts([notice],'2026-11-02',[dict(symbol='sh601326',volume=0,amount=0)],'url')
@@ -126,5 +138,25 @@ class FrozenPreviousClose(unittest.TestCase):
     def test_future_snapshot_cannot_be_reused(self):
         data=self.dataset();data['captured_at_beijing']='2027-01-01T21:00:00+08:00'
         with self.assertRaises(ValueError):self.call(data)
+
+class CompleteIndustryCoverage(unittest.TestCase):
+    def test_successful_but_partial_map_uses_next_whole_source(self):
+        complete={'sh600025':{'sector':'电力'},'sz000001':{'sector':'银行'}}
+        with patch.object(r,'REQUIRED_INDUSTRIES',set(complete)),patch.object(r,'INDUSTRY_AUDIT',{}),\
+             patch.object(r.classification,'industries',return_value=({'sz000001':{'sector':'银行'}},'primary')),\
+             patch.object(r,'LEGACY_INDUSTRIES',return_value=(copy.deepcopy(complete),'backup')):
+            result,url=r.industries(2)
+            self.assertEqual(url,'backup');self.assertEqual(set(result),set(complete))
+            self.assertEqual(r.INDUSTRY_AUDIT['covered_required_codes'],2)
+    def test_sources_cannot_be_silently_mixed_to_fill_holes(self):
+        with patch.object(r,'REQUIRED_INDUSTRIES',{'sh600025','sz000001'}),patch.object(r,'INDUSTRY_AUDIT',{}),\
+             patch.object(r.classification,'industries',return_value=({'sz000001':{'sector':'银行'}},'primary')),\
+             patch.object(r,'LEGACY_INDUSTRIES',return_value=({'sh600025':{'sector':'电力'}},'backup')):
+            with self.assertRaisesRegex(ValueError,'All coherent industry sources incomplete'):r.industries(2)
+    def test_required_memberships_exclude_only_existing_legal_exclusions(self):
+        rows=[dict(symbol=s,name=n) for s,n in [('sh600025','华能水电'),('sz000001','平安银行'),('sz000002','ST测试'),('sz301999','N测试')]]
+        h={x['symbol']:{'bars':[{}]*61} for x in rows};h['sz301999']['bars']=[{}]*3
+        with patch.object(r,'REQUIRED_INDUSTRIES',set()),patch.object(r,'INDUSTRY_AUDIT',{}),patch.object(p,'verified_halt',side_effect=lambda s,d:s=='sz000001'):
+            r.set_industry_context(rows,h,'2026-11-02');self.assertEqual(r.REQUIRED_INDUSTRIES,{'sh600025'})
 
 if __name__=='__main__':unittest.main()
