@@ -228,6 +228,7 @@ def industries(workers):
             for row in result.values():row['classification']=label
             INDUSTRY_AUDIT.update(classification=label,fallback=bool(errors),source_url=url,
                 covered_required_codes=len(REQUIRED_INDUSTRIES),membership_count=len(result))
+            if fetch is classification.industries:INDUSTRY_AUDIT['snapshot']=dict(classification.LAST_INDUSTRY_AUDIT)
             return result,url
         except Exception as error:
             errors.append({'source':label,'error':str(error)});INDUSTRY_AUDIT['attempts']=list(errors)

@@ -159,4 +159,36 @@ class CompleteIndustryCoverage(unittest.TestCase):
         with patch.object(r,'REQUIRED_INDUSTRIES',set()),patch.object(r,'INDUSTRY_AUDIT',{}),patch.object(p,'verified_halt',side_effect=lambda s,d:s=='sz000001'):
             r.set_industry_context(rows,h,'2026-11-02');self.assertEqual(r.REQUIRED_INDUSTRIES,{'sh600025'})
 
+class IndustrySnapshotIntegrity(unittest.TestCase):
+    def snapshot(self):
+        catalog=[];boards=[]
+        for i,name in enumerate(sorted(r.classification.FIRST_LEVEL)):
+            code='BK'+str(i).zfill(4);catalog.append(dict(f12=code,f13=90,f14=name))
+            boards.append(dict(code=code,name=name,members=[dict(f12='6'+str(i).zfill(5),f13=1,f14='TEST')],
+                audit=dict(source_urls=['https://82.push2.eastmoney.com/api/qt/clist/get?fs=b:'+code],
+                           pages=1,page_counts=[1],total=1,observed_at=p.now().isoformat())))
+        return dict(schema='eastmoney-level1-pages-v1',observed_at=p.now().isoformat(),catalog_records=catalog,
+            catalog_audit=dict(source_urls=['https://82.push2.eastmoney.com/catalog']),boards=boards,boards_sha256=p.sha(boards))
+    def test_complete_raw_pages_rebuild_original_memberships(self):
+        result=r.classification.snapshot_memberships(self.snapshot())
+        self.assertEqual(len(result),31);self.assertEqual({x['sector'] for x in result.values()},r.classification.FIRST_LEVEL)
+    def test_tampered_source_pages_cannot_be_reused(self):
+        data=self.snapshot();data['boards'][0]['members'][0]['f14']='ALTERED'
+        with self.assertRaisesRegex(ValueError,'hash mismatch'):r.classification.snapshot_memberships(data)
+    def test_future_snapshot_cannot_enter_current_rank(self):
+        data=self.snapshot();data['observed_at']=(p.now()+dt.timedelta(seconds=5)).isoformat()
+        with self.assertRaises(ValueError):r.classification.snapshot_memberships(data)
+    def test_expired_snapshot_requires_refresh(self):
+        data=self.snapshot();data['observed_at']=(p.now()-dt.timedelta(days=8)).isoformat()
+        with self.assertRaises(ValueError):r.classification.snapshot_memberships(data)
+    def test_partial_board_cannot_be_cached_as_complete(self):
+        data=self.snapshot();data['boards'][0]['audit']['total']=2;data['boards_sha256']=p.sha(data['boards'])
+        with self.assertRaisesRegex(ValueError,'pagination incomplete'):r.classification.snapshot_memberships(data)
+    def test_missing_first_level_cannot_be_cached(self):
+        data=self.snapshot();data['boards'].pop();data['boards_sha256']=p.sha(data['boards'])
+        with self.assertRaisesRegex(ValueError,'board coverage incomplete'):r.classification.snapshot_memberships(data)
+    def test_market_code_mismatch_is_rejected(self):
+        data=self.snapshot();data['boards'][0]['members'][0]['f13']=0;data['boards_sha256']=p.sha(data['boards'])
+        with self.assertRaisesRegex(ValueError,'market mismatch'):r.classification.snapshot_memberships(data)
+
 if __name__=='__main__':unittest.main()

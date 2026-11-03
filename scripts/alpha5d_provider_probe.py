@@ -117,6 +117,9 @@ def main():
               'names':names,'audit':audit},ensure_ascii=False),flush=True)
         selected=classification.select_first_level(boards)
         members,url=classification.industries(8)
+        import shutil
+        snapshot=classification.LAST_INDUSTRY_AUDIT.get('snapshot_path')
+        if snapshot:shutil.copy2(snapshot,'provider-probe-industry.json')
         print('INDUSTRY_FULL '+json.dumps({'count':len(members),'url':url,
               'sample':{s:members.get(s) for s in ['sh600025','sh600901','sz000001','sz301999']}},ensure_ascii=False),flush=True)
     except Exception as error:print('INDUSTRY_ERROR '+type(error).__name__+': '+str(error),flush=True)

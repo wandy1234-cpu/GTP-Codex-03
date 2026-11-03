@@ -6,6 +6,7 @@ Never interpret all 496 boards as alternative peer industry assignments.
 import concurrent.futures as cf
 import datetime as dt
 import json
+import re
 import sys
 import urllib.parse as up
 from pathlib import Path
@@ -17,6 +18,44 @@ ORIGINAL_ASSEMBLE=fixes.assemble
 HOSTS=('https://82.push2.eastmoney.com','https://79.push2.eastmoney.com','https://push2.eastmoney.com')
 FIRST_LEVEL=set('农林牧渔 基础化工 钢铁 有色金属 电子 家用电器 食品饮料 纺织服饰 轻工制造 医药生物 公用事业 交通运输 房地产 商贸零售 社会服务 综合 建筑材料 建筑装饰 电力设备 国防军工 计算机 传媒 通信 银行 非银金融 汽车 机械设备 煤炭 石油石化 环保 美容护理'.split())
 TAXONOMY_SOURCE='https://caifuhao.eastmoney.com/news/20260212141558284153090'
+LAST_INDUSTRY_AUDIT={}
+
+def snapshot_memberships(snapshot):
+    """Rebuild one coherent classification from inspectable provider pages."""
+    observed=dt.datetime.fromisoformat(snapshot['observed_at'])
+    age=p.now()-observed
+    if age.total_seconds()<0 or age>dt.timedelta(days=7):raise ValueError('Industry snapshot future or older than seven days')
+    if snapshot.get('schema')!='eastmoney-level1-pages-v1':raise ValueError('Unknown industry snapshot schema')
+    if p.sha(snapshot['boards'])!=snapshot['boards_sha256']:raise ValueError('Industry snapshot hash mismatch')
+    selected=select_first_level(snapshot['catalog_records'])
+    expected={str(b['f12']):b['f14'] for b in selected}
+    boards=snapshot['boards']
+    if len(boards)!=31 or {b['code']:b['name'] for b in boards}!=expected:raise ValueError('Industry snapshot board coverage incomplete')
+    result={}
+    for board in boards:
+        members,audit=board['members'],board['audit'];pages=int(audit['pages'])
+        if not audit['source_urls'] or len(audit['source_urls'])!=pages or len(audit['page_counts'])!=pages or sum(audit['page_counts'])!=len(members) or audit['total']!=len(members):raise ValueError('Industry snapshot pagination incomplete')
+        if dt.datetime.fromisoformat(audit['observed_at'])>observed:raise ValueError('Industry page available after snapshot')
+        keys=[(str(row.get('f13','')),str(row['f12'])) for row in members]
+        if len(keys)!=len(set(keys)):raise ValueError('Industry snapshot duplicate membership')
+        for row in members:
+            code=str(row['f12'])
+            if not re.fullmatch(r'[036]\d{5}',code):continue
+            market=str(row.get('f13',''))
+            if market not in ('0','1') or (market=='1')!=code.startswith('6'):raise ValueError('Industry identity/market mismatch')
+            sym=('sh' if market=='1' else 'sz')+code
+            fixes.merge_membership(result,sym,board['name'],audit['source_urls'])
+            result[sym]['classification']='Eastmoney level1'
+    return result
+
+def published_snapshot():
+    candidates=sorted(set(Path('data/alpha5d/industry').glob('*.json'))|set((root()/'industry_snapshots').glob('*.json')),reverse=True)
+    for file in candidates:
+        try:
+            saved=json.loads(file.read_text());members=snapshot_memberships(saved)
+            return members,saved,file
+        except (ValueError,KeyError,TypeError):continue
+    return None
 
 def root():
     return Path(sys.argv[sys.argv.index('--output')+1]) if '--output' in sys.argv else Path('data/alpha5d')
@@ -79,6 +118,21 @@ def listing_info(symbol,asof):
     return {'date':date.isoformat(),'sessions':sessions,'source_url':data['source_url'],'retrieved_at':data['retrieved_at']}
 
 def industries(workers):
+    global LAST_INDUSTRY_AUDIT
+    previous=published_snapshot()
+    if previous and previous[1]['observed_at'][:10]==p.now().date().isoformat():
+        members,saved,file=previous
+        LAST_INDUSTRY_AUDIT={'route':'verified_published_snapshot','snapshot_path':str(file),'observed_at':saved['observed_at'],'boards_sha256':saved['boards_sha256']}
+        return members,saved['catalog_audit']['source_urls'][0]
+    try:return live_industries(workers)
+    except Exception as error:
+        if not previous:raise
+        members,saved,file=previous
+        LAST_INDUSTRY_AUDIT={'route':'verified_recent_snapshot','snapshot_path':str(file),'observed_at':saved['observed_at'],'boards_sha256':saved['boards_sha256'],'live_error':str(error)}
+        return members,saved['catalog_audit']['source_urls'][0]
+
+def live_industries(workers):
+    global LAST_INDUSTRY_AUDIT
     cache=root()/'history'/'_em_industry_l1'/p.now().date().isoformat()
     all_boards,board_audit=page_list('m:90 t:2 f:!50')
     boards=select_first_level(all_boards)
@@ -92,11 +146,13 @@ def industries(workers):
         else:
             members,audit=page_list('b:'+code+' f:!50')
             p.atomic(file,{'members':members,'audit':audit,'name':name})
-        return name,members,audit
+        return code,name,members,audit
+    snapshots=[]
     with cf.ThreadPoolExecutor(max_workers=workers) as pool:
         for fut in cf.as_completed([pool.submit(one,b) for b in boards]):
             try:
-                name,members,audit=fut.result()
+                code,name,members,audit=fut.result()
+                snapshots.append({'code':code,'name':name,'members':members,'audit':audit})
                 for r in members:
                     code=str(r['f12'])
                     if len(code)!=6 or code[0] not in '036':continue
@@ -105,6 +161,11 @@ def industries(workers):
                     result[sym]['classification']='Eastmoney level1'
             except Exception as e:errors.append(str(e))
     if errors:raise ValueError('Current level1 industry membership incomplete: '+repr(errors[:8]))
+    snapshot={'schema':'eastmoney-level1-pages-v1','observed_at':p.now().isoformat(),'catalog_records':all_boards,
+              'catalog_audit':board_audit,'boards':sorted(snapshots,key=lambda x:x['code'])}
+    snapshot['boards_sha256']=p.sha(snapshot['boards']);snapshot_memberships(snapshot)
+    file=root()/'industry_snapshots'/(p.now().date().isoformat()+'.json');p.atomic(file,snapshot)
+    LAST_INDUSTRY_AUDIT={'route':'live_provider_pages','snapshot_path':str(file),'observed_at':snapshot['observed_at'],'boards_sha256':snapshot['boards_sha256']}
     # Missing labels stay missing; base input validation names each affected
     # company instead of mixing a leaf profile into a first-level taxonomy.
     return result,board_audit['source_urls'][0]

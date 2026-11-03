@@ -7,11 +7,11 @@ on:
       - 'scripts/alpha5d_provider_probe.py'
       - '.github/workflows/alpha5d-provider-probe.yml'
 permissions:
-  contents: read
+  contents: write
 jobs:
   inspect-public-endpoints:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - name: Inspect actual public schemas with bounded timeouts
@@ -20,5 +20,32 @@ jobs:
         if: always()
         with:
           name: alpha5d-provider-probe-${{ github.run_id }}
-          path: provider-probe.json
+          path: |
+            provider-probe.json
+            provider-probe-industry.json
           retention-days: 14
+      - name: Persist independently inspectable complete industry pages
+        run: |
+          set -euo pipefail
+          if [ ! -f provider-probe-industry.json ]; then exit 0; fi
+          PYTHONPATH=scripts python - <<'PY'
+          import json,pathlib
+          import alpha5d_classification as c
+          import alpha5d_pipeline as p
+          data=json.loads(pathlib.Path('provider-probe-industry.json').read_text())
+          members=c.snapshot_memberships(data)
+          universe=json.loads(pathlib.Path('data/universe_latest.json').read_text())['records']
+          if isinstance(universe,dict):universe=list(universe.values())
+          required={r['symbol'] for r in universe if 'ST' not in r['name'].upper()}
+          assert not required-set(members), sorted(required-set(members))[:20]
+          p.atomic(pathlib.Path('data/alpha5d/industry')/(data['observed_at'][:10]+'.json'),data)
+          print('Verified industry coverage',len(required),'of',len(required))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/alpha5d/industry
+          if ! git diff --cached --quiet; then
+            git commit -m 'Preserve verified complete first-level industry source pages'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
