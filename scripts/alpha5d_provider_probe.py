@@ -108,6 +108,18 @@ def one(item):
 
 def main():
     with cf.ThreadPoolExecutor(max_workers=4) as pool:results=list(pool.map(one,SAMPLES.items()))
+    try:
+        import alpha5d_classification as classification
+        boards,audit=classification.page_list('m:90 t:2 f:!50')
+        names=[b['f14'] for b in boards]
+        print('TAXONOMY '+json.dumps({'count':len(boards),'missing':sorted(classification.FIRST_LEVEL-set(names)),
+              'matching':[b for b in boards if b['f14'] in classification.FIRST_LEVEL],
+              'names':names,'audit':audit},ensure_ascii=False),flush=True)
+        selected=classification.select_first_level(boards)
+        members,url=classification.industries(8)
+        print('INDUSTRY_FULL '+json.dumps({'count':len(members),'url':url,
+              'sample':{s:members.get(s) for s in ['sh600025','sh600901','sz000001','sz301999']}},ensure_ascii=False),flush=True)
+    except Exception as error:print('INDUSTRY_ERROR '+type(error).__name__+': '+str(error),flush=True)
     Path('provider-probe.json').write_text(json.dumps({'generated_at':dt.datetime.now(dt.timezone.utc).isoformat(),'results':results},ensure_ascii=False,indent=2))
 
 if __name__=='__main__':main()
