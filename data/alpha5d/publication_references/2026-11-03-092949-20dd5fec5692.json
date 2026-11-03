@@ -1,0 +1,136 @@
+{
+  "schema": "alpha5d-publication-references-v1",
+  "observed_at": "2026-11-03T09:29:49.062205+08:00",
+  "ranking_path": "data/alpha5d/runs/20261103T092716/ranking.json",
+  "input_sha256": "20dd5fec5692baae2d468aa3606b05e2267939589ccf10edeaaa22383477c08e",
+  "previous_session": "2026-11-02",
+  "forecast_date": "2026-11-03",
+  "checks": [
+    {
+      "symbol": "sh600715",
+      "name": "文投控股",
+      "reference_raw_close": 2.24,
+      "independent_daily_close": 2.24,
+      "independent_daily_bar": {
+        "date": "2026-11-02",
+        "volume": 4465045.09,
+        "amount": 874497551.0,
+        "open": 1.84,
+        "close": 2.24,
+        "high": 2.24,
+        "low": 1.84
+      },
+      "daily_source_url": "https://finance.sina.com.cn/realstock/company/sh600715/hisdata_klc2/klc_kl.js",
+      "quote": {
+        "code": "600715",
+        "name": "文投控股",
+        "price": 2.26,
+        "previous": 2.24,
+        "stamp": "20261103092918",
+        "source_url": "https://qt.gtimg.cn/q=sh600715,sh603198,sh600189,sz000596,sh600020"
+      },
+      "passed": true
+    },
+    {
+      "symbol": "sh603198",
+      "name": "迎驾贡酒",
+      "reference_raw_close": 48.53,
+      "independent_daily_close": 48.53,
+      "independent_daily_bar": {
+        "date": "2026-11-02",
+        "volume": 255884.38,
+        "amount": 1201216508.0,
+        "open": 45.13,
+        "close": 48.53,
+        "high": 48.92,
+        "low": 44.8
+      },
+      "daily_source_url": "https://finance.sina.com.cn/realstock/company/sh603198/hisdata_klc2/klc_kl.js",
+      "quote": {
+        "code": "603198",
+        "name": "迎驾贡酒",
+        "price": 46.12,
+        "previous": 48.53,
+        "stamp": "20261103092936",
+        "source_url": "https://qt.gtimg.cn/q=sh600715,sh603198,sh600189,sz000596,sh600020"
+      },
+      "passed": true
+    },
+    {
+      "symbol": "sh600189",
+      "name": "泉阳泉",
+      "reference_raw_close": 9.72,
+      "independent_daily_close": 9.72,
+      "independent_daily_bar": {
+        "date": "2026-11-02",
+        "volume": 1016779.83,
+        "amount": 967306461.0,
+        "open": 9.0,
+        "close": 9.72,
+        "high": 9.72,
+        "low": 8.96
+      },
+      "daily_source_url": "https://finance.sina.com.cn/realstock/company/sh600189/hisdata_klc2/klc_kl.js",
+      "quote": {
+        "code": "600189",
+        "name": "泉阳泉",
+        "price": 9.35,
+        "previous": 9.72,
+        "stamp": "20261103092926",
+        "source_url": "https://qt.gtimg.cn/q=sh600715,sh603198,sh600189,sz000596,sh600020"
+      },
+      "passed": true
+    },
+    {
+      "symbol": "sz000596",
+      "name": "古井贡酒",
+      "reference_raw_close": 103.8,
+      "independent_daily_close": 103.8,
+      "independent_daily_bar": {
+        "date": "2026-11-02",
+        "volume": 147735.06,
+        "amount": 1509899522.0,
+        "open": 97.97,
+        "close": 103.8,
+        "high": 105.0,
+        "low": 97.01
+      },
+      "daily_source_url": "https://finance.sina.com.cn/realstock/company/sz000596/hisdata_klc2/klc_kl.js",
+      "quote": {
+        "code": "000596",
+        "name": "古井贡酒",
+        "price": 103.85,
+        "previous": 103.8,
+        "stamp": "20261103092930",
+        "source_url": "https://qt.gtimg.cn/q=sh600715,sh603198,sh600189,sz000596,sh600020"
+      },
+      "passed": true
+    },
+    {
+      "symbol": "sh600020",
+      "name": "中原高速",
+      "reference_raw_close": 4.32,
+      "independent_daily_close": 4.32,
+      "independent_daily_bar": {
+        "date": "2026-11-02",
+        "volume": 962455.0,
+        "amount": 408988931.0,
+        "open": 4.09,
+        "close": 4.32,
+        "high": 4.32,
+        "low": 4.09
+      },
+      "daily_source_url": "https://finance.sina.com.cn/realstock/company/sh600020/hisdata_klc2/klc_kl.js",
+      "quote": {
+        "code": "600020",
+        "name": "中原高速",
+        "price": 4.35,
+        "previous": 4.32,
+        "stamp": "20261103092937",
+        "source_url": "https://qt.gtimg.cn/q=sh600715,sh603198,sh600189,sz000596,sh600020"
+      },
+      "passed": true
+    }
+  ],
+  "not_execution_fill": true
+}
