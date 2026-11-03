@@ -19,6 +19,7 @@ SAMPLES = {
     'sina_corpinfo': 'https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/601326.phtml',
     'east_halts': 'https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA&columns=ALL&pageNumber=1&pageSize=500&filter=%28MARKET%3D%22%E6%B2%AA%E6%B7%B1A%E8%82%A1%22%29%28TRADE_DATE%3D%272026-11-02%27%29',
     'east_halts_page': 'https://data.eastmoney.com/tfpxx/',
+    'east_halts_interface': 'https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&filter=%28TRADE_DATE%3D%272026-11-02%27%29',
     'east_daily_legacy_header': 'https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.600000&klt=101&fqt=1&beg=20250928&end=20261102&lmt=240&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
     'east_daily_correct_header': 'https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.600000&klt=101&fqt=1&beg=20250928&end=20261102&lmt=240&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
     'sina_industry_https': 'https://vip.stock.finance.sina.com.cn/q/view/newSinaHy.php',
@@ -59,7 +60,11 @@ def one(item):
                     req=ur.Request(link,headers={'User-Agent':'Mozilla/5.0','Referer':url})
                     with ur.urlopen(req,timeout=8) as r:script=r.read(3_000_000).decode('utf-8',errors='replace')
                     names=sorted(set(re.findall(r'RPT_[A-Z0-9_]+',script)))
-                    if names:entry['report_names'].append({'url':link,'names':names})
+                    if names:
+                        entry['report_names'].append({'url':link,'names':names})
+                        if 'tfpxx/index.js' in link:
+                            i=script.find('RPT_CUSTOM_SUSPEND_DATA_INTERFACE')
+                            entry['report_configuration']=script[max(0,i-900):i+1400]
                 except Exception as e:entry.setdefault('script_errors',[]).append(type(e).__name__)
         if name.startswith('qq_'):
             data=json.loads(text).get('data',{}).get('sh600000',{})
@@ -69,7 +74,7 @@ def one(item):
         elif (name.startswith('east_') and name!='east_halts_page') or name=='sse_profiles':
             data=json.loads(text)
             entry['data_keys']=list((data.get('data') or data).keys())
-            if name=='east_halts':entry['result_sample']=(data.get('result') or {}).get('data',[])[:3]
+            if name in ('east_halts','east_halts_interface'):entry['result_sample']=(data.get('result') or {}).get('data',[])[:5]
             if name=='sse_profiles':entry['sample']=data.get('result',[None])[0]
         print('PROBE '+json.dumps(entry,ensure_ascii=False),flush=True)
         return entry
