@@ -1,26 +1,26 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-03T14:02:39.445282+08:00",
-  "forecast_date": "2026-11-03",
-  "previous_session": "2026-11-02",
+  "started_at": "2026-11-03T23:21:39.820763+08:00",
+  "forecast_date": "2026-11-04",
+  "previous_session": "2026-11-03",
   "sessions": [
-    "2026-11-03",
     "2026-11-04",
     "2026-11-05",
     "2026-11-06",
-    "2026-11-09"
+    "2026-11-09",
+    "2026-11-10"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
-  "status": "COMPLETE",
+  "status": "INCOMPLETE",
   "run_kind": "late_research",
   "market_snapshot_audit": {
-    "security_date": "2026-11-02",
-    "captured_at": "2026-11-02T20:59:12.577251+08:00",
-    "sha256": "51b64e81ad28faaa0c79b92e0debbb47f4e9c14ccc3088371fc6f1b8a1752c02",
+    "security_date": "2026-11-03",
+    "captured_at": "2026-11-03T22:53:26.700349+08:00",
+    "sha256": "c67d9aa10bcb8853433c4b51129cc6b6e8a76c4e3a405408365dad22f8279dee",
     "frozen_samples_verified": 20,
-    "source": "data/alpha5d/market/2026-11-02.json"
+    "source": "data/universe_latest.json"
   },
-  "raw_count": 5222,
+  "raw_count": 5223,
   "coverage": {
     "sh_a": {
       "successful_pages": [
@@ -142,7 +142,7 @@
       "terminal_page": 30,
       "terminal_verified": true,
       "missing_pages": [],
-      "raw_rows": 2905,
+      "raw_rows": 2906,
       "page_counts": [
         100,
         100,
@@ -173,7 +173,7 @@
         100,
         100,
         100,
-        5
+        6
       ],
       "source_urls": [
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=sz_a",
@@ -210,11 +210,11 @@
     }
   },
   "session_halt_audit": {
-    "security_date": "2026-11-02",
+    "security_date": "2026-11-03",
     "source_urls": [
-      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29"
+      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-03%27%29"
     ],
-    "rows": 11,
+    "rows": 9,
     "provider_rows": [
       {
         "SECURITY_CODE": "688121",
@@ -229,20 +229,6 @@
         "TRADE_MARKET_CODE": "069001001006",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "688121.SH"
-      },
-      {
-        "SECURITY_CODE": "605258",
-        "SECURITY_NAME_ABBR": "协和电子",
-        "SUSPEND_START_TIME": "2026-10-26 09:30:00",
-        "SUSPEND_END_TIME": "2026-10-30 15:00:00",
-        "SUSPEND_EXPIRE": "连续停牌",
-        "SUSPEND_REASON": "刊登重要公告",
-        "TRADE_MARKET": "上交所主板",
-        "SUSPEND_START_DATE": "2026-10-26 00:00:00",
-        "PREDICT_RESUME_DATE": "2026-11-02 00:00:00",
-        "TRADE_MARKET_CODE": "069001001001",
-        "SECURITY_TYPE_CODE": "058001001",
-        "SECUCODE": "605258.SH"
       },
       {
         "SECURITY_CODE": "688496",
@@ -287,20 +273,6 @@
         "SECUCODE": "002717.SZ"
       },
       {
-        "SECURITY_CODE": "002827",
-        "SECURITY_NAME_ABBR": "高争民爆",
-        "SUSPEND_START_TIME": "2026-10-26 09:30:00",
-        "SUSPEND_END_TIME": "2026-10-30 15:00:00",
-        "SUSPEND_EXPIRE": "连续停牌",
-        "SUSPEND_REASON": "拟筹划重大资产重组",
-        "TRADE_MARKET": "深交所主板",
-        "SUSPEND_START_DATE": "2026-10-26 00:00:00",
-        "PREDICT_RESUME_DATE": "2026-11-02 00:00:00",
-        "TRADE_MARKET_CODE": "069001002001",
-        "SECURITY_TYPE_CODE": "058001001",
-        "SECUCODE": "002827.SZ"
-      },
-      {
         "SECURITY_CODE": "000831",
         "SECURITY_NAME_ABBR": "中国稀土",
         "SUSPEND_START_TIME": "2026-11-02 09:30:00",
@@ -332,12 +304,12 @@
         "SECURITY_CODE": "601326",
         "SECURITY_NAME_ABBR": "秦港股份",
         "SUSPEND_START_TIME": "2026-10-21 09:30:00",
-        "SUSPEND_END_TIME": null,
+        "SUSPEND_END_TIME": "2026-11-03 15:00:00",
         "SUSPEND_EXPIRE": "连续停牌",
         "SUSPEND_REASON": "拟筹划重大资产重组",
         "TRADE_MARKET": "上交所主板",
         "SUSPEND_START_DATE": "2026-10-21 00:00:00",
-        "PREDICT_RESUME_DATE": null,
+        "PREDICT_RESUME_DATE": "2026-11-04 00:00:00",
         "TRADE_MARKET_CODE": "069001001001",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "601326.SH"
@@ -376,23 +348,23 @@
       "sh688121",
       "sh688496",
       "sz000831",
+      "sz000972",
       "sz002129",
+      "sz002623",
       "sz002717"
     ],
     "complete": true,
-    "forecast_session": "2026-11-03",
+    "forecast_session": "2026-11-04",
     "known_forecast_whole_session_codes": [
-      "sh601326",
       "sh688121",
       "sh688496",
       "sz000831",
-      "sz000972",
       "sz002129",
       "sz002623",
       "sz002717"
     ]
   },
-  "history_success": 5023,
+  "history_success": 5024,
   "history_missing": {},
   "industry_source_audit": {
     "required_codes": 4999,
@@ -404,170 +376,26 @@
     "membership_count": 5223,
     "snapshot": {
       "route": "verified_published_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-03.json",
+      "snapshot_path": "data/alpha5d/industry/2026-11-03-091935-906d0543291c.json",
       "observed_at": "2026-11-03T09:19:35.894714+08:00",
       "boards_sha256": "906d0543291c468aa2bf37978ba70f47c0fed41403e1995dc5f7f3741a441418"
     }
   },
-  "input_sha256": "0c8afb07a2ec7cfbfc130150ccf68bb4411d21291a0a700b2da45c480084db17",
-  "ranking_path": "data/alpha5d/runs/20261103T140239/ranking.json",
-  "ranker_version": "V8.0-bootstrap-1",
-  "top5": [
-    {
-      "symbol": "sh600715",
-      "name": "文投控股",
-      "sector": "传媒",
-      "score": 87.36007802,
-      "features": {
-        "r5": 0.3176470588235296,
-        "r10": 0.3176470588235296,
-        "r20": 0.3827160493827162,
-        "breakout": -0.013215859030836885,
-        "close_pos": 1.0,
-        "volume_ratio": 1.8334306008277286,
-        "trend": 0.07486033519553059,
-        "above_ma10": true,
-        "overheat": 0.014241164241164311,
-        "sector": "传媒"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 2.24,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 1
-    },
-    {
-      "symbol": "sh603198",
-      "name": "迎驾贡酒",
-      "sector": "食品饮料",
-      "score": 87.12088831,
-      "features": {
-        "r5": 0.1378663540445486,
-        "r10": 0.19679408138101118,
-        "r20": 0.3080862533692723,
-        "breakout": 0.09129750393523728,
-        "close_pos": 0.9053398058252426,
-        "volume_ratio": 1.6150043162632606,
-        "trend": 0.035450957026886165,
-        "above_ma10": true,
-        "overheat": 0.013537845548922262,
-        "sector": "食品饮料"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 48.53,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 2
-    },
-    {
-      "symbol": "sh600189",
-      "name": "泉阳泉",
-      "sector": "食品饮料",
-      "score": 86.83055917,
-      "features": {
-        "r5": 0.14757969303423857,
-        "r10": 0.20446096654275103,
-        "r20": 0.18681318681318704,
-        "breakout": 0.06813186813186833,
-        "close_pos": 1.0,
-        "volume_ratio": 1.3871714075736525,
-        "trend": 0.024071358748778193,
-        "above_ma10": true,
-        "overheat": 0.009766137692399562,
-        "sector": "食品饮料"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 9.72,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 3
-    },
-    {
-      "symbol": "sz000596",
-      "name": "古井贡酒",
-      "sector": "食品饮料",
-      "score": 86.25820068,
-      "features": {
-        "r5": 0.16694772344013487,
-        "r10": 0.16629213483146055,
-        "r20": 0.18088737201365168,
-        "breakout": 0.02599584857171089,
-        "close_pos": 0.8498122653316641,
-        "volume_ratio": 1.5963565442700791,
-        "trend": 0.033381627836328365,
-        "above_ma10": true,
-        "overheat": 0.02363725789491547,
-        "sector": "食品饮料"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 103.8,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 4
-    },
-    {
-      "symbol": "sh600020",
-      "name": "中原高速",
-      "sector": "交通运输",
-      "score": 85.6663199,
-      "features": {
-        "r5": 0.12207792207792223,
-        "r10": 0.09090909090909105,
-        "r20": 0.1368421052631581,
-        "breakout": 0.07196029776674928,
-        "close_pos": 1.0,
-        "volume_ratio": 1.7135770215402244,
-        "trend": 0.0069641475367552275,
-        "above_ma10": true,
-        "overheat": 0.0,
-        "sector": "交通运输"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 4.32,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 5
-    }
-  ],
-  "errors": [],
-  "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261103T140239/review.json",
-  "generated_at": "2026-11-03T14:02:44.722557+08:00",
-  "provider_route_health": {
-    "sample_eastmoney_daily": {
-      "attempted": 13,
-      "succeeded": 2,
-      "failed": 11,
-      "data_errors": 0,
-      "consecutive_failures": 8,
-      "circuit_open": true
-    },
-    "sample_sina_klc2": {
-      "attempted": 18,
-      "succeeded": 18,
-      "failed": 0,
-      "data_errors": 0,
-      "consecutive_failures": 0,
-      "circuit_open": false
-    }
-  },
-  "industry_classification": "Eastmoney first-level industry",
-  "verified_sample_count": 20,
-  "is_0850_live_prediction": false,
+  "error": "ValueError: INPUT_INCOMPLETE: ['sz001232: fewer than61 bars for established listing']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-03T14:04:19.036543+08:00",
+  "ended_at": "2026-11-03T23:23:02.787148+08:00",
   "retrieval_progress": {
-    "attempted": 0,
-    "succeeded": 0,
+    "attempted": 26,
+    "succeeded": 26,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-03T14:04:19.240273+08:00"
+    "recorded_at": "2026-11-03T23:23:02.787968+08:00"
   },
-  "cached_history_files": 5028,
-  "workflow_run_id": "41587374196",
-  "evidence_artifact_name": "alpha5d-public-evidence-41587374196",
-  "persisted_at": "2026-11-03T06:04:35.378725+00:00"
+  "cached_history_files": 5024,
+  "workflow_run_id": "41662999643",
+  "evidence_artifact_name": "alpha5d-public-evidence-41662999643",
+  "persisted_at": "2026-11-03T15:23:21.155449+00:00"
 }
