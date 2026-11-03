@@ -7,16 +7,18 @@ import re
 import subprocess
 import time
 import urllib.request as ur
+import urllib.parse as up
 from pathlib import Path
 
 SAMPLES = {
     'east_daily': 'https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.600000&klt=101&fqt=1&beg=20260101&end=20261102&lmt=240&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57',
     'qq_daily': 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600000,day,2026-01-01,2026-11-02,240,qfq',
     'qq_raw_daily': 'https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600000,day,2026-01-01,2026-11-02,240',
-    'sina_full_daily': 'https://finance.sina.com.cn/realstock/company/sh600000/hisdata/klc_kl.js',
+    'sina_full_daily': 'https://finance.sina.com.cn/realstock/company/sh600000/hisdata_klc2/klc_kl.js',
     'sina_qfq': 'https://finance.sina.com.cn/realstock/company/sh600000/qfq.js',
     'sina_corpinfo': 'https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/601326.phtml',
     'east_halts': 'https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA&columns=ALL&pageNumber=1&pageSize=500&filter=%28MARKET%3D%22%E6%B2%AA%E6%B7%B1A%E8%82%A1%22%29%28TRADE_DATE%3D%272026-11-02%27%29',
+    'east_halts_page': 'https://data.eastmoney.com/tfpxx/',
     'east_daily_legacy_header': 'https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.600000&klt=101&fqt=1&beg=20250928&end=20261102&lmt=240&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
     'east_daily_correct_header': 'https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.600000&klt=101&fqt=1&beg=20250928&end=20261102&lmt=240&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
     'sina_industry_https': 'https://vip.stock.finance.sina.com.cn/q/view/newSinaHy.php',
@@ -40,19 +42,31 @@ def one(item):
         except UnicodeDecodeError:text=body.decode('gb18030')
         entry={'name':name,'url':url,'ok':True,'bytes':len(body),'seconds':round(time.monotonic()-start,2),'prefix':text[:350]}
         if name=='sina_full_daily':
-            found=re.search(r'var\s+KLC_KL_sh600000\s*=\s*"([A-Za-z0-9+/=]+)"',text)
+            found=re.search(r'var\s+\w*sh600000\s*=\s*"([A-Za-z0-9+/=]+)"',text)
             if not found:raise ValueError('Compressed symbol identity not verified')
             decoded=json.loads(subprocess.run(['node','scripts/vendor/sina_klc_decode.cjs'],input=json.dumps({'encoded':found.group(1),'asof':'2026-11-02','limit':240}),text=True,capture_output=True,check=True,timeout=10).stdout)
             entry['decoded']={'rows':len(decoded),'first':decoded[0],'last':decoded[-1]}
         if name=='sina_corpinfo':
             clean=re.sub(r'<[^>]+>',' ',text)
             entry['listing_excerpt']=clean[max(0,clean.find('上市日期')-80):clean.find('上市日期')+220]
+        if name=='east_halts_page':
+            links=[up.urljoin(url,s) for s in re.findall(r'<script[^>]+src=["\x27]([^"\x27]+)',text)]
+            links=[s for s in links if up.urlparse(s).hostname and up.urlparse(s).hostname.endswith('eastmoney.com')]
+            entry['public_scripts']=links
+            entry['report_names']=[]
+            for link in links[-6:]:
+                try:
+                    req=ur.Request(link,headers={'User-Agent':'Mozilla/5.0','Referer':url})
+                    with ur.urlopen(req,timeout=8) as r:script=r.read(3_000_000).decode('utf-8',errors='replace')
+                    names=sorted(set(re.findall(r'RPT_[A-Z0-9_]+',script)))
+                    if names:entry['report_names'].append({'url':link,'names':names})
+                except Exception as e:entry.setdefault('script_errors',[]).append(type(e).__name__)
         if name.startswith('qq_'):
             data=json.loads(text).get('data',{}).get('sh600000',{})
             entry['keys']=list(data)
             for key in ['day','qfqday']:
                 if data.get(key):entry[key]={'rows':len(data[key]),'first':data[key][0],'last':data[key][-1]}
-        elif name.startswith('east_') or name=='sse_profiles':
+        elif (name.startswith('east_') and name!='east_halts_page') or name=='sse_profiles':
             data=json.loads(text)
             entry['data_keys']=list((data.get('data') or data).keys())
             if name=='east_halts':entry['result_sample']=(data.get('result') or {}).get('data',[])[:3]
