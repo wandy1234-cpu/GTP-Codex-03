@@ -3,6 +3,9 @@
 import concurrent.futures as cf
 import datetime as dt
 import json
+import io
+import zipfile
+import xml.etree.ElementTree as ET
 import re
 import subprocess
 import time
@@ -28,17 +31,37 @@ SAMPLES = {
     'east_industry': 'https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12&fs=m:90+t:2+f:!50&fields=f12,f13,f14',
     'east_industry_82': 'https://82.push2.eastmoney.com/api/qt/clist/get?pn=1&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12&fs=m:90+t:2+f:!50&fields=f12,f13,f14',
     'sse_profiles': 'https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=1&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2,4,5,7,8&type=inParams&isPagination=true&pageHelp.pageSize=5000',
+    'szse_profiles': 'https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110&TABKEY=tab1',
 }
 
 def one(item):
     name,url=item
     start=time.monotonic()
     referer='https://quote.eastmoney.com/' if 'eastmoney.com' in url else 'https://www.sse.com.cn/' if 'sse.com.cn' in url else 'https://finance.sina.com.cn/'
+    if 'szse.cn' in url:referer='https://www.szse.cn/'
     if name.endswith('legacy_header'):referer='https://finance.sina.com.cn/'
     try:
         req=ur.Request(url,headers={'User-Agent':'Mozilla/5.0','Referer':referer})
         with ur.urlopen(req,timeout=10) as response:
             body=response.read(4_000_000)
+        if name=='szse_profiles':
+            ns={'s':'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
+            with zipfile.ZipFile(io.BytesIO(body)) as book:
+                strings=[]
+                if 'xl/sharedStrings.xml' in book.namelist():
+                    strings=[''.join(x.itertext()) for x in ET.fromstring(book.read('xl/sharedStrings.xml')).findall('s:si',ns)]
+                sheet=ET.fromstring(book.read('xl/worksheets/sheet1.xml'))
+                rows=[]
+                for row in sheet.findall('.//s:sheetData/s:row',ns):
+                    cells=[]
+                    for cell in row.findall('s:c',ns):
+                        value=cell.findtext('s:v',default='',namespaces=ns)
+                        if cell.get('t')=='s':value=strings[int(value)]
+                        elif cell.get('t')=='inlineStr':value=''.join(cell.itertext())
+                        cells.append([cell.get('r'),value])
+                    rows.append(cells)
+            entry={'name':name,'url':url,'ok':True,'bytes':len(body),'rows':len(rows),'first_rows':rows[:4],'last_rows':rows[-2:]}
+            print('PROBE '+json.dumps(entry,ensure_ascii=False),flush=True);return entry
         try:text=body.decode('utf-8-sig')
         except UnicodeDecodeError:text=body.decode('gb18030')
         entry={'name':name,'url':url,'ok':True,'bytes':len(body),'seconds':round(time.monotonic()-start,2),'prefix':text[:350]}
