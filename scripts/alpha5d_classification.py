@@ -49,13 +49,14 @@ def snapshot_memberships(snapshot):
     return result
 
 def published_snapshot():
-    candidates=sorted(set(Path('data/alpha5d/industry').glob('*.json'))|set((root()/'industry_snapshots').glob('*.json')),reverse=True)
+    candidates=set(Path('data/alpha5d/industry').glob('*.json'))|set((root()/'industry_snapshots').glob('*.json'))
+    valid=[]
     for file in candidates:
         try:
             saved=json.loads(file.read_text());members=snapshot_memberships(saved)
-            return members,saved,file
+            valid.append((members,saved,file))
         except (ValueError,KeyError,TypeError):continue
-    return None
+    return max(valid,key=lambda x:x[1]['observed_at']) if valid else None
 
 def root():
     return Path(sys.argv[sys.argv.index('--output')+1]) if '--output' in sys.argv else Path('data/alpha5d')
@@ -164,7 +165,8 @@ def live_industries(workers):
     snapshot={'schema':'eastmoney-level1-pages-v1','observed_at':p.now().isoformat(),'catalog_records':all_boards,
               'catalog_audit':board_audit,'boards':sorted(snapshots,key=lambda x:x['code'])}
     snapshot['boards_sha256']=p.sha(snapshot['boards']);snapshot_memberships(snapshot)
-    file=root()/'industry_snapshots'/(p.now().date().isoformat()+'.json');p.atomic(file,snapshot)
+    identity=dt.datetime.fromisoformat(snapshot['observed_at']).strftime('%Y-%m-%d-%H%M%S')+'-'+snapshot['boards_sha256'][:12]
+    file=root()/'industry_snapshots'/(identity+'.json');p.atomic(file,snapshot)
     LAST_INDUSTRY_AUDIT={'route':'live_provider_pages','snapshot_path':str(file),'observed_at':snapshot['observed_at'],'boards_sha256':snapshot['boards_sha256']}
     # Missing labels stay missing; base input validation names each affected
     # company instead of mixing a leaf profile into a first-level taxonomy.

@@ -23,6 +23,7 @@ jobs:
           path: |
             provider-probe.json
             provider-probe-industry.json
+            provider-probe-publication.json
           retention-days: 14
       - name: Persist independently inspectable complete industry pages
         run: |
@@ -38,12 +39,21 @@ jobs:
           if isinstance(universe,dict):universe=list(universe.values())
           required={r['symbol'] for r in universe if 'ST' not in r['name'].upper()}
           assert not required-set(members), sorted(required-set(members))[:20]
-          p.atomic(pathlib.Path('data/alpha5d/industry')/(data['observed_at'][:10]+'.json'),data)
+          import datetime as dt
+          identity=dt.datetime.fromisoformat(data['observed_at']).strftime('%Y-%m-%d-%H%M%S')+'-'+data['boards_sha256'][:12]
+          p.atomic(pathlib.Path('data/alpha5d/industry')/(identity+'.json'),data)
+          publication=pathlib.Path('provider-probe-publication.json')
+          if publication.exists():
+              observed=json.loads(publication.read_text())
+              assert len(observed['checks'])==5 and all(x['passed'] for x in observed['checks'])
+              name=dt.datetime.fromisoformat(observed['observed_at']).strftime('%Y-%m-%d-%H%M%S')+'-'+observed['input_sha256'][:12]+'.json'
+              p.atomic(pathlib.Path('data/alpha5d/publication_references')/name,observed)
           print('Verified industry coverage',len(required),'of',len(required))
           PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/alpha5d/industry
+          if [ -d data/alpha5d/publication_references ]; then git add data/alpha5d/publication_references; fi
           if ! git diff --cached --quiet; then
             git commit -m 'Preserve verified complete first-level industry source pages'
             git pull --rebase origin main

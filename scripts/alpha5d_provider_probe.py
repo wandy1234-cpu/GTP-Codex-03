@@ -107,7 +107,8 @@ def one(item):
         return entry
 
 def main():
-    with cf.ThreadPoolExecutor(max_workers=4) as pool:results=list(pool.map(one,SAMPLES.items()))
+    active={k:v for k,v in SAMPLES.items() if k in ('east_daily','sina_full_daily','sina_qfq','sina_corpinfo','sina_industry_https','east_industry','east_industry_82')}
+    with cf.ThreadPoolExecutor(max_workers=4) as pool:results=list(pool.map(one,active.items()))
     try:
         import alpha5d_classification as classification
         boards,audit=classification.page_list('m:90 t:2 f:!50')
@@ -123,6 +124,31 @@ def main():
         print('INDUSTRY_FULL '+json.dumps({'count':len(members),'url':url,
               'sample':{s:members.get(s) for s in ['sh600025','sh600901','sz000001','sz301999']}},ensure_ascii=False),flush=True)
     except Exception as error:print('INDUSTRY_ERROR '+type(error).__name__+': '+str(error),flush=True)
+    try:
+        import alpha5d_pipeline as p
+        import alpha5d_provider_resilience as resilient
+        status=json.loads(Path('data/alpha5d/pipeline_status.json').read_text())
+        if status.get('status')=='COMPLETE':
+            review=json.loads(Path(status['review_path']).read_text())
+            quotes=p.tencent([r['symbol'] for r in review['top5']]);checks=[]
+            for row in review['top5']:
+                symbol=row['symbol'];daily=resilient.sina_history(symbol,review['previous_session'],0)
+                bar=daily['bars'][-1];quote=quotes[symbol]
+                if bar['date']!=review['previous_session']:raise ValueError('Candidate independent daily date mismatch')
+                if abs(bar['close']/row['reference_raw_close']-1)>.005:raise ValueError('Candidate reference close mismatch '+symbol)
+                quote_date=quote['stamp'][:8]
+                if quote_date==review['previous_session'].replace('-',''):cross=quote['price']
+                elif quote_date==review['forecast_date'].replace('-',''):cross=quote['previous']
+                else:raise ValueError('Candidate Tencent date mismatch')
+                if quote['code']!=symbol[2:] or abs(cross/row['reference_raw_close']-1)>.005:raise ValueError('Candidate Tencent identity/close mismatch')
+                checks.append({'symbol':symbol,'name':row['name'],'reference_raw_close':row['reference_raw_close'],
+                    'independent_daily_close':bar['close'],'independent_daily_bar':bar,'daily_source_url':daily['source_url'],
+                    'quote':quote,'passed':True})
+            p.atomic('provider-probe-publication.json',{'schema':'alpha5d-publication-references-v1','observed_at':p.now().isoformat(),
+                'ranking_path':status['ranking_path'],'input_sha256':review['input_sha256'],'previous_session':review['previous_session'],
+                'forecast_date':review['forecast_date'],'checks':checks,'not_execution_fill':True})
+            print('CANDIDATE_CHECKS '+json.dumps({'passed':len(checks),'quotes':[{'symbol':x['symbol'],'stamp':x['quote']['stamp'],'price':x['quote']['price']} for x in checks]},ensure_ascii=False),flush=True)
+    except Exception as error:print('CANDIDATE_CHECK_ERROR '+type(error).__name__+': '+str(error),flush=True)
     Path('provider-probe.json').write_text(json.dumps({'generated_at':dt.datetime.now(dt.timezone.utc).isoformat(),'results':results},ensure_ascii=False,indent=2))
 
 if __name__=='__main__':main()
