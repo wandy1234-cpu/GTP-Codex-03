@@ -1,6 +1,6 @@
 {
-  "adapter_version": "alpha5d-pipeline-1.1.1",
-  "started_at": "2026-11-03T09:00:07.337255+08:00",
+  "adapter_version": "alpha5d-pipeline-1.1.2",
+  "started_at": "2026-11-03T09:14:22.075481+08:00",
   "forecast_date": "2026-11-03",
   "previous_session": "2026-11-02",
   "sessions": [
@@ -103,8 +103,7 @@
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=21&num=100&sort=symbol&asc=1&node=sh_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=22&num=100&sort=symbol&asc=1&node=sh_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=23&num=100&sort=symbol&asc=1&node=sh_a",
-        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=24&num=100&sort=symbol&asc=1&node=sh_a",
-        "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29"
+        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=24&num=100&sort=symbol&asc=1&node=sh_a"
       ]
     },
     "sz_a": {
@@ -206,9 +205,7 @@
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=27&num=100&sort=symbol&asc=1&node=sz_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=28&num=100&sort=symbol&asc=1&node=sz_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=29&num=100&sort=symbol&asc=1&node=sz_a",
-        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=30&num=100&sort=symbol&asc=1&node=sz_a",
-        "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29",
-        "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29"
+        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=30&num=100&sort=symbol&asc=1&node=sz_a"
       ]
     }
   },
@@ -368,13 +365,37 @@
       "sz002129",
       "sz002717"
     ],
-    "complete": true
+    "complete": true,
+    "forecast_session": "2026-11-03",
+    "known_forecast_whole_session_codes": [
+      "sh601326",
+      "sh688121",
+      "sh688496",
+      "sz000831",
+      "sz000972",
+      "sz002129",
+      "sz002623",
+      "sz002717"
+    ]
   },
-  "history_success": 5025,
+  "history_success": 5023,
   "history_missing": {},
-  "error": "ValueError: INPUT_INCOMPLETE: ['sh600025: missing industry membership', 'sh600032: missing industry membership', 'sh600071: missing industry membership', 'sh600158: missing industry membership', 'sh600392: missing industry membership', 'sh600661: missing industry membership', 'sh600679: missing industry membership', 'sh600901: missing industry membership', 'sh600903: missing industry membership', 'sh600905: missing industry membership', 'sh600906: missing industry membership', 'sh600908: missing industry membership', 'sh600909: missing industry membership', 'sh600916: missing industry membership', 'sh600918: missing industry membership', 'sh600919: missing industry membership', 'sh600925: missing industry membership', 'sh600926: missing industry membership', 'sh600927: missing industry membership', 'sh600928: missing industry membership']",
+  "industry_source_audit": {
+    "required_codes": 4999,
+    "attempts": [
+      {
+        "source": "Eastmoney first-level industry",
+        "error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
+      },
+      {
+        "source": "Sina industry",
+        "error": "Industry map incomplete: 2618 missing; first=['sh600025', 'sh600032', 'sh600071', 'sh600158', 'sh600392', 'sh600661', 'sh600679', 'sh600901', 'sh600903', 'sh600905', 'sh600906', 'sh600908', 'sh600909', 'sh600916', 'sh600918', 'sh600919', 'sh600925', 'sh600926', 'sh600927', 'sh600928']"
+      }
+    ]
+  },
+  "error": "ValueError: All coherent industry sources incomplete: [{\"source\": \"Eastmoney first-level industry\", \"error\": \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\"}, {\"source\": \"Sina industry\", \"error\": \"Industry map incomplete: 2618 missing; first=['sh600025', 'sh600032', 'sh600071', 'sh600158', 'sh600392', 'sh600661', 'sh600679', 'sh600901', 'sh600903', 'sh600905', 'sh600906', 'sh600908', 'sh600909', 'sh600916', 'sh600918', 'sh600919', 'sh600925', 'sh600926', 'sh600927', 'sh600928']\"}]",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-03T09:00:45.880334+08:00",
+  "ended_at": "2026-11-03T09:14:35.081401+08:00",
   "retrieval_progress": {
     "attempted": 0,
     "succeeded": 0,
@@ -383,10 +404,10 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-03T09:00:45.881207+08:00"
+    "recorded_at": "2026-11-03T09:14:35.082203+08:00"
   },
   "cached_history_files": 5028,
-  "workflow_run_id": "41556721691",
-  "evidence_artifact_name": "alpha5d-public-evidence-41556721691",
-  "persisted_at": "2026-11-03T01:01:00.235084+00:00"
+  "workflow_run_id": "41558358763",
+  "evidence_artifact_name": "alpha5d-public-evidence-41558358763",
+  "persisted_at": "2026-11-03T01:14:50.026283+00:00"
 }
