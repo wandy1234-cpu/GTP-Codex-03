@@ -1,6 +1,6 @@
 {
-  "adapter_version": "alpha5d-pipeline-1.1.0",
-  "started_at": "2026-11-03T08:53:05.484017+08:00",
+  "adapter_version": "alpha5d-pipeline-1.1.1",
+  "started_at": "2026-11-03T09:00:07.337255+08:00",
   "forecast_date": "2026-11-03",
   "previous_session": "2026-11-02",
   "sessions": [
@@ -103,7 +103,8 @@
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=21&num=100&sort=symbol&asc=1&node=sh_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=22&num=100&sort=symbol&asc=1&node=sh_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=23&num=100&sort=symbol&asc=1&node=sh_a",
-        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=24&num=100&sort=symbol&asc=1&node=sh_a"
+        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=24&num=100&sort=symbol&asc=1&node=sh_a",
+        "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29"
       ]
     },
     "sz_a": {
@@ -205,31 +206,187 @@
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=27&num=100&sort=symbol&asc=1&node=sz_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=28&num=100&sort=symbol&asc=1&node=sz_a",
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=29&num=100&sort=symbol&asc=1&node=sz_a",
-        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=30&num=100&sort=symbol&asc=1&node=sz_a"
+        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=30&num=100&sort=symbol&asc=1&node=sz_a",
+        "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29",
+        "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29"
       ]
     }
   },
   "session_halt_audit": {
-    "complete": false,
-    "error": "Dated halt report unavailable: filter参数必须包含MARKET"
+    "security_date": "2026-11-02",
+    "source_urls": [
+      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-02%27%29"
+    ],
+    "rows": 10,
+    "provider_rows": [
+      {
+        "SECURITY_CODE": "688121",
+        "SECURITY_NAME_ABBR": "*ST卓然",
+        "SUSPEND_START_TIME": "2026-10-29 09:30:00",
+        "SUSPEND_END_TIME": null,
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "上交所科创板",
+        "SUSPEND_START_DATE": "2026-10-29 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001001006",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "688121.SH"
+      },
+      {
+        "SECURITY_CODE": "605258",
+        "SECURITY_NAME_ABBR": "协和电子",
+        "SUSPEND_START_TIME": "2026-10-26 09:30:00",
+        "SUSPEND_END_TIME": "2026-10-30 15:00:00",
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "上交所主板",
+        "SUSPEND_START_DATE": "2026-10-26 00:00:00",
+        "PREDICT_RESUME_DATE": "2026-11-02 00:00:00",
+        "TRADE_MARKET_CODE": "069001001001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "605258.SH"
+      },
+      {
+        "SECURITY_CODE": "688496",
+        "SECURITY_NAME_ABBR": "*ST清越",
+        "SUSPEND_START_TIME": "2026-09-11 09:30:00",
+        "SUSPEND_END_TIME": null,
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "上交所科创板",
+        "SUSPEND_START_DATE": "2026-09-11 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001001006",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "688496.SH"
+      },
+      {
+        "SECURITY_CODE": "002623",
+        "SECURITY_NAME_ABBR": "亚玛顿",
+        "SUSPEND_START_TIME": "2026-11-03 09:30:00",
+        "SUSPEND_END_TIME": null,
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "深交所主板",
+        "SUSPEND_START_DATE": "2026-11-03 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001002001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "002623.SZ"
+      },
+      {
+        "SECURITY_CODE": "002717",
+        "SECURITY_NAME_ABBR": "*ST岭南",
+        "SUSPEND_START_TIME": "2026-10-13 09:30:00",
+        "SUSPEND_END_TIME": null,
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "深交所风险警示板",
+        "SUSPEND_START_DATE": "2026-10-13 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001002005",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "002717.SZ"
+      },
+      {
+        "SECURITY_CODE": "002827",
+        "SECURITY_NAME_ABBR": "高争民爆",
+        "SUSPEND_START_TIME": "2026-10-26 09:30:00",
+        "SUSPEND_END_TIME": "2026-10-30 15:00:00",
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "拟筹划重大资产重组",
+        "TRADE_MARKET": "深交所主板",
+        "SUSPEND_START_DATE": "2026-10-26 00:00:00",
+        "PREDICT_RESUME_DATE": "2026-11-02 00:00:00",
+        "TRADE_MARKET_CODE": "069001002001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "002827.SZ"
+      },
+      {
+        "SECURITY_CODE": "000831",
+        "SECURITY_NAME_ABBR": "中国稀土",
+        "SUSPEND_START_TIME": "2026-11-02 09:30:00",
+        "SUSPEND_END_TIME": "2026-11-13 15:00:00",
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "拟筹划重大资产重组",
+        "TRADE_MARKET": "深交所主板",
+        "SUSPEND_START_DATE": "2026-11-02 00:00:00",
+        "PREDICT_RESUME_DATE": "2026-11-16 00:00:00",
+        "TRADE_MARKET_CODE": "069001002001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "000831.SZ"
+      },
+      {
+        "SECURITY_CODE": "000972",
+        "SECURITY_NAME_ABBR": "中基健康",
+        "SUSPEND_START_TIME": "2026-11-03 09:30:00",
+        "SUSPEND_END_TIME": "2026-11-03 15:00:00",
+        "SUSPEND_EXPIRE": "停牌一天",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "深交所主板",
+        "SUSPEND_START_DATE": "2026-11-03 00:00:00",
+        "PREDICT_RESUME_DATE": "2026-11-04 00:00:00",
+        "TRADE_MARKET_CODE": "069001002001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "000972.SZ"
+      },
+      {
+        "SECURITY_CODE": "601326",
+        "SECURITY_NAME_ABBR": "秦港股份",
+        "SUSPEND_START_TIME": "2026-10-21 09:30:00",
+        "SUSPEND_END_TIME": null,
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "拟筹划重大资产重组",
+        "TRADE_MARKET": "上交所主板",
+        "SUSPEND_START_DATE": "2026-10-21 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001001001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "601326.SH"
+      },
+      {
+        "SECURITY_CODE": "002129",
+        "SECURITY_NAME_ABBR": "TCL中环",
+        "SUSPEND_START_TIME": "2026-11-02 09:30:00",
+        "SUSPEND_END_TIME": "2026-11-13 15:00:00",
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "拟筹划重大资产重组",
+        "TRADE_MARKET": "深交所主板",
+        "SUSPEND_START_DATE": "2026-11-02 00:00:00",
+        "PREDICT_RESUME_DATE": "2026-11-16 00:00:00",
+        "TRADE_MARKET_CODE": "069001002001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "002129.SZ"
+      }
+    ],
+    "whole_session_nontrading_codes": [
+      "sh601326",
+      "sh688121",
+      "sh688496",
+      "sz000831",
+      "sz002129",
+      "sz002717"
+    ],
+    "complete": true
   },
-  "history_success": 5028,
+  "history_success": 5025,
   "history_missing": {},
-  "error": "ValueError: INPUT_INCOMPLETE: ['sh601326: last daily bar stale (suspension not yet independently verified)', 'sz000831: last daily bar stale (suspension not yet independently verified)', 'sz002129: last daily bar stale (suspension not yet independently verified)']",
+  "error": "ValueError: INPUT_INCOMPLETE: ['sh600025: missing industry membership', 'sh600032: missing industry membership', 'sh600071: missing industry membership', 'sh600158: missing industry membership', 'sh600392: missing industry membership', 'sh600661: missing industry membership', 'sh600679: missing industry membership', 'sh600901: missing industry membership', 'sh600903: missing industry membership', 'sh600905: missing industry membership', 'sh600906: missing industry membership', 'sh600908: missing industry membership', 'sh600909: missing industry membership', 'sh600916: missing industry membership', 'sh600918: missing industry membership', 'sh600919: missing industry membership', 'sh600925: missing industry membership', 'sh600926: missing industry membership', 'sh600927: missing industry membership', 'sh600928: missing industry membership']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-03T08:54:16.905889+08:00",
+  "ended_at": "2026-11-03T09:00:45.880334+08:00",
   "retrieval_progress": {
-    "attempted": 31,
-    "succeeded": 31,
+    "attempted": 0,
+    "succeeded": 0,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-03T08:54:16.906679+08:00"
+    "recorded_at": "2026-11-03T09:00:45.881207+08:00"
   },
   "cached_history_files": 5028,
-  "workflow_run_id": "41555963209",
-  "evidence_artifact_name": "alpha5d-public-evidence-41555963209",
-  "persisted_at": "2026-11-03T00:54:33.575448+00:00"
+  "workflow_run_id": "41556721691",
+  "evidence_artifact_name": "alpha5d-public-evidence-41556721691",
+  "persisted_at": "2026-11-03T01:01:00.235084+00:00"
 }
