@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-03T23:21:39.820763+08:00",
+  "started_at": "2026-11-04T13:42:41.371330+08:00",
   "forecast_date": "2026-11-04",
   "previous_session": "2026-11-03",
   "sessions": [
@@ -18,7 +18,7 @@
     "captured_at": "2026-11-03T22:53:26.700349+08:00",
     "sha256": "c67d9aa10bcb8853433c4b51129cc6b6e8a76c4e3a405408365dad22f8279dee",
     "frozen_samples_verified": 20,
-    "source": "data/universe_latest.json"
+    "source": "data/alpha5d/market/2026-11-03.json"
   },
   "raw_count": 5223,
   "coverage": {
@@ -293,10 +293,10 @@
         "SUSPEND_END_TIME": "2026-11-03 15:00:00",
         "SUSPEND_EXPIRE": "停牌一天",
         "SUSPEND_REASON": "刊登重要公告",
-        "TRADE_MARKET": "深交所主板",
+        "TRADE_MARKET": "深交所风险警示板",
         "SUSPEND_START_DATE": "2026-11-03 00:00:00",
         "PREDICT_RESUME_DATE": "2026-11-04 00:00:00",
-        "TRADE_MARKET_CODE": "069001002001",
+        "TRADE_MARKET_CODE": "069001002005",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "000972.SZ"
       },
@@ -375,27 +375,28 @@
     "covered_required_codes": 4999,
     "membership_count": 5223,
     "snapshot": {
-      "route": "verified_published_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-03-091935-906d0543291c.json",
+      "route": "verified_recent_snapshot",
+      "snapshot_path": "data/alpha5d/industry/2026-11-03.json",
       "observed_at": "2026-11-03T09:19:35.894714+08:00",
-      "boards_sha256": "906d0543291c468aa2bf37978ba70f47c0fed41403e1995dc5f7f3741a441418"
+      "boards_sha256": "906d0543291c468aa2bf37978ba70f47c0fed41403e1995dc5f7f3741a441418",
+      "live_error": "Current level1 industry membership incomplete: [\"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\", \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']\"]"
     }
   },
   "error": "ValueError: INPUT_INCOMPLETE: ['sz001232: fewer than61 bars for established listing']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-03T23:23:02.787148+08:00",
+  "ended_at": "2026-11-04T13:45:25.565136+08:00",
   "retrieval_progress": {
-    "attempted": 26,
-    "succeeded": 26,
+    "attempted": 0,
+    "succeeded": 0,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-03T23:23:02.787968+08:00"
+    "recorded_at": "2026-11-04T13:45:25.566244+08:00"
   },
   "cached_history_files": 5024,
-  "workflow_run_id": "41662999643",
-  "evidence_artifact_name": "alpha5d-public-evidence-41662999643",
-  "persisted_at": "2026-11-03T15:23:21.155449+00:00"
+  "workflow_run_id": "41780872641",
+  "evidence_artifact_name": "alpha5d-public-evidence-41780872641",
+  "persisted_at": "2026-11-04T05:45:43.228351+00:00"
 }
