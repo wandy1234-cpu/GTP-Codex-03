@@ -1,6 +1,6 @@
 {
   "schema_version": "2.6.0",
-  "retrieved_at_beijing": "2026-11-04T15:44:58.647140+08:00",
+  "retrieved_at_beijing": "2026-11-04T16:17:30.528559+08:00",
   "raw_url": "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData?page=1&num=20&sort=position&asc=0&node=zzgz_qh&base=futures",
   "single_response": [
     {
@@ -129,7 +129,9 @@
       "prevsettlement": "5979.80"
     }
   ],
-  "errors": [],
+  "errors": [
+    "URLError: <urlopen error _ssl.c:1063: The handshake operation timed out>"
+  ],
   "cffex_identity_verified": false,
   "roll_action_allowed": false,
   "note": "Raw evidence only. Agent must verify CFFEX listed identities, contemporaneous bids/asks and net >=4% gate."
