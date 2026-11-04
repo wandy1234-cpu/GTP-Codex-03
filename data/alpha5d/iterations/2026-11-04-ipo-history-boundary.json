@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-04",
+  "change_id": "ipo-60-61-history-boundary",
+  "status": "PROPOSED",
+  "category": "A_INPUT_CONTRACT_EDGE_CASE",
+  "user_goal": "formal Alpha5d five-session ranking from full eligible universe",
+  "facts": {
+    "pipeline_status_sha": "92f99fdca48082a476860a2ecb6248e0d53d4045",
+    "receipt_sha": "1181b6f376589e1c6bdbeb2d1992f3968b7ee46c",
+    "workflow_run_id": "41662999643",
+    "forecast_date": "2026-11-04",
+    "previous_session": "2026-11-03",
+    "run_started": "2026-11-03T23:21:39.820763+08:00",
+    "ranker_version": "V8.0-bootstrap-1",
+    "raw_codes": 5223,
+    "history_success": 5024,
+    "history_missing": 0,
+    "industry_required": 4999,
+    "industry_covered": 4999,
+    "full_rank": "NOT_CREATED",
+    "error": "ValueError: INPUT_INCOMPLETE: ['sz001232: fewer than61 bars for established listing']",
+    "security": "001232.SZ 嘉立创",
+    "listing_date": "2026-08-04",
+    "listing_source": "https://www.szse.cn/aboutus/trends/news/t20260804_621999.html",
+    "calendar_sessions_count_research": "66 weekdays inclusive minus 6 known exchange holidays = 60 sessions through 2026-11-03; require independent official calendar confirmation before implementation"
+  },
+  "root_cause_hypothesis": "Policy listing_lt_60_sessions excludes only <60-session listings, yet ranker requires >=61 real daily bars for every eligible stock; exactly-60-day IPO creates unrankable eligible row.",
+  "do_not_do": [
+    "do not silently mark as listing_lt_60_sessions",
+    "do not fabricate 61st OHLCV amount bar",
+    "do not delete sz001232 from universe as generic missing data",
+    "do not reuse 2026-11-03 late Top5 as current publication"
+  ],
+  "proposed_action": "Audit listing-session count against official SZSE calendar and separately audit as-of bar sequence; reconcile explicit <=60 listing exclusion versus >=61 bar contract in a controlled code-and-contract version with regression, or defer full publication until a legitimate 61st bar exists; preserve original failure.",
+  "expected_improvement": "current-day production input completeness without unverifiable exclusions; formal rank only after full gate pass",
+  "possible_side_effects": [
+    "changing eligible-universe filter alters backtest base population",
+    "premature IPO exclusion creates survivorship bias",
+    "holiday count, suspension, and bar counts may differ"
+  ],
+  "code_changed": false,
+  "model_weights_changed": false,
+  "unit_tests_run": false,
+  "production_rank_verified": false,
+  "created_reason": "2026-11-04 premarket independent audit; no simulated ranking or returns"
+}
