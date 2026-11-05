@@ -1,0 +1,144 @@
+{
+  "schema": "alpha5d-publication-review-v1",
+  "forecast_date": "2026-11-05",
+  "previous_session": "2026-11-04",
+  "created_at_observed": "2026-11-05T08:55:46+08:00",
+  "ranking_generated_at": "2026-11-05T08:50:55.262451+08:00",
+  "run_kind": "late_research",
+  "is_0850_live_prediction": false,
+  "original_0850_report_status": "NO RANK",
+  "ranking_health": "COMPLETE",
+  "publication_state": "PUBLISHED_RESEARCH_LATE",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-05-late-085450.json",
+  "review_path": "data/alpha5d/runs/20261105T084147/review.json",
+  "ranking_path": "data/alpha5d/runs/20261105T084147/ranking.json",
+  "ranking_blob_sha": "d7231bcd8c6d0b0dfeb0031d840fa291fe79d67b",
+  "review_blob_sha": "8fbfed8f079f201358858979dc2f95993381ffd8",
+  "input_sha256": "9e611bb624d14a2a8515a12c2ffe574edb3dc37659d8837c6ee93ee407f23822",
+  "model_version": "V8.0-bootstrap-1",
+  "data_commit": "1a8e7aa45c5abf702d0b7fa0f9149dec99474efe",
+  "industry_source": "Eastmoney full first-level 31 boards, not Shenwan",
+  "industry_public_at": "2026-11-05T08:50:53.235065+08:00",
+  "industry_necessary_covered": 5001,
+  "industry_necessary_total": 5001,
+  "samples": 20,
+  "ranking_eligible_codes": 3893,
+  "top5": [
+    {
+      "rank": 1,
+      "symbol": "sz300529",
+      "name": "健帆生物",
+      "score": 85.33408273,
+      "sector": "医药生物",
+      "reference_raw_close": 19.6,
+      "catalyst_points": 0,
+      "earnings_points": 0
+    },
+    {
+      "rank": 2,
+      "symbol": "sh688443",
+      "name": "智翔金泰",
+      "score": 84.88962835,
+      "sector": "医药生物",
+      "reference_raw_close": 26.9,
+      "catalyst_points": 0,
+      "earnings_points": 0
+    },
+    {
+      "rank": 3,
+      "symbol": "sz300426",
+      "name": "华智数媒",
+      "score": 84.61886108,
+      "sector": "传媒",
+      "reference_raw_close": 10.35,
+      "catalyst_points": 0,
+      "earnings_points": 0
+    },
+    {
+      "rank": 4,
+      "symbol": "sh603777",
+      "name": "来伊份",
+      "score": 83.89979445,
+      "sector": "食品饮料",
+      "reference_raw_close": 14.5,
+      "catalyst_points": 0,
+      "earnings_points": 0
+    },
+    {
+      "rank": 5,
+      "symbol": "sz002928",
+      "name": "华夏航空",
+      "score": 83.8061408,
+      "sector": "交通运输",
+      "reference_raw_close": 6.66,
+      "catalyst_points": 0,
+      "earnings_points": 0
+    }
+  ],
+  "top20_codes": [
+    "sz300529",
+    "sh688443",
+    "sz300426",
+    "sh603777",
+    "sz002928",
+    "sz300315",
+    "sz300122",
+    "sz300827",
+    "sh601111",
+    "sz002945",
+    "sh600763",
+    "sh600211",
+    "sz002946",
+    "sh600757",
+    "sh603955",
+    "sz300788",
+    "sh601156",
+    "sz000415",
+    "sh603713",
+    "sh601021"
+  ],
+  "sector_review": {
+    "nov4_secondary_top": "semiconductors; precious metals; electronic chemicals",
+    "level1_direction": "electronics, communications, nonferrous strong; food/beverage and banks weak",
+    "caveat": "Top20 score does not contain prior-session fastest semiconductor/metal leaders, an important potential factor lag / missed-winner challenge, NOT reason to replace model output by hand.",
+    "formal_sw31_full_precision": "UNVERIFIED; never conflate Dongcai classification with Shenwan"
+  },
+  "announcement_review": [
+    {
+      "stock": "sh688443",
+      "first_public_date": "2026-11-04",
+      "source": "https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/688443.phtml",
+      "fact": "泰利奇拜单抗 priority review list; not marketing authorization",
+      "points": "0 fixed in actual rank; event not retroactively credited"
+    },
+    {
+      "stock": "sz300426",
+      "first_public_date": "2026-11-03",
+      "source": "https://www.nbd.com.cn/articles/2026-11-03/4636361.html",
+      "fact": "AI film/interactive product integration still in deployment stage; trading risk alert",
+      "points": "0"
+    },
+    {
+      "stock": "sh603777",
+      "first_public_date": "2026-10-30",
+      "source": "https://market.weidn.com/cn/company/a/603777/",
+      "fact": "9m net earnings negative; no verified new profits",
+      "points": "0"
+    },
+    {
+      "stock": "sz002928",
+      "first_public_date": "2026-11-04 US close / 2026-11-05 Beijing before 08:50",
+      "source": "https://www.reuters.com/business/energy/oil-edges-down-investors-await-us-midterm-election-results-2026-11-04/",
+      "fact": "Oil collapse helps aviation fuel-cost narrative but no verified company-specific profit impact",
+      "points": "0"
+    }
+  ],
+  "delivery": {
+    "research_selection_count": 5,
+    "execution": "WAIT; no genuine fills",
+    "actual_delivery_time": "UNVERIFIED",
+    "do_not_credit_prepublication_returns": true,
+    "post_publication_performance": "PENDING_D5"
+  },
+  "audit": "This record is an independent after-cutoff publication; prior frozen forecast result remains 0/5. All model scores unchanged. Missing full direct ranking file read due oversized transport; review and commit SHA read."
+}
