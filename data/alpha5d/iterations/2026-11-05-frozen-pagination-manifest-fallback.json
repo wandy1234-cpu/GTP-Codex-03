@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-05",
+  "issue_id": "frozen-pagination-provenance-missing",
+  "scope": "public-data adapter only",
+  "category": "DataCoverage",
+  "status": "已编码；新回归测试步骤已通过；全量生产尚未验收",
+  "evidence": {
+    "forecast_date": "2026-11-05",
+    "previous_session": "2026-11-04",
+    "failed_workflow_run_id": 41859019092,
+    "failed_run": "data/alpha5d/runs/20261104T233405/receipt.json",
+    "status_sha": "8f501fe8b36f091426aef0abb471f9c2093d59c0",
+    "error": "ValueError: Frozen pagination evidence incomplete",
+    "relevant_code": "scripts/alpha5d_provider_resilience.py:frozen_universe",
+    "independent_market_source": "data/universe_summary.json",
+    "source_security_date": "2026-11-04",
+    "source_unique_count": 5223,
+    "observed_source_issue": "Frozen market snapshot lacked inspectable original page URLs, while separate market relay independently reported a complete 54-page close. Do not equate summary counts with original page receipt proof."
+  },
+  "change": {
+    "source_commit": "1a8e7aa45c5abf702d0b7fa0f9149dec99474efe",
+    "tests_commit": "7f992e52091ebcd9aedea78226c30ea16ae974b2",
+    "behavior": "Missing page URL provenance: reject frozen shortcut and retry independently paged original Sina market source; actually missing pages or wrong dates remain hard failures. Never fabricate original page URLs."
+  },
+  "expected_metric": "future 08:50 production ranking delivery coverage and verified full-page evidence rate",
+  "possible_side_effects": "Fresh 54-page collection may increase source calls, time, timeout risk; provider limits may still block rankings.",
+  "test_evidence": "At 2026-11-05 around 08:42 Github Actions workflow 41943187181 regression tests step succeeded; full collection still running. Workflow 41943232816 pending. Software test is not production acceptance or market alpha.",
+  "model_weights_changed": false,
+  "sample_out_of_time_validation": "NOT_DONE",
+  "shadow_results": "NOT_DONE",
+  "live_market_rank": "INCOMPLETE at record time",
+  "public_only": true
+}
