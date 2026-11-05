@@ -132,6 +132,14 @@ class FrozenPreviousClose(unittest.TestCase):
     def test_raw_mismatch_cannot_pass_a_green_marker(self):
         data=self.dataset();next(iter(data['records'].values()))['trade']='9.00'
         with self.assertRaises(ValueError):self.call(data)
+    def test_missing_frozen_page_url_manifest_requires_fresh_page_collection(self):
+        data=self.dataset();data['source_requests']=[]
+        # Absence of original page URL receipts never authenticates a frozen
+        # snapshot. A None result routes the pipeline into full fresh paging.
+        self.assertIsNone(self.call(data))
+    def test_missing_actual_page_still_fails_closed(self):
+        data=self.dataset();data['nodes']['sh_a']['successful_pages']=[]
+        with self.assertRaises(ValueError):self.call(data)
     def test_wrong_security_date_not_reused(self):
         data=self.dataset();data['frozen_verification']['security_date']='20261030'
         self.assertIsNone(self.call(data))
