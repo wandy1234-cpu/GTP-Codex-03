@@ -213,7 +213,14 @@ def frozen_universe(asof):
     for node,prefix in [('sh_a','sh'),('sz_a','sz')]:
         meta=data['nodes'][node];group=[r for r in records if r['symbol'].startswith(prefix)];last=meta['terminal_page']
         urls=[item['url'] for item in data.get('source_requests',[]) if up.parse_qs(up.urlparse(item['url']).query).get('node')==[node] and not item.get('errors')]
-        if len(group)!=meta['raw_row_count'] or meta.get('missing_pages') or meta['successful_pages']!=list(range(1,last+1)) or len(urls)!=last:raise ValueError('Frozen pagination evidence incomplete')
+        if len(group)!=meta['raw_row_count'] or meta.get('missing_pages') or meta['successful_pages']!=list(range(1,last+1)):
+            raise ValueError('Frozen pagination evidence incomplete')
+        if len(urls)!=last:
+            # Snapshot lacks inspectable original page URLs. Never certify it;
+            # fall back to independent dated, full-page provider collection.
+            # The caller's pagination, date, sample and factor gates remain intact.
+            print('FROZEN_SOURCE_REJECTED: pagination source URL evidence missing; collecting fresh full pages',flush=True)
+            return None
         for row in group:row['_security_date']=asof
         cover[node]={'successful_pages':meta['successful_pages'],'terminal_page':last,'terminal_verified':True,'missing_pages':[],
                      'raw_rows':len(group),'page_counts':[100]*(last-1)+[len(group)-100*(last-1)],'source_urls':urls}
