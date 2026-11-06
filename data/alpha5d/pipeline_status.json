@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-05T23:38:37.472988+08:00",
+  "started_at": "2026-11-06T08:34:56.473337+08:00",
   "forecast_date": "2026-11-06",
   "previous_session": "2026-11-05",
   "sessions": [
@@ -12,7 +12,7 @@
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
   "status": "INCOMPLETE",
-  "run_kind": "late_research",
+  "run_kind": "prefetch",
   "market_snapshot_audit": {
     "security_date": "2026-11-05",
     "captured_at": "2026-11-05T23:13:29.156700+08:00",
@@ -265,10 +265,10 @@
         "SUSPEND_END_TIME": "2026-11-05 15:00:00",
         "SUSPEND_EXPIRE": "停牌一天",
         "SUSPEND_REASON": "刊登重要公告",
-        "TRADE_MARKET": "深交所风险警示板",
+        "TRADE_MARKET": "深交所创业板",
         "SUSPEND_START_DATE": "2026-11-05 00:00:00",
         "PREDICT_RESUME_DATE": "2026-11-06 00:00:00",
-        "TRADE_MARKET_CODE": "069001002005",
+        "TRADE_MARKET_CODE": "069001002002",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "300237.SZ"
       },
@@ -335,66 +335,39 @@
       "sz002717"
     ]
   },
-  "history_success": 4998,
-  "history_missing": {
-    "sh603448": "sh603448: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh688826": "sh688826: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh688835": "sh688835: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh603468": "sh603468: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh603511": "sh603511: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 426)\"}]",
-    "sh603858": "sh603858: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: URLError: <urlopen error _ssl.c:1063: The handshake operation timed out>\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 607)\"}]",
-    "sh601123": "sh601123: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh688801": "sh688801: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: URLError: <urlopen error _ssl.c:1063: The handshake operation timed out>\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz001246": "sz001246: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh601091": "sh601091: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz001381": "sz001381: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301569": "sz301569: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301660": "sz301660: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301655": "sz301655: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301686": "sz301686: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh688837": "sh688837: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301688": "sz301688: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301699": "sz301699: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301689": "sz301689: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301697": "sz301697: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301707": "sz301707: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301716": "sz301716: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301717": "sz301717: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh688828": "sh688828: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz301718": "sz301718: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sh688836": "sh688836: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: URLError: <urlopen error _ssl.c:1063: The handshake operation timed out>\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 111)\"}]",
-    "sz000967": "sz000967: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 1057)\"}]"
-  },
+  "history_success": 5025,
+  "history_missing": {},
   "industry_source_audit": {
-    "required_codes": 4998,
+    "required_codes": 5001,
     "attempts": [],
     "classification": "Eastmoney first-level industry",
     "fallback": false,
     "source_url": "https://82.push2.eastmoney.com/api/qt/clist/get?pn=1&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A2+f%3A%2150&fields=f12%2Cf13%2Cf14",
-    "covered_required_codes": 4998,
+    "covered_required_codes": 5001,
     "membership_count": 5224,
     "snapshot": {
-      "route": "verified_published_snapshot",
+      "route": "verified_recent_snapshot",
       "snapshot_path": "data/alpha5d/industry/2026-11-05-085355-94d1cb7a10ec.json",
       "observed_at": "2026-11-05T08:53:55.834019+08:00",
-      "boards_sha256": "94d1cb7a10ecf1a193ef059c4a8f62d93d59f52f73d901dd71c4b40d0be49f1f"
+      "boards_sha256": "94d1cb7a10ecf1a193ef059c4a8f62d93d59f52f73d901dd71c4b40d0be49f1f",
+      "live_error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
     }
   },
-  "error": "ValueError: INPUT_INCOMPLETE: ['sh603468: daily history not available for established listing', 'sh603511: daily history not available for established listing', 'sh603858: daily history not available for established listing', 'sz000967: daily history not available for established listing']",
+  "error": "ValueError: INPUT_INCOMPLETE: ['sh603468: fewer than61 bars for established listing']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-05T23:40:36.463666+08:00",
+  "ended_at": "2026-11-06T08:35:59.533008+08:00",
   "retrieval_progress": {
     "attempted": 27,
-    "succeeded": 0,
-    "failed": 27,
-    "consecutive_failures": 27,
+    "succeeded": 27,
+    "failed": 0,
+    "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
-    "last_error": "sz000967: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: RemoteDisconnected: Remote end closed connection without response\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 1057)\"}]",
-    "recorded_at": "2026-11-05T23:40:36.464497+08:00"
+    "last_error": null,
+    "recorded_at": "2026-11-06T08:35:59.534668+08:00"
   },
-  "cached_history_files": 4998,
+  "cached_history_files": 5025,
   "workflow_run_id": "42056957964",
   "evidence_artifact_name": "alpha5d-public-evidence-42056957964",
-  "persisted_at": "2026-11-05T15:40:50.840071+00:00"
+  "persisted_at": "2026-11-06T00:36:13.091560+00:00"
 }
