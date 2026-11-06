@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-06T08:34:56.473337+08:00",
+  "started_at": "2026-11-06T13:56:19.704089+08:00",
   "forecast_date": "2026-11-06",
   "previous_session": "2026-11-05",
   "sessions": [
@@ -12,13 +12,13 @@
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
   "status": "INCOMPLETE",
-  "run_kind": "prefetch",
+  "run_kind": "late_research",
   "market_snapshot_audit": {
     "security_date": "2026-11-05",
     "captured_at": "2026-11-05T23:13:29.156700+08:00",
     "sha256": "b48d62239a47c2e7e42e80d91ba035613eec6b92226ff91e73a0e8a8016b2e5a",
     "frozen_samples_verified": 20,
-    "source": "data/universe_latest.json"
+    "source": "data/alpha5d/market/2026-11-05.json"
   },
   "raw_count": 5223,
   "coverage": {
@@ -346,16 +346,15 @@
     "covered_required_codes": 5001,
     "membership_count": 5224,
     "snapshot": {
-      "route": "verified_recent_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-05-085355-94d1cb7a10ec.json",
-      "observed_at": "2026-11-05T08:53:55.834019+08:00",
-      "boards_sha256": "94d1cb7a10ecf1a193ef059c4a8f62d93d59f52f73d901dd71c4b40d0be49f1f",
-      "live_error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
+      "route": "live_provider_pages",
+      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-06-135707-aafcd4517be1.json",
+      "observed_at": "2026-11-06T13:57:07.777011+08:00",
+      "boards_sha256": "aafcd4517be1af5d0da55f02a6f2a1aa52042cc032779dd35121fed516d5c7d2"
     }
   },
   "error": "ValueError: INPUT_INCOMPLETE: ['sh603468: fewer than61 bars for established listing']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-06T08:35:59.533008+08:00",
+  "ended_at": "2026-11-06T13:58:35.169318+08:00",
   "retrieval_progress": {
     "attempted": 27,
     "succeeded": 27,
@@ -364,10 +363,10 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-06T08:35:59.534668+08:00"
+    "recorded_at": "2026-11-06T13:58:35.170117+08:00"
   },
   "cached_history_files": 5025,
-  "workflow_run_id": "42056957964",
-  "evidence_artifact_name": "alpha5d-public-evidence-42056957964",
-  "persisted_at": "2026-11-06T00:36:13.091560+00:00"
+  "workflow_run_id": "42171295734",
+  "evidence_artifact_name": "alpha5d-public-evidence-42171295734",
+  "persisted_at": "2026-11-06T05:58:48.894753+00:00"
 }
