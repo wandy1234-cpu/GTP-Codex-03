@@ -1,0 +1,116 @@
+strategy:
+  name: str
+  markets: [A, H]
+  benchmark:
+    A: str
+    H: str
+  objective:
+    target_excess_return_ann: str
+    tracking_error_target_ann: str
+    max_drawdown: str
+    vol_target_ann: str
+
+data:
+  history_years: int
+  frequency:
+    signal: str
+    execution: str
+    tick: str
+  sources_priority: [exchange_official, official_disclosure, licensed_terminal]
+  required_fields:
+    - ticker
+    - market
+    - currency
+    - date
+    - open
+    - high
+    - low
+    - close
+    - volume
+    - amount
+    - adj_factor
+    - suspend_flag
+    - risk_warning_flag
+  corporate_action_policy:
+    adjust_price: [forward_adjust, backward_adjust, none]
+    dividends_in_return: bool
+  asof_policy:
+    fundamental_lag_days: int
+    enforce_no_lookahead: bool
+
+universe:
+  A:
+    include_boards: [main, chiNext, star]
+    exclude_ST: bool
+    min_list_days: int
+    min_avg_amount_20d: float
+  H:
+    include_types: [HK_mainboard]
+    min_avg_amount_20d: float
+    board_lot_check: bool
+
+factors:
+  pool: []
+  preprocess:
+    winsorize: {method: quantile, q_low: float, q_high: float}
+    normalize: {method: zscore}
+    neutralize: {enabled: bool, controls: [log_mktcap, industry_dummy]}
+  evaluation:
+    ic_method: spearman
+    ic_horizon: str
+    rolling_window: int
+
+model:
+  type: lgbm_ranker
+  label:
+    horizon: str
+    target: excess_return_vs_benchmark
+  training:
+    walk_forward: bool
+    train_window_days: int
+    valid_window_days: int
+    test_window_days: int
+  hyperopt:
+    enabled: bool
+    engine: optuna
+    max_trials: int
+
+portfolio:
+  method: enhanced_index_optimization
+  constraints:
+    long_only: bool
+    max_weight_single_name: float
+    max_active_weight_single_name: float
+    max_turnover: float
+    max_industry_active: float
+    tracking_error_cap: str
+  rebalance:
+    frequency: [daily, weekly, monthly]
+    day_of_week: str
+  optimizer:
+    engine: cvxpy
+    risk_model: [factor_or_shrink_cov, shrink_cov]
+    risk_aversion_lambda: float
+    turnover_penalty_eta: float
+
+execution:
+  order_style:
+    A: {type: LIMIT, schedule: TWAP, participation_rate: float}
+    H: {type: LIMIT, schedule: POV, participation_rate: float}
+  market_rules:
+    A_price_limit: {main: float, chiNext: float, star: float, ST_main: float}
+    HK_trading_sessions: {use_exchange_calendar: bool}
+  program_trading_compliance:
+    enabled: bool
+    require_pretrade_report_flag: bool
+    max_orders_per_sec: int
+    max_orders_per_day: int
+
+cost:
+  explicit:
+    A: {commission_bps: float, stamp_duty_sell_bps: float}
+    H: {commission_bps: float, stamp_duty_bps_each_side: float}
+  slippage:
+    model: spread_plus_impact
+    spread_bps_default: float
+    impact: {model: sqrt, k: float, adv_window_days: int}
