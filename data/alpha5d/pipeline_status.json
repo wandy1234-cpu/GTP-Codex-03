@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-06T23:12:38.526499+08:00",
+  "started_at": "2026-11-09T13:39:01.555730+08:00",
   "forecast_date": "2026-11-09",
   "previous_session": "2026-11-06",
   "sessions": [
@@ -18,7 +18,7 @@
     "captured_at": "2026-11-06T22:50:02.782602+08:00",
     "sha256": "fdf8eda9976c2e27d837acb97db69732f30b51d4da52b83a1a4f3400cc6ceafc",
     "frozen_samples_verified": 20,
-    "source": "data/universe_latest.json"
+    "source": "data/alpha5d/market/2026-11-06.json"
   },
   "raw_count": 5223,
   "coverage": {
@@ -345,27 +345,27 @@
     "covered_required_codes": 5003,
     "membership_count": 5224,
     "snapshot": {
-      "route": "verified_published_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-06-135707-aafcd4517be1.json",
-      "observed_at": "2026-11-06T13:57:07.777011+08:00",
-      "boards_sha256": "aafcd4517be1af5d0da55f02a6f2a1aa52042cc032779dd35121fed516d5c7d2"
+      "route": "live_provider_pages",
+      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-09-133941-1b29f4d195c7.json",
+      "observed_at": "2026-11-09T13:39:41.759128+08:00",
+      "boards_sha256": "1b29f4d195c79ee1c3556cc3f6cf92cab576eb16a58549ee967774f946ba7856"
     }
   },
   "error": "ValueError: INPUT_INCOMPLETE: ['sz301707: fewer than61 bars for established listing']",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-06T23:13:51.467361+08:00",
+  "ended_at": "2026-11-09T13:40:44.060466+08:00",
   "retrieval_progress": {
-    "attempted": 35,
-    "succeeded": 35,
+    "attempted": 0,
+    "succeeded": 0,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-06T23:13:51.468188+08:00"
+    "recorded_at": "2026-11-09T13:40:44.061644+08:00"
   },
   "cached_history_files": 5026,
-  "workflow_run_id": "42240792925",
-  "evidence_artifact_name": "alpha5d-public-evidence-42240792925",
-  "persisted_at": "2026-11-06T15:14:15.188171+00:00"
+  "workflow_run_id": "42568466788",
+  "evidence_artifact_name": "alpha5d-public-evidence-42568466788",
+  "persisted_at": "2026-11-09T05:41:01.770403+00:00"
 }
