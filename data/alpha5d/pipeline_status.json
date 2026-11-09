@@ -1,24 +1,24 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-09T13:39:01.555730+08:00",
-  "forecast_date": "2026-11-09",
-  "previous_session": "2026-11-06",
+  "started_at": "2026-11-10T01:41:20.506725+08:00",
+  "forecast_date": "2026-11-10",
+  "previous_session": "2026-11-09",
   "sessions": [
-    "2026-11-09",
     "2026-11-10",
     "2026-11-11",
     "2026-11-12",
-    "2026-11-13"
+    "2026-11-13",
+    "2026-11-16"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
-  "status": "INCOMPLETE",
-  "run_kind": "late_research",
+  "status": "COMPLETE",
+  "run_kind": "scheduled",
   "market_snapshot_audit": {
-    "security_date": "2026-11-06",
-    "captured_at": "2026-11-06T22:50:02.782602+08:00",
-    "sha256": "fdf8eda9976c2e27d837acb97db69732f30b51d4da52b83a1a4f3400cc6ceafc",
+    "security_date": "2026-11-09",
+    "captured_at": "2026-11-09T21:30:28.097275+08:00",
+    "sha256": "f355b8ec5dd75dcdab421f5d2cd193cb9f7980b5f73dc838bcd9786fa4ab1045",
     "frozen_samples_verified": 20,
-    "source": "data/alpha5d/market/2026-11-06.json"
+    "source": "data/universe_latest.json"
   },
   "raw_count": 5223,
   "coverage": {
@@ -210,11 +210,11 @@
     }
   },
   "session_halt_audit": {
-    "security_date": "2026-11-06",
+    "security_date": "2026-11-09",
     "source_urls": [
-      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-06%27%29"
+      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-09%27%29"
     ],
-    "rows": 7,
+    "rows": 8,
     "provider_rows": [
       {
         "SECURITY_CODE": "688121",
@@ -248,29 +248,15 @@
         "SECURITY_CODE": "002623",
         "SECURITY_NAME_ABBR": "亚玛顿",
         "SUSPEND_START_TIME": "2026-11-03 09:30:00",
-        "SUSPEND_END_TIME": null,
+        "SUSPEND_END_TIME": "2026-11-09 15:00:00",
         "SUSPEND_EXPIRE": "连续停牌",
         "SUSPEND_REASON": "刊登重要公告",
         "TRADE_MARKET": "深交所主板",
         "SUSPEND_START_DATE": "2026-11-03 00:00:00",
-        "PREDICT_RESUME_DATE": null,
+        "PREDICT_RESUME_DATE": "2026-11-10 00:00:00",
         "TRADE_MARKET_CODE": "069001002001",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "002623.SZ"
-      },
-      {
-        "SECURITY_CODE": "300237",
-        "SECURITY_NAME_ABBR": "ST美晨",
-        "SUSPEND_START_TIME": "2026-11-05 09:30:00",
-        "SUSPEND_END_TIME": "2026-11-05 15:00:00",
-        "SUSPEND_EXPIRE": "停牌一天",
-        "SUSPEND_REASON": "刊登重要公告",
-        "TRADE_MARKET": "深交所创业板",
-        "SUSPEND_START_DATE": "2026-11-05 00:00:00",
-        "PREDICT_RESUME_DATE": "2026-11-06 00:00:00",
-        "TRADE_MARKET_CODE": "069001002002",
-        "SECURITY_TYPE_CODE": "058001001",
-        "SECUCODE": "300237.SZ"
       },
       {
         "SECURITY_CODE": "002717",
@@ -313,6 +299,34 @@
         "TRADE_MARKET_CODE": "069001002001",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "002129.SZ"
+      },
+      {
+        "SECURITY_CODE": "688798",
+        "SECURITY_NAME_ABBR": "艾为电子",
+        "SUSPEND_START_TIME": "2026-11-10 09:30:00",
+        "SUSPEND_END_TIME": null,
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "拟筹划重大资产重组",
+        "TRADE_MARKET": "上交所科创板",
+        "SUSPEND_START_DATE": "2026-11-10 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001001006",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "688798.SH"
+      },
+      {
+        "SECURITY_CODE": "688053",
+        "SECURITY_NAME_ABBR": "ST思科瑞",
+        "SUSPEND_START_TIME": "2026-11-10 09:30:00",
+        "SUSPEND_END_TIME": "2026-11-10 15:00:00",
+        "SUSPEND_EXPIRE": "停牌一天",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "上交所科创板",
+        "SUSPEND_START_DATE": "2026-11-10 00:00:00",
+        "PREDICT_RESUME_DATE": "2026-11-11 00:00:00",
+        "TRADE_MARKET_CODE": "069001001006",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "688053.SH"
       }
     ],
     "whole_session_nontrading_codes": [
@@ -324,17 +338,18 @@
       "sz002717"
     ],
     "complete": true,
-    "forecast_session": "2026-11-09",
+    "forecast_session": "2026-11-10",
     "known_forecast_whole_session_codes": [
+      "sh688053",
       "sh688121",
       "sh688496",
+      "sh688798",
       "sz000831",
       "sz002129",
-      "sz002623",
       "sz002717"
     ]
   },
-  "history_success": 5026,
+  "history_success": 5025,
   "history_missing": {},
   "industry_source_audit": {
     "required_codes": 5003,
@@ -346,26 +361,170 @@
     "membership_count": 5224,
     "snapshot": {
       "route": "live_provider_pages",
-      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-09-133941-1b29f4d195c7.json",
-      "observed_at": "2026-11-09T13:39:41.759128+08:00",
-      "boards_sha256": "1b29f4d195c79ee1c3556cc3f6cf92cab576eb16a58549ee967774f946ba7856"
+      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-10-014155-713f3c1a54d8.json",
+      "observed_at": "2026-11-10T01:41:55.364337+08:00",
+      "boards_sha256": "713f3c1a54d8d72f5f7832b5120c66c10c13efd4d5f91eeb7397601dde4502dc"
     }
   },
-  "error": "ValueError: INPUT_INCOMPLETE: ['sz301707: fewer than61 bars for established listing']",
+  "input_sha256": "469d665a7005f1ac2d20501ff113241a4aba2f4bd0fdd0b09866763c97eaa695",
+  "ranking_path": "data/alpha5d/runs/20261110T014120/ranking.json",
+  "ranker_version": "V8.0-bootstrap-1",
+  "top5": [
+    {
+      "symbol": "sz002086",
+      "name": "东方海洋",
+      "sector": "农林牧渔",
+      "score": 89.25583204,
+      "features": {
+        "r5": 0.40514469453376223,
+        "r10": 0.9000000000000001,
+        "r20": 1.1527093596059115,
+        "breakout": 0.10075566750629728,
+        "close_pos": 1.0,
+        "volume_ratio": 1.8204456461692553,
+        "trend": 0.2006777108433737,
+        "above_ma10": true,
+        "overheat": 0.22033552837880213,
+        "sector": "农林牧渔"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 4.37,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 1
+    },
+    {
+      "symbol": "sz002300",
+      "name": "太阳电缆",
+      "sector": "电力设备",
+      "score": 87.89493395,
+      "features": {
+        "r5": 0.12358133669609095,
+        "r10": 0.2710413694721827,
+        "r20": 0.1770145310435931,
+        "breakout": 0.02178899082568808,
+        "close_pos": 0.965517241379311,
+        "volume_ratio": 1.691015796997948,
+        "trend": 0.05338355630601366,
+        "above_ma10": true,
+        "overheat": 0.0,
+        "sector": "电力设备"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 8.91,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 2
+    },
+    {
+      "symbol": "sh600715",
+      "name": "文投控股",
+      "sector": "传媒",
+      "score": 87.73613271,
+      "features": {
+        "r5": 0.15624999999999978,
+        "r10": 0.5235294117647058,
+        "r20": 0.40760869565217384,
+        "breakout": 0.02777777777777768,
+        "close_pos": 1.0,
+        "volume_ratio": 1.9407302923055685,
+        "trend": 0.11019417475728144,
+        "above_ma10": true,
+        "overheat": 0.0,
+        "sector": "传媒"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 2.59,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 3
+    },
+    {
+      "symbol": "sz002578",
+      "name": "闽发铝业",
+      "sector": "有色金属",
+      "score": 87.63322965,
+      "features": {
+        "r5": 0.6111111111111112,
+        "r10": 0.5305555555555554,
+        "r20": 0.36049382716049383,
+        "breakout": 0.09980039920159678,
+        "close_pos": 1.0,
+        "volume_ratio": 1.7882609205026851,
+        "trend": 0.1304596060519554,
+        "above_ma10": true,
+        "overheat": 0.24141414141414144,
+        "sector": "有色金属"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 5.51,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 4
+    },
+    {
+      "symbol": "sz301121",
+      "name": "紫建电子",
+      "sector": "电力设备",
+      "score": 84.99075821,
+      "features": {
+        "r5": 0.20094702574726253,
+        "r10": 0.26220839813374797,
+        "r20": 0.1956393635827931,
+        "breakout": -0.005392156862745079,
+        "close_pos": 0.6142131979695418,
+        "volume_ratio": 2.1506108956063446,
+        "trend": 0.0751933801043354,
+        "above_ma10": true,
+        "overheat": 0.0,
+        "sector": "电力设备"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 40.58,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 5
+    }
+  ],
+  "errors": [],
+  "publication_state": "AWAITING_EVIDENCE_REVIEW",
+  "review_path": "data/alpha5d/runs/20261110T014120/review.json",
+  "generated_at": "2026-11-10T01:41:56.518547+08:00",
+  "provider_route_health": {
+    "eastmoney_daily": {
+      "attempted": 28,
+      "succeeded": 28,
+      "failed": 0,
+      "data_errors": 0,
+      "consecutive_failures": 0,
+      "circuit_open": false
+    },
+    "sample_eastmoney_daily": {
+      "attempted": 20,
+      "succeeded": 20,
+      "failed": 0,
+      "data_errors": 0,
+      "consecutive_failures": 0,
+      "circuit_open": false
+    }
+  },
+  "industry_classification": "Eastmoney first-level industry",
+  "verified_sample_count": 20,
+  "is_0850_live_prediction": null,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-09T13:40:44.060466+08:00",
+  "ended_at": "2026-11-10T01:42:55.377049+08:00",
   "retrieval_progress": {
-    "attempted": 0,
-    "succeeded": 0,
+    "attempted": 28,
+    "succeeded": 28,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-09T13:40:44.061644+08:00"
+    "recorded_at": "2026-11-10T01:42:55.574681+08:00"
   },
-  "cached_history_files": 5026,
-  "workflow_run_id": "42568466788",
-  "evidence_artifact_name": "alpha5d-public-evidence-42568466788",
-  "persisted_at": "2026-11-09T05:41:01.770403+00:00"
+  "cached_history_files": 5025,
+  "workflow_run_id": "42666949123",
+  "evidence_artifact_name": "alpha5d-public-evidence-42666949123",
+  "persisted_at": "2026-11-09T17:43:12.423463+00:00"
 }
