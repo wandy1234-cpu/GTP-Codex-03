@@ -1,5 +1,5 @@
 {
-  "captured_at_beijing": "2026-11-09T19:04:27.555081+08:00",
+  "captured_at_beijing": "2026-11-09T21:30:28.097275+08:00",
   "node": "sh_a",
   "page": 21,
   "record_count": 100,
@@ -1912,7 +1912,7 @@
       "low": "0.000",
       "volume": 0,
       "amount": 0,
-      "ticktime": "15:35:54",
+      "ticktime": "15:43:54",
       "per": -2.522,
       "pb": 0.407,
       "mktcap": 26100,

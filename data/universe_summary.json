@@ -1,6 +1,6 @@
 {
   "schema_version": "2.6.0",
-  "captured_at_beijing": "2026-11-09T19:04:27.555081+08:00",
+  "captured_at_beijing": "2026-11-09T21:30:28.097275+08:00",
   "nodes": {
     "sh_a": {
       "successful_pages": [
@@ -164,70 +164,70 @@
     {
       "symbol": "sz300010",
       "tencent_time": "2026-11-09T16:14:15+08:00",
-      "sina_ticktime": "15:35:00",
+      "sina_ticktime": "16:29:00",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz300340",
       "tencent_time": "2026-11-09T16:14:51+08:00",
-      "sina_ticktime": "15:35:15",
+      "sina_ticktime": "16:29:15",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz300214",
       "tencent_time": "2026-11-09T16:14:45+08:00",
-      "sina_ticktime": "15:35:30",
+      "sina_ticktime": "16:29:30",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz301370",
       "tencent_time": "2026-11-09T16:14:54+08:00",
-      "sina_ticktime": "15:35:30",
+      "sina_ticktime": "16:29:30",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz002022",
       "tencent_time": "2026-11-09T16:15:00+08:00",
-      "sina_ticktime": "15:36:00",
+      "sina_ticktime": "16:30:00",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz300842",
       "tencent_time": "2026-11-09T16:14:45+08:00",
-      "sina_ticktime": "15:35:00",
+      "sina_ticktime": "16:29:00",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz301099",
       "tencent_time": "2026-11-09T16:14:48+08:00",
-      "sina_ticktime": "15:35:30",
+      "sina_ticktime": "16:29:30",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz001286",
       "tencent_time": "2026-11-09T16:14:51+08:00",
-      "sina_ticktime": "15:35:30",
+      "sina_ticktime": "16:29:30",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz002394",
       "tencent_time": "2026-11-09T16:14:21+08:00",
-      "sina_ticktime": "15:35:15",
+      "sina_ticktime": "16:29:15",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
       "symbol": "sz301010",
       "tencent_time": "2026-11-09T16:14:57+08:00",
-      "sina_ticktime": "15:35:15",
+      "sina_ticktime": "16:29:15",
       "same_time_gate": false,
       "price_agrees": true
     }
@@ -239,7 +239,7 @@
   "stock_pick_gate": "VERIFIED_CLOSED_DATASET",
   "point_in_time_note": "Consumer must verify dataset security date and cutoff; retrieval time is not trade time.",
   "frozen_verification": {
-    "checked_at_beijing": "2026-11-09T19:05:36.850284+08:00",
+    "checked_at_beijing": "2026-11-09T21:31:48.936988+08:00",
     "cutoff_hhmm": "1500",
     "security_date": "20261109",
     "sample_count": 20,
@@ -256,7 +256,7 @@
         "daily_close": 5.65,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600289&_ts=1794222333142",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600289&_ts=1794231104552",
         "symbol": "sh600289",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600289,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:47+08:00"
@@ -272,7 +272,7 @@
         "daily_close": 9.96,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600739&_ts=1794222333143",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600739&_ts=1794231104553",
         "symbol": "sh600739",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600739,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:50+08:00"
@@ -288,7 +288,7 @@
         "daily_close": 4.61,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600787&_ts=1794222333143",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600787&_ts=1794231104553",
         "symbol": "sh600787",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600787,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:34+08:00"
@@ -304,7 +304,7 @@
         "daily_close": 16.92,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600845&_ts=1794222333143",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600845&_ts=1794231104553",
         "symbol": "sh600845",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600845,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:56+08:00"
@@ -320,7 +320,7 @@
         "daily_close": 5.59,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601222&_ts=1794222333142",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601222&_ts=1794231104552",
         "symbol": "sh601222",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601222,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:57+08:00"
@@ -336,7 +336,7 @@
         "daily_close": 7.46,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh605055&_ts=1794222333144",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh605055&_ts=1794231104554",
         "symbol": "sh605055",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh605055,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:58+08:00"
@@ -352,7 +352,7 @@
         "daily_close": 14.75,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh605599&_ts=1794222333144",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh605599&_ts=1794231104554",
         "symbol": "sh605599",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh605599,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:15:00+08:00"
@@ -368,7 +368,7 @@
         "daily_close": 22.77,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688105&_ts=1794222334312",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688105&_ts=1794231106094",
         "symbol": "sh688105",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688105,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:52+08:00"
@@ -384,7 +384,7 @@
         "daily_close": 216.02,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688585&_ts=1794222334314",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688585&_ts=1794231106097",
         "symbol": "sh688585",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688585,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:56+08:00"
@@ -400,7 +400,7 @@
         "daily_close": 16.69,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688589&_ts=1794222333144",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688589&_ts=1794231104553",
         "symbol": "sh688589",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688589,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:56+08:00"
@@ -416,7 +416,7 @@
         "daily_close": 10.08,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz001286&_ts=1794222335453",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz001286&_ts=1794231107436",
         "symbol": "sz001286",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz001286,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:51+08:00"
@@ -432,7 +432,7 @@
         "daily_close": 5.08,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002022&_ts=1794222334318",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002022&_ts=1794231106110",
         "symbol": "sz002022",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002022,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:15:00+08:00"
@@ -448,7 +448,7 @@
         "daily_close": 9.19,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002394&_ts=1794222335453",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002394&_ts=1794231107437",
         "symbol": "sz002394",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002394,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:21+08:00"
@@ -464,7 +464,7 @@
         "daily_close": 3.81,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300010&_ts=1794222334316",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300010&_ts=1794231106099",
         "symbol": "sz300010",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300010,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:15+08:00"
@@ -480,7 +480,7 @@
         "daily_close": 7.53,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300214&_ts=1794222334317",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300214&_ts=1794231106106",
         "symbol": "sz300214",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300214,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:45+08:00"
@@ -496,7 +496,7 @@
         "daily_close": 7.54,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300340&_ts=1794222334316",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300340&_ts=1794231106105",
         "symbol": "sz300340",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300340,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:51+08:00"
@@ -512,7 +512,7 @@
         "daily_close": 47.14,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300842&_ts=1794222334322",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300842&_ts=1794231106111",
         "symbol": "sz300842",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300842,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:45+08:00"
@@ -528,7 +528,7 @@
         "daily_close": 26.21,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301010&_ts=1794222335457",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301010&_ts=1794231107439",
         "symbol": "sz301010",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301010,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:57+08:00"
@@ -544,7 +544,7 @@
         "daily_close": 37.49,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301099&_ts=1794222335452",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301099&_ts=1794231107430",
         "symbol": "sz301099",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301099,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:48+08:00"
@@ -560,7 +560,7 @@
         "daily_close": 8.05,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301370&_ts=1794222334318",
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301370&_ts=1794231106106",
         "symbol": "sz301370",
         "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301370,day,,,5,qfq",
         "tencent_snapshot_update_time": "2026-11-09T16:14:54+08:00"
@@ -583,272 +583,272 @@
     {
       "path": "data/universe_pages/sh_a_001.json",
       "count": 100,
-      "sha256": "770c53116b41d151c8a5508e7a28ab053177c1bc2f011cb270e9b75fe1a3eec4"
+      "sha256": "0019e609315fcde88192f754933a4dd3ee586e0abeb985be27198726f87e585e"
     },
     {
       "path": "data/universe_pages/sh_a_002.json",
       "count": 100,
-      "sha256": "3c3344cc3550b499fa578d663c87531e106ef190dbc99cc495ab1908228d7b1d"
+      "sha256": "a4aedc7d9fe925e222554b94169d20019cb6dfbc8992d47f5939b3a015d9610a"
     },
     {
       "path": "data/universe_pages/sh_a_003.json",
       "count": 100,
-      "sha256": "721cfd2d4ad7691944cdbce221a245248907284824cfe8f8dcf1c6d0d57f4cd6"
+      "sha256": "a2267d65af7d00ac75614e83128d84713978ee7b79297d0bc9c876e6c94ae0d1"
     },
     {
       "path": "data/universe_pages/sh_a_004.json",
       "count": 100,
-      "sha256": "dc910c66b01a0da1ef147e97648fc451c5f60d9d98e6aeaa7511bb6478e9764f"
+      "sha256": "77fc51773db55d2dc389028cafa98e7bcd6f57bc54c59a103024f45ff4ad99f2"
     },
     {
       "path": "data/universe_pages/sh_a_005.json",
       "count": 100,
-      "sha256": "1eefc1bd935117e310153daa6c41f61ce2eb903f1afedf6a6cd3e606724ed6eb"
+      "sha256": "38b30d9cef8ac45b795962e03cf22c135354db311131fabc5d4e9871cbcb7d02"
     },
     {
       "path": "data/universe_pages/sh_a_006.json",
       "count": 100,
-      "sha256": "a805482252d1d94c1c59744d91f596c37f07487318df51984a67538ef57703ba"
+      "sha256": "49d9fcc7edfd5dcadfcb9b9eee1d6d5635644893b1d79476dc1cd7bf79217a67"
     },
     {
       "path": "data/universe_pages/sh_a_007.json",
       "count": 100,
-      "sha256": "78c5c479776ed9ad488a41c2fc7ff590ad8549bb1c63514d3b0b110041501e2d"
+      "sha256": "71f0f2e189ddb584970cebdf0d9b06e577aee9b284853969e1c7960258e8e4a5"
     },
     {
       "path": "data/universe_pages/sh_a_008.json",
       "count": 100,
-      "sha256": "59f7b88ce93b6f1f476dc54f42fd52607c1c86adf5feb58433354894a0249936"
+      "sha256": "e53343a987e0317f7c50a041359bc522c6b6269cc9b183271bb62135c7e1035c"
     },
     {
       "path": "data/universe_pages/sh_a_009.json",
       "count": 100,
-      "sha256": "909694d2c35667b048928f30a5b7d640ca828fd38495c4af6a00d11bf330dd6c"
+      "sha256": "37ab8cfbbcb274458000df8923173a1cdfd73cd8ae4788f4ef1c531a65f74d66"
     },
     {
       "path": "data/universe_pages/sh_a_010.json",
       "count": 100,
-      "sha256": "3f34f2547a66ed251ab5bbf43228c826f4069a8eb5adb6222c759c2becd9cb33"
+      "sha256": "43a4924899b9c6f9d8042c9f5d23ceb491daf7fb46836f5463bc251b689006db"
     },
     {
       "path": "data/universe_pages/sh_a_011.json",
       "count": 100,
-      "sha256": "e0d8025722b99f80d11882a9fff63b69e929206de3e0654e5a5212f22e9d18b4"
+      "sha256": "a5b12e3adae6e08fcd097f935c35adf3873890344eec299c27f87ca743d72545"
     },
     {
       "path": "data/universe_pages/sh_a_012.json",
       "count": 100,
-      "sha256": "d5538e0dd7599ab6ab72eabb941c3a448b8c78e50bb419f193c297ba9f3926ea"
+      "sha256": "c9f67eb380ab714a835d48173c74e580b7d77f59e550798e3debe41630ea7ef0"
     },
     {
       "path": "data/universe_pages/sh_a_013.json",
       "count": 100,
-      "sha256": "bfb0ce8d418a4f4eafe45655635b2b81dde521d792ecdc70bc731f9f54ecb691"
+      "sha256": "b777f93b39d3d47ee6e1c7473fd371effade4bd9fe912651c101ee59292d7d57"
     },
     {
       "path": "data/universe_pages/sh_a_014.json",
       "count": 100,
-      "sha256": "f7b3f1906f3b3034dfd6f4a292520526d9f302829c117778f97ee8887b2eb392"
+      "sha256": "4b70f85941fa3272676051f99acf2ec78140df712cb0829883a8eb3ea5b36e85"
     },
     {
       "path": "data/universe_pages/sh_a_015.json",
       "count": 100,
-      "sha256": "71fb5d2ed1d5aa2afa26710a8b08071766353b3ffd022b4ececf8494bc41a985"
+      "sha256": "b0c5936c7c0a27a40eb8c27d82ac896e614f6545418559cdee07790df9a3decd"
     },
     {
       "path": "data/universe_pages/sh_a_016.json",
       "count": 100,
-      "sha256": "40ae88405750a9f192f89fa3aa0fc66b7071d7837a277f7a4b6c3ff5a1bb9922"
+      "sha256": "ee39e812a0d415e6b45bd75a17f81df4cea87c3980e0140074ed0447521ed006"
     },
     {
       "path": "data/universe_pages/sh_a_017.json",
       "count": 100,
-      "sha256": "809bd4c41bf7ee773ec4ff6dd8b1bcea90ed07b022e79fcd739eaa8599da8ffb"
+      "sha256": "bc7e5458232d32ee52c3116acf08033fb9fe4079459a2c740a86516631380b52"
     },
     {
       "path": "data/universe_pages/sh_a_018.json",
       "count": 100,
-      "sha256": "7850a9949f98b8610a9d11e8588c8f0088ead23920be0a1040a00da3d6edd46b"
+      "sha256": "5bdf91c1ee573c82f7928cf85aeb626cca7b3c2b946d87b57bfa90eca4a2d4f7"
     },
     {
       "path": "data/universe_pages/sh_a_019.json",
       "count": 100,
-      "sha256": "fe10fd9cb3c48c749483958eb056bcc52d03c1fc8621ab1a25ed59fdd946b81b"
+      "sha256": "85ac1d869ba7c6a47eb1daa8005cfc720921d49c1d4f50c31e0e84d757bd21af"
     },
     {
       "path": "data/universe_pages/sh_a_020.json",
       "count": 100,
-      "sha256": "3d8363609200a4e73b2c938b9dff1493258fd72ceb69d175e8018ca725b17f26"
+      "sha256": "55642ce03c0922828eb5338f77c742efa0c79a50df70359e614df7cf9ba17043"
     },
     {
       "path": "data/universe_pages/sh_a_021.json",
       "count": 100,
-      "sha256": "66d2bd874c9d0017eb884a82f79b9c2d92cfe6fed708f38ad6be41fe474e1364"
+      "sha256": "9c97e9297c1ca0e9cd799a5cdd16e96c7ede2b1c84717bd99f54cb222318c450"
     },
     {
       "path": "data/universe_pages/sh_a_022.json",
       "count": 100,
-      "sha256": "51608feec3e5e714192cd24139c15c3642cac12f187855ec40dc2a52ca5abe64"
+      "sha256": "ae622aac99947ec9b39f63025f2288da3f6f7ce2ae49aa420a2b0fa7ac8ba275"
     },
     {
       "path": "data/universe_pages/sh_a_023.json",
       "count": 100,
-      "sha256": "4960d6e1d1fa94f329cd0c76b00f399aa930d5ed579d0a12ea8314e18f2bbc79"
+      "sha256": "a98a591512204e869bca90b69c96334d2c4026cc6937d8fc3b1b941522255bc1"
     },
     {
       "path": "data/universe_pages/sh_a_024.json",
       "count": 17,
-      "sha256": "0db3e4ab78efd50f9ec38ef0cbc7191837d4e664eda55d23e9367d3a4d79e940"
+      "sha256": "3a13c3edb9156daffb3eef158a8df7f1849b9d0db40823983c8ff49daa9f092c"
     },
     {
       "path": "data/universe_pages/sz_a_001.json",
       "count": 100,
-      "sha256": "55eb9353a34364663625293db4d9788f0ad6c9ae5d8351a7a3ce2a1976dbcfe0"
+      "sha256": "b505b2b63ad25c4943cda9bc7ff8492fef0b75e5a324cc314684ab57261c0c20"
     },
     {
       "path": "data/universe_pages/sz_a_002.json",
       "count": 100,
-      "sha256": "6a3e93a67cda6490ecd802099070a3c17417b4f60f14cdc4cfd0fe9cb03eea49"
+      "sha256": "f7563adce48131062308f90dbf06259f0634ab4003f223e2b270f193ce3766c4"
     },
     {
       "path": "data/universe_pages/sz_a_003.json",
       "count": 100,
-      "sha256": "a5af9bc737013358e5bb0ccac35bf3e9ad9f90b72d15502ea50d38f011ef50c1"
+      "sha256": "af3939fea73f7539ef5af08b08beaaf812f6ef0c4ad27646a373af7604a1e093"
     },
     {
       "path": "data/universe_pages/sz_a_004.json",
       "count": 100,
-      "sha256": "d04be67b7909464b66bc87600f2736014fee6e865ba1da0f26cc4f62c0c88ce6"
+      "sha256": "5c52251d10306e9502cdba53284bd761e0343969c0cf9d66702a0cc8010b2f39"
     },
     {
       "path": "data/universe_pages/sz_a_005.json",
       "count": 100,
-      "sha256": "be2be21078e005783f410c1ca9e5551b02d54ab26ff7c9d3a5651d70636d17c1"
+      "sha256": "f9edc92427cfbc11b5c07e58178ce872b0b8c3d61261e82ffbb06ec4b70469cd"
     },
     {
       "path": "data/universe_pages/sz_a_006.json",
       "count": 100,
-      "sha256": "0d831fbedea541eb03df5d85edca445de22e56b57f0f43deca7dd7ec397e2458"
+      "sha256": "cb42f9be63f5a34655bc0248b67667ffefefe65c942750b93f03fc1d19f183e9"
     },
     {
       "path": "data/universe_pages/sz_a_007.json",
       "count": 100,
-      "sha256": "66092c07003469080485218f1e9740cc62c7ada54b438da5502f56c295b8e392"
+      "sha256": "2d6126a1ea8066507e3819f57b71277fff68c81f58aaf9950de57544320058b9"
     },
     {
       "path": "data/universe_pages/sz_a_008.json",
       "count": 100,
-      "sha256": "d2555b0a824f546b32bee93c5828aa2c809b5cc469d32faabe3ba5c7a172d13c"
+      "sha256": "8c7527321f85f40a974b4bc00977e40f68183ff73845c56ddc5aa71478c0a2ab"
     },
     {
       "path": "data/universe_pages/sz_a_009.json",
       "count": 100,
-      "sha256": "62c73ee7a45eefa254718fc46f0e9cf05bbc68389bb03932f910aa4ab90907b1"
+      "sha256": "3b42d5450951ffae0c6967522471cdba0e3911af58701aef6f26a4b588032ba8"
     },
     {
       "path": "data/universe_pages/sz_a_010.json",
       "count": 100,
-      "sha256": "d896cdfa9ea925d490d9e609382d17455cbc5173cb04121a486bc9d65d283e8a"
+      "sha256": "bd259edd08dd52814cb0be8b8de09324a249dc0e3298ce7e06233e60406beb92"
     },
     {
       "path": "data/universe_pages/sz_a_011.json",
       "count": 100,
-      "sha256": "739fd4f6bdcbf49265a97a3dbac646ad958965c112c180d353c2babd828d4671"
+      "sha256": "5b9b45f0096c9687cfb9f5f518958ff011be793fe0eddc2f56771b2adb62b20e"
     },
     {
       "path": "data/universe_pages/sz_a_012.json",
       "count": 100,
-      "sha256": "f7b879e0ee7d1ecba1218c0a1fc2d8b8877761de480c06f17fc9b84d17790045"
+      "sha256": "29f30707993098b8dfaa77e8c84a19e41ea7e8f9d840bf8ff4fb733f447cfa52"
     },
     {
       "path": "data/universe_pages/sz_a_013.json",
       "count": 100,
-      "sha256": "3c191ea9cc5f0171404645602b7b6fe5648d0b1c19fb931fdf1e5901d4499b27"
+      "sha256": "b906cc39c0340f449950b49bcb8a858ea19e8ec2877d30fb21c81ce3542259a3"
     },
     {
       "path": "data/universe_pages/sz_a_014.json",
       "count": 100,
-      "sha256": "10fd7e6a9aac0355497947f59b9545c6521e64a2b7ae02ce2f96df14c1ddc3c6"
+      "sha256": "99423524997499ea7efa021ac620aabefc3ff1350e0946b670f2a0f321272b1d"
     },
     {
       "path": "data/universe_pages/sz_a_015.json",
       "count": 100,
-      "sha256": "c31e58c88b382d1f27c506dce56186b05b1bb2e1647d18612bd4dfabd2323f43"
+      "sha256": "58e64c16ba5ff9a40c36701f41202ab6d75480cec9f57033ebbd967e98041b85"
     },
     {
       "path": "data/universe_pages/sz_a_016.json",
       "count": 100,
-      "sha256": "8a6d80ff0535ae349eb48f6b92bb9c007db2024276b6f93e38c70cf84d4ccb2e"
+      "sha256": "cd0b66e83a05763a6b1fa998264b0ee5aee5ba8415bef6e16849b91ba34b0d9b"
     },
     {
       "path": "data/universe_pages/sz_a_017.json",
       "count": 100,
-      "sha256": "70eb3f63c1c71edbd606e3539711d9200bce5bb67647e3c515004763a1aaf568"
+      "sha256": "ace427e1218a91bc9e9a24bdab5cb161c9fdcb9fa5ad514b2a210b84d81c5dad"
     },
     {
       "path": "data/universe_pages/sz_a_018.json",
       "count": 100,
-      "sha256": "0fe08482ec542b81d0cd1f216bf342afd32d1b6ae528f53d3c6918c1fa3213b7"
+      "sha256": "36bc89fe1a07c13f71ac950b54fd675d1e02664e5956fa667ac8479b5ac1c4da"
     },
     {
       "path": "data/universe_pages/sz_a_019.json",
       "count": 100,
-      "sha256": "aa33396b63bfeb530fdac7a01e73262e59738d4986846e46b5078a1013bccea8"
+      "sha256": "6b70f3bfeb1afb95efb9edb43d96ff871e8c8b7d706716c50aa8a0fb2b6070f5"
     },
     {
       "path": "data/universe_pages/sz_a_020.json",
       "count": 100,
-      "sha256": "987b515718b0a3f23364619a8bfbe3936c36f859e0be329598f72a7a472f0fa3"
+      "sha256": "7f4af0076575626d0d9ff8c460e957f29de245ef07893de6dd621c14939e5652"
     },
     {
       "path": "data/universe_pages/sz_a_021.json",
       "count": 100,
-      "sha256": "db263b7ee4a1c2fdbea960111d0364f82802280955ded91a76300c4bd6a30731"
+      "sha256": "661ce17a815f87be87751954c6ae25779ae3514d600e230611615dba35c4c6e5"
     },
     {
       "path": "data/universe_pages/sz_a_022.json",
       "count": 100,
-      "sha256": "7c7597ef774b63779aed85b75591ac7f0b65f4b0f74be6c9d31f84b0a60f9d9f"
+      "sha256": "5f56f48b22442bb5760dc26e111b76073119ef730d2cadb8708c7f9d8528bad3"
     },
     {
       "path": "data/universe_pages/sz_a_023.json",
       "count": 100,
-      "sha256": "f64ae6a773c1edfbe69435e110014a2879d0072dbf1309cb10c157fe0e5f703a"
+      "sha256": "d317457555367fb2751f554b5987fd9ccffb3cd1c06c260b251c0d0201d495d6"
     },
     {
       "path": "data/universe_pages/sz_a_024.json",
       "count": 100,
-      "sha256": "97d28aa3a1e933a51a837e4a75071b90b2d1970b27c069ba3aff78dbfe778bea"
+      "sha256": "7ee66deec86fcb27c3b892b0ccde4ee87ecf1b53930c4fe64a1d40eb75f55c26"
     },
     {
       "path": "data/universe_pages/sz_a_025.json",
       "count": 100,
-      "sha256": "29b3e2a9cd78497be295f3088e5f530e3b16c23bbfb27dcf55510e30ede2d71d"
+      "sha256": "0e543c6297b30e079b269545031d4b46f0d3aae7c5a5cc6d386c260c30d24aae"
     },
     {
       "path": "data/universe_pages/sz_a_026.json",
       "count": 100,
-      "sha256": "07a09485fdd0f3f06fe9deec417cef494ef730bfe2bc17a109ba17ec3d2bf258"
+      "sha256": "9768d982e75eeae24d9d5fd1ac151d678f26962d60d0f01e7954257310d57826"
     },
     {
       "path": "data/universe_pages/sz_a_027.json",
       "count": 100,
-      "sha256": "fed329a65865ef8c0074adbdab4621383fec50f391ac28aebfb1d4bc000882d5"
+      "sha256": "0dc52faae60f4da94e45d70b57330fda1ce752c3e1e481d1d613a30290a44af7"
     },
     {
       "path": "data/universe_pages/sz_a_028.json",
       "count": 100,
-      "sha256": "6d417565ae7285fdb03340352430559c27bf8bc4792db06564e4f10f407d2378"
+      "sha256": "554eacb5a8313df0702a7e8e611ed37c9f7eefd65ce403f85ff0583983b105ef"
     },
     {
       "path": "data/universe_pages/sz_a_029.json",
       "count": 100,
-      "sha256": "2ce59dd8335786268ced49ef77898f5692af7e28661a86f96c18381d1d8aa2d7"
+      "sha256": "ff0e464f77e24b641d7520b82d5e24c85c6d9eb371575435a84218587f8e262d"
     },
     {
       "path": "data/universe_pages/sz_a_030.json",
       "count": 6,
-      "sha256": "7fbd3406b2443a3e2e11e406dc81051367a58ebff06428ed0d8739edf88e1e73"
+      "sha256": "2b258c9a35f130416616c98866b9651fb46f5cfa8b8e846fad6d257cbe802967"
     }
   ],
   "no_future_data_permission": true
