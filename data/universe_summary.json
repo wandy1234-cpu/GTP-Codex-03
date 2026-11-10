@@ -1,6 +1,6 @@
 {
   "schema_version": "2.6.0",
-  "captured_at_beijing": "2026-11-09T21:30:28.097275+08:00",
+  "captured_at_beijing": "2026-11-10T16:38:00.276626+08:00",
   "nodes": {
     "sh_a": {
       "successful_pages": [
@@ -31,8 +31,8 @@
       ],
       "missing_pages": [],
       "terminal_page": 24,
-      "raw_row_count": 2317,
-      "unique_count": 2317
+      "raw_row_count": 2318,
+      "unique_count": 2318
     },
     "sz_a": {
       "successful_pages": [
@@ -73,7 +73,7 @@
       "unique_count": 2906
     }
   },
-  "unique_code_count": 5223,
+  "unique_code_count": 5224,
   "missing_fields": {
     "symbol": 0,
     "name": 0,
@@ -92,478 +92,478 @@
   },
   "stratified_checks": [
     {
-      "symbol": "sh600289",
-      "tencent_time": "2026-11-09T16:14:47+08:00",
+      "symbol": "sh601857",
+      "tencent_time": "2026-11-10T16:14:50+08:00",
+      "sina_ticktime": "15:34:59",
+      "same_time_gate": false,
+      "price_agrees": true
+    },
+    {
+      "symbol": "sh601500",
+      "tencent_time": "2026-11-10T16:14:53+08:00",
+      "sina_ticktime": "15:34:59",
+      "same_time_gate": false,
+      "price_agrees": true
+    },
+    {
+      "symbol": "sh688029",
+      "tencent_time": "2026-11-10T16:14:50+08:00",
       "sina_ticktime": "15:00:02",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh601222",
-      "tencent_time": "2026-11-09T16:14:57+08:00",
+      "symbol": "sh601789",
+      "tencent_time": "2026-11-10T16:14:59+08:00",
+      "sina_ticktime": "15:00:00",
+      "same_time_gate": false,
+      "price_agrees": true
+    },
+    {
+      "symbol": "sh600208",
+      "tencent_time": "2026-11-10T16:14:42+08:00",
       "sina_ticktime": "15:34:59",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh600845",
-      "tencent_time": "2026-11-09T16:14:56+08:00",
+      "symbol": "sh601519",
+      "tencent_time": "2026-11-10T16:15:00+08:00",
       "sina_ticktime": "15:34:59",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh600787",
-      "tencent_time": "2026-11-09T16:14:34+08:00",
-      "sina_ticktime": "15:34:59",
-      "same_time_gate": false,
-      "price_agrees": true
-    },
-    {
-      "symbol": "sh600739",
-      "tencent_time": "2026-11-09T16:14:50+08:00",
+      "symbol": "sh688598",
+      "tencent_time": "2026-11-10T16:14:50+08:00",
       "sina_ticktime": "15:00:02",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh688589",
-      "tencent_time": "2026-11-09T16:14:56+08:00",
-      "sina_ticktime": "15:00:03",
+      "symbol": "sh688466",
+      "tencent_time": "2026-11-10T16:14:58+08:00",
+      "sina_ticktime": "15:00:01",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh605599",
-      "tencent_time": "2026-11-09T16:15:00+08:00",
+      "symbol": "sh603416",
+      "tencent_time": "2026-11-10T16:14:43+08:00",
+      "sina_ticktime": "15:00:01",
+      "same_time_gate": false,
+      "price_agrees": true
+    },
+    {
+      "symbol": "sh688827",
+      "tencent_time": "2026-11-10T16:14:59+08:00",
       "sina_ticktime": "15:34:59",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh605055",
-      "tencent_time": "2026-11-09T16:14:58+08:00",
-      "sina_ticktime": "15:34:59",
+      "symbol": "sz002246",
+      "tencent_time": "2026-11-10T16:14:42+08:00",
+      "sina_ticktime": "15:35:30",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh688105",
-      "tencent_time": "2026-11-09T16:14:52+08:00",
-      "sina_ticktime": "15:34:59",
+      "symbol": "sz301267",
+      "tencent_time": "2026-11-10T16:14:30+08:00",
+      "sina_ticktime": "15:35:30",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sh688585",
-      "tencent_time": "2026-11-09T16:14:56+08:00",
-      "sina_ticktime": "15:34:59",
+      "symbol": "sz002111",
+      "tencent_time": "2026-11-10T16:14:33+08:00",
+      "sina_ticktime": "15:35:15",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sz300010",
-      "tencent_time": "2026-11-09T16:14:15+08:00",
-      "sina_ticktime": "16:29:00",
+      "symbol": "sz001696",
+      "tencent_time": "2026-11-10T16:15:00+08:00",
+      "sina_ticktime": "15:35:00",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sz300340",
-      "tencent_time": "2026-11-09T16:14:51+08:00",
-      "sina_ticktime": "16:29:15",
+      "symbol": "sz002057",
+      "tencent_time": "2026-11-10T16:14:54+08:00",
+      "sina_ticktime": "15:35:45",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sz300214",
-      "tencent_time": "2026-11-09T16:14:45+08:00",
-      "sina_ticktime": "16:29:30",
+      "symbol": "sz002353",
+      "tencent_time": "2026-11-10T16:14:42+08:00",
+      "sina_ticktime": "15:35:15",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sz301370",
-      "tencent_time": "2026-11-09T16:14:54+08:00",
-      "sina_ticktime": "16:29:30",
+      "symbol": "sz300537",
+      "tencent_time": "2026-11-10T16:14:15+08:00",
+      "sina_ticktime": "15:35:15",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sz002022",
-      "tencent_time": "2026-11-09T16:15:00+08:00",
-      "sina_ticktime": "16:30:00",
+      "symbol": "sz301505",
+      "tencent_time": "2026-11-10T16:14:45+08:00",
+      "sina_ticktime": "15:35:45",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sz300842",
-      "tencent_time": "2026-11-09T16:14:45+08:00",
-      "sina_ticktime": "16:29:00",
+      "symbol": "sz002421",
+      "tencent_time": "2026-11-10T16:14:30+08:00",
+      "sina_ticktime": "15:35:30",
       "same_time_gate": false,
       "price_agrees": true
     },
     {
-      "symbol": "sz301099",
-      "tencent_time": "2026-11-09T16:14:48+08:00",
-      "sina_ticktime": "16:29:30",
-      "same_time_gate": false,
-      "price_agrees": true
-    },
-    {
-      "symbol": "sz001286",
-      "tencent_time": "2026-11-09T16:14:51+08:00",
-      "sina_ticktime": "16:29:30",
-      "same_time_gate": false,
-      "price_agrees": true
-    },
-    {
-      "symbol": "sz002394",
-      "tencent_time": "2026-11-09T16:14:21+08:00",
-      "sina_ticktime": "16:29:15",
-      "same_time_gate": false,
-      "price_agrees": true
-    },
-    {
-      "symbol": "sz301010",
-      "tencent_time": "2026-11-09T16:14:57+08:00",
-      "sina_ticktime": "16:29:15",
+      "symbol": "sz300264",
+      "tencent_time": "2026-11-10T16:14:30+08:00",
+      "sina_ticktime": "15:35:30",
       "same_time_gate": false,
       "price_agrees": true
     }
   ],
   "security_dates_from_samples": [
-    "2026-11-09"
+    "2026-11-10"
   ],
   "complete_pagination": true,
   "stock_pick_gate": "VERIFIED_CLOSED_DATASET",
   "point_in_time_note": "Consumer must verify dataset security date and cutoff; retrieval time is not trade time.",
   "frozen_verification": {
-    "checked_at_beijing": "2026-11-09T21:31:48.936988+08:00",
+    "checked_at_beijing": "2026-11-10T16:39:20.487003+08:00",
     "cutoff_hhmm": "1500",
-    "security_date": "20261109",
+    "security_date": "20261110",
     "sample_count": 20,
     "passed_count": 20,
     "checks": [
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 5.65,
-        "sina_price": 5.65,
-        "tencent_snapshot_price": 5.65,
+        "cutoff_price": 2.59,
+        "sina_price": 2.59,
+        "tencent_snapshot_price": 2.59,
         "minute_price_agrees": true,
-        "daily_close": 5.65,
+        "daily_close": 2.59,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600289&_ts=1794231104552",
-        "symbol": "sh600289",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600289,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:47+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600208&_ts=1794299955916",
+        "symbol": "sh600208",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600208,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:42+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 9.96,
-        "sina_price": 9.96,
-        "tencent_snapshot_price": 9.96,
+        "cutoff_price": 3.44,
+        "sina_price": 3.44,
+        "tencent_snapshot_price": 3.44,
         "minute_price_agrees": true,
-        "daily_close": 9.96,
+        "daily_close": 3.44,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600739&_ts=1794231104553",
-        "symbol": "sh600739",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600739,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:50+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601500&_ts=1794299955915",
+        "symbol": "sh601500",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601500,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:53+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 4.61,
-        "sina_price": 4.61,
-        "tencent_snapshot_price": 4.61,
+        "cutoff_price": 8.4,
+        "sina_price": 8.4,
+        "tencent_snapshot_price": 8.4,
         "minute_price_agrees": true,
-        "daily_close": 4.61,
+        "daily_close": 8.4,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600787&_ts=1794231104553",
-        "symbol": "sh600787",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600787,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:34+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601519&_ts=1794299955916",
+        "symbol": "sh601519",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601519,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:15:00+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 16.92,
-        "sina_price": 16.92,
-        "tencent_snapshot_price": 16.92,
+        "cutoff_price": 3.87,
+        "sina_price": 3.87,
+        "tencent_snapshot_price": 3.87,
         "minute_price_agrees": true,
-        "daily_close": 16.92,
+        "daily_close": 3.87,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600845&_ts=1794231104553",
-        "symbol": "sh600845",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh600845,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:56+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601789&_ts=1794299955915",
+        "symbol": "sh601789",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601789,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:59+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 5.59,
-        "sina_price": 5.59,
-        "tencent_snapshot_price": 5.59,
+        "cutoff_price": 11.82,
+        "sina_price": 11.82,
+        "tencent_snapshot_price": 11.82,
         "minute_price_agrees": true,
-        "daily_close": 5.59,
+        "daily_close": 11.82,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601222&_ts=1794231104552",
-        "symbol": "sh601222",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601222,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:57+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh601857&_ts=1794299955915",
+        "symbol": "sh601857",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh601857,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:50+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 7.46,
-        "sina_price": 7.46,
-        "tencent_snapshot_price": 7.46,
+        "cutoff_price": 44.45,
+        "sina_price": 44.45,
+        "tencent_snapshot_price": 44.45,
         "minute_price_agrees": true,
-        "daily_close": 7.46,
+        "daily_close": 44.45,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh605055&_ts=1794231104554",
-        "symbol": "sh605055",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh605055,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:58+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh603416&_ts=1794299957432",
+        "symbol": "sh603416",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh603416,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:43+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 14.75,
-        "sina_price": 14.75,
-        "tencent_snapshot_price": 14.75,
+        "cutoff_price": 84.66,
+        "sina_price": 84.66,
+        "tencent_snapshot_price": 84.66,
         "minute_price_agrees": true,
-        "daily_close": 14.75,
+        "daily_close": 84.66,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh605599&_ts=1794231104554",
-        "symbol": "sh605599",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh605599,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:15:00+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688029&_ts=1794299955915",
+        "symbol": "sh688029",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688029,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:50+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 22.77,
-        "sina_price": 22.77,
-        "tencent_snapshot_price": 22.77,
+        "cutoff_price": 15.0,
+        "sina_price": 15.0,
+        "tencent_snapshot_price": 15.0,
         "minute_price_agrees": true,
-        "daily_close": 22.77,
+        "daily_close": 15.0,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688105&_ts=1794231106094",
-        "symbol": "sh688105",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688105,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:52+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688466&_ts=1794299955916",
+        "symbol": "sh688466",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688466,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:58+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 216.02,
-        "sina_price": 216.02,
-        "tencent_snapshot_price": 216.02,
+        "cutoff_price": 27.67,
+        "sina_price": 27.67,
+        "tencent_snapshot_price": 27.67,
         "minute_price_agrees": true,
-        "daily_close": 216.02,
+        "daily_close": 27.67,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688585&_ts=1794231106097",
-        "symbol": "sh688585",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688585,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:56+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688598&_ts=1794299955916",
+        "symbol": "sh688598",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688598,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:50+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 16.69,
-        "sina_price": 16.69,
-        "tencent_snapshot_price": 16.69,
+        "cutoff_price": 129.2,
+        "sina_price": 129.2,
+        "tencent_snapshot_price": 129.2,
         "minute_price_agrees": true,
-        "daily_close": 16.69,
+        "daily_close": 129.2,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688589&_ts=1794231104553",
-        "symbol": "sh688589",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688589,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:56+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh688827&_ts=1794299957436",
+        "symbol": "sh688827",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sh688827,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:59+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 10.08,
-        "sina_price": 10.08,
-        "tencent_snapshot_price": 10.08,
+        "cutoff_price": 13.34,
+        "sina_price": 13.34,
+        "tencent_snapshot_price": 13.34,
         "minute_price_agrees": true,
-        "daily_close": 10.08,
+        "daily_close": 13.34,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz001286&_ts=1794231107436",
-        "symbol": "sz001286",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz001286,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:51+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz001696&_ts=1794299957458",
+        "symbol": "sz001696",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz001696,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:15:00+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 5.08,
-        "sina_price": 5.08,
-        "tencent_snapshot_price": 5.08,
+        "cutoff_price": 7.56,
+        "sina_price": 7.56,
+        "tencent_snapshot_price": 7.56,
         "minute_price_agrees": true,
-        "daily_close": 5.08,
+        "daily_close": 7.56,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002022&_ts=1794231106110",
-        "symbol": "sz002022",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002022,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:15:00+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002057&_ts=1794299957461",
+        "symbol": "sz002057",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002057,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:54+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 9.19,
-        "sina_price": 9.19,
-        "tencent_snapshot_price": 9.19,
+        "cutoff_price": 7.82,
+        "sina_price": 7.82,
+        "tencent_snapshot_price": 7.82,
         "minute_price_agrees": true,
-        "daily_close": 9.19,
+        "daily_close": 7.82,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002394&_ts=1794231107437",
-        "symbol": "sz002394",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002394,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:21+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002111&_ts=1794299957451",
+        "symbol": "sz002111",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002111,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:33+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 3.81,
-        "sina_price": 3.81,
-        "tencent_snapshot_price": 3.81,
+        "cutoff_price": 19.47,
+        "sina_price": 19.47,
+        "tencent_snapshot_price": 19.47,
         "minute_price_agrees": true,
-        "daily_close": 3.81,
+        "daily_close": 19.47,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300010&_ts=1794231106099",
-        "symbol": "sz300010",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300010,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:15+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002246&_ts=1794299957438",
+        "symbol": "sz002246",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002246,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:42+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 7.53,
-        "sina_price": 7.53,
-        "tencent_snapshot_price": 7.53,
+        "cutoff_price": 84.61,
+        "sina_price": 84.61,
+        "tencent_snapshot_price": 84.61,
         "minute_price_agrees": true,
-        "daily_close": 7.53,
+        "daily_close": 84.61,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300214&_ts=1794231106106",
-        "symbol": "sz300214",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300214,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:45+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002353&_ts=1794299957468",
+        "symbol": "sz002353",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002353,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:42+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 7.54,
-        "sina_price": 7.54,
-        "tencent_snapshot_price": 7.54,
+        "cutoff_price": 3.18,
+        "sina_price": 3.18,
+        "tencent_snapshot_price": 3.18,
         "minute_price_agrees": true,
-        "daily_close": 7.54,
+        "daily_close": 3.18,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300340&_ts=1794231106105",
-        "symbol": "sz300340",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300340,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:51+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz002421&_ts=1794299958886",
+        "symbol": "sz002421",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz002421,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:30+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 47.14,
-        "sina_price": 47.14,
-        "tencent_snapshot_price": 47.14,
+        "cutoff_price": 6.58,
+        "sina_price": 6.58,
+        "tencent_snapshot_price": 6.58,
         "minute_price_agrees": true,
-        "daily_close": 47.14,
+        "daily_close": 6.58,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300842&_ts=1794231106111",
-        "symbol": "sz300842",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300842,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:45+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300264&_ts=1794299958897",
+        "symbol": "sz300264",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300264,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:30+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 26.21,
-        "sina_price": 26.21,
-        "tencent_snapshot_price": 26.21,
+        "cutoff_price": 17.71,
+        "sina_price": 17.71,
+        "tencent_snapshot_price": 17.71,
         "minute_price_agrees": true,
-        "daily_close": 26.21,
+        "daily_close": 17.71,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301010&_ts=1794231107439",
-        "symbol": "sz301010",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301010,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:57+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz300537&_ts=1794299958874",
+        "symbol": "sz300537",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz300537,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:15+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 37.49,
-        "sina_price": 37.49,
-        "tencent_snapshot_price": 37.49,
+        "cutoff_price": 14.98,
+        "sina_price": 14.98,
+        "tencent_snapshot_price": 14.98,
         "minute_price_agrees": true,
-        "daily_close": 37.49,
+        "daily_close": 14.98,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301099&_ts=1794231107430",
-        "symbol": "sz301099",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301099,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:48+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301267&_ts=1794299957446",
+        "symbol": "sz301267",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301267,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:30+08:00"
       },
       {
         "passed": true,
-        "security_date": "20261109",
+        "security_date": "20261110",
         "cutoff_hhmm": "1500",
-        "cutoff_price": 8.05,
-        "sina_price": 8.05,
-        "tencent_snapshot_price": 8.05,
+        "cutoff_price": 14.99,
+        "sina_price": 14.99,
+        "tencent_snapshot_price": 14.99,
         "minute_price_agrees": true,
-        "daily_close": 8.05,
+        "daily_close": 14.99,
         "daily_close_checked": true,
         "daily_close_agrees": true,
-        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301370&_ts=1794231106106",
-        "symbol": "sz301370",
-        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301370,day,,,5,qfq",
-        "tencent_snapshot_update_time": "2026-11-09T16:14:54+08:00"
+        "minute_source_url": "https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sz301505&_ts=1794299958876",
+        "symbol": "sz301505",
+        "daily_source_url": "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?param=sz301505,day,,,5,qfq",
+        "tencent_snapshot_update_time": "2026-11-10T16:14:45+08:00"
       }
     ],
     "state": "PASS",
@@ -572,283 +572,283 @@
   },
   "market_breadth": {
     "scope": "sh_a+sz_a",
-    "valid_returns": 5223,
-    "advancing": 2043,
-    "declining": 3008,
-    "unchanged": 172,
-    "median_change_pct": -0.348,
-    "amount_sum_raw_CNY": 1482277833411.0
+    "valid_returns": 5224,
+    "advancing": 4002,
+    "declining": 1073,
+    "unchanged": 149,
+    "median_change_pct": 1.367,
+    "amount_sum_raw_CNY": 1504447648805.0
   },
   "raw_shards": [
     {
       "path": "data/universe_pages/sh_a_001.json",
       "count": 100,
-      "sha256": "0019e609315fcde88192f754933a4dd3ee586e0abeb985be27198726f87e585e"
+      "sha256": "8ba690b95800880da2df3c837c3c45f0094b315d45c09d14dc68bda7633d3a8e"
     },
     {
       "path": "data/universe_pages/sh_a_002.json",
       "count": 100,
-      "sha256": "a4aedc7d9fe925e222554b94169d20019cb6dfbc8992d47f5939b3a015d9610a"
+      "sha256": "9aa036ceb4e1378a76fa443a68a2d5f3a068f12d0b7b9768273d57410e62a569"
     },
     {
       "path": "data/universe_pages/sh_a_003.json",
       "count": 100,
-      "sha256": "a2267d65af7d00ac75614e83128d84713978ee7b79297d0bc9c876e6c94ae0d1"
+      "sha256": "770ce6bd315d1b2096222952971de86d48b80c0c365b9a4a5b290cd64f2adb6e"
     },
     {
       "path": "data/universe_pages/sh_a_004.json",
       "count": 100,
-      "sha256": "77fc51773db55d2dc389028cafa98e7bcd6f57bc54c59a103024f45ff4ad99f2"
+      "sha256": "4aa7b091ceab48b87cf78e5d4aeb27b00f40c29c299f5a95544b54c583eb3962"
     },
     {
       "path": "data/universe_pages/sh_a_005.json",
       "count": 100,
-      "sha256": "38b30d9cef8ac45b795962e03cf22c135354db311131fabc5d4e9871cbcb7d02"
+      "sha256": "eeb2f5f152c8266ce703fcc6db518eb971639b61f3687d6f1c9899d7657584c9"
     },
     {
       "path": "data/universe_pages/sh_a_006.json",
       "count": 100,
-      "sha256": "49d9fcc7edfd5dcadfcb9b9eee1d6d5635644893b1d79476dc1cd7bf79217a67"
+      "sha256": "6e68de6ddcb9330f796ba26ba721a93a40f82f44e8f7ad525b4c6de650852009"
     },
     {
       "path": "data/universe_pages/sh_a_007.json",
       "count": 100,
-      "sha256": "71f0f2e189ddb584970cebdf0d9b06e577aee9b284853969e1c7960258e8e4a5"
+      "sha256": "56ee5ff52143caed7eeb5a23f3ac907d47417ebecf61ea803066e5385b9a41c5"
     },
     {
       "path": "data/universe_pages/sh_a_008.json",
       "count": 100,
-      "sha256": "e53343a987e0317f7c50a041359bc522c6b6269cc9b183271bb62135c7e1035c"
+      "sha256": "afebed8ff0b0219c295d31d46b3b6801e318da52881913d990a5ee594ae94d58"
     },
     {
       "path": "data/universe_pages/sh_a_009.json",
       "count": 100,
-      "sha256": "37ab8cfbbcb274458000df8923173a1cdfd73cd8ae4788f4ef1c531a65f74d66"
+      "sha256": "0c880249f1b52e63523eacab0dc2b12519315703613fa130f95c06fb2f6ae67a"
     },
     {
       "path": "data/universe_pages/sh_a_010.json",
       "count": 100,
-      "sha256": "43a4924899b9c6f9d8042c9f5d23ceb491daf7fb46836f5463bc251b689006db"
+      "sha256": "aa50c3729d5c85fc7006dc07d8ae90e485671b48353db438ffd2d8e6252c46c0"
     },
     {
       "path": "data/universe_pages/sh_a_011.json",
       "count": 100,
-      "sha256": "a5b12e3adae6e08fcd097f935c35adf3873890344eec299c27f87ca743d72545"
+      "sha256": "fadaa6af1dff775aca3b73fe3683d884be2882f0169c2916b23f5c6ba99b3700"
     },
     {
       "path": "data/universe_pages/sh_a_012.json",
       "count": 100,
-      "sha256": "c9f67eb380ab714a835d48173c74e580b7d77f59e550798e3debe41630ea7ef0"
+      "sha256": "e28b3a59d5c866a1f1f662013bec07b5da1484ad2f12801e11a95c58fd94edde"
     },
     {
       "path": "data/universe_pages/sh_a_013.json",
       "count": 100,
-      "sha256": "b777f93b39d3d47ee6e1c7473fd371effade4bd9fe912651c101ee59292d7d57"
+      "sha256": "9d9d4febdd1b306d291f5c34ed54edca51d901b66f4a830d1ed135027c0cbda0"
     },
     {
       "path": "data/universe_pages/sh_a_014.json",
       "count": 100,
-      "sha256": "4b70f85941fa3272676051f99acf2ec78140df712cb0829883a8eb3ea5b36e85"
+      "sha256": "122961892a5dbee6ef473e96c4231a60d70a61eb11d420cc18c146f782f71219"
     },
     {
       "path": "data/universe_pages/sh_a_015.json",
       "count": 100,
-      "sha256": "b0c5936c7c0a27a40eb8c27d82ac896e614f6545418559cdee07790df9a3decd"
+      "sha256": "e095b9a1ce696f67d4a73816ab74414675819a2c23bd88b064e0f1c44506ecfe"
     },
     {
       "path": "data/universe_pages/sh_a_016.json",
       "count": 100,
-      "sha256": "ee39e812a0d415e6b45bd75a17f81df4cea87c3980e0140074ed0447521ed006"
+      "sha256": "3e99af8396d780fd37fee1977a3fb814499f8e5d566e83abc08718302d063a51"
     },
     {
       "path": "data/universe_pages/sh_a_017.json",
       "count": 100,
-      "sha256": "bc7e5458232d32ee52c3116acf08033fb9fe4079459a2c740a86516631380b52"
+      "sha256": "e0a44675653b4904a37800de76578e1dfcb7fc50d6236fa0d467de29c387c2c1"
     },
     {
       "path": "data/universe_pages/sh_a_018.json",
       "count": 100,
-      "sha256": "5bdf91c1ee573c82f7928cf85aeb626cca7b3c2b946d87b57bfa90eca4a2d4f7"
+      "sha256": "88563273dd51d0dddc8c4a7292ea7ecd582521995a18e8a07de82faa336fcf87"
     },
     {
       "path": "data/universe_pages/sh_a_019.json",
       "count": 100,
-      "sha256": "85ac1d869ba7c6a47eb1daa8005cfc720921d49c1d4f50c31e0e84d757bd21af"
+      "sha256": "f9b99d0286979e44ff2716a9131f9efc0a742ec9f0375b8089fb27db6416fcb8"
     },
     {
       "path": "data/universe_pages/sh_a_020.json",
       "count": 100,
-      "sha256": "55642ce03c0922828eb5338f77c742efa0c79a50df70359e614df7cf9ba17043"
+      "sha256": "8eb2c6194350cc89dadd36c747b80f15b9d3f7e19c41bcac8392566a25bfd181"
     },
     {
       "path": "data/universe_pages/sh_a_021.json",
       "count": 100,
-      "sha256": "9c97e9297c1ca0e9cd799a5cdd16e96c7ede2b1c84717bd99f54cb222318c450"
+      "sha256": "1148b71bed060284da61b4b9bd0229204c23f8de00c9dd5f8ef180fcf19d1970"
     },
     {
       "path": "data/universe_pages/sh_a_022.json",
       "count": 100,
-      "sha256": "ae622aac99947ec9b39f63025f2288da3f6f7ce2ae49aa420a2b0fa7ac8ba275"
+      "sha256": "26b1a4398bcc2c93dfaa9b5730da70dd0b83a9971c9972a11e6720cdb9ef87a0"
     },
     {
       "path": "data/universe_pages/sh_a_023.json",
       "count": 100,
-      "sha256": "a98a591512204e869bca90b69c96334d2c4026cc6937d8fc3b1b941522255bc1"
+      "sha256": "1247961796d6afcf138e9560a1d0f9c4542b6ca2c04dd24475fb6fd07dc3dc3b"
     },
     {
       "path": "data/universe_pages/sh_a_024.json",
-      "count": 17,
-      "sha256": "3a13c3edb9156daffb3eef158a8df7f1849b9d0db40823983c8ff49daa9f092c"
+      "count": 18,
+      "sha256": "523993d897c1434bfe69475f94a4895ef499abe31436df9785af1c0b0bc11e0c"
     },
     {
       "path": "data/universe_pages/sz_a_001.json",
       "count": 100,
-      "sha256": "b505b2b63ad25c4943cda9bc7ff8492fef0b75e5a324cc314684ab57261c0c20"
+      "sha256": "ad1e8822eea944265e25b96f3cf9dc79188fdbbf623e75ad8db4aaf345daebc9"
     },
     {
       "path": "data/universe_pages/sz_a_002.json",
       "count": 100,
-      "sha256": "f7563adce48131062308f90dbf06259f0634ab4003f223e2b270f193ce3766c4"
+      "sha256": "32377b5122b0177086ebf11f7d5dc0fddcb2e43e042eef1d0dd0b330b8d1ed30"
     },
     {
       "path": "data/universe_pages/sz_a_003.json",
       "count": 100,
-      "sha256": "af3939fea73f7539ef5af08b08beaaf812f6ef0c4ad27646a373af7604a1e093"
+      "sha256": "0d6fb8a57217ed795afff568050f9ecde1b59839b85ae928b50d153c19799f86"
     },
     {
       "path": "data/universe_pages/sz_a_004.json",
       "count": 100,
-      "sha256": "5c52251d10306e9502cdba53284bd761e0343969c0cf9d66702a0cc8010b2f39"
+      "sha256": "5f3b1fcc1affb27a14b5593020283df84db9d011ef0fb1942536345f01327766"
     },
     {
       "path": "data/universe_pages/sz_a_005.json",
       "count": 100,
-      "sha256": "f9edc92427cfbc11b5c07e58178ce872b0b8c3d61261e82ffbb06ec4b70469cd"
+      "sha256": "022a5424389bf6a4b2e91ded4c26c856fce2d5f5039d805b96ca7d12906ab976"
     },
     {
       "path": "data/universe_pages/sz_a_006.json",
       "count": 100,
-      "sha256": "cb42f9be63f5a34655bc0248b67667ffefefe65c942750b93f03fc1d19f183e9"
+      "sha256": "e8142b2aa7dc037a60dc9e503c683a7dceed5390157ab564a3be48f6a90058f8"
     },
     {
       "path": "data/universe_pages/sz_a_007.json",
       "count": 100,
-      "sha256": "2d6126a1ea8066507e3819f57b71277fff68c81f58aaf9950de57544320058b9"
+      "sha256": "d8475d1a2391aab829dcf0d9bd19b1023c3ac15ea63adf1cb2087dffb5119cf9"
     },
     {
       "path": "data/universe_pages/sz_a_008.json",
       "count": 100,
-      "sha256": "8c7527321f85f40a974b4bc00977e40f68183ff73845c56ddc5aa71478c0a2ab"
+      "sha256": "0954a57ada9fa3553ce90127ffb314b0dcdabd675a283e2c29e82946deac5490"
     },
     {
       "path": "data/universe_pages/sz_a_009.json",
       "count": 100,
-      "sha256": "3b42d5450951ffae0c6967522471cdba0e3911af58701aef6f26a4b588032ba8"
+      "sha256": "4aed8cf0de3c3567e1f1e3d6a24c44bc5bbf5dee11565a647b260224e36f0093"
     },
     {
       "path": "data/universe_pages/sz_a_010.json",
       "count": 100,
-      "sha256": "bd259edd08dd52814cb0be8b8de09324a249dc0e3298ce7e06233e60406beb92"
+      "sha256": "9f5a672ce682ff4b3b99541e1f3380bf18e5160e2021584e64854b690d37a033"
     },
     {
       "path": "data/universe_pages/sz_a_011.json",
       "count": 100,
-      "sha256": "5b9b45f0096c9687cfb9f5f518958ff011be793fe0eddc2f56771b2adb62b20e"
+      "sha256": "487f870b8683df0ec1f23cd45db42a85c4c8703f2100a35b6ac43cf61d86e70d"
     },
     {
       "path": "data/universe_pages/sz_a_012.json",
       "count": 100,
-      "sha256": "29f30707993098b8dfaa77e8c84a19e41ea7e8f9d840bf8ff4fb733f447cfa52"
+      "sha256": "699c6c2d7e44ceb5a0b0c27dfb6b81797b1a7020a2eae79ce24eedfe51adb844"
     },
     {
       "path": "data/universe_pages/sz_a_013.json",
       "count": 100,
-      "sha256": "b906cc39c0340f449950b49bcb8a858ea19e8ec2877d30fb21c81ce3542259a3"
+      "sha256": "dc15ba6099c46216975684d4cffa081e53e7ec2d1e61b33205e56387d0485400"
     },
     {
       "path": "data/universe_pages/sz_a_014.json",
       "count": 100,
-      "sha256": "99423524997499ea7efa021ac620aabefc3ff1350e0946b670f2a0f321272b1d"
+      "sha256": "2465f2bf86857f0fa2110792d77734e47b1f28063b3c98d7f8535ccb60a79966"
     },
     {
       "path": "data/universe_pages/sz_a_015.json",
       "count": 100,
-      "sha256": "58e64c16ba5ff9a40c36701f41202ab6d75480cec9f57033ebbd967e98041b85"
+      "sha256": "c4b80890369ecbd77a6f300414c6492287b3cd6b1fb13d030986a63b2f98a73c"
     },
     {
       "path": "data/universe_pages/sz_a_016.json",
       "count": 100,
-      "sha256": "cd0b66e83a05763a6b1fa998264b0ee5aee5ba8415bef6e16849b91ba34b0d9b"
+      "sha256": "efc253ca6bf37728ab83f3e845a9bf14bc60e79c29e0a0eae56ca6050bb0a54d"
     },
     {
       "path": "data/universe_pages/sz_a_017.json",
       "count": 100,
-      "sha256": "ace427e1218a91bc9e9a24bdab5cb161c9fdcb9fa5ad514b2a210b84d81c5dad"
+      "sha256": "d2a4de9d953a92e8381cb9f22f840305e51b864bff133a2a3b73cd1b849566e9"
     },
     {
       "path": "data/universe_pages/sz_a_018.json",
       "count": 100,
-      "sha256": "36bc89fe1a07c13f71ac950b54fd675d1e02664e5956fa667ac8479b5ac1c4da"
+      "sha256": "947a28775d5439609c1b88b3de376918dea60775857419060d633ec2ed425fc4"
     },
     {
       "path": "data/universe_pages/sz_a_019.json",
       "count": 100,
-      "sha256": "6b70f3bfeb1afb95efb9edb43d96ff871e8c8b7d706716c50aa8a0fb2b6070f5"
+      "sha256": "55ddab2bcab33100edf619a7c176bedb154871abdb8f5fa78a24108c64f03cdc"
     },
     {
       "path": "data/universe_pages/sz_a_020.json",
       "count": 100,
-      "sha256": "7f4af0076575626d0d9ff8c460e957f29de245ef07893de6dd621c14939e5652"
+      "sha256": "2e828c6c3d660b42502c99b1b286c12c003c6b00327a9314b2fbcd65172d2d0f"
     },
     {
       "path": "data/universe_pages/sz_a_021.json",
       "count": 100,
-      "sha256": "661ce17a815f87be87751954c6ae25779ae3514d600e230611615dba35c4c6e5"
+      "sha256": "aaeb63d352a4ca0dfe350b1982714ed31f0e4755fd029c20624562d11d9443e7"
     },
     {
       "path": "data/universe_pages/sz_a_022.json",
       "count": 100,
-      "sha256": "5f56f48b22442bb5760dc26e111b76073119ef730d2cadb8708c7f9d8528bad3"
+      "sha256": "6bd4b1f5c9ce7274aacbcc621a29acbecd2d622413c3f1c455aef0e2cb9c5195"
     },
     {
       "path": "data/universe_pages/sz_a_023.json",
       "count": 100,
-      "sha256": "d317457555367fb2751f554b5987fd9ccffb3cd1c06c260b251c0d0201d495d6"
+      "sha256": "5aeb5d3616266f2b77660763bc078c635b3f25cf36cac6cf83320216e13f5655"
     },
     {
       "path": "data/universe_pages/sz_a_024.json",
       "count": 100,
-      "sha256": "7ee66deec86fcb27c3b892b0ccde4ee87ecf1b53930c4fe64a1d40eb75f55c26"
+      "sha256": "1c457f934b44dc766bdd6198e3a9fa924493ca0ae3e24fcf3040af870e9bf195"
     },
     {
       "path": "data/universe_pages/sz_a_025.json",
       "count": 100,
-      "sha256": "0e543c6297b30e079b269545031d4b46f0d3aae7c5a5cc6d386c260c30d24aae"
+      "sha256": "10f2ce1d34bef916f03117557c9f09b69361acedb22982bd159eb42e9dec53a8"
     },
     {
       "path": "data/universe_pages/sz_a_026.json",
       "count": 100,
-      "sha256": "9768d982e75eeae24d9d5fd1ac151d678f26962d60d0f01e7954257310d57826"
+      "sha256": "f3e127320b2cea68f040404caf856ae674a729ca72fea54ed20a829d640dad75"
     },
     {
       "path": "data/universe_pages/sz_a_027.json",
       "count": 100,
-      "sha256": "0dc52faae60f4da94e45d70b57330fda1ce752c3e1e481d1d613a30290a44af7"
+      "sha256": "b34e383cc8c90960e5050c48de507c40009a86e9b549d2f8315399deb10b8477"
     },
     {
       "path": "data/universe_pages/sz_a_028.json",
       "count": 100,
-      "sha256": "554eacb5a8313df0702a7e8e611ed37c9f7eefd65ce403f85ff0583983b105ef"
+      "sha256": "f42429b6076ab9f962d519274487be0ec5a15e3950d9363d49352cf1d29d41f1"
     },
     {
       "path": "data/universe_pages/sz_a_029.json",
       "count": 100,
-      "sha256": "ff0e464f77e24b641d7520b82d5e24c85c6d9eb371575435a84218587f8e262d"
+      "sha256": "9b78372227658f91243cd5a7f65ba33ebe3ee9eb4888e36169e5c0c97bebc7f4"
     },
     {
       "path": "data/universe_pages/sz_a_030.json",
       "count": 6,
-      "sha256": "2b258c9a35f130416616c98866b9651fb46f5cfa8b8e846fad6d257cbe802967"
+      "sha256": "df8349231ef522d66fb328201662311965c8579263040de37e2fd260ae81220f"
     }
   ],
   "no_future_data_permission": true
