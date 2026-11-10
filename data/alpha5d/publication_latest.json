@@ -1,138 +1,244 @@
 {
   "schema": "alpha5d-publication-v1",
-  "forecast_date": "2026-11-05",
-  "previous_session": "2026-11-04",
-  "created_at": "2026-11-05T08:55:46+08:00",
-  "publication_state": "PUBLISHED_RESEARCH_LATE",
-  "run_kind": "late_research",
-  "is_0850_live_prediction": false,
-  "original_0850_failure_preserved": true,
+  "forecast_date": "2026-11-10",
+  "previous_session": "2026-11-09",
+  "sessions": [
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16"
+  ],
+  "cutoff": "2026-11-10T08:50:00+08:00",
+  "created_at": "2026-11-10T08:51:15.367+08:00",
+  "publication_state": "PUBLISHED_RESEARCH",
+  "run_kind": "scheduled_research",
+  "is_0850_live_prediction": true,
   "formal_top5_allowed": true,
-  "cohort_path": "data/alpha5d/cohorts/2026-11-05-late-085450.json",
-  "evidence_review_path": "data/alpha5d/publications/2026-11-05-late-085450-evidence.json",
-  "input_sha256": "9e611bb624d14a2a8515a12c2ffe574edb3dc37659d8837c6ee93ee407f23822",
-  "ranking_path": "data/alpha5d/runs/20261105T084147/ranking.json",
-  "review_path": "data/alpha5d/runs/20261105T084147/review.json",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-10.json",
+  "evidence_review_path": "data/alpha5d/publications/2026-11-10-0850-evidence.json",
+  "input_sha256": "469d665a7005f1ac2d20501ff113241a4aba2f4bd0fdd0b09866763c97eaa695",
+  "ranking_path": "data/alpha5d/runs/20261110T014120/ranking.json",
+  "review_path": "data/alpha5d/runs/20261110T014120/review.json",
   "selection_count": 5,
   "model_version": "V8.0-bootstrap-1",
   "top5": [
     {
-      "symbol": "sz300529",
-      "name": "健帆生物",
-      "sector": "医药生物",
-      "score": 85.33408273,
+      "symbol": "sz002086",
+      "name": "东方海洋",
+      "sector": "农林牧渔",
+      "score": 89.25583204,
       "features": {
-        "r5": 0.1736526946107786,
-        "r10": 0.29543952412425645,
-        "r20": 0.28356254092992805,
-        "breakout": 0.03648863035430994,
-        "close_pos": 0.7812500000000014,
-        "volume_ratio": 2.165156112266416,
-        "trend": 0.07349230381024463,
+        "r5": 0.40514469453376223,
+        "r10": 0.9000000000000001,
+        "r20": 1.1527093596059115,
+        "breakout": 0.10075566750629728,
+        "close_pos": 1,
+        "volume_ratio": 1.8204456461692553,
+        "trend": 0.2006777108433737,
         "above_ma10": true,
-        "overheat": 0.001789387083504762,
-        "sector": "医药生物"
+        "overheat": 0.22033552837880213,
+        "sector": "农林牧渔"
       },
       "penalty": 0,
-      "reference_raw_close": 19.6,
+      "reference_raw_close": 4.37,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 1
     },
     {
-      "symbol": "sh688443",
-      "name": "智翔金泰",
-      "sector": "医药生物",
-      "score": 84.88962835,
+      "symbol": "sz002300",
+      "name": "太阳电缆",
+      "sector": "电力设备",
+      "score": 87.89493395,
       "features": {
-        "r5": 0.15351629502572894,
-        "r10": 0.15006412997007268,
-        "r20": 0.06324110671936745,
-        "breakout": 0.004480955937266495,
-        "close_pos": 0.91329479768786,
-        "volume_ratio": 1.7128084477006156,
-        "trend": 0.03468084194281307,
+        "r5": 0.12358133669609095,
+        "r10": 0.2710413694721827,
+        "r20": 0.1770145310435931,
+        "breakout": 0.02178899082568808,
+        "close_pos": 0.965517241379311,
+        "volume_ratio": 1.691015796997948,
+        "trend": 0.05338355630601366,
         "above_ma10": true,
         "overheat": 0,
-        "sector": "医药生物"
+        "sector": "电力设备"
       },
       "penalty": 0,
-      "reference_raw_close": 26.9,
+      "reference_raw_close": 8.91,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 2
     },
     {
-      "symbol": "sz300426",
-      "name": "华智数媒",
+      "symbol": "sh600715",
+      "name": "文投控股",
       "sector": "传媒",
-      "score": 84.61886108,
+      "score": 87.73613271,
       "features": {
-        "r5": 0.45980253878702393,
-        "r10": 0.30517023959646905,
-        "r20": 0.3672391017173051,
-        "breakout": 0.1499999999999999,
-        "close_pos": 0.8952879581151827,
-        "volume_ratio": 1.3698347940466604,
-        "trend": 0.05544034287294353,
+        "r5": 0.15624999999999978,
+        "r10": 0.5235294117647058,
+        "r20": 0.40760869565217384,
+        "breakout": 0.02777777777777768,
+        "close_pos": 1,
+        "volume_ratio": 1.9407302923055685,
+        "trend": 0.11019417475728144,
         "above_ma10": true,
-        "overheat": 0.20577678805344504,
+        "overheat": 0,
         "sector": "传媒"
       },
       "penalty": 0,
-      "reference_raw_close": 10.35,
+      "reference_raw_close": 2.59,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 3
     },
     {
-      "symbol": "sh603777",
-      "name": "来伊份",
-      "sector": "食品饮料",
-      "score": 83.89979445,
+      "symbol": "sz002578",
+      "name": "闽发铝业",
+      "sector": "有色金属",
+      "score": 87.63322965,
       "features": {
-        "r5": 0.06696100073583522,
-        "r10": 0.1043412033511042,
-        "r20": 0.07407407407407418,
-        "breakout": -0.020270270270270285,
+        "r5": 0.6111111111111112,
+        "r10": 0.5305555555555554,
+        "r20": 0.36049382716049383,
+        "breakout": 0.09980039920159678,
         "close_pos": 1,
-        "volume_ratio": 1.42065069644397,
-        "trend": 0.012325141776937665,
+        "volume_ratio": 1.7882609205026851,
+        "trend": 0.1304596060519554,
         "above_ma10": true,
-        "overheat": 0,
-        "sector": "食品饮料"
+        "overheat": 0.24141414141414144,
+        "sector": "有色金属"
       },
       "penalty": 0,
-      "reference_raw_close": 14.5,
+      "reference_raw_close": 5.51,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 4
     },
     {
-      "symbol": "sz002928",
-      "name": "华夏航空",
-      "sector": "交通运输",
-      "score": 83.8061408,
+      "symbol": "sz301121",
+      "name": "紫建电子",
+      "sector": "电力设备",
+      "score": 84.99075821,
       "features": {
-        "r5": 0.15625,
-        "r10": 0.14432989690721643,
-        "r20": 0.04552590266875978,
-        "breakout": -0.016248153618906858,
-        "close_pos": 0.8125000000000009,
-        "volume_ratio": 1.594177321441428,
-        "trend": 0.030271757825937495,
+        "r5": 0.20094702574726253,
+        "r10": 0.26220839813374797,
+        "r20": 0.1956393635827931,
+        "breakout": -0.005392156862745079,
+        "close_pos": 0.6142131979695418,
+        "volume_ratio": 2.1506108956063446,
+        "trend": 0.0751933801043354,
         "above_ma10": true,
         "overheat": 0,
-        "sector": "交通运输"
+        "sector": "电力设备"
       },
       "penalty": 0,
-      "reference_raw_close": 6.66,
+      "reference_raw_close": 40.58,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 5
     }
   ],
-  "execution_state": "WAIT",
-  "delivered_at": "UNVERIFIED",
-  "previous_publication_archived_path": "data/alpha5d/publications/2026-11-03-late-094126-evidence.json"
+  "evidence_cards": [
+    {
+      "symbol": "sz002086",
+      "fact": "2026-11-09 closed CNY 4.37, with strongest model 5/10/20-day momentum and close position 1.00; Nov 6 company abnormal-volatility announcement warns fundamental risks, 2026 YTD Q3 losses.",
+      "evidence_urls": [
+        "https://quote.cfi.cn/quote6861_002086.html",
+        "https://www.nbd.com.cn/articles/2026-11-07/4641276.html"
+      ],
+      "first_public_before_cutoff": true,
+      "price_stage": "crowded trend continuation",
+      "potential_buyer_inference": "momentum followers only, not verified institutions",
+      "potential_seller_inference": "high turnover and accumulated profits; fundamentals diverge",
+      "unpriced_component": "unverified",
+      "invalidation": "loss of limit-up strength on expanded turnover; agriculture theme contraction",
+      "execution": "WAIT_NO_CHASE"
+    },
+    {
+      "symbol": "sz002300",
+      "fact": "2026-11-09 closed CNY 8.91, strong close and moderate multi-window trend. Shareholder Xiangyu cut 4.22m shares Nov 3-6, plus block trades Nov 9 at 8.00 vs reference 8.91.",
+      "evidence_urls": [
+        "https://basic.10jqka.com.cn/002300/event.html"
+      ],
+      "first_public_before_cutoff": true,
+      "price_stage": "breakout continuation",
+      "potential_buyer_inference": "power-cable/industrial trend buyers",
+      "potential_seller_inference": "documented shareholder supply and block-discount participants",
+      "unpriced_component": "specific new commercial cable orders unverified",
+      "invalidation": "falls below break level without sector participation",
+      "execution": "WAIT_FOR_TREND_SUPPORT"
+    },
+    {
+      "symbol": "sh600715",
+      "fact": "2026-11-09 closed CNY 2.59 at strong price position; AI drama/media revenue potential was known in earlier Oct announcements, not a verified Nov 10 new order.",
+      "evidence_urls": [
+        "https://basic.10jqka.com.cn/600715/event.html"
+      ],
+      "first_public_before_cutoff": true,
+      "price_stage": "media momentum continuation",
+      "potential_buyer_inference": "AI content momentum demand",
+      "potential_seller_inference": "prior holders and participants after consecutive rallies",
+      "unpriced_component": "incremental paying-viewer revenue unverified",
+      "invalidation": "sector weakens, heavy-volume reversal",
+      "execution": "WAIT_VOLATILITY"
+    },
+    {
+      "symbol": "sz002578",
+      "fact": "2026-11-09 closed CNY 5.51, sixth consecutive limit-up. Nov 6 company abnormal-movement warning cites negative recurring profit and stretched valuation.",
+      "evidence_urls": [
+        "https://finance.sina.com.cn/jjxw/2026-11-09/doc-iniycfmw6324644.shtml"
+      ],
+      "first_public_before_cutoff": true,
+      "price_stage": "late-stage crowded surge",
+      "potential_buyer_inference": "high-momentum speculative traders",
+      "potential_seller_inference": "accumulated holders and sharp reversal pressure",
+      "unpriced_component": "actual fundamental aluminum/liquid-cooling order catalyst unverified",
+      "invalidation": "opened board then sustained selloff",
+      "execution": "NO_CHASE_WAIT"
+    },
+    {
+      "symbol": "sz301121",
+      "fact": "2026-11-09 closed CNY 40.58, volume ratio 2.15 but close position only 0.614. Third-quarter report released Oct 28: nine-month revenue +50.85%, attributable net profit +282.02%.",
+      "evidence_urls": [
+        "https://cn.investing.com/news/stock-market-news/article-3633300"
+      ],
+      "first_public_before_cutoff": true,
+      "price_stage": "new trend versus profit evidence",
+      "potential_buyer_inference": "battery and electronics investors seeking earnings-supported trend",
+      "potential_seller_inference": "previous profit-takers, weaker close than top four",
+      "unpriced_component": "additional signed orders and pricing not verified",
+      "invalidation": "closes below breakout/MA10 with high volume",
+      "execution": "WAIT_PRICE_CONFIRMATION"
+    }
+  ],
+  "sector_capture": {
+    "discussion_strong_top3": [
+      "煤炭",
+      "通信",
+      "国防军工"
+    ],
+    "discussion_weak_top3": [
+      "电力设备",
+      "房地产",
+      "美容护理"
+    ],
+    "source": "Bosera-Wind Shenwan 2026-11-09",
+    "source_url": "https://www.jiemian.com/article/15311907.html",
+    "production_taxonomy": "Eastmoney first-level, separately validated 5003/5003",
+    "status": "DISCUSSION_PASS_INDEPENDENT_SOURCE"
+  },
+  "baselines": {
+    "momentum20_top5": [
+      "sz301313",
+      "sz300949",
+      "sz002086",
+      "sh605488",
+      "sz002724"
+    ]
+  },
+  "execution_state": "WAIT_UNVERIFIED",
+  "delivered_at": "PENDING_THIS_REPORT",
+  "previous_publication_archived_path": "data/alpha5d/publications/2026-11-05-late-085450-evidence.json",
+  "publish_note": "Frozen after 08:50, no post-cutoff news inserted as features; no return claim; all five count"
 }
