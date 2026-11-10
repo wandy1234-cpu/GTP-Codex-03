@@ -1,0 +1,19 @@
+{
+  "adapter_version": "alpha5d-pipeline-1.1.2",
+  "started_at": "2026-11-10T23:40:49.270696+08:00",
+  "forecast_date": "2026-11-11",
+  "previous_session": "2026-11-10",
+  "sessions": [
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17"
+  ],
+  "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+  "status": "INCOMPLETE",
+  "run_kind": "late_research",
+  "error": "RuntimeError: URLError: <urlopen error _ssl.c:1063: The handshake operation timed out>",
+  "formal_top5_allowed": false,
+  "ended_at": "2026-11-10T23:42:27.199206+08:00"
+}
