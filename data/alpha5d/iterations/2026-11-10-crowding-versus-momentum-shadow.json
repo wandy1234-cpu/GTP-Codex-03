@@ -1,0 +1,37 @@
+{
+  "schema": "alpha5d-iteration-1",
+  "created_at": "2026-11-10T08:54:06.971+08:00",
+  "issue_id": "CROWDING_RANK_20261110",
+  "type": "B_candidate_heuristic_feature",
+  "status": "PROPOSED",
+  "main_model_changed": false,
+  "main_model": "V8.0-bootstrap-1",
+  "primary_report": "V8.1",
+  "input_sha256": "469d665a7005f1ac2d20501ff113241a4aba2f4bd0fdd0b09866763c97eaa695",
+  "evidence": [
+    {
+      "date": "2026-11-10",
+      "cohort": "data/alpha5d/cohorts/2026-11-10.json",
+      "fact": "Rank1 东方海洋 10-day momentum +90%, 20-day momentum +115.27%, high previous-day turnover near 46.94%, previous-day strong close position1.00; Q1-Q3 reported loss and company Nov6 risk alert. Research rank may be correct despite unexecutable high-open fills."
+    },
+    {
+      "date": "2026-11-10",
+      "fact": "Rank4 闽发铝业 six consecutive limit-up sessions, Nov6 abnormal trading notice flagged loss-making recurring net profit and high price/earnings risk."
+    },
+    {
+      "date": "2026-11-03",
+      "cohort": "data/alpha5d/cohorts/2026-11-03-late-094126.json",
+      "fact": "Matured D5 observable price-only returns Rank1+15.62%, Rank2−7.40%, Rank3−11.21%, Rank4+1.43%, Rank5−1.85%; mean −0.68%. Not corporate-action-adjusted or full-universe-ranked. Late publication cannot be treated as 08:50 live."
+    }
+  ],
+  "hypothesis": "Add shadow-only classification of extreme overextension and high turnover while retaining all original five and full performance responsibility.",
+  "candidate_change": "Do not alter production scoring; compare original baseline against shadow variants with stricter high-turnover reversal condition, keep high-momentum winners.",
+  "expected_metric": "genuine five-session top5/top20 capture, original and preeligible universe rank, average and median D5 return versus momentum20 baseline; executable return is secondary",
+  "potential_downside": "May exclude genuine leaders and lower true top5 capture; increase bias toward familiar safer stocks.",
+  "validation": "At least 20 matured date cohorts first diagnostic, then grouped rolling out-of-sample with nonoverlapping five-session label gap, independent holdout; no release until stable improvement",
+  "implementation": "NOT_CODED",
+  "tests": "NOT_RUN",
+  "backtest": "NOT_RUN",
+  "shadow_validation": "NOT_RUN",
+  "weights_changed": false
+}
