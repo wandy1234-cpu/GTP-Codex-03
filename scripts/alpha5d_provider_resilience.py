@@ -14,7 +14,7 @@ import alpha5d_pipeline as p
 import alpha5d_source_fixes as fixes
 import alpha5d_classification as classification
 
-VERSION='alpha5d-sources-1.1.2'
+VERSION='alpha5d-sources-1.1.3'
 ROOT=Path('data/alpha5d')
 PRIMARY_DAILY=None
 LEGACY_INDUSTRIES=fixes.industries
@@ -57,15 +57,30 @@ class ProviderCircuits:
 CIRCUITS=ProviderCircuits()
 
 def validate_history(history,asof):
-    bars=history.get('bars') or []
-    dates=[b.get('date') for b in bars]
-    if not bars or dates!=sorted(set(dates)) or dates[-1]>asof:raise ValueError('Missing, unordered, duplicate or future history')
-    if history.get('amount_unit')!='CNY' or history.get('volume_unit')!='lots_100_shares':raise ValueError('Unknown units')
-    for b in bars:
-        if any(not isinstance(b.get(k),(int,float)) or isinstance(b.get(k),bool) or not math.isfinite(b[k]) for k in ('open','close','high','low','volume','amount')):raise ValueError('Incomplete OHLCVA')
-        if not 0<b['low']<=min(b['open'],b['close'])<=max(b['open'],b['close'])<=b['high']:raise ValueError('Invalid OHLC')
-        if b['volume']<0 or b['amount']<0:raise ValueError('Negative activity')
-    return history
+    return p.validate_daily_history(history,asof)
+
+def parse_sina_factors(text,symbol):
+    """Decode the named JSON assignment and optional comments, without JS execution."""
+    match=re.match(r'\s*var\s+'+re.escape(symbol)+r'qfq\s*=\s*',text)
+    if not match:raise ValueError('Factor security identity mismatch')
+    value,end=json.JSONDecoder().raw_decode(text[match.end():])
+    remainder=text[match.end()+end:].strip()
+    if remainder.startswith(';'):remainder=remainder[1:].strip()
+    # Do not strip comments from JSON strings, or accept another JS statement.
+    while remainder:
+        comment=re.match(r'/\*[\s\S]*?\*/|//[^\r\n]*',remainder)
+        if not comment:raise ValueError('Unexpected content after factor JSON')
+        remainder=remainder[comment.end():].strip()
+    rows=value.get('data') if isinstance(value,dict) else None
+    if not isinstance(rows,list) or not rows or value.get('total')!=len(rows):
+        raise ValueError('Published factors incomplete')
+    dates=[]
+    for row in rows:
+        dates.append(dt.date.fromisoformat(row['d']).isoformat())
+        if isinstance(row['f'],bool) or not math.isfinite(float(row['f'])) or float(row['f'])<=0:
+            raise ValueError('Invalid published factor')
+    if len(dates)!=len(set(dates)):raise ValueError('Duplicate factor date')
+    return rows
 
 def normalize_sina(rows,asof,factors=None):
     entries=sorted(factors or [],key=lambda r:r['d'],reverse=True)
@@ -100,8 +115,7 @@ def sina_history(symbol,asof,adjust=1):
     rows=json.loads(output.stdout);factors=None
     factor_url='https://finance.sina.com.cn/realstock/company/'+symbol+'/qfq.js'
     if adjust==1:
-        factors=p.json_body(p.http(factor_url)).get('data')
-        if not isinstance(factors,list) or not factors:raise ValueError('Published factors missing')
+        factors=parse_sina_factors(p.http(factor_url),symbol)
     elif adjust!=0:raise ValueError('Unsupported adjustment')
     out={'bars':normalize_sina(rows,asof,factors),'source_url':url,'source_urls':[url]+([factor_url] if adjust else []),
          'retrieved_at':p.now().isoformat(),'adjustment_basis':('Sina_qfq' if adjust else 'Sina_raw')+'_anchor='+asof,
@@ -109,11 +123,27 @@ def sina_history(symbol,asof,adjust=1):
     return validate_history(out,asof)
 
 def daily_history(symbol,asof,adjust=1,primary=None,sample=False):
-    errors=[];fetch=primary or PRIMARY_DAILY;prefix='sample_' if sample else ''
+    errors=[];attempts=[];candidates=[];fetch=primary or PRIMARY_DAILY;prefix='sample_' if sample else ''
     for name,fn in [(prefix+'eastmoney_daily',lambda:validate_history(fetch(symbol,asof,adjust),asof)),(prefix+'sina_klc2',lambda:sina_history(symbol,asof,adjust))]:
         try:
-            out=CIRCUITS.call(name,fn);out['provider_route']=name;out['failed_routes']=errors;return out
-        except Exception as error:errors.append({'route':name,'error':type(error).__name__+': '+str(error)})
+            out=CIRCUITS.call(name,fn)
+            bars=out['bars'];current=bars[-1]['date']==asof
+            ready=current and (sample or len(bars)>=61)
+            attempts.append({'route':name,'status':'COMPLETE' if ready else 'SHORT_OR_STALE',
+                             'bar_count':len(bars),'first_date':bars[0]['date'],'last_date':bars[-1]['date'],
+                             'bars_sha256':p.sha(bars),'source_urls':out.get('source_urls') or [out['source_url']]})
+            out.update(provider_route=name,symbol=symbol,asof=asof)
+            candidates.append(out)
+            if ready:
+                out.update(failed_routes=list(errors),route_attempts=list(attempts));return out
+        except Exception as error:
+            failure={'route':name,'error':type(error).__name__+': '+str(error)}
+            errors.append(failure);attempts.append({**failure,'status':'ERROR'})
+    if candidates:
+        # Retain one intact source, never combine or pad histories. The adapter
+        # still rejects <61 bars unless an original legal exclusion applies.
+        out=max(candidates,key=lambda h:(h['bars'][-1]['date']==asof,h['bars'][-1]['date'],len(h['bars'])))
+        out.update(failed_routes=list(errors),route_attempts=list(attempts));return out
     raise RuntimeError(symbol+': all independent daily routes failed: '+json.dumps(errors,ensure_ascii=False))
 
 def independent_sample_bars(symbol,asof):return daily_history(symbol,asof,0,sample=True)
@@ -231,6 +261,9 @@ def frozen_universe(asof):
     recovered_pages=[]
     for node,prefix in [('sh_a','sh'),('sz_a','sz')]:
         meta=data['nodes'][node];group=[r for r in records if r['symbol'].startswith(prefix)];last=meta['terminal_page']
+        if (not last or meta.get('missing_pages') or meta.get('successful_pages')!=list(range(1,last+1))
+                or meta.get('raw_row_count')!=len(group)):
+            raise ValueError('Frozen source pagination manifest incomplete: '+node)
         # Preserve *original* source URLs even if the first request had a
         # transient error. Final recovered bytes must match a dated raw shard.
         requests=[item for item in data.get('source_requests',[])

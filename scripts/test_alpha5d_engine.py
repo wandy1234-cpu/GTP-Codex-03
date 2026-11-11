@@ -47,19 +47,19 @@ class Tests(unittest.TestCase):
     def test_missing_history_blocks_top5(self):
         d=fixture();d['universe'][0]['bars']=d['universe'][0]['bars'][-20:]
         self.assertFalse(e.rank(d)['formal_top5_allowed']);self.assertEqual(e.rank(d)['top5'],[])
-    def test_verified_60_session_warmup_keeps_rank_with_transparent_reason(self):
+    def test_60_session_warmup_cannot_bypass_original_eligibility_gate(self):
         d=fixture();r=d['universe'][0];r['bars']=r['bars'][-60:]
         r.update(eligible=False,exclude_reason='technical_warmup_60_bars',
                  exclusion_evidence={'status':'TECHNICAL_WARMUP_NOT_LISTING_LT_60',
                   'sessions':60,'observed_bars':60,'required_bars':61,'calendar_reconciled':True,
                   'source_url':'https://example.org/ipo','asof_date':d['previous_session']})
-        out=e.rank(d);self.assertTrue(out['formal_top5_allowed']);self.assertEqual(len(out['eligible_codes']),23)
-        self.assertEqual(out['excluded'][r['symbol']],'technical_warmup_60_bars')
+        out=e.rank(d);self.assertFalse(out['formal_top5_allowed']);self.assertEqual(out['top5'],[])
+        self.assertIn('unexplained ex-ante exclusion',str(out['errors']))
     def test_unverified_warmup_still_blocks_rank(self):
         d=fixture();r=d['universe'][0];r['bars']=r['bars'][-60:]
         r.update(eligible=False,exclude_reason='technical_warmup_60_bars',exclusion_evidence={'sessions':60})
         out=e.rank(d);self.assertFalse(out['formal_top5_allowed'])
-        self.assertIn('unverified technical warmup',str(out['errors']))
+        self.assertIn('unexplained ex-ante exclusion',str(out['errors']))
     def test_future_data_blocks_top5(self):
         d=fixture();d['universe'][0]['available_at']='2020-03-02T09:25:00+08:00'
         self.assertFalse(e.rank(d)['formal_top5_allowed'])

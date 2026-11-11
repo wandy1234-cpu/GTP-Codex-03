@@ -91,27 +91,30 @@ class VerifiedSessionHaltTest(unittest.TestCase):
         self.assertNotIn('sz301314',selected)
         self.assertIn('sz301314',p.sample_codes(rows,'2026-10-26'))
 
-class WarmupBoundaryTest(unittest.TestCase):
+class ShortHistoryBoundaryTest(unittest.TestCase):
     def dates_bars(self):
         dates=[];day=dt.date(2026,11,10)
         while len(dates)<61:
             if p.trading(day):dates.insert(0,day.isoformat())
             day-=dt.timedelta(days=1)
         return dates,[dict(date=d,open=10,high=11,low=9,close=10,volume=100,amount=1000000) for d in dates]
-    def test_exact_60_sessions_allowed_only_as_explicit_warmup(self):
+    def test_exact_60_sessions_explained_without_relaxing_gate(self):
         dates,bars=self.dates_bars()
         ipo={'date':dates[1],'sessions':60,'source_url':'https://example.org/ipo'}
-        ev=p.verified_60_session_warmup(ipo,bars[1:],'2026-11-10')
+        ev=p.short_history_diagnostic(ipo,bars[1:],'2026-11-10')
         self.assertEqual(ev['observed_bars'],60);self.assertTrue(ev['calendar_reconciled'])
-        self.assertEqual(ev['status'],'TECHNICAL_WARMUP_NOT_LISTING_LT_60')
+        self.assertEqual(ev['status'],'INSUFFICIENT_OBSERVED_SESSIONS')
+        self.assertFalse(ev['formal_top5_allowed'])
     def test_gap_59_bars_old_stock_or_wrong_listing_date_still_fails(self):
         dates,bars=self.dates_bars();ipo={'date':dates[1],'sessions':60,'source_url':'https://example.org/ipo'}
-        self.assertIsNone(p.verified_60_session_warmup(ipo,bars[2:],'2026-11-10'))
-        self.assertIsNone(p.verified_60_session_warmup({**ipo,'sessions':61},bars[1:],'2026-11-10'))
-        self.assertIsNone(p.verified_60_session_warmup({**ipo,'date':dates[0]},bars[1:],'2026-11-10'))
+        for ev in [p.short_history_diagnostic(ipo,bars[2:],'2026-11-10'),
+                   p.short_history_diagnostic({**ipo,'sessions':61},bars[1:],'2026-11-10'),
+                   p.short_history_diagnostic({**ipo,'date':dates[0]},bars[1:],'2026-11-10')]:
+            self.assertEqual(ev['status'],'SHORT_HISTORY_UNRESOLVED')
+            self.assertFalse(ev['formal_top5_allowed'])
     def test_bad_amount_is_not_warmup(self):
         dates,bars=self.dates_bars();ipo={'date':dates[1],'sessions':60,'source_url':'https://example.org/ipo'}
         bars[-1]['amount']=-1
-        self.assertIsNone(p.verified_60_session_warmup(ipo,bars[1:],'2026-11-10'))
+        with self.assertRaises(ValueError):p.short_history_diagnostic(ipo,bars[1:],'2026-11-10')
 
 if __name__=='__main__':unittest.main()

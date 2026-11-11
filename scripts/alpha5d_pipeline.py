@@ -180,25 +180,82 @@ def listing_info(symbol, asof):
     sessions=sum(trading(date+dt.timedelta(days=i)) for i in range(max(0,(end-date).days+1)))
     return {'date':date.isoformat(),'sessions':sessions,'source_url':url}
 
-def verified_60_session_warmup(ipo, bars, asof):
-    """One-day technical readiness exception, not a listing_lt_60 exclusion."""
-    if not isinstance(ipo,dict) or ipo.get('sessions')!=60 or len(bars)!=60 or not ipo.get('source_url') or not ipo.get('date'):
-        return None
+def short_history_diagnostic(ipo, bars, asof):
+    """Explain the 60/61 boundary; never grant an eligibility exception."""
+    result={'status':'SHORT_HISTORY_UNRESOLVED','observed_bars':len(bars),
+            'required_bars':61,'asof_date':asof,'listing_evidence':ipo,
+            'formal_top5_allowed':False}
+    if not ipo.get('source_url') or not ipo.get('date'):return result
     start,end=dt.date.fromisoformat(ipo['date']),dt.date.fromisoformat(asof)
+    if start.year!=2026:return result
     expected=[(start+dt.timedelta(days=i)).isoformat()
               for i in range(max(0,(end-start).days+1)) if trading(start+dt.timedelta(days=i))]
-    if len(expected)!=60 or [b.get('date') for b in bars]!=expected:
-        return None
+    dates=[b.get('date') for b in bars]
+    result.update(calendar_sessions=len(expected),missing_session_dates=sorted(set(expected)-set(dates)),
+                  unexpected_dates=sorted(set(dates)-set(expected)))
+    if ipo.get('sessions')==60 and len(expected)==60 and dates==expected:
+        validate_daily_history({'bars':bars,'amount_unit':'CNY','volume_unit':'lots_100_shares'},asof)
+        result.update(status='INSUFFICIENT_OBSERVED_SESSIONS',calendar_reconciled=True)
+    return result
+
+def validate_daily_history(history, asof):
+    """Validate actual OHLCVA independently of cache/source success and bar count."""
+    if not isinstance(history,dict):raise ValueError('History must be an object')
+    bars=history.get('bars')
+    if not isinstance(bars,list) or not bars or any(not isinstance(b,dict) for b in bars):
+        raise ValueError('Missing or invalid daily bars')
+    dates=[b.get('date') for b in bars]
+    if not bars or any(not isinstance(d,str) for d in dates) or dates!=sorted(set(dates)) or dates[-1]>asof:
+        raise ValueError('Missing, unordered, duplicate or future history')
+    if history.get('amount_unit')!='CNY' or history.get('volume_unit')!='lots_100_shares':
+        raise ValueError('Unknown units')
     for b in bars:
+        dt.date.fromisoformat(b['date'])
+        if any(not isinstance(b.get(k),(int,float)) or isinstance(b.get(k),bool) or not math.isfinite(b[k])
+               for k in ('open','close','high','low','volume','amount')):raise ValueError('Incomplete OHLCVA')
+        if not 0<b['low']<=min(b['open'],b['close'])<=max(b['open'],b['close'])<=b['high']:
+            raise ValueError('Invalid OHLC')
+        if b['volume']<0 or b['amount']<0:raise ValueError('Negative activity')
+    return history
+
+def validate_cached_history(history, symbol, asof):
+    validate_daily_history(history,asof)
+    if history.get('symbol',symbol)!=symbol or history.get('asof',asof)!=asof:
+        raise ValueError('Cache security/asof mismatch')
+    if history['bars'][-1]['date']!=asof or len(history['bars'])<61:
+        raise ValueError('Stale or short cache requires independent retrieval')
+    observed=dt.datetime.fromisoformat(history['retrieved_at'])
+    if observed.tzinfo is None or observed>now() or observed<dt.datetime.fromisoformat(asof+'T15:00:00+08:00'):
+        raise ValueError('Future, intraday or undated cache')
+    url=up.urlparse(history.get('source_url',''));query=up.parse_qs(url.query)
+    if url.hostname=='push2his.eastmoney.com' and url.path=='/api/qt/stock/kline/get':
+        expected=('1' if symbol.startswith('sh') else '0')+'.'+symbol[2:]
+        if (query.get('secid')!=[expected] or query.get('fqt')!=['1'] or query.get('end')!=[asof.replace('-','')]
+                or history.get('adjustment_basis')!='Eastmoney_fqt=1_end='+asof):
+            raise ValueError('Cache source identity/adjustment/asof mismatch')
+    elif url.hostname=='finance.sina.com.cn' and url.path=='/realstock/company/'+symbol+'/hisdata_klc2/klc_kl.js':
+        if history.get('adjustment_basis')!='Sina_qfq_anchor='+asof:
+            raise ValueError('Cache adjustment mismatch')
+    else:raise ValueError('Cache source identity unverified')
+    return history
+
+def load_daily_history(root, asof, row):
+    symbol=row['symbol'];path=Path(root)/'history'/asof/(symbol+'.json');rejected=None
+    if path.exists():
         try:
-            op,hi,lo,cl,vol,amt=(float(b[k]) for k in ('open','high','low','close','volume','amount'))
-            if not all(math.isfinite(x) for x in (op,hi,lo,cl,vol,amt)) or not 0<lo<=min(op,cl)<=max(op,cl)<=hi or vol<0 or amt<0:
-                return None
-        except (ValueError,TypeError,KeyError):
-            return None
-    return {'status':'TECHNICAL_WARMUP_NOT_LISTING_LT_60','date':ipo['date'],
-            'asof_date':asof,'sessions':60,'observed_bars':60,'required_bars':61,
-            'calendar_reconciled':True,'source_url':ipo['source_url']}
+            h=validate_cached_history(json.loads(path.read_text()),symbol,asof)
+            return symbol,{**h,'cache_audit':{'state':'VALIDATED_REUSE','checked_at':now().isoformat()}}
+        except (ValueError,KeyError,TypeError,OSError) as error:
+            rejected=type(error).__name__+': '+str(error)
+    h=incremental_cached_history(root,asof,row) if row.get('_security_date')==asof else None
+    if h is not None:
+        try:validate_daily_history(h,asof)
+        except (ValueError,KeyError,TypeError):h=None
+    if h is None:h=east_bars(symbol,asof)
+    validate_daily_history(h,asof)
+    h.update(symbol=symbol,asof=asof,cache_audit={'state':'REFRESHED','rejected_cache':rejected})
+    atomic(path,h)
+    return symbol,h
 
 def tencent(symbols):
     url='https://qt.gtimg.cn/q='+','.join(symbols)
@@ -319,6 +376,7 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
             except Exception as e:errors.append(symbol+': missing history and independent listing evidence: '+str(e))
         else:
             record.update(bars=h['bars'],adjustment_basis=h['adjustment_basis'])
+            record['history_audit']={k:h[k] for k in ('provider_route','route_attempts','failed_routes','cache_audit','retrieved_at') if k in h}
             record['source_urls'] = list(record['source_urls']) + list(h.get('source_urls') or [h['source_url']])
             if h['bars'][-1]['date']!=asof:errors.append(symbol+': last daily bar stale (suspension not yet independently verified)')
             if len(h['bars'])<61:
@@ -327,9 +385,9 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
                     if ipo['sessions']<60:
                         record.update(eligible=False,exclude_reason='listing_lt_60_sessions',exclusion_evidence=ipo)
                     else:
-                        warmup=verified_60_session_warmup(ipo,h['bars'],asof)
-                        if warmup:record.update(eligible=False,exclude_reason='technical_warmup_60_bars',exclusion_evidence=warmup)
-                        else:errors.append(symbol+': fewer than61 bars for established listing (warmup not verified)')
+                        diagnostic=short_history_diagnostic(ipo,h['bars'],asof)
+                        record['history_diagnostic']=diagnostic
+                        errors.append(symbol+': '+diagnostic['status']+'; need 61 actual bars, observed '+str(len(h['bars'])))
                 except Exception as e:errors.append(symbol+': listing status unverified: '+str(e))
             if r.get('_security_date')==asof:record['raw_close']=float(r['trade'])
             elif len(dates)==1:
@@ -338,11 +396,10 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
             if record['eligible'] and not record['sector']:errors.append(symbol+': missing industry membership')
         normalized.append(record)
     coverage={**cover,'unique_count':len(rows),'samples':samples}
-    warmup_codes=[r['symbol'] for r in normalized if r.get('exclude_reason')=='technical_warmup_60_bars']
     return {'forecast_date':forecast,'previous_session':asof,'cutoff':cutoff,
       'generated_at':generated_at,'run_kind':'late_research' if generated_at>forecast+'T08:50:00+08:00' else 'scheduled',
       'data_commit':os.getenv('GITHUB_SHA','local-research'),'source_urls':[SINA,CALENDAR_SOURCE],
-      'coverage':coverage,'universe':normalized,'adapter_errors':errors,'technical_warmup_codes':warmup_codes},errors
+      'coverage':coverage,'universe':normalized,'adapter_errors':errors},errors
 
 def run_rank(engine, payload):
     """Permit an explicitly labelled late re-run without weakening data gates.
@@ -440,9 +497,16 @@ def main():
     asof=step(fday,-1).isoformat();forecast=fday.isoformat();run_id=started.strftime('%Y%m%dT%H%M%S')
     run_dir=root/'runs'/run_id; manifest={'adapter_version':VERSION,'started_at':started.isoformat(),
        'forecast_date':forecast,'previous_session':asof,'sessions':forecast_sessions(fday),
-       'calendar_source':CALENDAR_SOURCE,'status':'RUNNING','run_kind':'late_research' if started.time()>dt.time(8,50) else 'prefetch'}
+       'calendar_source':CALENDAR_SOURCE,'status':'RUNNING','run_kind':'late_research' if started.date()==fday and started.time()>dt.time(8,50) else 'prefetch',
+       'workflow_run_id':os.getenv('GITHUB_RUN_ID'),'workflow_run_attempt':int(os.getenv('GITHUB_RUN_ATTEMPT','1')),
+       'source_commit':os.getenv('GITHUB_SHA','local-research')}
     atomic(root/'pipeline_status.json',manifest)
+    def checkpoint(stage):
+        manifest.update(stage=stage,checkpoint_at=now().isoformat())
+        atomic(root/'pipeline_status.json',manifest)
+        atomic(run_dir/'receipt.json',manifest)
     try:
+        checkpoint('universe')
         rows=[];cover={}
         verified_minima=verified_market_minima(asof)
         frozen=frozen_universe(asof)
@@ -462,36 +526,36 @@ def main():
         except Exception as error:
             SESSION_HALTS[asof]={};manifest['session_halt_audit']={'complete':False,'error':str(error)}
         # Daily history retrieval is independent of industry availability; cache it first.
+        checkpoint('daily_history')
         histories={};history_errors={}
         targets=[r for r in rows if 'ST' not in r['name'].upper() and not verified_halt(r['symbol'],asof) and not verified_halt(r['symbol'],forecast)]
         def load(r):
-            sym=r['symbol'];path=root/'history'/asof/(sym+'.json')
-            if path.exists():
-                h=json.loads(path.read_text());
-                if h.get('bars') and h['bars'][-1]['date']==asof:return sym,h
-            h=incremental_cached_history(root,asof,r) if r.get('_security_date')==asof else None
-            if h is not None:
-                atomic(path,h)
-                return sym,h
-            h=east_bars(sym,asof);atomic(path,h);return sym,h
+            return load_daily_history(root,asof,r)
         with cf.ThreadPoolExecutor(max_workers=args.workers) as pool:
             futures={pool.submit(load,r):r['symbol'] for r in targets}
             for f in cf.as_completed(futures):
                 sym=futures[f]
                 try:_,histories[sym]=f.result()
                 except Exception as e:history_errors[sym]=str(e)
-        manifest.update(history_success=len(histories),history_missing=history_errors)
+        manifest.update(history_success=len(histories),history_missing=history_errors,
+                        history_at_least_61_bars=sum(len(h['bars'])>=61 for h in histories.values()),
+                        history_short_codes=sorted(s for s,h in histories.items() if len(h['bars'])<61))
+        checkpoint('industry_catalog_and_memberships')
         set_industry_context(rows,histories,asof)
         try:industry,url=industries(args.workers)
         finally:manifest['industry_source_audit']=industry_audit()
         atomic(run_dir/'industry.json',{'source':url,'memberships':industry,'audit':industry_audit()})
+        checkpoint('sample_quotes')
         quotes=tencent(sample_codes(rows,asof))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
+        checkpoint('input_validation')
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)
-        manifest['technical_warmup_codes']=payload.get('technical_warmup_codes',[])
+        manifest['short_history_diagnostics']={r['symbol']:r['history_diagnostic'] for r in payload['universe'] if r.get('history_diagnostic')}
         atomic(run_dir/'input.json',payload)
+        manifest['input_sha256']=sha(payload)
         if errors:raise ValueError('INPUT_INCOMPLETE: '+repr(errors[:20]))
         import alpha5d_engine as engine
+        checkpoint('ranking')
         result=run_rank(engine,payload);atomic(run_dir/'ranking.json',result)
         review={'forecast_date':forecast,'previous_session':asof,'sessions':manifest['sessions'],'cutoff':cutoff,
                 'generated_at':actual,'run_kind':payload['run_kind'],'input_sha256':result['input_sha256'],
@@ -501,7 +565,6 @@ def main():
                 'industry_classification':payload.get('industry_classification'),'industry_source_audit':payload.get('industry_source_audit'),
                 'provider_route_health':payload.get('provider_route_health'),'sample_checks':payload['coverage']['samples'],
                 'top20':result.get('ranking',[])[:20],'top5':result.get('top5',[]),'baselines':result.get('baselines',{}),
-                'technical_warmup_codes':payload.get('technical_warmup_codes',[]),
                 'publication_state':'AWAITING_EVIDENCE_REVIEW','is_0850_live_prediction':False if payload['run_kind']=='late_research' else None}
         atomic(run_dir/'review.json',review)
         manifest.update(status=result['ranking_health'],input_sha256=sha(payload),
@@ -513,7 +576,7 @@ def main():
                         verified_sample_count=len(payload['coverage']['samples']),is_0850_live_prediction=result.get('is_0850_live_prediction'))
         manifest['formal_top5_allowed']=False
     except Exception as e:
-        manifest.update(status='INCOMPLETE',error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)
+        manifest.update(status='INCOMPLETE',failed_stage=manifest.get('stage'),error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)
     finally:
         manifest['ended_at']=now().isoformat();atomic(run_dir/'receipt.json',manifest)
         atomic(root/'pipeline_status.json',manifest)
