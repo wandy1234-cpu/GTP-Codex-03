@@ -1,0 +1,44 @@
+{
+  "record_type": "ENGINEERING_BOUNDARY_REPAIR",
+  "change_id": "verified-60-session-warmup",
+  "record_date": "2026-11-11",
+  "forecast_date": "2026-11-11",
+  "previous_session": "2026-11-10",
+  "original_failed_workflow_run_id": "42846793887",
+  "original_error": "ValueError: INPUT_INCOMPLETE: ['sh688828: fewer than61 bars for established listing', 'sz301717: fewer than61 bars for established listing']",
+  "affected_symbols": [
+    "sh688828",
+    "sz301717"
+  ],
+  "official_ipo_sources": [
+    "https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260810_10828440.shtml",
+    "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=82786245&gather=1&id=12484744"
+  ],
+  "ipo_listing_date": "2026-08-11",
+  "verified_exchange_session_count_through_2026_11_10": 60,
+  "root_cause": "Original listing exclusion only for age <60 sessions, but original 60-prior-close breakout c[-61:-1] requires 61 genuine closes, so exactly age 60 cannot be scored.",
+  "correction": "Distinct technical_warmup_60_bars, not listing_lt_60_sessions, only when exactly 60 genuine complete OHLCVA dates match all official exchange sessions since verified IPO and source/date/amount/price evidence is complete. Older stocks, missing dates and damaged OHLCVA continue to block ranking.",
+  "ex_ante_listing_rule_unchanged": "listed <60 exchange sessions is still excluded; 60th session is now transparently deferred from technical scoring for one trading session because required bars are not available",
+  "model": "V8.0-bootstrap-1",
+  "scoring_formula_or_weight_changed": false,
+  "code_commit": "c018fad42695d474a91ef233e44fadc70528407b",
+  "changed_paths": [
+    "scripts/alpha5d_pipeline.py",
+    "scripts/alpha5d_engine.py",
+    "scripts/test_alpha5d_pipeline.py",
+    "scripts/test_alpha5d_engine.py",
+    "docs/ALPHA5D_CONTRACT.md"
+  ],
+  "software_ci": {
+    "workflow_run_id": "42938082815",
+    "job_id": "130253003176",
+    "regression_test_step": "PASS",
+    "type": "software regression, not returns backtest"
+  },
+  "status": "CODED_AND_SOFTWARE_TESTED; LIVE_FULL_UNIVERSE_PRODUCTION_PENDING",
+  "expected_measure": "Complete correctly audited ranking on a day with exactly-60-session IPOs, with 0 unexplained history/industry errors and five actual ranked stocks after separate evidence review.",
+  "side_effect": "A securities listing its 60th session remains in raw universe and hindsight raw winner audit but is temporarily not scored by the 61-bar model; must disclose raw-versus-scored universe and potential missed winners.",
+  "audit_boundary": "Do not overwrite 2026-11-11 08:50 failure. Any post-08:50 ranking must be late_research, is_0850_live_prediction=false.",
+  "private_data_included": false,
+  "economic_accuracy_proven": false
+}
