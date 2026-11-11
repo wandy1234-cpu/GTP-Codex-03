@@ -180,6 +180,26 @@ def listing_info(symbol, asof):
     sessions=sum(trading(date+dt.timedelta(days=i)) for i in range(max(0,(end-date).days+1)))
     return {'date':date.isoformat(),'sessions':sessions,'source_url':url}
 
+def verified_60_session_warmup(ipo, bars, asof):
+    """One-day technical readiness exception, not a listing_lt_60 exclusion."""
+    if not isinstance(ipo,dict) or ipo.get('sessions')!=60 or len(bars)!=60 or not ipo.get('source_url') or not ipo.get('date'):
+        return None
+    start,end=dt.date.fromisoformat(ipo['date']),dt.date.fromisoformat(asof)
+    expected=[(start+dt.timedelta(days=i)).isoformat()
+              for i in range(max(0,(end-start).days+1)) if trading(start+dt.timedelta(days=i))]
+    if len(expected)!=60 or [b.get('date') for b in bars]!=expected:
+        return None
+    for b in bars:
+        try:
+            op,hi,lo,cl,vol,amt=(float(b[k]) for k in ('open','high','low','close','volume','amount'))
+            if not all(math.isfinite(x) for x in (op,hi,lo,cl,vol,amt)) or not 0<lo<=min(op,cl)<=max(op,cl)<=hi or vol<0 or amt<0:
+                return None
+        except (ValueError,TypeError,KeyError):
+            return None
+    return {'status':'TECHNICAL_WARMUP_NOT_LISTING_LT_60','date':ipo['date'],
+            'asof_date':asof,'sessions':60,'observed_bars':60,'required_bars':61,
+            'calendar_reconciled':True,'source_url':ipo['source_url']}
+
 def tencent(symbols):
     url='https://qt.gtimg.cn/q='+','.join(symbols)
     with ur.urlopen(ur.Request(url,headers=HEADERS),timeout=12) as r:text=r.read().decode('gb18030')
@@ -306,7 +326,10 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
                     ipo=listing_info(symbol,asof)
                     if ipo['sessions']<60:
                         record.update(eligible=False,exclude_reason='listing_lt_60_sessions',exclusion_evidence=ipo)
-                    else:errors.append(symbol+': fewer than61 bars for established listing')
+                    else:
+                        warmup=verified_60_session_warmup(ipo,h['bars'],asof)
+                        if warmup:record.update(eligible=False,exclude_reason='technical_warmup_60_bars',exclusion_evidence=warmup)
+                        else:errors.append(symbol+': fewer than61 bars for established listing (warmup not verified)')
                 except Exception as e:errors.append(symbol+': listing status unverified: '+str(e))
             if r.get('_security_date')==asof:record['raw_close']=float(r['trade'])
             elif len(dates)==1:
@@ -315,10 +338,11 @@ def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff,
             if record['eligible'] and not record['sector']:errors.append(symbol+': missing industry membership')
         normalized.append(record)
     coverage={**cover,'unique_count':len(rows),'samples':samples}
+    warmup_codes=[r['symbol'] for r in normalized if r.get('exclude_reason')=='technical_warmup_60_bars']
     return {'forecast_date':forecast,'previous_session':asof,'cutoff':cutoff,
       'generated_at':generated_at,'run_kind':'late_research' if generated_at>forecast+'T08:50:00+08:00' else 'scheduled',
       'data_commit':os.getenv('GITHUB_SHA','local-research'),'source_urls':[SINA,CALENDAR_SOURCE],
-      'coverage':coverage,'universe':normalized,'adapter_errors':errors},errors
+      'coverage':coverage,'universe':normalized,'adapter_errors':errors,'technical_warmup_codes':warmup_codes},errors
 
 def run_rank(engine, payload):
     """Permit an explicitly labelled late re-run without weakening data gates.
@@ -464,6 +488,7 @@ def main():
         quotes=tencent(sample_codes(rows,asof))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)
+        manifest['technical_warmup_codes']=payload.get('technical_warmup_codes',[])
         atomic(run_dir/'input.json',payload)
         if errors:raise ValueError('INPUT_INCOMPLETE: '+repr(errors[:20]))
         import alpha5d_engine as engine
@@ -476,6 +501,7 @@ def main():
                 'industry_classification':payload.get('industry_classification'),'industry_source_audit':payload.get('industry_source_audit'),
                 'provider_route_health':payload.get('provider_route_health'),'sample_checks':payload['coverage']['samples'],
                 'top20':result.get('ranking',[])[:20],'top5':result.get('top5',[]),'baselines':result.get('baselines',{}),
+                'technical_warmup_codes':payload.get('technical_warmup_codes',[]),
                 'publication_state':'AWAITING_EVIDENCE_REVIEW','is_0850_live_prediction':False if payload['run_kind']=='late_research' else None}
         atomic(run_dir/'review.json',review)
         manifest.update(status=result['ranking_health'],input_sha256=sha(payload),

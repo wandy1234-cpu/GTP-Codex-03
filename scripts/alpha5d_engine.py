@@ -14,7 +14,7 @@ from pathlib import Path
 
 VERSION = 'V8.0-bootstrap-1'
 TZ = dt.timezone(dt.timedelta(hours=8))
-ALLOWED_EXCLUSIONS = {'non_sh_sz_a', 'st', 'known_suspension', 'listing_lt_60_sessions', 'liquidity_lt_50m'}
+ALLOWED_EXCLUSIONS = {'non_sh_sz_a', 'st', 'known_suspension', 'listing_lt_60_sessions', 'liquidity_lt_50m', 'technical_warmup_60_bars'}
 
 def iso(s):
     t = dt.datetime.fromisoformat(s)
@@ -88,6 +88,13 @@ def validate(data):
             why = r.get('exclude_reason')
             if why not in ALLOWED_EXCLUSIONS or not r.get('exclusion_evidence'):
                 errors.append(code + ': unexplained ex-ante exclusion')
+            if why == 'technical_warmup_60_bars':
+                ev=r.get('exclusion_evidence')
+                if not (isinstance(ev,dict) and ev.get('status')=='TECHNICAL_WARMUP_NOT_LISTING_LT_60'
+                        and ev.get('sessions')==60 and ev.get('observed_bars')==60 and ev.get('required_bars')==61
+                        and ev.get('calendar_reconciled') is True and ev.get('source_url')
+                        and ev.get('asof_date')==previous and len(r.get('bars',[]))==60):
+                    errors.append(code+': unverified technical warmup')
             excluded[code] = why
             continue
         try:
