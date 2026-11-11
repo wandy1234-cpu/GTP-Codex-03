@@ -109,6 +109,26 @@ class EligibilityEvidence(unittest.TestCase):
                 payload,errors=p.assemble(rows,cover,{}, {}, {'sample':{'stamp':'20261102160000'}},'2026-11-02','2026-11-03','2026-11-03T08:50:00+08:00','2026-11-03T08:40:00+08:00')
             self.assertEqual(payload['universe'][0]['eligible'],expected);self.assertEqual(bool(errors),expected)
 
+class RecoveredPageIntegrity(unittest.TestCase):
+    def make(self,folder):
+        rows=[dict(symbol='sz000001',trade='10.02',volume=100,amount=200000),dict(symbol='sz000002',trade='10.03',volume=120,amount=300000)]
+        record={'captured_at_beijing':'2026-11-10T23:00:00+08:00','node':'sz_a','page':1,
+                'stock_pick_gate':'VERIFIED_CLOSED_DATASET','record_count':2,
+                'records':{x['symbol']:x for x in rows}}
+        Path(folder,'sz_a_001.json').write_text(json.dumps(record))
+        return rows
+    def test_error_then_success_verified_by_original_raw_shard(self):
+        with tempfile.TemporaryDirectory() as d:
+            rows=self.make(d)
+            self.assertTrue(r.verified_recovered_page('sz_a',1,rows,'2026-11-10T23:00:00+08:00',d))
+    def test_missing_or_changed_page_never_accepted(self):
+        with tempfile.TemporaryDirectory() as d:
+            rows=self.make(d)
+            self.assertFalse(r.verified_recovered_page('sz_a',1,[{**rows[0],'trade':'9.99'},rows[1]],'2026-11-10T23:00:00+08:00',d))
+            self.assertFalse(r.verified_recovered_page('sz_a',1,rows,'2026-11-09T23:00:00+08:00',d))
+            Path(d,'sz_a_001.json').unlink()
+            self.assertFalse(r.verified_recovered_page('sz_a',1,rows,'2026-11-10T23:00:00+08:00',d))
+
 class FrozenPreviousClose(unittest.TestCase):
     def dataset(self):
         records={};checks=[]

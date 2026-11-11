@@ -190,6 +190,24 @@ def session_halts(asof,rows,forecast=None):
         audit.update(forecast_session=forecast,known_forecast_whole_session_codes=sorted(future))
     p.atomic(ROOT/'history'/'_halts'/(asof+'.json'),{'audit':audit,'records':out});return out,audit
 
+def verified_recovered_page(node,page,expected_rows,captured_at,shard_dir=None):
+    """Accept a page with failed earlier attempts only when original final bytes are proved."""
+    folder=Path('data/universe_pages') if shard_dir is None else Path(shard_dir)
+    file=folder/(node+'_'+str(page).zfill(3)+'.json')
+    if not file.is_file():return False
+    try:
+        shard=json.loads(file.read_text(encoding='utf8'))
+        raw=shard['records']
+        actual=list(raw.values()) if isinstance(raw,dict) else raw
+        return (shard.get('node')==node and shard.get('page')==page
+                and shard.get('captured_at_beijing')==captured_at
+                and shard.get('stock_pick_gate')=='VERIFIED_CLOSED_DATASET'
+                and int(shard.get('record_count',-1))==len(actual)
+                and len(actual)==len(expected_rows)
+                and p.sha(actual)==p.sha(expected_rows))
+    except (KeyError,TypeError,ValueError):
+        return False
+
 def frozen_universe(asof):
     file=Path('data/alpha5d/market')/(asof+'.json')
     if not file.is_file():file=Path('data/universe_latest.json')
@@ -210,22 +228,42 @@ def frozen_universe(asof):
         if not check.get('passed') or check['security_date']!=asof.replace('-','') or min(values)<=0 or max(values)/min(values)-1>.005:raise ValueError('Frozen sample invalid')
         if abs(float(lookup[check['symbol']]['trade'])/values[0]-1)>.005:raise ValueError('Frozen sample/raw close disagree')
     cover={}
+    recovered_pages=[]
     for node,prefix in [('sh_a','sh'),('sz_a','sz')]:
         meta=data['nodes'][node];group=[r for r in records if r['symbol'].startswith(prefix)];last=meta['terminal_page']
-        urls=[item['url'] for item in data.get('source_requests',[]) if up.parse_qs(up.urlparse(item['url']).query).get('node')==[node] and not item.get('errors')]
-        if len(group)!=meta['raw_row_count'] or meta.get('missing_pages') or meta['successful_pages']!=list(range(1,last+1)):
-            raise ValueError('Frozen pagination evidence incomplete')
-        if len(urls)!=last:
-            # Snapshot lacks inspectable original page URLs. Never certify it;
-            # fall back to independent dated, full-page provider collection.
-            # The caller's pagination, date, sample and factor gates remain intact.
-            print('FROZEN_SOURCE_REJECTED: pagination source URL evidence missing; collecting fresh full pages',flush=True)
+        # Preserve *original* source URLs even if the first request had a
+        # transient error. Final recovered bytes must match a dated raw shard.
+        requests=[item for item in data.get('source_requests',[])
+                  if up.parse_qs(up.urlparse(item.get('url','')).query).get('node')==[node]]
+        page_map={}
+        for item in requests:
+            qs=up.parse_qs(up.urlparse(item['url']).query)
+            try:page=int(qs.get('page',['0'])[0])
+            except (ValueError,TypeError):page=0
+            if page not in range(1,last+1) or page in page_map:
+                print('FROZEN_SOURCE_REJECTED: duplicate/invalid source page',flush=True)
+                return None
+            page_map[page]=item
+        if len(page_map)!=last or sorted(page_map)!=list(range(1,last+1)):
+            print('FROZEN_SOURCE_REJECTED: original page URLs missing',flush=True)
             return None
+        urls=[]
+        for page in range(1,last+1):
+            item=page_map[page]
+            if item.get('errors'):
+                original=group[(page-1)*100:page*100]
+                if not verified_recovered_page(node,page,original,data['captured_at_beijing']):
+                    print('FROZEN_SOURCE_REJECTED: failed-attempt page lacks identical dated source shard',flush=True)
+                    return None
+                recovered_pages.append({'node':node,'page':page,'original_errors':item['errors'],
+                                        'verified_recovery_from':'data/universe_pages/'+node+'_'+str(page).zfill(3)+'.json'})
+            urls.append(item['url'])
         for row in group:row['_security_date']=asof
         cover[node]={'successful_pages':meta['successful_pages'],'terminal_page':last,'terminal_verified':True,'missing_pages':[],
                      'raw_rows':len(group),'page_counts':[100]*(last-1)+[len(group)-100*(last-1)],'source_urls':urls}
     audit={'security_date':asof,'captured_at':data['captured_at_beijing'],'sha256':raw_hash,'frozen_samples_verified':len(checks),'source':'data/universe_latest.json'}
     audit['source']=str(file)
+    audit['recovered_attempts_backed_by_identical_raw_shards']=recovered_pages
     archive=ROOT/'market'/(asof+'.json')
     if not archive.exists():
         # Keep provider bytes logically unchanged; internal date tags are adapter metadata.
