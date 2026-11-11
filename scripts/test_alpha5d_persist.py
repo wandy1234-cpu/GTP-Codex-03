@@ -6,6 +6,15 @@ import alpha5d_persist as x
 import alpha5d_pipeline as p
 
 class ResultPersistence(unittest.TestCase):
+    def test_rerun_identity_matches_attempt_specific_artifact(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            for attempt in (1,2):
+                result=x.stage_result(root/'missing',root/str(attempt),'42846793887',attempt,'source-sha')
+                self.assertEqual(result['workflow_run_attempt'],attempt)
+                self.assertEqual(result['evidence_artifact_name'],'alpha5d-public-evidence-42846793887-'+str(attempt))
+                self.assertEqual(result['source_commit'],'source-sha')
+                self.assertEqual(result['status'],'FAILED_BEFORE_COLLECTION')
     def test_old_checkout_cannot_replace_newer_status_but_keeps_its_run(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);stage=root/'stage';dest=root/'destination'

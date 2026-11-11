@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import alpha5d_pipeline as p
 
-def stage_result(source,stage,run_id):
+def stage_result(source,stage,run_id,run_attempt=1,source_commit=None):
     source,stage=Path(source),Path(stage)
     file=source/'pipeline_status.json'
     payload=json.loads(file.read_text()) if file.exists() else {'status':'FAILED_BEFORE_COLLECTION'}
@@ -15,7 +15,9 @@ def stage_result(source,stage,run_id):
     if progress.exists():payload['retrieval_progress']=json.loads(progress.read_text())
     previous=payload.get('previous_session')
     if previous:payload['cached_history_files']=len(list((source/'history'/previous).glob('*.json')))
-    payload.update(workflow_run_id=str(run_id),evidence_artifact_name='alpha5d-public-evidence-'+str(run_id),
+    payload.update(workflow_run_id=str(run_id),workflow_run_attempt=int(run_attempt),
+                   source_commit=source_commit or payload.get('source_commit'),
+                   evidence_artifact_name='alpha5d-public-evidence-'+str(run_id)+'-'+str(run_attempt),
                    persisted_at=dt.datetime.now(dt.timezone.utc).isoformat())
     p.atomic(stage/'pipeline_status.json',payload)
     for folder in (source/'runs').glob('*'):
@@ -50,8 +52,9 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('mode',choices=['stage','apply'])
     parser.add_argument('--source',default='.cache/alpha5d');parser.add_argument('--stage',required=True)
     parser.add_argument('--destination',default='data/alpha5d');parser.add_argument('--run-id')
+    parser.add_argument('--run-attempt',type=int,default=1);parser.add_argument('--source-commit')
     args=parser.parse_args()
-    data=stage_result(args.source,args.stage,args.run_id) if args.mode=='stage' else apply_result(args.stage,args.destination)
+    data=stage_result(args.source,args.stage,args.run_id,args.run_attempt,args.source_commit) if args.mode=='stage' else apply_result(args.stage,args.destination)
     print(json.dumps({'status':data.get('status'),'started_at':data.get('started_at'),'workflow_run_id':data.get('workflow_run_id')}))
 
 if __name__=='__main__':main()

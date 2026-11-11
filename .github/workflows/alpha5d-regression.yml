@@ -1,0 +1,25 @@
+name: Alpha5d software regression
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/alpha5d-*.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Run software checks (no live collection or publication)
+        run: |
+          PYTHONPATH=scripts python -m unittest discover -s scripts -p 'test_alpha5d_*.py' -v
+          python -m compileall -q scripts
+          git diff --check

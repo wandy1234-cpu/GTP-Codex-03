@@ -1,0 +1,170 @@
+{
+  "incident": {
+    "run_id": 42846793887,
+    "run_attempt": 2,
+    "run_number": 72,
+    "source_commit": "a6d57518f57d4c7621588d12b7f3a38060f3739c",
+    "job_id": 130236586950,
+    "artifact_id": 13816903449,
+    "artifact_zip_sha256": "d0134c6e517a9ace1b048881d8eda265fa6c700956b0af327dd82f4a98e65270"
+  },
+  "full_archived_input_replay": {
+    "failed_commit": {
+      "ranking_health": "INCOMPLETE",
+      "formal_top5_allowed": false,
+      "input_count": 5224,
+      "verified_histories": 3826,
+      "errors": [
+        "sh688828: need 61 unique ordered completed daily bars",
+        "sz301717: need 61 unique ordered completed daily bars"
+      ],
+      "top5": [],
+      "input_sha256": "29d37615aeca5cdca3508b10acef3e12c0c39528580cf514e2707e80ab5e8daf"
+    },
+    "patch": {
+      "ranking_health": "INCOMPLETE",
+      "formal_top5_allowed": false,
+      "input_count": 5224,
+      "verified_histories": 3826,
+      "errors": [
+        "sh688828: need 61 unique ordered completed daily bars",
+        "sz301717: need 61 unique ordered completed daily bars"
+      ],
+      "top5": [],
+      "input_sha256": "29d37615aeca5cdca3508b10acef3e12c0c39528580cf514e2707e80ab5e8daf"
+    }
+  },
+  "live_probe": {
+    "sh688828": {
+      "checked_at": "2026-11-11T19:14:54.253174+08:00",
+      "listing": {
+        "symbol": "sh688828",
+        "asof": "2026-11-10",
+        "date": "2026-08-11",
+        "sessions": 60,
+        "source_url": "https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/688828.phtml",
+        "retrieved_at": "2026-11-11T19:15:28.088201+08:00"
+      },
+      "sources": [
+        {
+          "source": "eastmoney",
+          "asof": "2026-11-10",
+          "status": "OK",
+          "error": null,
+          "bar_count": 60,
+          "first_date": "2026-08-11",
+          "last_date": "2026-11-10",
+          "retrieved_at": "2026-11-11T19:09:39.943376+08:00",
+          "source_urls": [
+            "https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.688828&klt=101&fqt=1&beg=20251006&end=20261110&lmt=240&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61"
+          ]
+        },
+        {
+          "source": "sina",
+          "asof": "2026-11-10",
+          "status": "OK",
+          "error": null,
+          "bar_count": 60,
+          "first_date": "2026-08-11",
+          "last_date": "2026-11-10",
+          "retrieved_at": "2026-11-11T19:15:07.713923+08:00",
+          "source_urls": [
+            "https://finance.sina.com.cn/realstock/company/sh688828/hisdata_klc2/klc_kl.js",
+            "https://finance.sina.com.cn/realstock/company/sh688828/qfq.js"
+          ]
+        },
+        {
+          "source": "eastmoney",
+          "asof": "2026-11-11",
+          "status": "ERROR",
+          "error": "RuntimeError: HTTPError: HTTP Error 503: Service Unavailable",
+          "bar_count": 0,
+          "first_date": null,
+          "last_date": null,
+          "retrieved_at": null,
+          "source_urls": []
+        },
+        {
+          "source": "sina",
+          "asof": "2026-11-11",
+          "status": "OK",
+          "error": null,
+          "bar_count": 61,
+          "first_date": "2026-08-11",
+          "last_date": "2026-11-11",
+          "retrieved_at": "2026-11-11T19:15:20.026915+08:00",
+          "source_urls": [
+            "https://finance.sina.com.cn/realstock/company/sh688828/hisdata_klc2/klc_kl.js",
+            "https://finance.sina.com.cn/realstock/company/sh688828/qfq.js"
+          ]
+        }
+      ]
+    },
+    "sz301717": {
+      "checked_at": "2026-11-11T19:14:54.258124+08:00",
+      "listing": {
+        "symbol": "sz301717",
+        "asof": "2026-11-10",
+        "date": "2026-08-11",
+        "sessions": 60,
+        "source_url": "https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/301717.phtml",
+        "retrieved_at": "2026-11-11T19:15:28.090252+08:00"
+      },
+      "sources": [
+        {
+          "source": "eastmoney",
+          "asof": "2026-11-10",
+          "status": "OK",
+          "error": null,
+          "bar_count": 60,
+          "first_date": "2026-08-11",
+          "last_date": "2026-11-10",
+          "retrieved_at": "2026-11-11T19:09:40.351486+08:00",
+          "source_urls": [
+            "https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=0.301717&klt=101&fqt=1&beg=20251006&end=20261110&lmt=240&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61"
+          ]
+        },
+        {
+          "source": "sina",
+          "asof": "2026-11-10",
+          "status": "OK",
+          "error": null,
+          "bar_count": 60,
+          "first_date": "2026-08-11",
+          "last_date": "2026-11-10",
+          "retrieved_at": "2026-11-11T19:15:07.697267+08:00",
+          "source_urls": [
+            "https://finance.sina.com.cn/realstock/company/sz301717/hisdata_klc2/klc_kl.js",
+            "https://finance.sina.com.cn/realstock/company/sz301717/qfq.js"
+          ]
+        },
+        {
+          "source": "eastmoney",
+          "asof": "2026-11-11",
+          "status": "ERROR",
+          "error": "RuntimeError: HTTPError: HTTP Error 503: Service Unavailable",
+          "bar_count": 0,
+          "first_date": null,
+          "last_date": null,
+          "retrieved_at": null,
+          "source_urls": []
+        },
+        {
+          "source": "sina",
+          "asof": "2026-11-11",
+          "status": "OK",
+          "error": null,
+          "bar_count": 61,
+          "first_date": "2026-08-11",
+          "last_date": "2026-11-11",
+          "retrieved_at": "2026-11-11T19:15:19.987692+08:00",
+          "source_urls": [
+            "https://finance.sina.com.cn/realstock/company/sz301717/hisdata_klc2/klc_kl.js",
+            "https://finance.sina.com.cn/realstock/company/sz301717/qfq.js"
+          ]
+        }
+      ]
+    }
+  },
+  "verification_scope": "Targeted live read-only provider checks and archived-input replay; not a production all-A ranking; no retrospective valid Top5."
+}

@@ -42,7 +42,7 @@ jobs:
       - uses: actions/cache/restore@v4
         with:
           path: .cache/alpha5d/history
-          key: alpha5d-history-v1-${{ github.run_id }}
+          key: alpha5d-history-v1-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             alpha5d-history-v1-
       - name: Collect dated public universe and run unchanged score model
@@ -54,12 +54,12 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .cache/alpha5d/history
-          key: alpha5d-history-v1-${{ github.run_id }}
+          key: alpha5d-history-v1-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Archive actual inputs and outputs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: alpha5d-public-evidence-${{ github.run_id }}
+          name: alpha5d-public-evidence-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             .cache/alpha5d/runs
             .cache/alpha5d/pipeline_status.json
@@ -74,8 +74,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          stage_dir="$RUNNER_TEMP/alpha5d-public-$GITHUB_RUN_ID"
-          python scripts/alpha5d_persist.py stage --stage "$stage_dir" --run-id "$GITHUB_RUN_ID"
+          stage_dir="$RUNNER_TEMP/alpha5d-public-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          python scripts/alpha5d_persist.py stage --stage "$stage_dir" --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT" --source-commit "$GITHUB_SHA"
           cp scripts/alpha5d_persist.py "$RUNNER_TEMP/alpha5d-persist.py"
           cp scripts/alpha5d_pipeline.py "$RUNNER_TEMP/alpha5d_pipeline.py"
           git config user.name 'github-actions[bot]'
