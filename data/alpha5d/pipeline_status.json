@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-11T08:40:46.334945+08:00",
+  "started_at": "2026-11-11T09:19:43.531824+08:00",
   "forecast_date": "2026-11-11",
   "previous_session": "2026-11-10",
   "sessions": [
@@ -12,7 +12,7 @@
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
   "status": "INCOMPLETE",
-  "run_kind": "prefetch",
+  "run_kind": "late_research",
   "raw_count": 5224,
   "coverage": {
     "sh_a": {
@@ -351,18 +351,17 @@
     "fallback": false,
     "source_url": "https://82.push2.eastmoney.com/api/qt/clist/get?pn=1&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A2+f%3A%2150&fields=f12%2Cf13%2Cf14",
     "covered_required_codes": 5004,
-    "membership_count": 5224,
+    "membership_count": 5225,
     "snapshot": {
-      "route": "verified_recent_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-10-014155-713f3c1a54d8.json",
-      "observed_at": "2026-11-10T01:41:55.364337+08:00",
-      "boards_sha256": "713f3c1a54d8d72f5f7832b5120c66c10c13efd4d5f91eeb7397601dde4502dc",
-      "live_error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
+      "route": "live_provider_pages",
+      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-11-093004-bb960517b0a5.json",
+      "observed_at": "2026-11-11T09:30:04.778346+08:00",
+      "boards_sha256": "bb960517b0a5763e791140025aa080128c69fc9591c7c28253e2428af406f199"
     }
   },
-  "error": "ValueError: INPUT_INCOMPLETE: ['sh688828: fewer than61 bars for established listing', 'sz301717: fewer than61 bars for established listing']",
+  "error": "ValueError: Missing sample board sh_main",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-11T08:51:36.583411+08:00",
+  "ended_at": "2026-11-11T09:30:04.841759+08:00",
   "retrieval_progress": {
     "attempted": 5027,
     "succeeded": 5027,
@@ -371,10 +370,10 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-11T08:51:36.584194+08:00"
+    "recorded_at": "2026-11-11T09:30:04.842504+08:00"
   },
   "cached_history_files": 5027,
-  "workflow_run_id": "42846793887",
-  "evidence_artifact_name": "alpha5d-public-evidence-42846793887",
-  "persisted_at": "2026-11-11T00:51:50.753528+00:00"
+  "workflow_run_id": "42938082815",
+  "evidence_artifact_name": "alpha5d-public-evidence-42938082815",
+  "persisted_at": "2026-11-11T01:30:21.799175+00:00"
 }
