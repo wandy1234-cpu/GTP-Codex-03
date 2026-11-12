@@ -9,7 +9,7 @@ class CacheAndSampleAcceptance(unittest.TestCase):
         for prefix in ['sh600','sh688','sz000','sz300']:
             for i in range(6):
                 symbol=prefix+str(i).zfill(3)
-                rows.append(dict(symbol=symbol,name='normal',trade=10.,volume=0,amount=0))
+                rows.append(dict(symbol=symbol,name='normal',trade=0.,settlement=10.,volume=0,amount=0))
                 histories[symbol]={'bars':[dict(date='2026-11-10',close=10.),
                     dict(date='2026-11-11',close=10.+i/10,volume=100.,amount=100000.)]}
         return rows,histories
@@ -91,6 +91,9 @@ class TransportTest(unittest.TestCase):
         with self.assertRaises(ValueError):p.reference({'trade':22},{'stamp':'20260930160000','price':22},'2026-10-08')
     def test_reference_close_refresh(self):
         self.assertEqual(p.reference({'trade':22},{'stamp':'20261008160000','price':22},'2026-10-08'),(22,22))
+    def test_reset_preopen_last_trade_does_not_erase_verified_previous_close(self):
+        self.assertEqual(p.reference({'trade':0,'settlement':22},
+            {'stamp':'20261008160000','price':22},'2026-10-08'),(22,22))
     def test_atomic(self):
         with tempfile.TemporaryDirectory() as d:
             path=Path(d)/'x.json';p.atomic(path,{'status':'INCOMPLETE'});self.assertEqual(json.loads(path.read_text())['status'],'INCOMPLETE')

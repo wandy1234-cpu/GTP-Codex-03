@@ -246,7 +246,7 @@ def board(sym):
 def reference(sina, qq, asof):
     d=dt.datetime.strptime(qq['stamp'][:8],'%Y%m%d').date()
     target=dt.date.fromisoformat(asof)
-    if d==target:return float(sina['trade']),qq['price']
+    if d==target:return float(sina['trade'] if float(sina.get('trade') or 0)>0 else sina['settlement']),qq['price']
     if d==step(target,1):return float(sina['trade'] if sina.get('_security_date')==asof else sina['settlement']),qq['previous']
     raise ValueError('Quote security date incompatible with required close')
 
@@ -309,7 +309,7 @@ def sample_codes(rows, asof=None, histories=None):
     result=[]
     for label in ('sh_main','star','sz_main','chinext'):
         group=sorted((r for r in rows if board(r['symbol'])==label and 'ST' not in r['name'].upper()
-                      and float(r.get('trade') or 0)>0 and activity(r)
+                      and (histories is not None or float(r.get('trade') or 0)>0) and activity(r)
                       and not verified_halt(r['symbol'], asof)),
                      key=lambda r:(change(r),r['symbol']))
         if len(group)<5:raise ValueError('Missing sample board '+label)
