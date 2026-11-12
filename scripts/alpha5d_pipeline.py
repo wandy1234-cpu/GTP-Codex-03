@@ -70,24 +70,54 @@ def json_body(text):
     return json.loads(text)
 
 def verified_market_minima(previous_session):
-    """Never certify an A-share universe against an unchecked or wrong-date baseline."""
-    path=Path('data/alpha5d/market')/(previous_session+'.json')
-    if not path.is_file():path=Path('data/universe_summary.json')
-    if not path.is_file():
-        raise ValueError('No previously verified full-market baseline; refuse formal ranking')
-    baseline=json.loads(path.read_text(encoding='utf8'))
-    frozen=baseline.get('frozen_verification') or {}
-    if (baseline.get('stock_pick_gate')!='VERIFIED_CLOSED_DATASET'
-            or str(frozen.get('security_date'))!=previous_session.replace('-','')
-            or int(frozen.get('passed_count') or 0)<20):
-        raise ValueError('Previous-session market baseline not verified for '+previous_session)
-    minima={}
-    for node in ('sh_a','sz_a'):
-        ref=int((baseline.get('nodes') or {}).get(node,{}).get('unique_count') or 0)
-        if ref<100:raise ValueError('Missing verified baseline count for '+node)
-        # Fail closed on unexplained drops (a 100-name lost page cannot pass).
-        minima[node]=math.ceil(ref*0.998)
-    return minima
+    """Find a verified coverage floor; never certify the requested date from stale data.
+
+    If the target close snapshot is incomplete, a recent independently verified
+    earlier session is only a *minimum count floor* for fresh same-date paging,
+    not a replacement market input. Downstream 20 samples and dated bars still
+    must pass for the requested session.
+    """
+    requested=dt.date.fromisoformat(previous_session)
+    candidates=[Path('data/alpha5d/market')/(previous_session+'.json'),
+                Path('data/universe_summary.json')]
+    # A relay can publish an incomplete target snapshot (e.g. 19/20 checks).
+    # Recover with the nearest previous valid close from no more than 3
+    # actual exchange sessions; an older floor must not silently pass.
+    archive=Path('data/alpha5d/market')
+    if archive.is_dir():
+        for path in sorted(archive.glob('????-??-??.json'),reverse=True):
+            if path not in candidates:candidates.append(path)
+    for path in candidates:
+        if not path.is_file():continue
+        try:
+            baseline=json.loads(path.read_text(encoding='utf8'))
+            frozen=baseline.get('frozen_verification') or {}
+            security=dt.date.fromisoformat(str(frozen.get('security_date',''))[:4]+'-'+str(frozen.get('security_date',''))[4:6]+'-'+str(frozen.get('security_date',''))[6:8])
+            if security>requested:continue
+            d=security;age=0
+            while d<requested and age<=3:
+                d=step(d,1);age+=1
+            if age>3 or d!=requested:continue
+            if (baseline.get('stock_pick_gate')!='VERIFIED_CLOSED_DATASET'
+                    or not baseline.get('complete_pagination')
+                    or int(frozen.get('passed_count') or 0)<20):
+                continue
+            minima={}
+            for node in ('sh_a','sz_a'):
+                meta=(baseline.get('nodes') or {}).get(node,{})
+                ref=int(meta.get('unique_count') or 0)
+                terminal=int(meta.get('terminal_page') or 0)
+                if (ref<100 or terminal<1
+                        or meta.get('successful_pages')!=list(range(1,terminal+1))
+                        or meta.get('missing_pages')):
+                    raise ValueError('Insufficient verified baseline pagination')
+                minima[node]=math.ceil(ref*.998)
+            # Older snapshot only supplies a conservative floor. Actual prices,
+            # pages, source dates and 20 three-source checks are recollected.
+            return minima
+        except (ValueError,KeyError,TypeError,IndexError,json.JSONDecodeError):
+            continue
+    raise ValueError('No verified recent full-market coverage floor for '+previous_session)
 
 def paged(node, minimum_rows=0):
     records=[];pages=[];urls=[];counts=[]
