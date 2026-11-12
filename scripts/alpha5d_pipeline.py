@@ -297,13 +297,21 @@ def verified_halt(symbol, session):
     """Return prior-public dated halt evidence, otherwise None; never infer from stale bars."""
     return SESSION_HALTS.get(session,{}).get(symbol) or VERIFIED_HALTS.get(session, {}).get(symbol)
 
-def sample_codes(rows, asof=None):
+def sample_codes(rows, asof=None, histories=None):
+    def activity(row):
+        if histories is None:return float(row.get('volume') or 0)>0
+        bars=histories.get(row['symbol'],{}).get('bars') or []
+        return bool(bars and bars[-1].get('date')==asof and bars[-1].get('volume',0)>0 and bars[-1].get('amount',0)>0)
+    def change(row):
+        if histories is None:return float(row.get('changepercent') or 0)
+        bars=histories[row['symbol']]['bars']
+        return bars[-1]['close']/bars[-2]['close']-1 if len(bars)>1 else 0.
     result=[]
     for label in ('sh_main','star','sz_main','chinext'):
         group=sorted((r for r in rows if board(r['symbol'])==label and 'ST' not in r['name'].upper()
-                      and float(r.get('trade') or 0)>0 and float(r.get('volume') or 0)>0
+                      and float(r.get('trade') or 0)>0 and activity(r)
                       and not verified_halt(r['symbol'], asof)),
-                     key=lambda r:float(r.get('changepercent') or 0))
+                     key=lambda r:(change(r),r['symbol']))
         if len(group)<5:raise ValueError('Missing sample board '+label)
         result += [group[round(i*(len(group)-1)/4)]['symbol'] for i in range(5)]
     return result
@@ -320,7 +328,7 @@ def sample_histories(codes,asof):
     return histories,errors
 
 def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff, generated_at):
-    errors=[]; normalized=[]; codes=sample_codes(rows,asof); by_code={r['symbol']:r for r in rows}
+    errors=[]; normalized=[]; codes=sample_codes(rows,asof,histories); by_code={r['symbol']:r for r in rows}
     samples=[]
     independent,independent_errors=sample_histories(codes,asof)
     for symbol in codes:
@@ -568,7 +576,7 @@ def main():
         finally:manifest['industry_source_audit']=industry_audit()
         atomic(run_dir/'industry.json',{'source':url,'memberships':industry,'audit':industry_audit()})
         manifest['stage']='cross_source_samples';atomic(root/'pipeline_status.json',manifest)
-        quotes=tencent(sample_codes(rows,asof))
+        quotes=tencent(sample_codes(rows,asof,histories))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)
         manifest['technical_warmup_codes']=payload.get('technical_warmup_codes',[])

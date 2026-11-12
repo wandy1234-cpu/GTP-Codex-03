@@ -4,6 +4,26 @@ from pathlib import Path
 from unittest.mock import patch
 import alpha5d_pipeline as p
 class CacheAndSampleAcceptance(unittest.TestCase):
+    def preopen_market(self):
+        rows=[];histories={}
+        for prefix in ['sh600','sh688','sz000','sz300']:
+            for i in range(6):
+                symbol=prefix+str(i).zfill(3)
+                rows.append(dict(symbol=symbol,name='normal',trade=10.,volume=0,amount=0))
+                histories[symbol]={'bars':[dict(date='2026-11-10',close=10.),
+                    dict(date='2026-11-11',close=10.+i/10,volume=100.,amount=100000.)]}
+        return rows,histories
+    def test_zero_auction_volume_cannot_remove_dated_close_samples(self):
+        rows,histories=self.preopen_market()
+        codes=p.sample_codes(rows,'2026-11-11',histories)
+        self.assertEqual(len(set(codes)),20)
+        self.assertEqual({p.board(code) for code in codes},{'sh_main','star','sz_main','chinext'})
+    def test_stale_or_nontrading_previous_close_cannot_enter_samples(self):
+        rows,histories=self.preopen_market()
+        histories['sh600000']['bars'][-1]['date']='2026-11-10'
+        histories['sz300005']['bars'][-1]['amount']=0
+        codes=p.sample_codes(rows,'2026-11-11',histories)
+        self.assertEqual(len(codes),20);self.assertNotIn('sh600000',codes);self.assertNotIn('sz300005',codes)
     def cached(self):
         dates=[(dt.date(2026,7,1)+dt.timedelta(days=i)).isoformat() for i in range(61)]
         return {'bars':[dict(date=d,open=10.,high=11.,low=9.,close=10.,volume=100.,amount=100000.) for d in dates],
