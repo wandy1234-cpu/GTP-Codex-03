@@ -1,8 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261112T094053",
+  "run_id": "20261112T144140",
   "stage": "evidence_review",
-  "started_at": "2026-11-12T09:40:53.892180+08:00",
+  "started_at": "2026-11-12T14:41:40.855627+08:00",
   "forecast_date": "2026-11-12",
   "previous_session": "2026-11-11",
   "sessions": [
@@ -362,8 +362,8 @@
     }
   },
   "technical_warmup_codes": [],
-  "input_sha256": "7c2b853f0c18468841327795ef0c01f81986b98645aa7c48f1312baa7b26289a",
-  "ranking_path": "data/alpha5d/runs/20261112T094053/ranking.json",
+  "input_sha256": "f8114eedcf5a90516ee80e7dc15bfe254f2f272b4fd01609d7b690178c5e0d4b",
+  "ranking_path": "data/alpha5d/runs/20261112T144140/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
@@ -484,20 +484,12 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261112T094053/review.json",
-  "generated_at": "2026-11-12T09:43:01.430561+08:00",
+  "review_path": "data/alpha5d/runs/20261112T144140/review.json",
+  "generated_at": "2026-11-12T14:43:35.397242+08:00",
   "provider_route_health": {
     "eastmoney_daily": {
       "attempted": 21,
-      "succeeded": 20,
-      "failed": 1,
-      "data_errors": 0,
-      "consecutive_failures": 0,
-      "circuit_open": false
-    },
-    "sina_klc2": {
-      "attempted": 1,
-      "succeeded": 1,
+      "succeeded": 21,
       "failed": 0,
       "data_errors": 0,
       "consecutive_failures": 0,
@@ -516,7 +508,7 @@
   "verified_sample_count": 20,
   "is_0850_live_prediction": false,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-12T09:43:25.110837+08:00",
+  "ended_at": "2026-11-12T14:44:06.089749+08:00",
   "retrieval_progress": {
     "attempted": 21,
     "succeeded": 21,
@@ -525,11 +517,11 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-12T09:43:25.311511+08:00"
+    "recorded_at": "2026-11-12T14:44:06.297348+08:00"
   },
   "cached_history_files": 5027,
-  "workflow_run_id": "43136054830",
+  "workflow_run_id": "43169874184",
   "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-43136054830-1",
-  "persisted_at": "2026-11-12T01:43:42.228176+00:00"
+  "evidence_artifact_name": "alpha5d-public-evidence-43169874184-1",
+  "persisted_at": "2026-11-12T06:44:27.028423+00:00"
 }
