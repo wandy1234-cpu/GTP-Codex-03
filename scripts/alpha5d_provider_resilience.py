@@ -231,6 +231,15 @@ def frozen_universe(asof):
     recovered_pages=[]
     for node,prefix in [('sh_a','sh'),('sz_a','sz')]:
         meta=data['nodes'][node];group=[r for r in records if r['symbol'].startswith(prefix)];last=meta['terminal_page']
+        # A dated snapshot may only be reused when its actual page manifest
+        # is complete. Independently valid sample closes cannot excuse a
+        # missing source page, even if the original URLs are still present.
+        if (not isinstance(last,int) or last<1
+                or meta.get('successful_pages')!=list(range(1,last+1))
+                or meta.get('missing_pages')
+                or meta.get('terminal_verified',True) is False
+                or int(meta.get('raw_row_count',meta.get('raw_rows',len(group))))!=len(group)):
+            raise ValueError('Frozen source pagination manifest incomplete: '+node)
         # Preserve *original* source URLs even if the first request had a
         # transient error. Final recovered bytes must match a dated raw shard.
         requests=[item for item in data.get('source_requests',[])
