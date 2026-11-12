@@ -1,0 +1,19 @@
+{
+  "adapter_version": "alpha5d-pipeline-1.1.2",
+  "started_at": "2026-11-12T08:41:47.081588+08:00",
+  "forecast_date": "2026-11-12",
+  "previous_session": "2026-11-11",
+  "sessions": [
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18"
+  ],
+  "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+  "status": "INCOMPLETE",
+  "run_kind": "prefetch",
+  "error": "ValueError: Previous-session market baseline not verified for 2026-11-11",
+  "formal_top5_allowed": false,
+  "ended_at": "2026-11-12T08:41:47.082238+08:00"
+}
