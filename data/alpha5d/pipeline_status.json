@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-12T08:44:25.620836+08:00",
+  "started_at": "2026-11-12T08:45:16.621436+08:00",
   "forecast_date": "2026-11-12",
   "previous_session": "2026-11-11",
   "sessions": [
@@ -11,23 +11,20 @@
     "2026-11-18"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
-  "status": "INCOMPLETE",
+  "status": "INTERRUPTED",
   "run_kind": "prefetch",
-  "error": "ValueError: Frozen source not independently verified",
-  "formal_top5_allowed": false,
-  "ended_at": "2026-11-12T08:44:25.700674+08:00",
   "retrieval_progress": {
-    "attempted": 0,
-    "succeeded": 0,
-    "failed": 0,
-    "consecutive_failures": 0,
+    "attempted": 5027,
+    "succeeded": 84,
+    "failed": 4943,
+    "consecutive_failures": 4933,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
-    "last_error": null,
-    "recorded_at": "2026-11-12T08:44:25.705118+08:00"
+    "last_error": "sz302132: all independent daily routes failed: [{\"route\": \"eastmoney_daily\", \"error\": \"RuntimeError: eastmoney_daily: route circuit open\"}, {\"route\": \"sina_klc2\", \"error\": \"JSONDecodeError: Extra data: line 2 column 1 (char 832)\"}]",
+    "recorded_at": "2026-11-12T08:57:34.208419+08:00"
   },
-  "cached_history_files": 0,
-  "workflow_run_id": "43129433122",
-  "evidence_artifact_name": "alpha5d-public-evidence-43129433122",
-  "persisted_at": "2026-11-12T00:44:41.029615+00:00"
+  "cached_history_files": 84,
+  "workflow_run_id": "43129520553",
+  "evidence_artifact_name": "alpha5d-public-evidence-43129520553",
+  "persisted_at": "2026-11-12T01:00:33.729364+00:00"
 }
