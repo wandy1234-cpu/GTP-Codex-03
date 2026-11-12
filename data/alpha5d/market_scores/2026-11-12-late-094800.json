@@ -1,0 +1,68 @@
+{
+  "schema": "market-composite-audited-subjective-v1",
+  "created_at": "2026-11-12T09:48:00.883509+08:00",
+  "forecast_date": "2026-11-12",
+  "run_kind": "late_research",
+  "is_0850_live_prediction": false,
+  "factors": [
+    {
+      "name": "指数/量能",
+      "weight": 0.2,
+      "score": 75,
+      "evidence": "11月11日六大宽基收涨，沪深成交额16763亿元；09:43科创50独强，其他指数分化；盘中量能未另获完整同比。"
+    },
+    {
+      "name": "市场宽度",
+      "weight": 0.25,
+      "score": 66,
+      "evidence": "已核5024只非ST且具备足够日线的子集上涨3298、下跌1555、平171；31个申万一级行业18涨13跌；子集不是正式Heat全宇宙。"
+    },
+    {
+      "name": "情绪赚钱效应",
+      "weight": 0.2,
+      "score": 60,
+      "evidence": "昨日强势股延续与今日高位分化并存；09:43上海电影-6.47%、华策影视-4.94%、文投控股+9.87%，不能称普涨情绪。"
+    },
+    {
+      "name": "主线扩散/资金结构",
+      "weight": 0.25,
+      "score": 65,
+      "evidence": "通信、电子、机械设备为昨日一级行业前三；传媒价格强但多家公司经营反证明显，当前不是全面Risk-On。"
+    },
+    {
+      "name": "外部环境",
+      "weight": 0.1,
+      "score": 55,
+      "evidence": "隔夜标普+1.31%、纳指+1.60%、费半+5.66%，香港恒生科技昨日-1.41%，美元偏强及美国债市假期后的重新定价仍待观察。"
+    }
+  ],
+  "weighted_sum": 65.25,
+  "rounded_score": 65,
+  "signal": "黄绿",
+  "regime": "Narrow Leadership",
+  "confidence": "LOW",
+  "reference_risk_budget_pct": 60,
+  "not_probability": true,
+  "not_calibrated": true,
+  "weights_changed": false,
+  "prior_0850_score": 66,
+  "prior_66_reproduction": "UNVERIFIED: original factor receipt missing; history is retained",
+  "quote_cutoff": "2026-11-12T09:43:46.240649+08:00",
+  "source_urls": [
+    "https://finance.eastmoney.com/a/202611113928417944.html",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/actions/runs/43136054830",
+    "https://money.finance.sina.com.cn/corp/go.php/vCB_AllNewsStock/symbol/sz300473.phtml",
+    "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12694595&stockid=600261",
+    "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12701206&stockid=300473",
+    "https://static.cninfo.com.cn/finalpage/2026-08-21/1225487042.PDF",
+    "https://static.cninfo.com.cn/finalpage/2026-10-23/1225616916.PDF",
+    "https://static.cninfo.com.cn/finalpage/2026-11-12/1225667485.PDF",
+    "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12701527&stockid=600715",
+    "https://www.cninfo.com.cn/new/commonUrl/pageOfSearch?code=601595&endDate=2026-11-12&name=%E4%B8%8A%E6%B5%B7%E7%94%B5%E5%BD%B1&orgId=9900024674&startDate=2026-11-12&url=disclosure%2Flist%2Fsearch",
+    "https://www.licai.com/licai/post/421100",
+    "https://www.nbd.com.cn/articles/2026-11-11/4645175.html",
+    "https://www.sse.com.cn/assortment/stock/list/info/announcement/index.shtml?productId=600261",
+    "https://www.reuters.com/business/sp-500-nasdaq-futures-rise-after-coreweave-soothes-ai-spending-fears-2026-11-11/",
+    "https://finance.eastmoney.com/a/202611123928819932.html"
+  ]
+}

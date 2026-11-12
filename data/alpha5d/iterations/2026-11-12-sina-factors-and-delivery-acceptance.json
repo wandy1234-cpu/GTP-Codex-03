@@ -1,0 +1,70 @@
+{
+  "record_type": "PRODUCTION_REPAIR_AND_AGENT_LOGIC_ACCEPTANCE",
+  "created_at": "2026-11-12T09:48:00.883509+08:00",
+  "status": "PRODUCTION_ACCEPTED",
+  "implementation_commits": [
+    "bc9958ae5c29983373b2a1730b677afdb70920ed",
+    "1ed4f9a18de2f3b2a3caca476040c22c9fca8a98",
+    "1e07028bfb96d8625297a6ecf875615270fe3655",
+    "afb3f738ef685ab0a8a4897d0ad237a197e4ee6f",
+    "c06396e7a758ab15acae9298ba6d034f29631e2f"
+  ],
+  "root_causes": [
+    "Signed comments after Sina factor JSON assignment were rejected as extra JSON data",
+    "Short same-date caches masked real re-fetch of required 61st bars",
+    "Opening quote reset produced zero SH volume and almost all zero last trades; current volume was wrongly used to choose prior-session samples",
+    "Serial sample retrieval and cache rebuilding consumed the pre-report deadline",
+    "Original market composite had lost its five-component calculation receipt"
+  ],
+  "repairs": [
+    "Parse symbol-specific JSON with permitted comments, never execute source JavaScript",
+    "Validate 61-bar cache integrity; Sina incremental reuse requires published factor-ratio agreement",
+    "Choose twenty cross-board samples using actual previous-session history, preserving all gates",
+    "Parallelize independent samples; warm public inputs at 15:35,07:05,08:05 Asia/Shanghai",
+    "Record stage checkpoints and isolate cache/artifact names by attempt; acceptance reads immutable staged result",
+    "Restore original 20/25/20/25/10 market weights and show evidence, arithmetic and lamp thresholds"
+  ],
+  "tests": {
+    "local": 106,
+    "production": 106,
+    "kind": "software regression; not investment backtest"
+  },
+  "production": {
+    "workflow_run_id": "43136054830",
+    "conclusion": "success",
+    "coverage": {
+      "raw_count": 5224,
+      "sh_pages": 24,
+      "sh_rows": 2318,
+      "sz_pages": 30,
+      "sz_rows": 2906,
+      "missing_pages": 0,
+      "history_success": 5027,
+      "history_missing_count": 0,
+      "required_industry_codes": 5006,
+      "covered_industry_codes": 5006,
+      "industry": "Eastmoney first-level, not Shenwan",
+      "eligible_count": 3825,
+      "independent_samples": 20
+    },
+    "input_sha256": "7c2b853f0c18468841327795ef0c01f81986b98645aa7c48f1312baa7b26289a",
+    "artifact_sha256": "afb8d40c1b2a6ed7e4298a8ef20935c3822a320ced99dbe1f78fc7497777f2d9",
+    "all_ranking_rows_reproduced": 3825,
+    "formal_top5_count": 5
+  },
+  "source_run_43134205358": {
+    "history_recovered": 5027,
+    "history_missing": 0,
+    "remaining_failure": "Missing sample board sh_main",
+    "actual_raw_sh_rows": 2318,
+    "actual_sh_positive_volume": 0,
+    "actual_sh_positive_last_trade": 4,
+    "actual_sh_positive_previous_close": 2318
+  },
+  "user_report_schedule": "UNCHANGED: weekday 08:35 Asia/Shanghai exact_schedule",
+  "main_scoring_weights_changed": false,
+  "model_trained_or_performance_improved": "NOT_CLAIMED",
+  "original_0850_failure_preserved": true,
+  "cohort_path": "data/alpha5d/cohorts/2026-11-12-late-094800.json",
+  "remaining_acceptance": "Next scheduled 08:50 live delivery is not yet observed"
+}

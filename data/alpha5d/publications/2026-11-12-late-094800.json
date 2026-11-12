@@ -1,0 +1,71 @@
+{
+  "schema": "alpha5d-publication-1",
+  "cohort_id": "2026-11-12-late-094800",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-12-late-094800.json",
+  "forecast_date": "2026-11-12",
+  "previous_session": "2026-11-11",
+  "sessions": [
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18"
+  ],
+  "created_at": "2026-11-12T09:48:00.883509+08:00",
+  "cutoff": "2026-11-12T09:43:01.430561+08:00",
+  "run_kind": "late_research",
+  "is_0850_live_prediction": false,
+  "formal_research_selection": true,
+  "publication_state": "PUBLISHED_RESEARCH",
+  "input_sha256": "7c2b853f0c18468841327795ef0c01f81986b98645aa7c48f1312baa7b26289a",
+  "workflow_run_id": "43136054830",
+  "model_version": "V8.0-bootstrap-1",
+  "ranking_path": "data/alpha5d/runs/20261112T094053/ranking.json",
+  "review_path": "data/alpha5d/runs/20261112T094053/review.json",
+  "top5": [
+    {
+      "rank": 1,
+      "symbol": "sh600715",
+      "name": "文投控股",
+      "score": 89.21574268,
+      "reference_raw_close": 3.14,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 2,
+      "symbol": "sh601595",
+      "name": "上海电影",
+      "score": 89.02039749,
+      "reference_raw_close": 46.83,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 3,
+      "symbol": "sz300133",
+      "name": "华策影视",
+      "score": 87.23985823,
+      "reference_raw_close": 11.95,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 4,
+      "symbol": "sz300473",
+      "name": "德尔股份",
+      "score": 87.2000523,
+      "reference_raw_close": 58.79,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 5,
+      "symbol": "sh600261",
+      "name": "阳光照明",
+      "score": 86.79471757,
+      "reference_raw_close": 6.25,
+      "execution_state": "WAIT"
+    }
+  ],
+  "prior_0850_failure_preserved": true,
+  "all_ranking_rows_reproduced": 3825,
+  "evidence_review": "PASSED",
+  "actual_fills": "UNVERIFIED"
+}

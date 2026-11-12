@@ -1,0 +1,40 @@
+{
+  "schema": "Heat-v0.1-observation",
+  "forecast_date": "2026-11-12",
+  "previous_session": "2026-11-11",
+  "created_at": "2026-11-12T09:48:00.883509+08:00",
+  "run_kind": "late_research",
+  "is_0850_live_prediction": false,
+  "cutoff": "2026-11-12T09:43:01.430561+08:00",
+  "status": "UNVERIFIED",
+  "H_prev": null,
+  "H_forecast": null,
+  "verified_subset": {
+    "count": 5024,
+    "up": 3298,
+    "down": 1555,
+    "flat": 171,
+    "median_pct": 0.7301808949539801,
+    "B": 67.3467356687898,
+    "P": 68.25452237384951,
+    "F": 92.21967963386729
+  },
+  "S": {
+    "value": 58.064516129032256,
+    "up_sectors": 18,
+    "down_sectors": 13,
+    "total": 31,
+    "classification": "Shenwan level 1",
+    "source_urls": [
+      "https://www.licai.com/licai/post/421100",
+      "https://finance.eastmoney.com/a/202611113928417944.html"
+    ]
+  },
+  "V": null,
+  "missing": [
+    "Complete point-in-time twenty-session market turnover median",
+    "Heat universe must re-include previous-session traded 600185 excluded from the forecast-day stock-picking pool"
+  ],
+  "market_composite_is_separate": true,
+  "input_sha256": "7c2b853f0c18468841327795ef0c01f81986b98645aa7c48f1312baa7b26289a"
+}

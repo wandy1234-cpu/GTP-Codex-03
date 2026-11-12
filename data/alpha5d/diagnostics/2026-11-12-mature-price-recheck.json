@@ -1,0 +1,197 @@
+{
+  "created_at": "2026-11-12T09:48:00.883509+08:00",
+  "kind": "PRICE_ONLY_DIAGNOSTIC",
+  "source_input_sha256": "7c2b853f0c18468841327795ef0c01f81986b98645aa7c48f1312baa7b26289a",
+  "source_artifact_id": 13907756514,
+  "cohorts": [
+    {
+      "cohort": "2026-11-10.json",
+      "target": "2026-11-11",
+      "sessions": [
+        "2026-11-10",
+        "2026-11-11",
+        "2026-11-12",
+        "2026-11-13",
+        "2026-11-16"
+      ],
+      "mature": false,
+      "rows": [
+        {
+          "symbol": "sz002086",
+          "name": "东方海洋",
+          "reference": 4.37,
+          "adjusted_reference": 4.37,
+          "final": 4.69,
+          "pct": 7.322654462242562,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sz002300",
+          "name": "太阳电缆",
+          "reference": 8.91,
+          "adjusted_reference": 8.91,
+          "final": 8.47,
+          "pct": -4.938271604938271,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sh600715",
+          "name": "文投控股",
+          "reference": 2.59,
+          "adjusted_reference": 2.59,
+          "final": 3.14,
+          "pct": 21.235521235521237,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sz002578",
+          "name": "闽发铝业",
+          "reference": 5.51,
+          "adjusted_reference": 5.51,
+          "final": 6.08,
+          "pct": 10.344827586206895,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sz301121",
+          "name": "紫建电子",
+          "reference": 40.58,
+          "adjusted_reference": 40.58,
+          "final": 40.85,
+          "pct": 0.6653523903400682,
+          "original_reference_matches": true
+        }
+      ],
+      "mean": 6.926016813874498,
+      "median": 7.322654462242562,
+      "basis": "price-return-on-consistent-current-asof-adjusted-history; not certified total return or execution"
+    },
+    {
+      "cohort": "2026-11-03-late-094126.json",
+      "target": "2026-11-09",
+      "sessions": [
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-09"
+      ],
+      "mature": true,
+      "rows": [
+        {
+          "symbol": "sh600715",
+          "name": "文投控股",
+          "reference": 2.24,
+          "adjusted_reference": 2.24,
+          "final": 2.59,
+          "pct": 15.624999999999979,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sh603198",
+          "name": "迎驾贡酒",
+          "reference": 48.53,
+          "adjusted_reference": 48.53,
+          "final": 44.94,
+          "pct": -7.397486091077687,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sh600189",
+          "name": "泉阳泉",
+          "reference": 9.72,
+          "adjusted_reference": 9.72,
+          "final": 8.56,
+          "pct": -11.934156378600825,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sz000596",
+          "name": "古井贡酒",
+          "reference": 103.8,
+          "adjusted_reference": 103.8,
+          "final": 105.28,
+          "pct": 1.4258188824662898,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sh600020",
+          "name": "中原高速",
+          "reference": 4.32,
+          "adjusted_reference": 4.32,
+          "final": 4.25,
+          "pct": -1.620370370370372,
+          "original_reference_matches": true
+        }
+      ],
+      "mean": -0.7802387915165232,
+      "median": -1.620370370370372,
+      "basis": "price-return-on-consistent-current-asof-adjusted-history; not certified total return or execution"
+    },
+    {
+      "cohort": "2026-11-05-late-085450.json",
+      "target": "2026-11-11",
+      "sessions": [
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-09",
+        "2026-11-10",
+        "2026-11-11"
+      ],
+      "mature": true,
+      "rows": [
+        {
+          "symbol": "sz300529",
+          "name": "健帆生物",
+          "reference": 19.6,
+          "adjusted_reference": 19.6,
+          "final": 19.85,
+          "pct": 1.2755102040816313,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sh688443",
+          "name": "智翔金泰",
+          "reference": 26.9,
+          "adjusted_reference": 26.9,
+          "final": 26.05,
+          "pct": -3.159851301115235,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sz300426",
+          "name": "华智数媒",
+          "reference": 10.35,
+          "adjusted_reference": 10.35,
+          "final": 11.65,
+          "pct": 12.560386473429963,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sh603777",
+          "name": "来伊份",
+          "reference": 14.5,
+          "adjusted_reference": 14.5,
+          "final": 14.18,
+          "pct": -2.2068965517241357,
+          "original_reference_matches": true
+        },
+        {
+          "symbol": "sz002928",
+          "name": "华夏航空",
+          "reference": 6.66,
+          "adjusted_reference": 6.66,
+          "final": 7.0,
+          "pct": 5.105105105105112,
+          "original_reference_matches": true
+        }
+      ],
+      "mean": 2.714850785955467,
+      "median": 1.2755102040816313,
+      "basis": "price-return-on-consistent-current-asof-adjusted-history; not certified total return or execution"
+    }
+  ],
+  "formal_D5_total_return_and_universe_winner_audit": "INCOMPLETE",
+  "newly_resolved": "300426 previous close 11.65 verified in Sina completed history and Tencent previous-close field",
+  "not_execution_returns": true
+}
