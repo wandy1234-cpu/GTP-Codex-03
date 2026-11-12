@@ -32,7 +32,12 @@ def stage_result(source,stage,run_id):
     record_id=payload.get('run_id')
     if record_id:
         receipt=stage/'runs'/record_id/'receipt.json'
-        if not receipt.exists():p.atomic(receipt,payload)
+        current=json.loads(receipt.read_text()) if receipt.exists() else {}
+        if not current or current.get('status')=='RUNNING':
+            if payload.get('status') not in ('COMPLETE','NOT_TRADING_DAY'):
+                payload.setdefault('failed_stage',payload.get('stage','UNKNOWN'))
+                p.atomic(stage/'pipeline_status.json',payload)
+            p.atomic(receipt,payload)
     for dirname,target in [('industry_snapshots','industry'),('market','market')]:
         for file in (source/dirname).glob('*.json'):
             p.atomic(stage/target/file.name,json.loads(file.read_text()))

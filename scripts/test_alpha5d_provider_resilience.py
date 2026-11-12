@@ -28,6 +28,9 @@ class HistoryIntegrity(unittest.TestCase):
         for text,symbol in [(body,'sz301717'),(body+';run_code()','sh688828'),
                             (body.replace('"total":1','"total":2'),'sh688828')]:
             with self.assertRaises(ValueError):r.parse_sina_factors(text,symbol)
+    def test_executable_between_two_comments_is_not_swallowed_as_one_comment(self):
+        body='var sh688828qfq={"total":1,"data":[{"d":"1900-01-01","f":"1"}]}'
+        with self.assertRaises(ValueError):r.parse_sina_factors(body+'/* first */;run_code();/* last */','sh688828')
     def test_real_amount_and_shares_are_preserved(self):
         bar=r.normalize_sina([observed()],'2026-11-02')[0]
         self.assertEqual(bar['amount'],1177122567);self.assertEqual(bar['volume'],1164222.76)

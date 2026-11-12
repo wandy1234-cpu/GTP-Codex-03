@@ -96,8 +96,17 @@ def parse_sina_factors(text,symbol):
     value,end=json.JSONDecoder().raw_decode(text,match.end())
     # The live endpoint appends a signed block comment, with or without a semicolon.
     suffix=text[end:]
-    if not re.fullmatch(r'\s*;?\s*(?:(?:/\*[\s\S]*?\*/|//[^\r\n]*)\s*)*',suffix):
-        raise ValueError('Unexpected executable content after factors')
+    suffix=suffix.lstrip()
+    if suffix.startswith(';'):suffix=suffix[1:].lstrip()
+    while suffix:
+        if suffix.startswith('/*'):
+            end=suffix.find('*/',2)
+            if end<0:raise ValueError('Unterminated factor comment')
+            suffix=suffix[end+2:].lstrip()
+        elif suffix.startswith('//'):
+            end=re.search(r'[\r\n]',suffix)
+            suffix=suffix[end.end():].lstrip() if end else ''
+        else:raise ValueError('Unexpected executable content after factors')
     factors=value.get('data') if isinstance(value,dict) else None
     if not isinstance(factors,list) or not factors or value.get('total')!=len(factors):
         raise ValueError('Published factors missing or incomplete')

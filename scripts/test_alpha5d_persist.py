@@ -44,5 +44,13 @@ class ResultPersistence(unittest.TestCase):
             receipt=json.loads((root/'stage'/'runs'/'20261112T090000'/'receipt.json').read_text())
             self.assertEqual(receipt,result);self.assertEqual(receipt['failed_stage'],'history')
             self.assertFalse(receipt['formal_top5_allowed']);self.assertIn('ended_at',receipt)
+    def test_runtime_interruption_replaces_only_its_unfinished_receipt(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);run_id='20261112T090000'
+            p.atomic(root/'source'/'pipeline_status.json',{'status':'INCOMPLETE','run_id':run_id,'stage':'history'})
+            p.atomic(root/'source'/'runs'/run_id/'receipt.json',{'status':'RUNNING','run_id':run_id})
+            x.stage_result(root/'source',root/'stage','123')
+            receipt=json.loads((root/'stage'/'runs'/run_id/'receipt.json').read_text())
+            self.assertEqual(receipt['status'],'INCOMPLETE');self.assertEqual(receipt['failed_stage'],'history')
 
 if __name__=='__main__':unittest.main()
