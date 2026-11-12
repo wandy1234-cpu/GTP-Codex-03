@@ -18,6 +18,16 @@ def history():
 def unavailable(*args):raise RuntimeError('transport unavailable')
 
 class HistoryIntegrity(unittest.TestCase):
+    def test_live_factor_assignment_with_trailing_provider_signature(self):
+        obj={'total':2,'data':[{'d':'2026-08-11','f':'1.0'},{'d':'1900-01-01','f':'1.0'}]}
+        body='var sh688828qfq='+json.dumps(obj)+'\n/* Zq+XaqQOatiAAXE6hDMWwBSRiAwfeAdl */'
+        self.assertEqual(r.parse_sina_factors(body,'sh688828'),obj['data'])
+        self.assertEqual(r.parse_sina_factors(body.replace('\n/*',';\n/*'),'sh688828'),obj['data'])
+    def test_factor_assignment_rejects_wrong_identity_and_executable_tail(self):
+        body='var sh688828qfq={"total":1,"data":[{"d":"1900-01-01","f":"1"}]}'
+        for text,symbol in [(body,'sz301717'),(body+';run_code()','sh688828'),
+                            (body.replace('"total":1','"total":2'),'sh688828')]:
+            with self.assertRaises(ValueError):r.parse_sina_factors(text,symbol)
     def test_real_amount_and_shares_are_preserved(self):
         bar=r.normalize_sina([observed()],'2026-11-02')[0]
         self.assertEqual(bar['amount'],1177122567);self.assertEqual(bar['volume'],1164222.76)

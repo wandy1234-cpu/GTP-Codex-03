@@ -14,7 +14,7 @@ import alpha5d_pipeline as p
 import alpha5d_source_fixes as fixes
 import alpha5d_classification as classification
 
-VERSION='alpha5d-sources-1.1.2'
+VERSION='alpha5d-sources-1.1.3'
 ROOT=Path('data/alpha5d')
 PRIMARY_DAILY=None
 LEGACY_INDUSTRIES=fixes.industries
@@ -89,6 +89,26 @@ def normalize_sina(rows,asof,factors=None):
         result.append(bar)
     return result
 
+def parse_sina_factors(text,symbol):
+    """Read the named JSON assignment; accept provider comments, never execute JS."""
+    match=re.match(r'\s*var\s+'+re.escape(symbol)+r'qfq\s*=\s*',text)
+    if not match:raise ValueError('Factor identity missing or mismatched')
+    value,end=json.JSONDecoder().raw_decode(text,match.end())
+    # The live endpoint appends a signed block comment, with or without a semicolon.
+    suffix=text[end:]
+    if not re.fullmatch(r'\s*;?\s*(?:(?:/\*[\s\S]*?\*/|//[^\r\n]*)\s*)*',suffix):
+        raise ValueError('Unexpected executable content after factors')
+    factors=value.get('data') if isinstance(value,dict) else None
+    if not isinstance(factors,list) or not factors or value.get('total')!=len(factors):
+        raise ValueError('Published factors missing or incomplete')
+    dates=[]
+    for entry in factors:
+        date=dt.date.fromisoformat(entry['d']).isoformat();factor=float(entry['f'])
+        if not math.isfinite(factor) or factor<=0:raise ValueError('Invalid factor')
+        dates.append(date)
+    if len(dates)!=len(set(dates)):raise ValueError('Duplicate factor dates')
+    return factors
+
 def sina_history(symbol,asof,adjust=1):
     if not re.fullmatch(r'(?:sh|sz)\d{6}',symbol):raise ValueError('Invalid identity')
     url='https://finance.sina.com.cn/realstock/company/'+symbol+'/hisdata_klc2/klc_kl.js'
@@ -100,12 +120,12 @@ def sina_history(symbol,asof,adjust=1):
     rows=json.loads(output.stdout);factors=None
     factor_url='https://finance.sina.com.cn/realstock/company/'+symbol+'/qfq.js'
     if adjust==1:
-        factors=p.json_body(p.http(factor_url)).get('data')
-        if not isinstance(factors,list) or not factors:raise ValueError('Published factors missing')
+        factors=parse_sina_factors(p.http(factor_url),symbol)
     elif adjust!=0:raise ValueError('Unsupported adjustment')
     out={'bars':normalize_sina(rows,asof,factors),'source_url':url,'source_urls':[url]+([factor_url] if adjust else []),
          'retrieved_at':p.now().isoformat(),'adjustment_basis':('Sina_qfq' if adjust else 'Sina_raw')+'_anchor='+asof,
-         'amount_unit':'CNY','volume_unit':'lots_100_shares','independent_amount':True,'decoder':'AKShare_hk_js_decode_MIT_KLC2'}
+         'amount_unit':'CNY','volume_unit':'lots_100_shares','independent_amount':True,'decoder':'AKShare_hk_js_decode_MIT_KLC2',
+         'adjustment_factors':factors}
     return validate_history(out,asof)
 
 def daily_history(symbol,asof,adjust=1,primary=None,sample=False):

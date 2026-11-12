@@ -498,7 +498,10 @@ def main():
             sym=r['symbol'];path=root/'history'/asof/(sym+'.json')
             if path.exists():
                 h=json.loads(path.read_text());
-                if h.get('bars') and h['bars'][-1]['date']==asof:return sym,h
+                # Short caches from an earlier attempt must not permanently mask
+                # an established listing's missing 61st bar. Re-fetch the real
+                # dated history; new-listing exclusions are still independently checked.
+                if len(h.get('bars') or [])>=61 and h['bars'][-1]['date']==asof:return sym,h
             h=incremental_cached_history(root,asof,r) if r.get('_security_date')==asof else None
             if h is not None:
                 atomic(path,h)
