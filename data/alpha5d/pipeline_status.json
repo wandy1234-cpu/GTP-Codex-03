@@ -1,6 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-12T09:24:13.388790+08:00",
+  "run_id": "20261112T093619",
+  "stage": "evidence_review",
+  "started_at": "2026-11-12T09:36:19.725809+08:00",
   "forecast_date": "2026-11-12",
   "previous_session": "2026-11-11",
   "sessions": [
@@ -11,7 +13,7 @@
     "2026-11-18"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
-  "status": "INCOMPLETE",
+  "status": "COMPLETE",
   "run_kind": "late_research",
   "raw_count": 5224,
   "coverage": {
@@ -353,27 +355,182 @@
     "covered_required_codes": 5006,
     "membership_count": 5225,
     "snapshot": {
-      "route": "live_provider_pages",
-      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-12-093540-d854ef1c04e6.json",
-      "observed_at": "2026-11-12T09:35:40.042377+08:00",
-      "boards_sha256": "d854ef1c04e6d6614ab24e9f32674912e4b5b0baa109b01cb3221097614accf3"
+      "route": "verified_recent_snapshot",
+      "snapshot_path": "data/alpha5d/industry/2026-11-11-093004-bb960517b0a5.json",
+      "observed_at": "2026-11-11T09:30:04.778346+08:00",
+      "boards_sha256": "bb960517b0a5763e791140025aa080128c69fc9591c7c28253e2428af406f199",
+      "live_error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
     }
   },
-  "error": "ValueError: Missing sample board sh_main",
+  "technical_warmup_codes": [],
+  "input_sha256": "1f058c53e850750e93f646e9b8faff4e5d5124f99f2b5e52e87744a920879dd3",
+  "ranking_path": "data/alpha5d/runs/20261112T093619/ranking.json",
+  "ranker_version": "V8.0-bootstrap-1",
+  "top5": [
+    {
+      "symbol": "sh600715",
+      "name": "文投控股",
+      "sector": "传媒",
+      "score": 89.21574268,
+      "features": {
+        "r5": 0.27125506072874495,
+        "r10": 0.5242718446601942,
+        "r20": 0.670212765957447,
+        "breakout": 0.10175438596491237,
+        "close_pos": 1.0,
+        "volume_ratio": 1.4753480768840823,
+        "trend": 0.13421292083712455,
+        "above_ma10": true,
+        "overheat": 0.1095266746891296,
+        "sector": "传媒"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 3.14,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 1
+    },
+    {
+      "symbol": "sh601595",
+      "name": "上海电影",
+      "sector": "传媒",
+      "score": 89.02039749,
+      "features": {
+        "r5": 0.5053037608486017,
+        "r10": 0.6260416666666666,
+        "r20": 0.6098315572361637,
+        "breakout": 0.1000704721634953,
+        "close_pos": 1.0,
+        "volume_ratio": 1.3475902234406605,
+        "trend": 0.13444769833174286,
+        "above_ma10": true,
+        "overheat": 0.20829683557154058,
+        "sector": "传媒"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 46.83,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 2
+    },
+    {
+      "symbol": "sz300133",
+      "name": "华策影视",
+      "sector": "传媒",
+      "score": 87.23985823,
+      "features": {
+        "r5": 0.23450413223140498,
+        "r10": 0.2821888412017166,
+        "r20": 0.2685774946921442,
+        "breakout": 0.05845881310894607,
+        "close_pos": 0.8603351955307262,
+        "volume_ratio": 1.505639598334733,
+        "trend": 0.06535458337790123,
+        "above_ma10": true,
+        "overheat": 0.04979919678714864,
+        "sector": "传媒"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 11.95,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 3
+    },
+    {
+      "symbol": "sz300473",
+      "name": "德尔股份",
+      "sector": "汽车",
+      "score": 87.2000523,
+      "features": {
+        "r5": 0.5565263436589885,
+        "r10": 0.3800469483568074,
+        "r20": 0.6421787709497209,
+        "breakout": 0.20004082465809336,
+        "close_pos": 1.0,
+        "volume_ratio": 1.4419067998397912,
+        "trend": 0.09130769230769231,
+        "above_ma10": true,
+        "overheat": 0.2313115293343672,
+        "sector": "汽车"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 58.79,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 4
+    },
+    {
+      "symbol": "sh600261",
+      "name": "阳光照明",
+      "sector": "家用电器",
+      "score": 86.79471757,
+      "features": {
+        "r5": 0.40134529147982057,
+        "r10": 0.849112426035503,
+        "r20": 0.9113149847094801,
+        "breakout": 0.06837606837606836,
+        "close_pos": 1.0,
+        "volume_ratio": 2.239352722771509,
+        "trend": 0.17402659069325743,
+        "above_ma10": true,
+        "overheat": 0.11390293225480277,
+        "sector": "家用电器"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 6.25,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 5
+    }
+  ],
+  "errors": [],
+  "publication_state": "AWAITING_EVIDENCE_REVIEW",
+  "review_path": "data/alpha5d/runs/20261112T093619/review.json",
+  "generated_at": "2026-11-12T09:38:16.623775+08:00",
+  "provider_route_health": {
+    "eastmoney_daily": {
+      "attempted": 21,
+      "succeeded": 21,
+      "failed": 0,
+      "data_errors": 0,
+      "consecutive_failures": 0,
+      "circuit_open": false
+    },
+    "sample_eastmoney_daily": {
+      "attempted": 15,
+      "succeeded": 2,
+      "failed": 13,
+      "data_errors": 0,
+      "consecutive_failures": 4,
+      "circuit_open": false
+    },
+    "sample_sina_klc2": {
+      "attempted": 18,
+      "succeeded": 18,
+      "failed": 0,
+      "data_errors": 0,
+      "consecutive_failures": 0,
+      "circuit_open": false
+    }
+  },
+  "industry_classification": "Eastmoney first-level industry",
+  "verified_sample_count": 20,
+  "is_0850_live_prediction": false,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-12T09:35:40.214227+08:00",
+  "ended_at": "2026-11-12T09:39:50.419234+08:00",
   "retrieval_progress": {
-    "attempted": 4943,
-    "succeeded": 4943,
+    "attempted": 21,
+    "succeeded": 21,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-12T09:35:40.214940+08:00"
+    "recorded_at": "2026-11-12T09:39:50.628606+08:00"
   },
   "cached_history_files": 5027,
-  "workflow_run_id": "43134205358",
-  "evidence_artifact_name": "alpha5d-public-evidence-43134205358",
-  "persisted_at": "2026-11-12T01:35:52.001063+00:00"
+  "workflow_run_id": "43135529784",
+  "workflow_run_attempt": "1",
+  "evidence_artifact_name": "alpha5d-public-evidence-43135529784-1",
+  "persisted_at": "2026-11-12T01:40:11.441969+00:00"
 }
