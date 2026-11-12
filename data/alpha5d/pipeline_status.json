@@ -1,6 +1,6 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "started_at": "2026-11-12T08:41:47.081588+08:00",
+  "started_at": "2026-11-12T08:44:25.620836+08:00",
   "forecast_date": "2026-11-12",
   "previous_session": "2026-11-11",
   "sessions": [
@@ -13,9 +13,9 @@
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
   "status": "INCOMPLETE",
   "run_kind": "prefetch",
-  "error": "ValueError: Previous-session market baseline not verified for 2026-11-11",
+  "error": "ValueError: Frozen source not independently verified",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-12T08:41:47.082238+08:00",
+  "ended_at": "2026-11-12T08:44:25.700674+08:00",
   "retrieval_progress": {
     "attempted": 0,
     "succeeded": 0,
@@ -24,10 +24,10 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-12T08:41:47.082720+08:00"
+    "recorded_at": "2026-11-12T08:44:25.705118+08:00"
   },
   "cached_history_files": 0,
-  "workflow_run_id": "43129101387",
-  "evidence_artifact_name": "alpha5d-public-evidence-43129101387",
-  "persisted_at": "2026-11-12T00:42:03.776581+00:00"
+  "workflow_run_id": "43129433122",
+  "evidence_artifact_name": "alpha5d-public-evidence-43129433122",
+  "persisted_at": "2026-11-12T00:44:41.029615+00:00"
 }
