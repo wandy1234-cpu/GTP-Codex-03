@@ -214,7 +214,13 @@ def frozen_universe(asof):
     if not file.is_file():return None
     data=json.loads(file.read_text());verified=data.get('frozen_verification') or {}
     if str(verified.get('security_date'))!=asof.replace('-',''):return None
-    if data.get('stock_pick_gate')!='VERIFIED_CLOSED_DATASET' or not data.get('complete_pagination') or int(verified.get('passed_count') or 0)<20:raise ValueError('Frozen source not independently verified')
+    if data.get('stock_pick_gate')!='VERIFIED_CLOSED_DATASET':
+        # An explicitly incomplete same-day relay must never be accepted as
+        # frozen evidence, but should route to fresh dated collection instead
+        # of preventing recovery of the actual full source pages.
+        return None
+    if not data.get('complete_pagination') or int(verified.get('passed_count') or 0)<20:
+        return None
     captured=dt.datetime.fromisoformat(data['captured_at_beijing'])
     if captured>p.now():raise ValueError('Frozen source availability is in the future')
     raw_hash=p.sha(data)
