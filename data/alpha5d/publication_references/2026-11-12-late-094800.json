@@ -1,0 +1,53 @@
+{
+  "schema": "alpha5d-publication-reference-1",
+  "cohort_id": "2026-11-12-late-094800",
+  "captured_at": "2026-11-12T09:50:05.960629+08:00",
+  "cohort_publication_commit": "be9470161d764f1e9f2b233ef00aaee656e4daca",
+  "source_url": "https://qt.gtimg.cn/q=sh600715,sh601595,sz300133,sz300473,sh600261",
+  "quotes": [
+    {
+      "symbol": "sh600715",
+      "name": "文投控股",
+      "code": "600715",
+      "price": 3.45,
+      "previous": 3.14,
+      "security_timestamp": "20261112095002"
+    },
+    {
+      "symbol": "sh601595",
+      "name": "上海电影",
+      "code": "601595",
+      "price": 43.9,
+      "previous": 46.83,
+      "security_timestamp": "20261112095001"
+    },
+    {
+      "symbol": "sz300133",
+      "name": "华策影视",
+      "code": "300133",
+      "price": 11.5,
+      "previous": 11.95,
+      "security_timestamp": "20261112095003"
+    },
+    {
+      "symbol": "sz300473",
+      "name": "德尔股份",
+      "code": "300473",
+      "price": 58.78,
+      "previous": 58.79,
+      "security_timestamp": "20261112095003"
+    },
+    {
+      "symbol": "sh600261",
+      "name": "阳光照明",
+      "code": "600261",
+      "price": 6.26,
+      "previous": 6.25,
+      "security_timestamp": "20261112095003"
+    }
+  ],
+  "basis": "observed quote after immutable cohort publication; not an executed trade or 08:50 price",
+  "actual_fill": "UNVERIFIED",
+  "user_delivery_time": "UNVERIFIED",
+  "cohort_published_at": "2026-11-12T01:49:40Z"
+}
