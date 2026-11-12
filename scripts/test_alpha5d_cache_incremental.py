@@ -2,6 +2,7 @@ import datetime as dt
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 import alpha5d_pipeline as p
 
@@ -43,6 +44,20 @@ class IncrementalCacheTests(unittest.TestCase):
     def test_ex_action_or_mismatch_must_fail_closed(self):
         row = dict(self.row, settlement='11.00')
         self.assertIsNone(p.incremental_cached_history(self.root,self.asof,row))
+        # A small ex-dividend gap must also refetch, not slip through a 0.5% tolerance.
+        self.assertIsNone(p.incremental_cached_history(self.root,self.asof,dict(self.row,settlement='10.01')))
+
+    def test_sina_cache_extends_only_with_current_unchanged_published_factors(self):
+        factors=[{'d':'1900-01-01','f':'1.0'}]
+        saved={**self.old,'adjustment_basis':'Sina_qfq_anchor='+self.prior,'adjustment_factors':factors}
+        self.path.write_text(json.dumps(saved),encoding='utf8')
+        body='var sh600900qfq='+json.dumps({'total':1,'data':factors})+'\n/* signature */'
+        with patch.object(p,'http',return_value=body):out=p.incremental_cached_history(self.root,self.asof,self.row)
+        self.assertEqual(out['bars'][-1]['date'],self.asof)
+        self.assertEqual(out['adjustment_factors'],factors)
+        changed=[{'d':self.asof,'f':'1.0'},{'d':'1900-01-01','f':'1.01'}]
+        body='var sh600900qfq='+json.dumps({'total':2,'data':changed})
+        with patch.object(p,'http',return_value=body):self.assertIsNone(p.incremental_cached_history(self.root,self.asof,self.row))
 
     def test_incorrect_units_or_stale_cache_must_fail_closed(self):
         row = dict(self.row, volume=1)

@@ -3,6 +3,7 @@
 import argparse
 import datetime as dt
 import json
+import os
 from pathlib import Path
 import alpha5d_pipeline as p
 
@@ -10,17 +11,28 @@ def stage_result(source,stage,run_id):
     source,stage=Path(source),Path(stage)
     file=source/'pipeline_status.json'
     payload=json.loads(file.read_text()) if file.exists() else {'status':'FAILED_BEFORE_COLLECTION'}
-    if payload.get('status')=='RUNNING':payload['status']='INTERRUPTED'
+    if payload.get('status')=='RUNNING':
+        payload.update(status='INTERRUPTED',failed_stage=payload.get('stage','UNKNOWN'),
+            error='Collector interrupted before completing acceptance',formal_top5_allowed=False,
+            ended_at=dt.datetime.now(dt.timezone.utc).isoformat())
     progress=source/'retrieval_progress.json'
     if progress.exists():payload['retrieval_progress']=json.loads(progress.read_text())
     previous=payload.get('previous_session')
     if previous:payload['cached_history_files']=len(list((source/'history'/previous).glob('*.json')))
-    payload.update(workflow_run_id=str(run_id),evidence_artifact_name='alpha5d-public-evidence-'+str(run_id),
+    attempt=os.environ.get('GITHUB_RUN_ATTEMPT','1')
+    payload.update(workflow_run_id=str(run_id),workflow_run_attempt=attempt,
+                   evidence_artifact_name='alpha5d-public-evidence-'+str(run_id)+'-'+attempt,
                    persisted_at=dt.datetime.now(dt.timezone.utc).isoformat())
     p.atomic(stage/'pipeline_status.json',payload)
     for folder in (source/'runs').glob('*'):
         for name in ('receipt.json','ranking.json','review.json'):
             if (folder/name).is_file():p.atomic(stage/'runs'/folder.name/name,json.loads((folder/name).read_text()))
+    # Interrupted processes may never reach the collector's finally block.
+    # Preserve that attempt's terminal receipt instead of losing it behind latest status.
+    record_id=payload.get('run_id')
+    if record_id:
+        receipt=stage/'runs'/record_id/'receipt.json'
+        if not receipt.exists():p.atomic(receipt,payload)
     for dirname,target in [('industry_snapshots','industry'),('market','market')]:
         for file in (source/dirname).glob('*.json'):
             p.atomic(stage/target/file.name,json.loads(file.read_text()))

@@ -36,5 +36,13 @@ class ResultPersistence(unittest.TestCase):
             root=Path(d);p.atomic(root/'source'/'pipeline_status.json',{'status':'RUNNING'})
             result=x.stage_result(root/'source',root/'stage','123')
             self.assertEqual(result['status'],'INTERRUPTED');self.assertEqual(result['workflow_run_id'],'123')
+    def test_killed_history_attempt_gets_immutable_stage_receipt(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);p.atomic(root/'source'/'pipeline_status.json',
+                {'status':'RUNNING','run_id':'20261112T090000','stage':'history'})
+            result=x.stage_result(root/'source',root/'stage','123')
+            receipt=json.loads((root/'stage'/'runs'/'20261112T090000'/'receipt.json').read_text())
+            self.assertEqual(receipt,result);self.assertEqual(receipt['failed_stage'],'history')
+            self.assertFalse(receipt['formal_top5_allowed']);self.assertIn('ended_at',receipt)
 
 if __name__=='__main__':unittest.main()

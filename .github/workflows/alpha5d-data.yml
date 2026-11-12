@@ -19,8 +19,10 @@ on:
       - 'scripts/test_alpha5d_*.py'
       - '.github/workflows/alpha5d-data.yml'
   schedule:
-    # Data preparation only: 15:25 after close and 08:05 before the existing report.
-    - cron: '25 7 * * 1-5'
+    # Prepare after close and warm the complete cache before the 08:35 report.
+    # These jobs collect public data; the user-facing report schedule is unchanged.
+    - cron: '35 7 * * 1-5'
+    - cron: '5 23 * * 0-4'
     - cron: '5 0 * * 1-5'
 
 permissions:
@@ -34,7 +36,7 @@ jobs:
   build-public-input:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 22
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - name: Regression tests (not an investment backtest)
@@ -42,24 +44,24 @@ jobs:
       - uses: actions/cache/restore@v4
         with:
           path: .cache/alpha5d/history
-          key: alpha5d-history-v1-${{ github.run_id }}
+          key: alpha5d-history-v1-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             alpha5d-history-v1-
       - name: Collect dated public universe and run unchanged score model
         id: collect
         continue-on-error: true
-        run: timeout --signal=INT --kill-after=45s 900s python scripts/alpha5d_runtime.py --output .cache/alpha5d --workers 8
+        run: timeout --signal=INT --kill-after=45s 1080s python -u scripts/alpha5d_runtime.py --output .cache/alpha5d --workers 16
       - name: Preserve collected history even when acceptance fails
         if: always()
         uses: actions/cache/save@v4
         with:
           path: .cache/alpha5d/history
-          key: alpha5d-history-v1-${{ github.run_id }}
+          key: alpha5d-history-v1-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Archive actual inputs and outputs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: alpha5d-public-evidence-${{ github.run_id }}
+          name: alpha5d-public-evidence-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             .cache/alpha5d/runs
             .cache/alpha5d/pipeline_status.json
@@ -74,7 +76,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          stage_dir="$RUNNER_TEMP/alpha5d-public-$GITHUB_RUN_ID"
+          stage_dir="$RUNNER_TEMP/alpha5d-public-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           python scripts/alpha5d_persist.py stage --stage "$stage_dir" --run-id "$GITHUB_RUN_ID"
           cp scripts/alpha5d_persist.py "$RUNNER_TEMP/alpha5d-persist.py"
           cp scripts/alpha5d_pipeline.py "$RUNNER_TEMP/alpha5d_pipeline.py"
@@ -98,7 +100,8 @@ jobs:
         run: |
           python - <<'PY'
           import json,pathlib
-          p=pathlib.Path('.cache/alpha5d/pipeline_status.json')
+          import os
+          p=pathlib.Path(os.environ['RUNNER_TEMP'])/('alpha5d-public-'+os.environ['GITHUB_RUN_ID']+'-'+os.environ['GITHUB_RUN_ATTEMPT'])/'pipeline_status.json'
           d=json.loads(p.read_text()) if p.exists() else {}
           assert d.get('status') in ('COMPLETE','NOT_TRADING_DAY'), d.get('error',d.get('status','NO_RECEIPT'))
           PY

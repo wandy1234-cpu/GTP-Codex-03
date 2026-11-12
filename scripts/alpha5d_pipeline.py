@@ -308,13 +308,26 @@ def sample_codes(rows, asof=None):
         result += [group[round(i*(len(group)-1)/4)]['symbol'] for i in range(5)]
     return result
 
+def sample_histories(codes,asof):
+    """Fetch every independent sample concurrently, preserving every failure."""
+    histories={};errors={}
+    with cf.ThreadPoolExecutor(max_workers=8) as pool:
+        futures={pool.submit(independent_sample_bars,code,asof):code for code in codes}
+        for future in cf.as_completed(futures):
+            code=futures[future]
+            try:histories[code]=future.result()
+            except Exception as error:errors[code]=str(error)
+    return histories,errors
+
 def assemble(rows, cover, sector_map, histories, quotes, asof, forecast, cutoff, generated_at):
     errors=[]; normalized=[]; codes=sample_codes(rows,asof); by_code={r['symbol']:r for r in rows}
     samples=[]
+    independent,independent_errors=sample_histories(codes,asof)
     for symbol in codes:
         try:
             q=quotes[symbol];p,t=reference(by_code[symbol],q,asof)
-            h=independent_sample_bars(symbol,asof)
+            if symbol in independent_errors:raise ValueError(independent_errors[symbol])
+            h=independent[symbol]
             daily=h['bars'][-1]
             if daily['date']!=asof:raise ValueError('Missing final sample bar')
             if max(p,t,daily['close'])/min(p,t,daily['close'])-1>.005:raise ValueError('Close mismatch')
@@ -402,7 +415,7 @@ def run_rank(engine, payload):
 
 
 def incremental_cached_history(root, asof, row):
-    """Extend only a verified immediately-prior Eastmoney fqt=1 cache with the dated Sina close.
+    """Extend a verified adjacent cache using the real, dated closed Sina bar.
 
     Fail closed when a split, adjustment, stale cache, unit mismatch or missing
     daily field might silently corrupt 61-bar technical features. The current
@@ -418,11 +431,29 @@ def incremental_cached_history(root, asof, row):
             return None
         h = json.loads(source.read_text(encoding='utf-8'))
         bars = h.get('bars') or []
-        if (len(bars) < 61 or bars[-1].get('date') != previous
-                or not str(h.get('adjustment_basis', '')).startswith('Eastmoney_fqt=1')
+        basis=str(h.get('adjustment_basis',''))
+        if (not usable_cached_history(h,previous)
+                or not basis.startswith(('Eastmoney_fqt=1','Sina_qfq_anchor='))
                 or not h.get('source_url') or h.get('volume_unit') != 'lots_100_shares'
                 or h.get('amount_unit') != 'CNY'):
             return None
+        current_factors=None
+        if basis.startswith('Sina_qfq_anchor='):
+            # Published factor ratios must be unchanged for every retained bar.
+            # A corporate action, changed factor history, or missing old factors
+            # forces full independent retrieval; no synthetic rebase is permitted.
+            from alpha5d_provider_resilience import parse_sina_factors
+            old_factors=h.get('adjustment_factors')
+            if not old_factors:return None
+            factor_url='https://finance.sina.com.cn/realstock/company/'+symbol+'/qfq.js'
+            current_factors=parse_sina_factors(http(factor_url),symbol)
+            def factor(entries,date):
+                available=[entry for entry in entries if entry['d']<=date]
+                return float(max(available,key=lambda entry:entry['d'])['f'])
+            old_anchor=factor(old_factors,previous);new_anchor=factor(current_factors,asof)
+            if any(not math.isclose(factor(old_factors,bar['date'])/old_anchor,
+                                    factor(current_factors,bar['date'])/new_anchor,
+                                    rel_tol=1e-12,abs_tol=1e-12) for bar in bars):return None
         prior_close = float(bars[-1]['close'])
         reference = float(row['settlement'])
         opening = float(row['open'])
@@ -435,7 +466,7 @@ def incremental_cached_history(root, asof, row):
         if (not all(math.isfinite(x) and x > 0 for x in prices)
                 or not math.isfinite(shares) or shares <= 0
                 or not math.isfinite(amount) or amount <= 0
-                or abs(prior_close / reference - 1) > .005
+                or abs(prior_close-reference)>max(.00051,abs(prior_close)*1e-7)
                 or not low <= min(opening, closing) <= max(opening, closing) <= high):
             return None
         vwap = amount / shares
@@ -449,16 +480,33 @@ def incremental_cached_history(root, asof, row):
             'date': asof, 'open': opening, 'close': closing,
             'high': high, 'low': low, 'volume': shares / 100, 'amount': amount,
         }])[-240:]
-        new['adjustment_basis'] = 'Eastmoney_fqt=1_verified_Sina_incremental_asof=' + asof
+        new['adjustment_basis'] = ('Sina_qfq_anchor=' if current_factors else 'Eastmoney_fqt=1_verified_Sina_incremental_asof=') + asof
+        if current_factors:new['adjustment_factors']=current_factors
         new['incremental_source_url'] = SINA
+        new['source_urls']=sorted(set(list(h.get('source_urls') or [h['source_url']])+[SINA]))
         new['retrieved_at'] = now().isoformat()
         new['retained_bars'] = len(new['bars'])
         new['incremental_guard'] = {'prior_close_matches_sina_settlement': True,
                                      'price_volume_amount_units_verified': True,
                                      'corporate_action_rebase_not_needed': True}
         return new
-    except (ValueError, TypeError, KeyError, OSError, json.JSONDecodeError):
+    except (ValueError, TypeError, KeyError, OSError, RuntimeError, json.JSONDecodeError):
         return None
+
+def usable_cached_history(history,asof):
+    """A file's presence or date alone cannot certify a usable 61-bar cache."""
+    bars=history.get('bars') or []
+    if len(bars)<61 or bars[-1].get('date')!=asof:return False
+    if (history.get('volume_unit')!='lots_100_shares' or history.get('amount_unit')!='CNY'
+            or not history.get('source_url') or not history.get('adjustment_basis')):return False
+    dates=[bar.get('date') for bar in bars]
+    if not all(isinstance(date,str) for date in dates) or dates!=sorted(set(dates)):return False
+    for bar in bars:
+        if any(not isinstance(bar.get(key),(int,float)) or isinstance(bar.get(key),bool)
+               or not math.isfinite(bar[key]) for key in ('open','close','high','low','volume','amount')):return False
+        if not 0<bar['low']<=min(bar['open'],bar['close'])<=max(bar['open'],bar['close'])<=bar['high']:return False
+        if bar['volume']<0 or bar['amount']<0:return False
+    return True
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--forecast');ap.add_argument('--workers',type=int,default=8)
@@ -468,7 +516,7 @@ def main():
     if not trading(fday):
         atomic(root/'pipeline_status.json',{'status':'NOT_TRADING_DAY','date':fday.isoformat(),'generated_at':started.isoformat()});return
     asof=step(fday,-1).isoformat();forecast=fday.isoformat();run_id=started.strftime('%Y%m%dT%H%M%S')
-    run_dir=root/'runs'/run_id; manifest={'adapter_version':VERSION,'started_at':started.isoformat(),
+    run_dir=root/'runs'/run_id; manifest={'adapter_version':VERSION,'run_id':run_id,'stage':'market','started_at':started.isoformat(),
        'forecast_date':forecast,'previous_session':asof,'sessions':forecast_sessions(fday),
        'calendar_source':CALENDAR_SOURCE,'status':'RUNNING','run_kind':'late_research' if started.time()>dt.time(8,50) else 'prefetch'}
     atomic(root/'pipeline_status.json',manifest)
@@ -487,21 +535,21 @@ def main():
                 atomic(run_dir/(node+'.json'),{'records':batch,'manifest':g})
         if len(rows)!=len({r['symbol'] for r in rows}):raise ValueError('Cross-exchange duplicate')
         manifest.update(raw_count=len(rows),coverage=cover)
+        manifest['stage']='session_halts';atomic(root/'pipeline_status.json',manifest)
         try:
             halts,halt_audit=session_halts(asof,rows,forecast);SESSION_HALTS[asof]=halts;manifest['session_halt_audit']=halt_audit
         except Exception as error:
             SESSION_HALTS[asof]={};manifest['session_halt_audit']={'complete':False,'error':str(error)}
         # Daily history retrieval is independent of industry availability; cache it first.
         histories={};history_errors={}
+        manifest['stage']='history';atomic(root/'pipeline_status.json',manifest)
         targets=[r for r in rows if 'ST' not in r['name'].upper() and not verified_halt(r['symbol'],asof) and not verified_halt(r['symbol'],forecast)]
         def load(r):
             sym=r['symbol'];path=root/'history'/asof/(sym+'.json')
             if path.exists():
-                h=json.loads(path.read_text());
-                # Short caches from an earlier attempt must not permanently mask
-                # an established listing's missing 61st bar. Re-fetch the real
-                # dated history; new-listing exclusions are still independently checked.
-                if len(h.get('bars') or [])>=61 and h['bars'][-1]['date']==asof:return sym,h
+                try:h=json.loads(path.read_text())
+                except (ValueError,OSError):h={}
+                if usable_cached_history(h,asof):return sym,h
             h=incremental_cached_history(root,asof,r) if r.get('_security_date')==asof else None
             if h is not None:
                 atomic(path,h)
@@ -514,16 +562,19 @@ def main():
                 try:_,histories[sym]=f.result()
                 except Exception as e:history_errors[sym]=str(e)
         manifest.update(history_success=len(histories),history_missing=history_errors)
+        manifest['stage']='industry';atomic(root/'pipeline_status.json',manifest)
         set_industry_context(rows,histories,asof)
         try:industry,url=industries(args.workers)
         finally:manifest['industry_source_audit']=industry_audit()
         atomic(run_dir/'industry.json',{'source':url,'memberships':industry,'audit':industry_audit()})
+        manifest['stage']='cross_source_samples';atomic(root/'pipeline_status.json',manifest)
         quotes=tencent(sample_codes(rows,asof))
         actual=now().isoformat();cutoff=max(forecast+'T08:50:00+08:00',actual) if started.date()==fday else forecast+'T08:50:00+08:00'
         payload,errors=assemble(rows,cover,industry,histories,quotes,asof,forecast,cutoff,actual)
         manifest['technical_warmup_codes']=payload.get('technical_warmup_codes',[])
         atomic(run_dir/'input.json',payload)
         if errors:raise ValueError('INPUT_INCOMPLETE: '+repr(errors[:20]))
+        manifest['stage']='ranking';atomic(root/'pipeline_status.json',manifest)
         import alpha5d_engine as engine
         result=run_rank(engine,payload);atomic(run_dir/'ranking.json',result)
         review={'forecast_date':forecast,'previous_session':asof,'sessions':manifest['sessions'],'cutoff':cutoff,
@@ -545,8 +596,9 @@ def main():
                         provider_route_health=payload.get('provider_route_health'),industry_classification=payload.get('industry_classification'),
                         verified_sample_count=len(payload['coverage']['samples']),is_0850_live_prediction=result.get('is_0850_live_prediction'))
         manifest['formal_top5_allowed']=False
+        manifest['stage']='evidence_review'
     except Exception as e:
-        manifest.update(status='INCOMPLETE',error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)
+        manifest.update(status='INCOMPLETE',failed_stage=manifest.get('stage'),error=f'{type(e).__name__}: {e}',formal_top5_allowed=False)
     finally:
         manifest['ended_at']=now().isoformat();atomic(run_dir/'receipt.json',manifest)
         atomic(root/'pipeline_status.json',manifest)

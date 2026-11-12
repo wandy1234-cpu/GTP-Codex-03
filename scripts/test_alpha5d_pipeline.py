@@ -3,6 +3,32 @@ import json, tempfile, unittest
 from pathlib import Path
 from unittest.mock import patch
 import alpha5d_pipeline as p
+class CacheAndSampleAcceptance(unittest.TestCase):
+    def cached(self):
+        dates=[(dt.date(2026,7,1)+dt.timedelta(days=i)).isoformat() for i in range(61)]
+        return {'bars':[dict(date=d,open=10.,high=11.,low=9.,close=10.,volume=100.,amount=100000.) for d in dates],
+                'source_url':'https://example.org/real-bars','adjustment_basis':'verified',
+                'volume_unit':'lots_100_shares','amount_unit':'CNY'}
+    def test_short_or_stale_cache_requires_real_refetch(self):
+        h=self.cached();asof=h['bars'][-1]['date']
+        self.assertTrue(p.usable_cached_history(h,asof))
+        self.assertFalse(p.usable_cached_history({**h,'bars':h['bars'][1:]},asof))
+        self.assertFalse(p.usable_cached_history(h,'2026-11-11'))
+    def test_cache_cannot_hide_missing_amount_or_duplicate_dates(self):
+        h=self.cached();asof=h['bars'][-1]['date'];h['bars'][0].pop('amount')
+        self.assertFalse(p.usable_cached_history(h,asof))
+        h=self.cached();h['bars'][0]['date']=h['bars'][1]['date']
+        self.assertFalse(p.usable_cached_history(h,asof))
+    def test_all_twenty_crosschecks_and_one_failure_remain_accounted_for(self):
+        codes=['sh'+str(600000+i) for i in range(20)]
+        def fetch(code,asof):
+            if code==codes[7]:raise ValueError('missing raw sample')
+            return {'symbol':code,'asof':asof}
+        with patch.object(p,'independent_sample_bars',side_effect=fetch):
+            good,errors=p.sample_histories(codes,'2026-11-11')
+        self.assertEqual(set(good)|set(errors),set(codes))
+        self.assertEqual(len(good),19);self.assertEqual(errors,{codes[7]:'missing raw sample'})
+
 class CalendarTest(unittest.TestCase):
     def test_holiday(self):
         for s in ('2026-10-01','2026-10-02','2026-10-07','2026-10-10','2026-09-25'):

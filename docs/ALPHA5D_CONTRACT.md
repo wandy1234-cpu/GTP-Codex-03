@@ -123,3 +123,11 @@ cohort需包含rank输出中的top5/eligible_codes/baselines以及forecast_date�
 
 基准先行：复杂新模型若没有在同宇宙、同时点、同成本口径下稳定胜过简单20日动量Top5，不允许宣称提升或替换主模型。禁止一天输赢后改权重。可以研发学习排序模型，但只有训练产物、数据覆盖、滚动样本外和上线前影子验证完整才称已训练、有效或自学习。
 
+## 2026-11-12 故障恢复与交付顺序
+
+真实接口已确认新浪qfq.js在具名JSON赋值后追加签名注释。只解析指定股票的JSON值和允许的尾部注释，不执行JavaScript，不把额外可执行内容当合法数据。短于61根、单位错误、缺成交额、日期重复或日期错误的缓存须重新取得真实历史；不能重复接受损坏缓存，也不能因此改股票资格。
+
+20只独立收盘核验并发采集但逐只保留成功与错误，19/20仍不通过。数据准备在北京时间15:35、07:05和08:05运行，先完成上一收盘日全量缓存；原报告工作日08:35启动、08:50截止和09:00目标不变。运行回执记录market/session_halts/history/industry/cross_source_samples/ranking/evidence_review阶段，超时须留实际失败阶段。缓存及证据包按run_id和run_attempt区分，最终验收读取本次不可变stage回执，不能读取被其他提交更新的共享状态。These are data-pipeline fixes, not a trained model or an investment backtest.
+
+COMPLETE和AWAITING_EVIDENCE_REVIEW应进入证据复核与五只研究榜发布，不误判为永久NO RANK。源文件证券日、生成时间、input_sha256、排序版本和完整覆盖一致后，再逐项核验前20和行业、新闻时点。研究排序、当日可执行性、市场综合评分和热度各自验收。08:50后补跑保持独立late批次，原失败和发布前涨跌均不能改写。
+
