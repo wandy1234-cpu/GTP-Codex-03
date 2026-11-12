@@ -1,0 +1,58 @@
+{
+  "record_type": "ENGINEERING_RECOVERY",
+  "date": "2026-11-12",
+  "forecast_date": "2026-11-12",
+  "previous_session": "2026-11-11",
+  "problem": "Nov11 relay had 5106 stocks 52 pages with 19/20 independent samples. Original intended 54 pages/5224 stocks; previous night scheduled workflow 43048521884 stopped at regression failing test_missing_actual_page_still_fails_closed.",
+  "verified_evidence": [
+    {
+      "workflow_run_id": "43048521884",
+      "error": "frozen_universe did not raise ValueError for missing actual source page, 93/94 tests",
+      "source": "https://github.com/wandy1234-cpu/GTP-Codex-03/actions/runs/43048521884"
+    },
+    {
+      "workflow_run_id": "43129101387",
+      "result": "94/94 synthetic tests pass; full collection gate blocks because Nov11 relay invalid"
+    },
+    {
+      "workflow_run_id": "43129433122",
+      "result": "94/94 tests pass; fallback floor implemented but partial frozen relay incorrectly throws"
+    },
+    {
+      "workflow_run_id": "43129520553",
+      "status": "IN_PROGRESS at 08:50 cutoff; no ranked output asserted"
+    }
+  ],
+  "patches": [
+    {
+      "commit": "973b1f941bcaf679bb2f35a206788ab36561afae",
+      "path": "scripts/alpha5d_provider_resilience.py",
+      "change": "Require complete contiguous pagination manifest for previous close reuse; fail closed on missing actual page"
+    },
+    {
+      "commit": "62bb7821f27bfd9132f21361f7585d8ad7cb521d",
+      "path": "scripts/alpha5d_pipeline.py",
+      "change": "Use verified close <=3 sessions old only as a conservative page-count floor, then recollect all current previous_session pages and independent samples"
+    },
+    {
+      "commit": "ec38e5c96a212e5250a2e0098fc39cef41dc7a9c",
+      "path": "scripts/alpha5d_provider_resilience.py",
+      "change": "Incomplete same-date relay now routes to fresh collector rather than being mistaken for valid frozen input"
+    }
+  ],
+  "unchanged": [
+    "V8.0-bootstrap-1 scoring weights",
+    "61 real OHLCVA bars requirement",
+    "20 independent samples",
+    "SH/SZ pagination and missing-page rejection",
+    "08:50 information cutoff",
+    "historical cohorts and past performance",
+    "personal stock/IC account kept out of repo"
+  ],
+  "goal": "Restored live production after preflight; require verified actual 2026-11-11 54-page source, >=20 samples, complete industry and dated historical factors, ranking.json+review.json with input_sha256 and actual production and readback.",
+  "risk": "Older market coverage is only threshold, never used as current prices; live source may be unavailable, insufficient/invalid sample must remain INCOMPLETE. Fresh full collection can finish after 08:50 and then must be tagged late_research, never retroactively early.",
+  "state": "CODED_AND_SYNTHETIC_TESTED; PRODUCTION_NOT_YET_ACCEPTED_AT_0850",
+  "model_improved": false,
+  "model_trained": false,
+  "formal_top5_at_0850": "NO RANK"
+}
