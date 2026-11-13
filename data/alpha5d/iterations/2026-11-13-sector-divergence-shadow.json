@@ -1,0 +1,34 @@
+{
+  "schema": "alpha5d-iteration-1",
+  "change_id": "sector-divergence-shadow",
+  "created_at": "2026-11-13T00:53:02.694Z",
+  "forecast_date": "2026-11-13",
+  "run_id": "20261113T001132",
+  "status": "PROPOSED",
+  "change_class": "B:feature-hypothesis-only",
+  "evidence": {
+    "input_sha256": "2ab9f2a26d6c06f18b7e53598644a39eac6a0abcb2d6b9c1617853fc1e6d450f",
+    "current_rank1": "北纬科技 sz002148",
+    "current_rank4": "吉视传媒 sh601929",
+    "previous_Shenwan_communication_return_pct": -3.01,
+    "previous_Shenwan_media_return_pct": -3.28,
+    "previous_A_breadth": {
+      "up": 838,
+      "down": 4319,
+      "flat": 67
+    }
+  },
+  "question": "同一日高分强势股逆向弱行业，究竟是独立趋势领涨还是行业宽度下降下的短暂拥挤?",
+  "proposed_shadow": "在与V8.0相同原始宇宙、冻结时点、交易成本及评估口径下，增加行业宽度与拥挤组合项作为影子模型，不直接过滤当日V8.0股票。",
+  "main_objective": "五有效交易日原始真正Top5及前20捕获率、合格宇宙前5%辅助捕获、五股均值与中位数",
+  "evaluation_requirements": "20个成熟交易日批次第一次系统诊断；分日滚动OOS；清除标签重叠；同日20日动量基准；完整赢家审计",
+  "possible_side_effect": "过度惩罚个股异动和孤立强势领跑，削弱真正赢家捕获",
+  "ranker_version": "V8.0-bootstrap-1",
+  "ranker_weights_changed": false,
+  "code_changed": false,
+  "tests": "NOT_RUN_FOR_SHADOW",
+  "out_of_sample": "NOT_RUN",
+  "forward_shadow": "NOT_RUN",
+  "production_rollout": false,
+  "private_data_included": false
+}
