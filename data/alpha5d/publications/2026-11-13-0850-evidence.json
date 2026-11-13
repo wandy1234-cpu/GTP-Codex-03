@@ -1,0 +1,143 @@
+{
+  "schema": "alpha5d-publication-v8.2",
+  "cohort_id": "2026-11-13",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-13.json",
+  "forecast_date": "2026-11-13",
+  "previous_session": "2026-11-12",
+  "sessions": [
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19"
+  ],
+  "created_at": "2026-11-13T00:51:13.718Z",
+  "cutoff": "2026-11-13T08:50:00+08:00",
+  "freeze_verified_at": "2026-11-13T08:50:03+08:00",
+  "run_kind": "scheduled_research",
+  "is_0850_live_prediction": true,
+  "formal_research_selection": true,
+  "publication_state": "PUBLISHED_RESEARCH",
+  "input_sha256": "2ab9f2a26d6c06f18b7e53598644a39eac6a0abcb2d6b9c1617853fc1e6d450f",
+  "data_commit": "cb8af45e7bbc3ab9be1934ba931e8f6052ca395e",
+  "source_repo_commit": "c772cb128d4142f34b700a345b6c915da0bc9cf2",
+  "model_version": "V8.0-bootstrap-1",
+  "ranking_path": "data/alpha5d/runs/20261113T001132/ranking.json",
+  "review_path": "data/alpha5d/runs/20261113T001132/review.json",
+  "receipt_path": "data/alpha5d/runs/20261113T001132/receipt.json",
+  "workflow_run_id": "43255850346",
+  "top5": [
+    {
+      "rank": 1,
+      "symbol": "sz002148",
+      "name": "北纬科技",
+      "score": 87.38807147,
+      "reference_raw_close": 7.23,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 2,
+      "symbol": "sh600261",
+      "name": "阳光照明",
+      "score": 86.95124042,
+      "reference_raw_close": 6.37,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 3,
+      "symbol": "sh603725",
+      "name": "天安新材",
+      "score": 85.65317919,
+      "reference_raw_close": 13.16,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 4,
+      "symbol": "sh601929",
+      "name": "吉视传媒",
+      "score": 85.65160273,
+      "reference_raw_close": 2.81,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 5,
+      "symbol": "sz002045",
+      "name": "国光电器",
+      "score": 85.62216168,
+      "reference_raw_close": 10.93,
+      "execution_state": "WAIT"
+    }
+  ],
+  "coverage": {
+    "raw": 5224,
+    "sh_a": {
+      "pages": 24,
+      "rows": 2318,
+      "missing_pages": 0
+    },
+    "sz_a": {
+      "pages": 30,
+      "rows": 2906,
+      "missing_pages": 0
+    },
+    "cross_source_samples": "20/20",
+    "history_success": 5026,
+    "history_missing": 0,
+    "necessary_industry": 5005,
+    "industry_covered": 5005,
+    "industry_source": "Eastmoney level1, not Shenwan",
+    "eligible": 3807,
+    "technical_warmup": 0
+  },
+  "sector_capture": {
+    "external_taxonomy": "Shenwan level1",
+    "strong3": [
+      [
+        "农林牧渔",
+        0.45
+      ],
+      [
+        "食品饮料",
+        0.38
+      ],
+      [
+        "银行",
+        0.36
+      ]
+    ],
+    "weak3": [
+      [
+        "传媒",
+        -3.28
+      ],
+      [
+        "有色金属",
+        -3.01
+      ],
+      [
+        "通信",
+        -3.01
+      ]
+    ],
+    "status": "PASS_FOR_DISCUSSION; ranking Eastmoney taxonomy independently validated"
+  },
+  "evidence_review": {
+    "result": "PASSED",
+    "top20_count": 20,
+    "announcement_times_reviewed": true,
+    "extra_event_points_granted": false,
+    "manual_rank_replacement": false,
+    "category_focus_and_crowding": "R1通信与R4传媒均逆一级弱行业；四个主题相关性风险单列",
+    "actual_fills": "UNVERIFIED"
+  },
+  "freeze_status": "08:50:03 verify; original technical ranking 00:14:20 generated, evidence review after 08:50",
+  "publication_validity": "asof 2026-11-13 08:50; five session research ranking, not actual tradable return",
+  "actual_fills": "UNVERIFIED",
+  "source_urls": [
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/c772cb128d4142f34b700a345b6c915da0bc9cf2/data/alpha5d/runs/20261113T001132/receipt.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/c772cb128d4142f34b700a345b6c915da0bc9cf2/data/alpha5d/runs/20261113T001132/review.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/c772cb128d4142f34b700a345b6c915da0bc9cf2/data/alpha5d/runs/20261113T001132/ranking.json",
+    "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml"
+  ],
+  "private_portfolio_data_included": false
+}
