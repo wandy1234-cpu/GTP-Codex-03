@@ -1,29 +1,29 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261113T135814",
+  "run_id": "20261113T233957",
   "stage": "evidence_review",
-  "started_at": "2026-11-13T13:58:14.607326+08:00",
-  "forecast_date": "2026-11-13",
-  "previous_session": "2026-11-12",
+  "started_at": "2026-11-13T23:39:57.663245+08:00",
+  "forecast_date": "2026-11-16",
+  "previous_session": "2026-11-13",
   "sessions": [
-    "2026-11-13",
     "2026-11-16",
     "2026-11-17",
     "2026-11-18",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
   "status": "COMPLETE",
-  "run_kind": "late_research",
+  "run_kind": "scheduled",
   "market_snapshot_audit": {
-    "security_date": "2026-11-12",
-    "captured_at": "2026-11-12T23:51:22.718285+08:00",
-    "sha256": "21b02b52149ec15d5a59e377fa1aa50995999f1138e77a97f70744b50b6e3f32",
+    "security_date": "2026-11-13",
+    "captured_at": "2026-11-13T23:10:19.236346+08:00",
+    "sha256": "68cefad4428a0ffd90d36a45029829d07405882b1e7447c08753c9dfce112122",
     "frozen_samples_verified": 20,
-    "source": "data/alpha5d/market/2026-11-12.json",
+    "source": "data/universe_latest.json",
     "recovered_attempts_backed_by_identical_raw_shards": []
   },
-  "raw_count": 5224,
+  "raw_count": 5223,
   "coverage": {
     "sh_a": {
       "successful_pages": [
@@ -145,7 +145,7 @@
       "terminal_page": 30,
       "terminal_verified": true,
       "missing_pages": [],
-      "raw_rows": 2906,
+      "raw_rows": 2905,
       "page_counts": [
         100,
         100,
@@ -176,7 +176,7 @@
         100,
         100,
         100,
-        6
+        5
       ],
       "source_urls": [
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=sz_a",
@@ -213,11 +213,11 @@
     }
   },
   "session_halt_audit": {
-    "security_date": "2026-11-12",
+    "security_date": "2026-11-13",
     "source_urls": [
-      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-12%27%29"
+      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-13%27%29"
     ],
-    "rows": 8,
+    "rows": 9,
     "provider_rows": [
       {
         "SECURITY_CODE": "688121",
@@ -246,6 +246,20 @@
         "TRADE_MARKET_CODE": "069001001006",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "688496.SH"
+      },
+      {
+        "SECURITY_CODE": "605255",
+        "SECURITY_NAME_ABBR": "天普股份",
+        "SUSPEND_START_TIME": "2026-11-16 09:30:00",
+        "SUSPEND_END_TIME": null,
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "交易异常波动",
+        "TRADE_MARKET": "上交所主板",
+        "SUSPEND_START_DATE": "2026-11-16 00:00:00",
+        "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001001001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "605255.SH"
       },
       {
         "SECURITY_CODE": "000635",
@@ -337,32 +351,32 @@
       "sh688121",
       "sh688496",
       "sh688798",
+      "sz000635",
       "sz000831",
       "sz002129",
       "sz002717"
     ],
     "complete": true,
-    "forecast_session": "2026-11-13",
+    "forecast_session": "2026-11-16",
     "known_forecast_whole_session_codes": [
       "sh600185",
+      "sh605255",
       "sh688121",
       "sh688496",
       "sh688798",
       "sz000635",
-      "sz000831",
-      "sz002129",
       "sz002717"
     ]
   },
-  "history_success": 5026,
+  "history_success": 5024,
   "history_missing": {},
   "industry_source_audit": {
-    "required_codes": 5005,
+    "required_codes": 5003,
     "attempts": [],
     "classification": "Eastmoney first-level industry",
     "fallback": false,
     "source_url": "https://82.push2.eastmoney.com/api/qt/clist/get?pn=1&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A2+f%3A%2150&fields=f12%2Cf13%2Cf14",
-    "covered_required_codes": 5005,
+    "covered_required_codes": 5003,
     "membership_count": 5225,
     "snapshot": {
       "route": "verified_recent_snapshot",
@@ -373,121 +387,121 @@
     }
   },
   "technical_warmup_codes": [],
-  "input_sha256": "11726d67d0a29359f51290310e8fe9d6485850017831e92d0ab9af46c2189456",
-  "ranking_path": "data/alpha5d/runs/20261113T135814/ranking.json",
+  "input_sha256": "1b75386c9e5ae1bc0513f0166003de2daa8c3eb7fc37b2738e3e869147e2175b",
+  "ranking_path": "data/alpha5d/runs/20261113T233957/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
-      "symbol": "sz002148",
-      "name": "北纬科技",
-      "sector": "通信",
-      "score": 87.38807147,
+      "symbol": "sz300528",
+      "name": "幸福蓝海",
+      "sector": "传媒",
+      "score": 88.98828022,
       "features": {
-        "r5": 0.20099667774086405,
-        "r10": 0.22750424448217332,
-        "r20": 0.1367924528301887,
-        "breakout": 0.0888554216867472,
+        "r5": 0.22631220177232447,
+        "r10": 0.5376068376068375,
+        "r20": 0.4311853619729513,
+        "breakout": 0.1554271034039818,
         "close_pos": 1.0,
-        "volume_ratio": 1.9534694044983145,
-        "trend": 0.031911262798634654,
+        "volume_ratio": 1.8152788078576034,
+        "trend": 0.08068315665488801,
         "above_ma10": true,
-        "overheat": 0.04563419877625288,
-        "sector": "通信"
+        "overheat": 0.0754768392370572,
+        "sector": "传媒"
       },
       "penalty": 0.0,
-      "reference_raw_close": 7.23,
+      "reference_raw_close": 17.99,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 1
     },
     {
-      "symbol": "sh600261",
-      "name": "阳光照明",
-      "sector": "家用电器",
-      "score": 86.95124042,
+      "symbol": "sh600715",
+      "name": "文投控股",
+      "sector": "传媒",
+      "score": 88.65591256,
       "features": {
-        "r5": 0.29735234215885953,
-        "r10": 0.7123655913978495,
-        "r20": 0.9968652037617556,
-        "breakout": 0.019200000000000106,
-        "close_pos": 0.9736842105263164,
-        "volume_ratio": 1.9760611452387884,
-        "trend": 0.18060276455925672,
+        "r5": 0.44680851063829774,
+        "r10": 0.6666666666666665,
+        "r20": 0.9540229885057472,
+        "breakout": 0.08280254777070062,
+        "close_pos": 1.0,
+        "volume_ratio": 1.3334202047942534,
+        "trend": 0.13668763102725356,
         "above_ma10": true,
-        "overheat": 0.07264875239923221,
-        "sector": "家用电器"
+        "overheat": 0.10414976023607539,
+        "sector": "传媒"
       },
       "penalty": 0.0,
-      "reference_raw_close": 6.37,
+      "reference_raw_close": 3.4,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 2
     },
     {
-      "symbol": "sh603725",
-      "name": "天安新材",
-      "sector": "轻工制造",
-      "score": 85.65317919,
+      "symbol": "sz002148",
+      "name": "北纬科技",
+      "sector": "通信",
+      "score": 88.54938109,
       "features": {
-        "r5": 0.2219127205199629,
-        "r10": 0.261744966442953,
-        "r20": 0.197452229299363,
-        "breakout": 0.03703703703703698,
+        "r5": 0.3520408163265307,
+        "r10": 0.4376130198915009,
+        "r20": 0.2659235668789808,
+        "breakout": 0.09958506224066377,
         "close_pos": 1.0,
-        "volume_ratio": 1.2517795557850555,
-        "trend": 0.029854990048336694,
+        "volume_ratio": 2.1939816324164365,
+        "trend": 0.07247612551159621,
         "above_ma10": true,
-        "overheat": 0.06111724645683783,
-        "sector": "轻工制造"
+        "overheat": 0.11411194148513296,
+        "sector": "通信"
       },
       "penalty": 0.0,
-      "reference_raw_close": 13.16,
+      "reference_raw_close": 7.95,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 3
     },
     {
-      "symbol": "sh601929",
-      "name": "吉视传媒",
+      "symbol": "sz002425",
+      "name": "凯撒文化",
       "sector": "传媒",
-      "score": 85.65160273,
+      "score": 88.13155122,
       "features": {
-        "r5": 0.12400000000000011,
-        "r10": 0.24336283185840712,
-        "r20": 0.11067193675889331,
-        "breakout": 0.021818181818181737,
+        "r5": 0.22981366459627317,
+        "r10": 0.3846153846153846,
+        "r20": 0.18918918918918926,
+        "breakout": 0.03394255874673635,
         "close_pos": 1.0,
-        "volume_ratio": 1.549068785558459,
-        "trend": 0.05076586433260388,
+        "volume_ratio": 1.4083893200612152,
+        "trend": 0.06616961789375586,
         "above_ma10": true,
-        "overheat": 0.020345689296126818,
+        "overheat": 0.0038461538461539713,
         "sector": "传媒"
       },
       "penalty": 0.0,
-      "reference_raw_close": 2.81,
+      "reference_raw_close": 3.96,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 4
     },
     {
-      "symbol": "sz002045",
-      "name": "国光电器",
-      "sector": "电子",
-      "score": 85.62216168,
+      "symbol": "sz002905",
+      "name": "金逸影视",
+      "sector": "传媒",
+      "score": 87.85317356,
       "features": {
-        "r5": 0.10404040404040393,
-        "r10": 0.3232445520581113,
-        "r20": 0.29349112426035506,
-        "breakout": -0.04206836108676604,
-        "close_pos": 0.8157894736842097,
-        "volume_ratio": 2.4018703165468756,
-        "trend": 0.08423973362930082,
+        "r5": 0.163337250293772,
+        "r10": 0.2958115183246075,
+        "r20": 0.12884834663626,
+        "breakout": 0.04872881355932224,
+        "close_pos": 1.0,
+        "volume_ratio": 1.7868312247427927,
+        "trend": 0.05223342939481279,
         "above_ma10": true,
         "overheat": 0.0,
-        "sector": "电子"
+        "sector": "传媒"
       },
       "penalty": 0.0,
-      "reference_raw_close": 10.93,
+      "reference_raw_close": 9.9,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 5
@@ -495,18 +509,34 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261113T135814/review.json",
-  "generated_at": "2026-11-13T13:58:30.202672+08:00",
+  "review_path": "data/alpha5d/runs/20261113T233957/review.json",
+  "generated_at": "2026-11-13T23:42:28.027096+08:00",
   "provider_route_health": {
     "eastmoney_daily": {
-      "attempted": 21,
-      "succeeded": 21,
+      "attempted": 14,
+      "succeeded": 5,
+      "failed": 9,
+      "data_errors": 0,
+      "consecutive_failures": 9,
+      "circuit_open": true
+    },
+    "sina_klc2": {
+      "attempted": 24,
+      "succeeded": 24,
       "failed": 0,
       "data_errors": 0,
       "consecutive_failures": 0,
       "circuit_open": false
     },
     "sample_eastmoney_daily": {
+      "attempted": 14,
+      "succeeded": 0,
+      "failed": 14,
+      "data_errors": 0,
+      "consecutive_failures": 14,
+      "circuit_open": true
+    },
+    "sample_sina_klc2": {
       "attempted": 20,
       "succeeded": 20,
       "failed": 0,
@@ -517,22 +547,22 @@
   },
   "industry_classification": "Eastmoney first-level industry",
   "verified_sample_count": 20,
-  "is_0850_live_prediction": false,
+  "is_0850_live_prediction": null,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-13T13:58:58.318578+08:00",
+  "ended_at": "2026-11-13T23:43:27.212727+08:00",
   "retrieval_progress": {
-    "attempted": 21,
-    "succeeded": 21,
+    "attempted": 29,
+    "succeeded": 29,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-13T13:58:58.534097+08:00"
+    "recorded_at": "2026-11-13T23:43:27.424573+08:00"
   },
-  "cached_history_files": 5026,
-  "workflow_run_id": "43375396358",
+  "cached_history_files": 5024,
+  "workflow_run_id": "43454754066",
   "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-43375396358-1",
-  "persisted_at": "2026-11-13T05:59:21.239930+00:00"
+  "evidence_artifact_name": "alpha5d-public-evidence-43454754066-1",
+  "persisted_at": "2026-11-13T15:43:46.664289+00:00"
 }
