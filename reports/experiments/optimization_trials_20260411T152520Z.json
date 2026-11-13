@@ -1,0 +1,442 @@
+[
+  {
+    "trial_number": 0,
+    "params": {
+      "top_n": 15,
+      "train_window_days": 90,
+      "step_days": 5
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 1,
+    "params": {
+      "top_n": 10,
+      "train_window_days": 165,
+      "step_days": 9
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 2,
+    "params": {
+      "top_n": 15,
+      "train_window_days": 165,
+      "step_days": 9
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 3,
+    "params": {
+      "top_n": 12,
+      "train_window_days": 165,
+      "step_days": 8
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 4,
+    "params": {
+      "top_n": 10,
+      "train_window_days": 135,
+      "step_days": 8
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 5,
+    "params": {
+      "top_n": 12,
+      "train_window_days": 105,
+      "step_days": 5
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 6,
+    "params": {
+      "top_n": 15,
+      "train_window_days": 90,
+      "step_days": 6
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 7,
+    "params": {
+      "top_n": 8,
+      "train_window_days": 150,
+      "step_days": 10
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 8,
+    "params": {
+      "top_n": 10,
+      "train_window_days": 150,
+      "step_days": 8
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 9,
+    "params": {
+      "top_n": 15,
+      "train_window_days": 165,
+      "step_days": 10
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 10,
+    "params": {
+      "top_n": 8,
+      "train_window_days": 120,
+      "step_days": 6
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 11,
+    "params": {
+      "top_n": 10,
+      "train_window_days": 180,
+      "step_days": 5
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 12,
+    "params": {
+      "top_n": 10,
+      "train_window_days": 120,
+      "step_days": 7
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 13,
+    "params": {
+      "top_n": 15,
+      "train_window_days": 105,
+      "step_days": 9
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 14,
+    "params": {
+      "top_n": 10,
+      "train_window_days": 90,
+      "step_days": 7
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 15,
+    "params": {
+      "top_n": 15,
+      "train_window_days": 180,
+      "step_days": 9
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 16,
+    "params": {
+      "top_n": 12,
+      "train_window_days": 135,
+      "step_days": 6
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 17,
+    "params": {
+      "top_n": 8,
+      "train_window_days": 150,
+      "step_days": 7
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 18,
+    "params": {
+      "top_n": 10,
+      "train_window_days": 120,
+      "step_days": 9
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  },
+  {
+    "trial_number": 19,
+    "params": {
+      "top_n": 15,
+      "train_window_days": 135,
+      "step_days": 5
+    },
+    "metrics": {
+      "avg_topn_excess_ret": 0.0,
+      "winner_precision": 0.0,
+      "benchmark_hit_rate": 0.0,
+      "rank_ic": 0.0,
+      "stability_score": 0.0,
+      "drawdown_penalty": 1.0,
+      "turnover_penalty": 1.0,
+      "fold_win_rate": 0.0,
+      "recent_window_excess_ret": 0.0,
+      "instability_score": 1.0
+    },
+    "composite_score": -1.0,
+    "error": "feature dataframe is empty after dropna"
+  }
+]
