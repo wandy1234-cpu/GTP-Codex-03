@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-16",
+  "change_id": "media-concentration-under-red-regime",
+  "status": "PROPOSED",
+  "kind": "B_FEATURE_HYPOTHESIS_SHADOW_ONLY",
+  "issue": "Model Research Top5 has 4/5 Eastmoney传媒 names while 11/13 entire A-share breadth is severely negative (744 up,4414 down); likely sector concentration/crowding risk, but forbidden to manually diversify formal Research Top5.",
+  "evidence": {
+    "cohort": "data/alpha5d/cohorts/2026-11-16.json",
+    "source_repo_commit": "85f360b2595f2b6d4758bbf727ac12e0005d40d3",
+    "input_sha256": "1b75386c9e5ae1bc0513f0166003de2daa8c3eb7fc37b2738e3e869147e2175b",
+    "top5_symbols": [
+      "sz300528",
+      "sh600715",
+      "sz002148",
+      "sz002425",
+      "sz002905"
+    ],
+    "sw_industry_weak": "通信−4.97%, 电子−3.75%",
+    "theme_strength": "影视院线+4.37% same closing day",
+    "past_warning": "11/12 late research media-heavy five lost mean about 6.16% by 11/13; Nov13 formal D1 mean about -3.37%."
+  },
+  "original_judgement": "Momentum and strong close imply five-day upside leadership candidates",
+  "observed_counter_evidence": "Broad market and sector divergences could reduce persistence; mature D5 future outcomes for Nov16 cohort unknown",
+  "candidate_change": "Shadow only: add prior-session sector breadth/market regime and crowding diagnostics, without altering published V8.0 rank.",
+  "expected_test_metric": "True five-day top5 and top20 capture versus locked V8.0 and simple 20-day momentum, plus recall of actual winners, considering same universe/sessions/costs",
+  "possible_side_effect": "Too much sector penalty may remove genuine strong momentum winners during narrow leadership.",
+  "validation_plan": "Compare independent time-block out-of-sample ≥20 matured sessions, purge five-day overlapping labels, retain independent testing segment; do not backfill new signals from future.",
+  "implementation": "NOT_CODED",
+  "software_tests": "NOT_RUN_FOR_THIS_SHADOW",
+  "production_test": "NOT_RUN",
+  "weight_change": false,
+  "model_improvement_claim": false,
+  "created_at": "2026-11-16T00:52:16.171Z",
+  "private_holdings_included": false
+}
