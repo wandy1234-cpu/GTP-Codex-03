@@ -1,0 +1,217 @@
+{
+  "schema": "alpha5d-publication-v8.2",
+  "cohort_id": "2026-11-17",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-17.json",
+  "forecast_date": "2026-11-17",
+  "previous_session": "2026-11-16",
+  "sessions": [
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-23"
+  ],
+  "cutoff": "2026-11-17T08:50:00+08:00",
+  "freeze_verified_at": "2026-11-17T08:50:01+08:00",
+  "created_at": "2026-11-17T00:51:04.119Z",
+  "run_kind": "scheduled_research",
+  "is_0850_live_prediction": true,
+  "formal_research_selection": true,
+  "publication_state": "PUBLISHED_RESEARCH",
+  "input_sha256": "a014bf1cf59d11099ef8481da998343663e83b49c7878ad8c6dda367b685b39c",
+  "data_commit": "b43d6e11fa96d94a9409655f48266a36b75be3db",
+  "source_repo_commit": "00bc62f45e3963c38803ef042c9c344b94139d02",
+  "model_version": "V8.0-bootstrap-1",
+  "ranking_path": "data/alpha5d/runs/20261117T012400/ranking.json",
+  "review_path": "data/alpha5d/runs/20261117T012400/review.json",
+  "receipt_path": "data/alpha5d/runs/20261117T012400/receipt.json",
+  "workflow_run_id": 43917812319,
+  "top5": [
+    {
+      "rank": 1,
+      "name": "凯撒文化",
+      "symbol": "sz002425",
+      "score": 88.97975655,
+      "reference_raw_close": 4.36,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 2,
+      "name": "吉视传媒",
+      "symbol": "sh601929",
+      "score": 88.97102408,
+      "reference_raw_close": 2.96,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 3,
+      "name": "文投控股",
+      "symbol": "sh600715",
+      "score": 88.94760519,
+      "reference_raw_close": 3.74,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 4,
+      "name": "龙江交通",
+      "symbol": "sh601188",
+      "score": 87.89970892,
+      "reference_raw_close": 4.73,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 5,
+      "name": "大晟文化",
+      "symbol": "sh600892",
+      "score": 87.203672,
+      "reference_raw_close": 6.1,
+      "execution_state": "WAIT"
+    }
+  ],
+  "coverage": {
+    "sh_a": "24/24 pages 2318",
+    "sz_a": "30/30 pages 2905",
+    "raw": 5223,
+    "missing_pages": 0,
+    "cross_source_samples": "20/20",
+    "history_success": 5026,
+    "history_missing": 0,
+    "necessary_industry": 5005,
+    "industry_covered": 5005,
+    "industry_source": "Eastmoney level1 snapshot dated Nov12, hash verified; not Shenwan",
+    "eligible": 3780,
+    "technical_warmup": 0,
+    "excluded": {
+      "liquidity_lt_50m": 1225,
+      "st": 193,
+      "known_suspension": 4,
+      "listing_lt_60_sessions": 21
+    }
+  },
+  "evidence_review": {
+    "status": "PASSED",
+    "top20_checked": 20,
+    "ranker_top5_unchanged": true,
+    "independent_cross_checks": "20/20",
+    "industry_snapshot_older_than_one_day_disclosed": true,
+    "event_positive_points_granted": false,
+    "earnings_positive_points_granted": false,
+    "individual_risk_cards_written": true,
+    "technical_complete": true,
+    "all_five_research_names_scored": true
+  },
+  "sector_capture": {
+    "taxonomy": "Shenwan level1 for discussion; Eastmoney level1 for actual model",
+    "strong3": [
+      [
+        "银行",
+        1.91
+      ],
+      [
+        "煤炭",
+        1.89
+      ],
+      [
+        "交通运输",
+        1.23
+      ]
+    ],
+    "weak3": [
+      [
+        "通信",
+        -7.06
+      ],
+      [
+        "电子",
+        -5.99
+      ],
+      [
+        "综合",
+        -4.29
+      ]
+    ],
+    "review_status": "PASS; 4/5 model picks classified Eastmoney media"
+  },
+  "market_prediction": {
+    "score": 22,
+    "weighted_sum": 22.4,
+    "light": "RED",
+    "regime": "Distribution",
+    "risk_budget_reference": "30%",
+    "confidence": "LOW",
+    "factors": {
+      "index_turnover": 24,
+      "breadth": 20,
+      "sentiment": 18,
+      "sector_capital": 30,
+      "external": 15
+    },
+    "weights": {
+      "index_turnover": 0.2,
+      "breadth": 0.25,
+      "sentiment": 0.2,
+      "sector_capital": 0.25,
+      "external": 0.1
+    },
+    "raw_evidence": {
+      "security_date": "2026-11-16",
+      "up": 1108,
+      "down": 4019,
+      "flat": 96,
+      "median_change_pct": -2.109,
+      "amount_cny": 1484089550623,
+      "extreme_up_5pct": 84,
+      "extreme_down_5pct": 986,
+      "sector_strong3": [
+        [
+          "银行",
+          1.91
+        ],
+        [
+          "煤炭",
+          1.89
+        ],
+        [
+          "交通运输",
+          1.23
+        ]
+      ],
+      "sector_weak3": [
+        [
+          "通信",
+          -7.06
+        ],
+        [
+          "电子",
+          -5.99
+        ],
+        [
+          "综合",
+          -4.29
+        ]
+      ],
+      "us_nasdaq_pct": -2.49,
+      "us_sox_pct": -5.3
+    },
+    "cutoff": "2026-11-17T08:50:00+08:00",
+    "calibrated": false
+  },
+  "heat": {
+    "version": "Heat-v0.1",
+    "H_prev": "UNVERIFIED",
+    "H_forecast": "UNVERIFIED",
+    "B_raw_proxy": 22.13,
+    "P_raw_proxy": 0,
+    "F_raw_proxy": 8.62,
+    "missing": "complete strict Heat-only ST/IPO identity, 20-session same-universe turnover median, complete same-taxonomy sector breadth"
+  },
+  "publication_validity": "2026-11-17 08:50 public-information freeze; producer data prior; not a market backtest or actual fill",
+  "actual_fills": "UNVERIFIED",
+  "source_urls": [
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/00bc62f45e3963c38803ef042c9c344b94139d02/data/alpha5d/runs/20261117T012400/receipt.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/00bc62f45e3963c38803ef042c9c344b94139d02/data/alpha5d/runs/20261117T012400/review.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/00bc62f45e3963c38803ef042c9c344b94139d02/data/alpha5d/runs/20261117T012400/ranking.json"
+  ],
+  "private_portfolio_data_included": false,
+  "publication_path": "data/alpha5d/publications/2026-11-17-0850-evidence.json"
+}
