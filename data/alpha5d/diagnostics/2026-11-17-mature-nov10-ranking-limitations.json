@@ -1,0 +1,26 @@
+{
+  "type": "PRICE_ONLY_RANKING_LIMITATION",
+  "created_date": "2026-11-17",
+  "mature_cohort_date": "2026-11-10",
+  "underlying_price_diagnostic": "data/alpha5d/diagnostics/2026-11-17-mature-nov10-price-only.json",
+  "warning": "Do not call the provisional raw-universe rank or winner Top5 definitive. The Nov16 universe relay contains stale pre-halt quotes for some securities that had no Nov16 close.",
+  "flagged_examples": [
+    {
+      "symbol": "sh605255",
+      "name": "天普股份",
+      "reason": "Nov16 official session-halt evidence in alpha5d 20261117T012400 receipt lists whole-session suspension; relay record may show a stale trade field."
+    },
+    {
+      "symbol": "sz000635",
+      "name": "英力特",
+      "reason": "Nov10 cohort eligible symbol but no valid Nov16 closing trade; requires approved suspension and corporate-action handling."
+    }
+  ],
+  "formal_evaluation": "INCOMPLETE",
+  "required_next": "Reconcile each Nov16 original-universe security with effective trading status, total-return corporate action, matching entry and exit security dates; then run actual evaluate() and compare original vs eligible winners; keep old prices immutable.",
+  "public_evidence": [
+    "data/alpha5d/runs/20261117T012400/receipt.json",
+    "data/alpha5d/cohorts/2026-11-10.json",
+    "data/alpha5d/market/2026-11-16.json"
+  ]
+}
