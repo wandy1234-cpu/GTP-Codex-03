@@ -1,154 +1,150 @@
 {
   "schema": "alpha5d-publication-v8.2",
-  "cohort_id": "2026-11-16",
-  "cohort_path": "data/alpha5d/cohorts/2026-11-16.json",
-  "forecast_date": "2026-11-16",
-  "previous_session": "2026-11-13",
+  "cohort_id": "2026-11-17",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-17.json",
+  "forecast_date": "2026-11-17",
+  "previous_session": "2026-11-16",
   "sessions": [
-    "2026-11-16",
     "2026-11-17",
     "2026-11-18",
     "2026-11-19",
-    "2026-11-20"
+    "2026-11-20",
+    "2026-11-23"
   ],
-  "created_at": "2026-11-16T00:51:48.099Z",
-  "cutoff": "2026-11-16T08:50:00+08:00",
-  "freeze_verified_at": "2026-11-16T08:50:04+08:00",
-  "producer_generated_at": "2026-11-13T23:42:28.027096+08:00",
+  "cutoff": "2026-11-17T08:50:00+08:00",
+  "freeze_verified_at": "2026-11-17T08:50:01+08:00",
+  "created_at": "2026-11-17T00:51:04.119Z",
   "run_kind": "scheduled_research",
   "is_0850_live_prediction": true,
   "formal_research_selection": true,
   "publication_state": "PUBLISHED_RESEARCH",
-  "input_sha256": "1b75386c9e5ae1bc0513f0166003de2daa8c3eb7fc37b2738e3e869147e2175b",
-  "data_commit": "c0a96900f192b2c029975f58e7ac91d27d30c443",
-  "source_repo_commit": "85f360b2595f2b6d4758bbf727ac12e0005d40d3",
+  "input_sha256": "a014bf1cf59d11099ef8481da998343663e83b49c7878ad8c6dda367b685b39c",
+  "data_commit": "b43d6e11fa96d94a9409655f48266a36b75be3db",
+  "source_repo_commit": "00bc62f45e3963c38803ef042c9c344b94139d02",
   "model_version": "V8.0-bootstrap-1",
-  "ranking_path": "data/alpha5d/runs/20261113T233957/ranking.json",
-  "review_path": "data/alpha5d/runs/20261113T233957/review.json",
-  "receipt_path": "data/alpha5d/runs/20261113T233957/receipt.json",
-  "workflow_run_id": 43454754066,
+  "ranking_path": "data/alpha5d/runs/20261117T012400/ranking.json",
+  "review_path": "data/alpha5d/runs/20261117T012400/review.json",
+  "receipt_path": "data/alpha5d/runs/20261117T012400/receipt.json",
+  "workflow_run_id": 43917812319,
   "top5": [
     {
       "rank": 1,
-      "symbol": "sz300528",
-      "name": "幸福蓝海",
-      "score": 88.98828022,
-      "reference_raw_close": 17.99,
+      "name": "凯撒文化",
+      "symbol": "sz002425",
+      "score": 88.97975655,
+      "reference_raw_close": 4.36,
       "execution_state": "WAIT"
     },
     {
       "rank": 2,
-      "symbol": "sh600715",
-      "name": "文投控股",
-      "score": 88.65591256,
-      "reference_raw_close": 3.4,
+      "name": "吉视传媒",
+      "symbol": "sh601929",
+      "score": 88.97102408,
+      "reference_raw_close": 2.96,
       "execution_state": "WAIT"
     },
     {
       "rank": 3,
-      "symbol": "sz002148",
-      "name": "北纬科技",
-      "score": 88.54938109,
-      "reference_raw_close": 7.95,
+      "name": "文投控股",
+      "symbol": "sh600715",
+      "score": 88.94760519,
+      "reference_raw_close": 3.74,
       "execution_state": "WAIT"
     },
     {
       "rank": 4,
-      "symbol": "sz002425",
-      "name": "凯撒文化",
-      "score": 88.13155122,
-      "reference_raw_close": 3.96,
+      "name": "龙江交通",
+      "symbol": "sh601188",
+      "score": 87.89970892,
+      "reference_raw_close": 4.73,
       "execution_state": "WAIT"
     },
     {
       "rank": 5,
-      "symbol": "sz002905",
-      "name": "金逸影视",
-      "score": 87.85317356,
-      "reference_raw_close": 9.9,
+      "name": "大晟文化",
+      "symbol": "sh600892",
+      "score": 87.203672,
+      "reference_raw_close": 6.1,
       "execution_state": "WAIT"
     }
   ],
   "coverage": {
+    "sh_a": "24/24 pages 2318",
+    "sz_a": "30/30 pages 2905",
     "raw": 5223,
-    "sh_a": {
-      "pages": 24,
-      "raw": 2318,
-      "missing_pages": 0
-    },
-    "sz_a": {
-      "pages": 30,
-      "raw": 2905,
-      "missing_pages": 0
-    },
+    "missing_pages": 0,
     "cross_source_samples": "20/20",
-    "history": 5024,
+    "history_success": 5026,
     "history_missing": 0,
-    "necessary_industry": 5003,
-    "industry_covered": 5003,
-    "industry_source": "Eastmoney level1 verified time/hash snapshot, not Shenwan",
-    "eligible": 3798,
-    "exclusion_summary": {
-      "liquidity_lt_50m": 1205,
+    "necessary_industry": 5005,
+    "industry_covered": 5005,
+    "industry_source": "Eastmoney level1 snapshot dated Nov12, hash verified; not Shenwan",
+    "eligible": 3780,
+    "technical_warmup": 0,
+    "excluded": {
+      "liquidity_lt_50m": 1225,
       "st": 193,
-      "known_suspension": 6,
+      "known_suspension": 4,
       "listing_lt_60_sessions": 21
-    },
-    "technical_warmup": []
+    }
+  },
+  "evidence_review": {
+    "status": "PASSED",
+    "top20_checked": 20,
+    "ranker_top5_unchanged": true,
+    "independent_cross_checks": "20/20",
+    "industry_snapshot_older_than_one_day_disclosed": true,
+    "event_positive_points_granted": false,
+    "earnings_positive_points_granted": false,
+    "individual_risk_cards_written": true,
+    "technical_complete": true,
+    "all_five_research_names_scored": true
   },
   "sector_capture": {
-    "external_taxonomy": "Shenwan level1",
+    "taxonomy": "Shenwan level1 for discussion; Eastmoney level1 for actual model",
     "strong3": [
       [
-        "家用电器",
-        1.47
-      ],
-      [
         "银行",
-        1.46
+        1.91
       ],
       [
-        "食品饮料",
-        1.18
+        "煤炭",
+        1.89
+      ],
+      [
+        "交通运输",
+        1.23
       ]
     ],
     "weak3": [
       [
         "通信",
-        -4.97
+        -7.06
       ],
       [
         "电子",
-        -3.75
+        -5.99
       ],
       [
-        "建筑材料",
-        -3.25
+        "综合",
+        -4.29
       ]
     ],
-    "industry_theme": "影视院线细分+4.37%; four of five model top5 are Eastmoney传媒",
-    "status": "DISCUSSION_PASS; PRODUCTION_EASTMONEY_5003_PASS"
-  },
-  "evidence_review": {
-    "result": "PASSED",
-    "top20_count": 20,
-    "production_rank_count": 3798,
-    "model_top5_unchanged": true,
-    "extra_event_points_granted": false,
-    "earnings_points_granted": false,
-    "announcement_time_and_weekend_review": true,
-    "sector_concentration": "4/5 传媒; 1/5 通信; major correlated execution risk",
-    "ranker_output_sha": "b09d0a6add248e40f56da0c7998f7bd17a3947f5",
-    "all_required_source_checks": "20/20 samples; 54/54 pages; valid history & industry"
+    "review_status": "PASS; 4/5 model picks classified Eastmoney media"
   },
   "market_prediction": {
-    "formula_version": "V8.2-execution; subjective factors weighted",
+    "score": 22,
+    "weighted_sum": 22.4,
+    "light": "RED",
+    "regime": "Distribution",
+    "risk_budget_reference": "30%",
+    "confidence": "LOW",
     "factors": {
-      "index_turnover": 28,
-      "breadth": 15,
-      "sentiment": 22,
-      "sector_capital": 25,
-      "external": 30
+      "index_turnover": 24,
+      "breadth": 20,
+      "sentiment": 18,
+      "sector_capital": 30,
+      "external": 15
     },
     "weights": {
       "index_turnover": 0.2,
@@ -157,65 +153,66 @@
       "sector_capital": 0.25,
       "external": 0.1
     },
-    "weighted_sum": 23,
-    "score": 23,
-    "light": "RED",
-    "regime": "Distribution",
-    "risk_budget_reference": "30%",
-    "confidence": "LOW",
-    "calibrated": false,
     "raw_evidence": {
-      "raw_up": 744,
-      "raw_down": 4414,
-      "raw_flat": 65,
-      "median_pct": -1.959,
-      "amount_cny": 1655339900194,
-      "sector_winners": [
-        "家用电器 +1.47%",
-        "银行 +1.46%",
-        "食品饮料 +1.18%"
+      "security_date": "2026-11-16",
+      "up": 1108,
+      "down": 4019,
+      "flat": 96,
+      "median_change_pct": -2.109,
+      "amount_cny": 1484089550623,
+      "extreme_up_5pct": 84,
+      "extreme_down_5pct": 986,
+      "sector_strong3": [
+        [
+          "银行",
+          1.91
+        ],
+        [
+          "煤炭",
+          1.89
+        ],
+        [
+          "交通运输",
+          1.23
+        ]
       ],
-      "sector_losers": [
-        "通信 -4.97%",
-        "电子 -3.75%",
-        "建筑材料 -3.25%"
+      "sector_weak3": [
+        [
+          "通信",
+          -7.06
+        ],
+        [
+          "电子",
+          -5.99
+        ],
+        [
+          "综合",
+          -4.29
+        ]
       ],
-      "external": "US Nasdaq down 0.91%, PPI y/y 6.5%, US 10y 5.15% as of Nov13"
+      "us_nasdaq_pct": -2.49,
+      "us_sox_pct": -5.3
     },
-    "cutoff": "2026-11-16T08:50:00+08:00",
-    "source_dates": [
-      "2026-11-13",
-      "2026-11-15"
-    ]
+    "cutoff": "2026-11-17T08:50:00+08:00",
+    "calibrated": false
   },
   "heat": {
     "version": "Heat-v0.1",
     "H_prev": "UNVERIFIED",
     "H_forecast": "UNVERIFIED",
-    "B_raw_proxy": 14.86693471185,
-    "P_raw_proxy": 1.025,
-    "F_raw_proxy": 15.243902439,
-    "S_external_proxy": 22.58064516129,
-    "missing": "20-session same-universe turnover median and strict Heat-only ST/IPO universe audit"
+    "B_raw_proxy": 22.13,
+    "P_raw_proxy": 0,
+    "F_raw_proxy": 8.62,
+    "missing": "complete strict Heat-only ST/IPO identity, 20-session same-universe turnover median, complete same-taxonomy sector breadth"
   },
-  "publication_validity": "2026-11-16 08:50 public-information freeze; research only, not actual fills or guaranteed future winners",
+  "publication_validity": "2026-11-17 08:50 public-information freeze; producer data prior; not a market backtest or actual fill",
   "actual_fills": "UNVERIFIED",
   "source_urls": [
-    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/85f360b2595f2b6d4758bbf727ac12e0005d40d3/data/alpha5d/runs/20261113T233957/receipt.json",
-    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/85f360b2595f2b6d4758bbf727ac12e0005d40d3/data/alpha5d/runs/20261113T233957/review.json",
-    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/85f360b2595f2b6d4758bbf727ac12e0005d40d3/data/alpha5d/runs/20261113T233957/ranking.json",
-    "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
-    "https://finance.sina.com.cn/jjxw/2026-11-13/doc-iniyqsmz1220326.shtml",
-    "https://finance.sina.com.cn/jjxw/2026-10-26/doc-iniwqhxr2065083.shtml",
-    "https://m.sohu.com/a/1101041429_120988533",
-    "https://epaper.cs.com.cn/zgzqb/html/2026-11/14/nw.D110000zgzqb_20261114_8-A05.htm",
-    "https://finance.eastmoney.com/a/202611133930570525.html",
-    "https://news.10jqka.com.cn/20261026/c681091404.shtml",
-    "https://www.dabanke.com/gupiao-002425.html",
-    "https://finance.eastmoney.com/a/202610303916484736.html",
-    "https://www.dabanke.com/gupiao-002905.html"
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/00bc62f45e3963c38803ef042c9c344b94139d02/data/alpha5d/runs/20261117T012400/receipt.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/00bc62f45e3963c38803ef042c9c344b94139d02/data/alpha5d/runs/20261117T012400/review.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/00bc62f45e3963c38803ef042c9c344b94139d02/data/alpha5d/runs/20261117T012400/ranking.json"
   ],
   "private_portfolio_data_included": false,
-  "publication_path": "data/alpha5d/publications/2026-11-16-0850-evidence.json",
-  "updated_at": "2026-11-16T00:51:50.980Z"
+  "publication_path": "data/alpha5d/publications/2026-11-17-0850-evidence.json",
+  "updated_at": "2026-11-17T00:51:07.292Z"
 }
