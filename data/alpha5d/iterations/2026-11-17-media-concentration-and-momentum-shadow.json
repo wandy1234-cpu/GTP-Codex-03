@@ -1,0 +1,29 @@
+{
+  "record_type": "RESEARCH_SHADOW_PROPOSAL",
+  "date": "2026-11-17",
+  "status": "PROPOSED",
+  "model_changed": false,
+  "production_ranker": "V8.0-bootstrap-1",
+  "evidence": {
+    "mature_d5_diagnostic": "data/alpha5d/diagnostics/2026-11-17-mature-nov10-price-only.json",
+    "nov10_cohort": "data/alpha5d/cohorts/2026-11-10.json",
+    "nov10_raw_price_mean_pct": 0.96,
+    "nov10_raw_price_median_pct": -7.84,
+    "momentum20_raw_price_mean_pct": -6.2,
+    "formal_total_return_metrics": "INCOMPLETE",
+    "nov17_current_top5_sector_distribution": {
+      "Eastmoney media": 4,
+      "Eastmoney transportation": 1
+    },
+    "current_top5_source_input_sha256": "a014bf1cf59d11099ef8481da998343663e83b49c7878ad8c6dda367b685b39c"
+  },
+  "hypothesis": "Extreme sector concentration coupled with short-term crowded momentum may lose research-leading capacity despite high model scores. Test separately from execution filters.",
+  "proposed_experiment": "Retain baseline V8.0 rankings unchanged; create shadow ranking with sector breadth and realized high-turnover pressure, compare to V8.0 and simple 20d-momentum on matched genuine pre-cutoff universes; group by non-overlapping date windows, report actual top5/top20 capture, mean/median adjusted return and costs.",
+  "risk": "An anti-crowding penalty may remove the true week winners; no manual sector quota or retrospective swapping.",
+  "training_status": "NOT_TRAINED",
+  "validation_status": "NOT_TESTED",
+  "production_status": "NOT_DEPLOYED",
+  "source_urls": [
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/main/data/alpha5d/diagnostics/2026-11-17-mature-nov10-price-only.json"
+  ]
+}
