@@ -1,0 +1,136 @@
+{
+  "record_type": "ALPHA5D_PRICE_ONLY_DIAGNOSTIC",
+  "asof": "2026-11-17T08:44:00+08:00",
+  "research_batch": "2026-11-10",
+  "D1_D5_sessions": [
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16"
+  ],
+  "D5_security_date": "2026-11-16",
+  "basis": "raw_close as-of snapshots; corporate actions/total return not yet verified; NOT final evaluate()",
+  "data_sources": [
+    "data/alpha5d/market/2026-11-09.json",
+    "data/alpha5d/market/2026-11-16.json",
+    "data/alpha5d/cohorts/2026-11-10.json"
+  ],
+  "cohort_input_sha256": "469d665a7005f1ac2d20501ff113241a4aba2f4bd0fdd0b09866763c97eaa695",
+  "results": [
+    {
+      "rank": 1,
+      "code": "sz002086",
+      "name": "东方海洋",
+      "reference_raw_close": 4.37,
+      "d5_raw_close": 4.34,
+      "raw_price_return_pct": -0.69
+    },
+    {
+      "rank": 2,
+      "code": "sz002300",
+      "name": "太阳电缆",
+      "reference_raw_close": 8.91,
+      "d5_raw_close": 7.13,
+      "raw_price_return_pct": -19.98
+    },
+    {
+      "rank": 3,
+      "code": "sh600715",
+      "name": "文投控股",
+      "reference_raw_close": 2.59,
+      "d5_raw_close": 3.74,
+      "raw_price_return_pct": 44.4
+    },
+    {
+      "rank": 4,
+      "code": "sz002578",
+      "name": "闽发铝业",
+      "reference_raw_close": 5.51,
+      "d5_raw_close": 4.9,
+      "raw_price_return_pct": -11.07
+    },
+    {
+      "rank": 5,
+      "code": "sz301121",
+      "name": "紫建电子",
+      "reference_raw_close": 40.58,
+      "d5_raw_close": 37.4,
+      "raw_price_return_pct": -7.84
+    }
+  ],
+  "mean_raw_price_return_pct": 0.96,
+  "median_raw_price_return_pct": -7.84,
+  "eligible_universe_count_at_forecast": 3859,
+  "eligible_universe_with_valid_end_price": 3858,
+  "original_universe_with_valid_both_prices": 5217,
+  "unresolved_eligible_end_prices": [
+    {
+      "code": "sz000635",
+      "reason": "2026-11-16 nontrading/zero trade; must verify suspension and company action",
+      "prior_price": "8.960",
+      "d5_price": "0.000"
+    }
+  ],
+  "provisional_top5_eligible_winners": [
+    "sz002148",
+    "sh600715",
+    "sz002205",
+    "sz002425",
+    "sz002187"
+  ],
+  "provisional_top20_eligible_winners": [
+    "sz002148",
+    "sh600715",
+    "sz002205",
+    "sz002425",
+    "sz002187",
+    "sz002685",
+    "sz002905",
+    "sz002748",
+    "sh603366",
+    "sh688371",
+    "sz301052",
+    "sh601929",
+    "sh603396",
+    "sh600829",
+    "sh603103",
+    "sz301314",
+    "sh603687",
+    "sz301255",
+    "sh603118",
+    "sh600892"
+  ],
+  "top5_overlap_provisional": 1,
+  "top20_overlap_provisional": 1,
+  "momentum20_baseline": [
+    {
+      "symbol": "sz301313",
+      "name": "凡拓数创",
+      "raw_price_return_pct": -10.45
+    },
+    {
+      "symbol": "sz300949",
+      "name": "奥雅股份",
+      "raw_price_return_pct": -12.97
+    },
+    {
+      "symbol": "sz002086",
+      "name": "东方海洋",
+      "raw_price_return_pct": -0.69
+    },
+    {
+      "symbol": "sh605488",
+      "name": "福莱新材",
+      "raw_price_return_pct": 2.32
+    },
+    {
+      "symbol": "sz002724",
+      "name": "海洋王",
+      "raw_price_return_pct": -9.22
+    }
+  ],
+  "momentum20_mean_raw_price_return_pct": -6.2,
+  "formal_metrics_state": "INCOMPLETE; one suspended code and company action adjusted total return need verification",
+  "classification": "DIAGNOSTIC_ONLY; does not replace research cohort or formal evaluation"
+}
