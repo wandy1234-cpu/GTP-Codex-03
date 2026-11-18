@@ -1,44 +1,27 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261118T144952",
+  "run_id": "20261119T004300",
   "stage": "evidence_review",
-  "started_at": "2026-11-18T14:49:52.467008+08:00",
-  "forecast_date": "2026-11-18",
-  "previous_session": "2026-11-17",
+  "started_at": "2026-11-19T00:43:00.082325+08:00",
+  "forecast_date": "2026-11-19",
+  "previous_session": "2026-11-18",
   "sessions": [
-    "2026-11-18",
     "2026-11-19",
     "2026-11-20",
     "2026-11-23",
-    "2026-11-24"
+    "2026-11-24",
+    "2026-11-25"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
   "status": "COMPLETE",
-  "run_kind": "late_research",
+  "run_kind": "scheduled",
   "market_snapshot_audit": {
-    "security_date": "2026-11-17",
-    "captured_at": "2026-11-17T22:01:54.024992+08:00",
-    "sha256": "101f1ac97b287ae7a540c897b133b0cc5ba3357b246ab9b6e65b9e9794d12d30",
+    "security_date": "2026-11-18",
+    "captured_at": "2026-11-18T21:36:15.189356+08:00",
+    "sha256": "c0ffc037832411f664d79552a1afad321633539245d4a521244b83152e44b81e",
     "frozen_samples_verified": 20,
-    "source": "data/alpha5d/market/2026-11-17.json",
-    "recovered_attempts_backed_by_identical_raw_shards": [
-      {
-        "node": "sh_a",
-        "page": 13,
-        "original_errors": [
-          "URLError: <urlopen error _ssl.c:1063: The handshake operation timed out>"
-        ],
-        "verified_recovery_from": "data/universe_pages/sh_a_013.json"
-      },
-      {
-        "node": "sh_a",
-        "page": 15,
-        "original_errors": [
-          "URLError: <urlopen error _ssl.c:1063: The handshake operation timed out>"
-        ],
-        "verified_recovery_from": "data/universe_pages/sh_a_015.json"
-      }
-    ]
+    "source": "data/universe_latest.json",
+    "recovered_attempts_backed_by_identical_raw_shards": []
   },
   "raw_count": 5223,
   "coverage": {
@@ -230,9 +213,9 @@
     }
   },
   "session_halt_audit": {
-    "security_date": "2026-11-17",
+    "security_date": "2026-11-18",
     "source_urls": [
-      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-17%27%29"
+      "https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_CUSTOM_SUSPEND_DATA_INTERFACE&columns=ALL&pageNumber=1&pageSize=500&source=WEB&client=WEB&filter=%28MARKET%3D%22%E5%85%A8%E9%83%A8%22%29%28DATETIME%3D%272026-11-18%27%29"
     ],
     "rows": 8,
     "provider_rows": [
@@ -265,15 +248,29 @@
         "SECUCODE": "688496.SH"
       },
       {
-        "SECURITY_CODE": "605255",
-        "SECURITY_NAME_ABBR": "天普股份",
-        "SUSPEND_START_TIME": "2026-11-16 09:30:00",
+        "SECURITY_CODE": "600567",
+        "SECURITY_NAME_ABBR": "山鹰国际",
+        "SUSPEND_START_TIME": "2026-11-19 09:30:00",
         "SUSPEND_END_TIME": null,
         "SUSPEND_EXPIRE": "连续停牌",
         "SUSPEND_REASON": "刊登重要公告",
         "TRADE_MARKET": "上交所主板",
-        "SUSPEND_START_DATE": "2026-11-16 00:00:00",
+        "SUSPEND_START_DATE": "2026-11-19 00:00:00",
         "PREDICT_RESUME_DATE": null,
+        "TRADE_MARKET_CODE": "069001001001",
+        "SECURITY_TYPE_CODE": "058001001",
+        "SECUCODE": "600567.SH"
+      },
+      {
+        "SECURITY_CODE": "605255",
+        "SECURITY_NAME_ABBR": "天普股份",
+        "SUSPEND_START_TIME": "2026-11-16 09:30:00",
+        "SUSPEND_END_TIME": "2026-11-18 15:00:00",
+        "SUSPEND_EXPIRE": "连续停牌",
+        "SUSPEND_REASON": "刊登重要公告",
+        "TRADE_MARKET": "上交所主板",
+        "SUSPEND_START_DATE": "2026-11-16 00:00:00",
+        "PREDICT_RESUME_DATE": "2026-11-19 00:00:00",
         "TRADE_MARKET_CODE": "069001001001",
         "SECURITY_TYPE_CODE": "058001001",
         "SECUCODE": "605255.SH"
@@ -321,20 +318,6 @@
         "SECUCODE": "600185.SH"
       },
       {
-        "SECURITY_CODE": "920309",
-        "SECURITY_NAME_ABBR": "菊乐股份",
-        "SUSPEND_START_TIME": "2026-11-17 13:16:06",
-        "SUSPEND_END_TIME": "2026-11-17 13:26:06",
-        "SUSPEND_EXPIRE": "盘中停牌",
-        "SUSPEND_REASON": "交易异常波动",
-        "TRADE_MARKET": "北京证券交易所",
-        "SUSPEND_START_DATE": "2026-11-17 00:00:00",
-        "PREDICT_RESUME_DATE": null,
-        "TRADE_MARKET_CODE": "069001017",
-        "SECURITY_TYPE_CODE": "058001001",
-        "SECUCODE": "920309.BJ"
-      },
-      {
         "SECURITY_CODE": "688798",
         "SECURITY_NAME_ABBR": "艾为电子",
         "SUSPEND_START_TIME": "2026-11-10 09:30:00",
@@ -359,10 +342,10 @@
       "sz002717"
     ],
     "complete": true,
-    "forecast_session": "2026-11-18",
+    "forecast_session": "2026-11-19",
     "known_forecast_whole_session_codes": [
       "sh600185",
-      "sh605255",
+      "sh600567",
       "sh688121",
       "sh688496",
       "sh688798",
@@ -370,7 +353,7 @@
       "sz002717"
     ]
   },
-  "history_success": 5026,
+  "history_success": 5025,
   "history_missing": {},
   "industry_source_audit": {
     "required_codes": 5005,
@@ -381,130 +364,131 @@
     "covered_required_codes": 5005,
     "membership_count": 5224,
     "snapshot": {
-      "route": "verified_published_snapshot",
+      "route": "verified_recent_snapshot",
       "snapshot_path": "data/alpha5d/industry/2026-11-18-010330-9f6e911206e0.json",
       "observed_at": "2026-11-18T01:03:30.674633+08:00",
-      "boards_sha256": "9f6e911206e01015b05a2f4730cd54bcb0b492dbefeb0116bf8df1e03b91095d"
+      "boards_sha256": "9f6e911206e01015b05a2f4730cd54bcb0b492dbefeb0116bf8df1e03b91095d",
+      "live_error": "Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
     }
   },
   "technical_warmup_codes": [
-    "sh688826"
+    "sh688836"
   ],
-  "input_sha256": "5170f61b871a883ee57db91211356aa42bc916018016362cb2524c6c5a8d25ad",
-  "ranking_path": "data/alpha5d/runs/20261118T144952/ranking.json",
+  "input_sha256": "25c95e767d724e29825bff5514db1f934dd16762f47ea33cd9f7dcccb837cb59",
+  "ranking_path": "data/alpha5d/runs/20261119T004300/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
-      "symbol": "sh600467",
-      "name": "好当家",
-      "sector": "农林牧渔",
-      "score": 86.80797774,
+      "symbol": "sh601188",
+      "name": "龙江交通",
+      "sector": "交通运输",
+      "score": 85.70722943,
       "features": {
-        "r5": 0.2276785714285714,
-        "r10": 0.2168141592920354,
-        "r20": 0.2168141592920354,
-        "breakout": 0.0073260073260073,
-        "close_pos": 1.0,
-        "volume_ratio": 2.438989066930048,
-        "trend": 0.06141522029372504,
+        "r5": 0.18414918414918424,
+        "r10": 0.43098591549295784,
+        "r20": 0.5825545171339563,
+        "breakout": 0.07172995780590719,
+        "close_pos": 0.6829268292682931,
+        "volume_ratio": 1.4465341004384562,
+        "trend": 0.09852463115778942,
         "above_ma10": true,
-        "overheat": 0.0030398322851152015,
-        "sector": "农林牧渔"
+        "overheat": 0.006385158206237224,
+        "sector": "交通运输"
       },
       "penalty": 0.0,
-      "reference_raw_close": 2.75,
+      "reference_raw_close": 5.08,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 1
     },
     {
-      "symbol": "sh603151",
-      "name": "邦基科技",
-      "sector": "农林牧渔",
-      "score": 85.60124569,
-      "features": {
-        "r5": 0.086046511627907,
-        "r10": 0.3267045454545454,
-        "r20": 0.3551944283226931,
-        "breakout": 0.041480820695807274,
-        "close_pos": 1.0,
-        "volume_ratio": 1.1531786895448628,
-        "trend": 0.08076252946602436,
-        "above_ma10": true,
-        "overheat": 0.0,
-        "sector": "农林牧渔"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 23.35,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 2
-    },
-    {
-      "symbol": "sh603170",
-      "name": "宝立食品",
+      "symbol": "sz002557",
+      "name": "洽洽食品",
       "sector": "食品饮料",
-      "score": 83.57962255,
+      "score": 85.27040588,
       "features": {
-        "r5": 0.07598784194528885,
-        "r10": 0.07272727272727275,
-        "r20": 0.09428129829984555,
-        "breakout": 0.027576197387518153,
-        "close_pos": 0.9532710280373825,
-        "volume_ratio": 1.1483089627948608,
-        "trend": 0.014915098669114224,
+        "r5": 0.11965811965811968,
+        "r10": 0.08208569953536404,
+        "r20": 0.11727078891257992,
+        "breakout": 0.0335305719921104,
+        "close_pos": 0.9361702127659589,
+        "volume_ratio": 1.2420462734679159,
+        "trend": 0.012521521364845745,
         "above_ma10": true,
         "overheat": 0.0,
         "sector": "食品饮料"
       },
       "penalty": 0.0,
-      "reference_raw_close": 14.16,
+      "reference_raw_close": 20.96,
       "catalyst_points": 0,
       "earnings_points": 0,
-      "rank": 3
+      "rank": 2
     },
     {
       "symbol": "sh601169",
       "name": "北京银行",
       "sector": "银行",
-      "score": 83.26636629,
+      "score": 85.21856978,
       "features": {
-        "r5": 0.05518394648829417,
-        "r10": 0.07679180887372006,
-        "r20": 0.12277580071174365,
-        "breakout": -0.0015822784810127777,
-        "close_pos": 0.7999999999999976,
-        "volume_ratio": 1.1433383177882825,
-        "trend": 0.023821677726731494,
+        "r5": 0.05360134003350092,
+        "r10": 0.07521367521367539,
+        "r20": 0.12321428571428572,
+        "breakout": -0.004746835443038,
+        "close_pos": 0.9166666666666685,
+        "volume_ratio": 1.1297838695901339,
+        "trend": 0.02260840222709648,
         "above_ma10": true,
         "overheat": 0.0,
         "sector": "银行"
       },
       "penalty": 0.0,
-      "reference_raw_close": 6.31,
+      "reference_raw_close": 6.29,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 3
+    },
+    {
+      "symbol": "sh600919",
+      "name": "江苏银行",
+      "sector": "银行",
+      "score": 84.94011179,
+      "features": {
+        "r5": 0.060889929742388604,
+        "r10": 0.08286852589641436,
+        "r20": 0.11120196238757152,
+        "breakout": 0.0014738393515105752,
+        "close_pos": 0.9411764705882365,
+        "volume_ratio": 1.0363405662603573,
+        "trend": 0.021444783595523154,
+        "above_ma10": true,
+        "overheat": 0.0,
+        "sector": "银行"
+      },
+      "penalty": 0.0,
+      "reference_raw_close": 13.59,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 4
     },
     {
-      "symbol": "sz002959",
-      "name": "小熊电器",
-      "sector": "家用电器",
-      "score": 82.85502253,
+      "symbol": "sh600377",
+      "name": "宁沪高速",
+      "sector": "交通运输",
+      "score": 84.56578831,
       "features": {
-        "r5": 0.1825726141078836,
-        "r10": 0.20507399577167007,
-        "r20": 0.07258064516129026,
-        "breakout": 0.0575139146567718,
-        "close_pos": 1.0,
-        "volume_ratio": 1.3838598864661256,
-        "trend": 0.0336933693369339,
+        "r5": 0.067821067821068,
+        "r10": 0.08266276517922466,
+        "r20": 0.10037174721189612,
+        "breakout": 0.009549795361528002,
+        "close_pos": 0.9166666666666685,
+        "volume_ratio": 1.070140373244371,
+        "trend": 0.01891560176160567,
         "above_ma10": true,
-        "overheat": 0.00809943981656161,
-        "sector": "家用电器"
+        "overheat": 0.0,
+        "sector": "交通运输"
       },
       "penalty": 0.0,
-      "reference_raw_close": 39.9,
+      "reference_raw_close": 14.8,
       "catalyst_points": 0,
       "earnings_points": 0,
       "rank": 5
@@ -512,18 +496,26 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261118T144952/review.json",
-  "generated_at": "2026-11-18T14:50:00.632251+08:00",
+  "review_path": "data/alpha5d/runs/20261119T004300/review.json",
+  "generated_at": "2026-11-19T00:43:31.949693+08:00",
   "provider_route_health": {
     "eastmoney_daily": {
-      "attempted": 21,
-      "succeeded": 21,
+      "attempted": 27,
+      "succeeded": 27,
       "failed": 0,
       "data_errors": 0,
       "consecutive_failures": 0,
       "circuit_open": false
     },
     "sample_eastmoney_daily": {
+      "attempted": 15,
+      "succeeded": 0,
+      "failed": 15,
+      "data_errors": 0,
+      "consecutive_failures": 15,
+      "circuit_open": true
+    },
+    "sample_sina_klc2": {
       "attempted": 20,
       "succeeded": 20,
       "failed": 0,
@@ -534,22 +526,22 @@
   },
   "industry_classification": "Eastmoney first-level industry",
   "verified_sample_count": 20,
-  "is_0850_live_prediction": false,
+  "is_0850_live_prediction": null,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-18T14:50:21.517637+08:00",
+  "ended_at": "2026-11-19T00:44:19.060028+08:00",
   "retrieval_progress": {
-    "attempted": 21,
-    "succeeded": 21,
+    "attempted": 27,
+    "succeeded": 27,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-18T14:50:21.623550+08:00"
+    "recorded_at": "2026-11-19T00:44:19.197694+08:00"
   },
-  "cached_history_files": 5026,
-  "workflow_run_id": "44254152421",
+  "cached_history_files": 5025,
+  "workflow_run_id": "44350273694",
   "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-44254152421-1",
-  "persisted_at": "2026-11-18T06:50:38.325484+00:00"
+  "evidence_artifact_name": "alpha5d-public-evidence-44350273694-1",
+  "persisted_at": "2026-11-18T16:44:34.168789+00:00"
 }
