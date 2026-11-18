@@ -1,0 +1,13 @@
+C:\Users\Admin\Desktop\GTP-Codex-03
+cd C:\Users\Admin\Desktop\GTP-Codex-03\src\quant_alpha\app
+
+git pull
+
+
+streamlit run src\quant_alpha\app\streamlit_app.py
+
+
+终止命令 直接 ctrl+c  即可哦
+
+
+
