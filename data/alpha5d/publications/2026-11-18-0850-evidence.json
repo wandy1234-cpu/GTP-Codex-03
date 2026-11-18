@@ -1,0 +1,205 @@
+{
+  "schema": "alpha5d-publication-v8.2",
+  "cohort_id": "2026-11-18",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-18.json",
+  "forecast_date": "2026-11-18",
+  "previous_session": "2026-11-17",
+  "sessions": [
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-23",
+    "2026-11-24"
+  ],
+  "cutoff": "2026-11-18T08:50:00+08:00",
+  "freeze_verified_at": "2026-11-18T08:51:24.171+08:00",
+  "created_at": "2026-11-18T08:51:27.372+08:00",
+  "run_kind": "scheduled_research",
+  "is_0850_live_prediction": true,
+  "formal_research_selection": true,
+  "publication_state": "PUBLISHED_RESEARCH",
+  "input_sha256": "5d386400af5b4833e79e9f87f4a9e98098e3a58d4c7f6cb66633ab3490231b2f",
+  "data_commit": "5e121b5a469a00027dd63684277a736e5d7ca711",
+  "source_repo_commit": "1d802b8e0ce40197ea6a53aa0c3263993b3f8f72",
+  "model_version": "V8.0-bootstrap-1",
+  "ranking_path": "data/alpha5d/runs/20261118T010255/ranking.json",
+  "review_path": "data/alpha5d/runs/20261118T010255/review.json",
+  "receipt_path": "data/alpha5d/runs/20261118T010255/receipt.json",
+  "workflow_run_id": 44132453818,
+  "top5": [
+    {
+      "rank": 1,
+      "name": "好当家",
+      "symbol": "sh600467",
+      "score": 86.80797774,
+      "reference_raw_close": 2.75,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 2,
+      "name": "邦基科技",
+      "symbol": "sh603151",
+      "score": 85.60124569,
+      "reference_raw_close": 23.35,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 3,
+      "name": "宝立食品",
+      "symbol": "sh603170",
+      "score": 83.57962255,
+      "reference_raw_close": 14.16,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 4,
+      "name": "北京银行",
+      "symbol": "sh601169",
+      "score": 83.26636629,
+      "reference_raw_close": 6.31,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 5,
+      "name": "小熊电器",
+      "symbol": "sz002959",
+      "score": 82.85502253,
+      "reference_raw_close": 39.9,
+      "execution_state": "WAIT"
+    }
+  ],
+  "coverage": {
+    "sh_a": "24/24 pages 2318",
+    "sz_a": "30/30 pages 2905",
+    "raw": 5223,
+    "missing_pages": 0,
+    "cross_source_samples": "20/20",
+    "history_success": 5026,
+    "history_missing": 0,
+    "necessary_industry": 5005,
+    "industry_covered": 5005,
+    "industry_source": "Eastmoney 2026-11-18 01:03 live member snapshot, not Shenwan",
+    "eligible": 3774,
+    "technical_warmup": 1,
+    "excluded": {
+      "liquidity_lt_50m": 1231,
+      "st": 193,
+      "known_suspension": 4,
+      "listing_lt_60_sessions": 20
+    },
+    "industry_snapshot_sha256": "9f6e911206e01015b05a2f4730cd54bcb0b492dbefeb0116bf8df1e03b91095d"
+  },
+  "evidence_review": {
+    "status": "PASSED",
+    "top20_checked": 20,
+    "ranker_top5_unchanged": true,
+    "independent_cross_checks": "20/20",
+    "required_history": "5026 valid; missing0",
+    "industry_required": 5005,
+    "industry_covered": 5005,
+    "technical_warmup_excluded_from_scoring": [
+      "sh688826"
+    ],
+    "event_positive_points_granted": false,
+    "earnings_positive_points_granted": false,
+    "individual_risk_cards_written": true,
+    "score_not_probability": true,
+    "selection_not_execution": true
+  },
+  "sector_capture": {
+    "taxonomy": "Shenwan level1 narrative; Eastmoney level1 ranking",
+    "strong3": [
+      [
+        "家用电器",
+        0.82
+      ],
+      [
+        "银行",
+        0.31
+      ],
+      [
+        "食品饮料",
+        0.3
+      ]
+    ],
+    "weak_key_unranked": [
+      "传媒",
+      "通信",
+      "机械设备"
+    ],
+    "review_status": "PASS strong3 captured and all model Top5 sectors reviewed; exact weak3 ranks UNVERIFIED"
+  },
+  "market_prediction": {
+    "score": 29,
+    "weighted_sum": 28.65,
+    "light": "RED",
+    "regime": "Distribution",
+    "risk_budget_reference": "30%",
+    "confidence": "LOW",
+    "factors": {
+      "index_turnover": 32,
+      "breadth": 23,
+      "sentiment": 21,
+      "sector_capital": 30,
+      "external": 48
+    },
+    "weights": {
+      "index_turnover": 0.2,
+      "breadth": 0.25,
+      "sentiment": 0.2,
+      "sector_capital": 0.25,
+      "external": 0.1
+    },
+    "raw_evidence": {
+      "security_date": "2026-11-17",
+      "up": 1215,
+      "down": 3882,
+      "flat": 126,
+      "median_change_pct": -1.408,
+      "turnover_cny": 1457223768275,
+      "shanghai_index_pct": -0.5,
+      "chi_next_pct": -1.2,
+      "strong_shenwan": [
+        [
+          "家用电器",
+          0.82
+        ],
+        [
+          "银行",
+          0.31
+        ],
+        [
+          "食品饮料",
+          0.3
+        ]
+      ],
+      "weak_sectors_unranked": [
+        "传媒",
+        "通信",
+        "机械设备"
+      ],
+      "us_sp500_pct": -1.03,
+      "us_nasdaq_pct": -0.74,
+      "nvidia_earnings_new_pre_cutoff": true
+    },
+    "cutoff": "2026-11-18T08:50:00+08:00",
+    "uncalibrated": true
+  },
+  "heat": {
+    "version": "Heat-v0.1",
+    "H_prev": "UNVERIFIED",
+    "H_forecast": "UNVERIFIED",
+    "B_raw_proxy": 24.47,
+    "P_raw_proxy": 14.8,
+    "missing": "strict ST/IPO Heat-only universe, 20-session turnover median, full Shenwan breadth and tails"
+  },
+  "publication_validity": "2026-11-18 08:50 public-information freeze; 01:03 producer earlier; no post-open facts; not returns backtest",
+  "actual_fills": "UNVERIFIED",
+  "source_urls": [
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/1d802b8e0ce40197ea6a53aa0c3263993b3f8f72/data/alpha5d/runs/20261118T010255/receipt.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/1d802b8e0ce40197ea6a53aa0c3263993b3f8f72/data/alpha5d/runs/20261118T010255/ranking.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/1d802b8e0ce40197ea6a53aa0c3263993b3f8f72/data/alpha5d/runs/20261118T010255/review.json"
+  ],
+  "private_portfolio_data_included": false,
+  "publication_path": "data/alpha5d/publications/2026-11-18-0850-evidence.json"
+}
