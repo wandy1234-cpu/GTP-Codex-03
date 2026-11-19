@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-19",
+  "change_id": "defensive_relative_strength_vs_true_winner_capture",
+  "status": "PROPOSED",
+  "type": "B_SHADOW_HYPOTHESIS_ONLY",
+  "main_model": "V8.0-bootstrap-1",
+  "main_model_weights_changed": false,
+  "main_ranking_unchanged": true,
+  "forecast_date": "2026-11-19",
+  "previous_session": "2026-11-18",
+  "source_repo_commit": "74dd5f40e40d0069dfdaacf605d9b3919e1e43c9",
+  "input_sha256": "25c95e767d724e29825bff5514db1f934dd16762f47ea33cd9f7dcccb837cb59",
+  "evidence": {
+    "today_ranked": [
+      "龙江交通",
+      "洽洽食品",
+      "北京银行",
+      "江苏银行",
+      "宁沪高速"
+    ],
+    "today_banks": 2,
+    "today_transport": 2,
+    "nov_17_media_four_of_five": true,
+    "nov_17_D2_price_only_average_pct": -10.14,
+    "nov_17_D2_price_only_median_pct": -16.22,
+    "nov_18_D1_price_only_average_pct": -0.48,
+    "nov_10_mature_raw_price_average_pct": 0.96,
+    "nov_10_mature_raw_price_median_pct": -7.84,
+    "full_total_return_and_true_winner_ranks": "INCOMPLETE"
+  },
+  "hypothesis": "In weak regimes the original sector and relative momentum factors may favor defensive relative-strength shares with modest volatility rather than stocks that become the true top five positive five-session movers; alternatively this can be genuine rotation anticipation.",
+  "candidate_test": "Leave main V8 scores and freeze unchanged. In an independent shadow only, compare breakout acceleration and real sector breadth expansion of new leaders against defensive strength and crowded late momentum, under same asof universe and dates. Never manually replace live rank positions.",
+  "benchmark": "Same-date simple 20-day momentum Top5 and unchanged V8.0 original.",
+  "outcomes": [
+    "adjusted_total_return_previous_close_to_D5",
+    "true_top5_capture",
+    "true_top20_capture",
+    "median_return",
+    "within_eligible_top5pct",
+    "overlap_and_turnover",
+    "live_execution_costs"
+  ],
+  "validation": "Collect at least 20 mature session-cohorts for first diagnosis; purged grouped rolling OOS, reserve untouched date block and forward paper shadow. Overlapping 5D cohorts correlated.",
+  "expected_improvement": "Improved real winners capture not merely lower drawdown, without unacceptable execution or concentration costs",
+  "possible_adverse_effect": "Unintentionally delete legitimate strong continuing high-momentum stock; overfit short-term sector rotation",
+  "implementation": "NOT_IMPLEMENTED",
+  "software_tests": "NOT_RUN_FOR_CHALLENGE",
+  "backtest": "NOT_RUN",
+  "out_of_sample": "NOT_RUN",
+  "publication": "NO_STRATEGY_CHANGE",
+  "privacy": "PUBLIC_MARKET_ONLY_NO_PERSONAL_HOLDINGS"
+}
