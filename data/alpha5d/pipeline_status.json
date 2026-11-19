@@ -1,8 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261119T120227",
+  "run_id": "20261119T145111",
   "stage": "evidence_review",
-  "started_at": "2026-11-19T12:02:27.006756+08:00",
+  "started_at": "2026-11-19T14:51:11.857580+08:00",
   "forecast_date": "2026-11-19",
   "previous_session": "2026-11-18",
   "sessions": [
@@ -364,18 +364,17 @@
     "covered_required_codes": 5005,
     "membership_count": 5224,
     "snapshot": {
-      "route": "verified_recent_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-18-010330-9f6e911206e0.json",
-      "observed_at": "2026-11-18T01:03:30.674633+08:00",
-      "boards_sha256": "9f6e911206e01015b05a2f4730cd54bcb0b492dbefeb0116bf8df1e03b91095d",
-      "live_error": "Industry/profile access failed: ['HTTPError: HTTP Error 502: Bad Gateway', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
+      "route": "live_provider_pages",
+      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-19-145140-abb68368ffdf.json",
+      "observed_at": "2026-11-19T14:51:40.053361+08:00",
+      "boards_sha256": "abb68368ffdf6ebca09e0a8f369c936a2b894461afa2c896fa4962a5422ba3c3"
     }
   },
   "technical_warmup_codes": [
     "sh688836"
   ],
-  "input_sha256": "c823c45b3e2f9e331ef5586ab917cd457841eb616c56ec9f04816b9228afe987",
-  "ranking_path": "data/alpha5d/runs/20261119T120227/ranking.json",
+  "input_sha256": "4394f22a5496ecf64905ba8331140a5593525b3a19c057d3f66a7f386cb7b5e0",
+  "ranking_path": "data/alpha5d/runs/20261119T145111/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
@@ -496,8 +495,8 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261119T120227/review.json",
-  "generated_at": "2026-11-19T12:02:46.086075+08:00",
+  "review_path": "data/alpha5d/runs/20261119T145111/review.json",
+  "generated_at": "2026-11-19T14:51:41.763535+08:00",
   "provider_route_health": {
     "eastmoney_daily": {
       "attempted": 20,
@@ -508,14 +507,6 @@
       "circuit_open": false
     },
     "sample_eastmoney_daily": {
-      "attempted": 12,
-      "succeeded": 0,
-      "failed": 12,
-      "data_errors": 0,
-      "consecutive_failures": 12,
-      "circuit_open": true
-    },
-    "sample_sina_klc2": {
       "attempted": 20,
       "succeeded": 20,
       "failed": 0,
@@ -528,7 +519,7 @@
   "verified_sample_count": 20,
   "is_0850_live_prediction": false,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-19T12:03:04.328699+08:00",
+  "ended_at": "2026-11-19T14:51:57.075083+08:00",
   "retrieval_progress": {
     "attempted": 20,
     "succeeded": 20,
@@ -537,11 +528,11 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-19T12:03:04.465570+08:00"
+    "recorded_at": "2026-11-19T14:51:57.217378+08:00"
   },
   "cached_history_files": 5025,
-  "workflow_run_id": "44455431917",
+  "workflow_run_id": "44475102939",
   "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-44455431917-1",
-  "persisted_at": "2026-11-19T04:03:22.154429+00:00"
+  "evidence_artifact_name": "alpha5d-public-evidence-44475102939-1",
+  "persisted_at": "2026-11-19T06:52:12.983535+00:00"
 }
