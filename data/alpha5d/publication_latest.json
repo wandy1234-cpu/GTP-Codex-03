@@ -1,70 +1,70 @@
 {
-  "schema": "alpha5d-publication-v8.2",
-  "cohort_id": "2026-11-19",
-  "cohort_path": "data/alpha5d/cohorts/2026-11-19.json",
-  "forecast_date": "2026-11-19",
-  "previous_session": "2026-11-18",
+  "schema": "alpha5d-publication-v8.3-lite",
+  "cohort_id": "2026-11-20",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-20.json",
+  "forecast_date": "2026-11-20",
+  "previous_session": "2026-11-19",
   "sessions": [
-    "2026-11-19",
     "2026-11-20",
     "2026-11-23",
     "2026-11-24",
-    "2026-11-25"
+    "2026-11-25",
+    "2026-11-26"
   ],
-  "cutoff": "2026-11-19T08:50:00+08:00",
-  "freeze_verified_at": "2026-11-19T08:51:23.875+08:00",
-  "created_at": "2026-11-19T08:51:23.875+08:00",
+  "cutoff": "2026-11-20T08:50:00+08:00",
+  "freeze_verified_at": "2026-11-20T08:50:09+08:00",
+  "created_at": "2026-11-20T00:51:34.526Z",
   "run_kind": "scheduled_research",
   "is_0850_live_prediction": true,
   "formal_research_selection": true,
   "publication_state": "PUBLISHED_RESEARCH",
-  "input_sha256": "25c95e767d724e29825bff5514db1f934dd16762f47ea33cd9f7dcccb837cb59",
-  "data_commit": "4daffc9b6f18c91f6dc3567c86cd005f786d4729",
-  "source_repo_commit": "74dd5f40e40d0069dfdaacf605d9b3919e1e43c9",
+  "input_sha256": "0514913f6ff35721885e46c980f2c922029e50843c85de5cf93065bc40e0107d",
+  "data_commit": "fbc1851ab38486b2224a9b361fdfbf653cc59c6b",
+  "source_repo_commit": "e0454e3029ecec8c1d250f765d7a7a41338c1ca9",
   "model_version": "V8.0-bootstrap-1",
-  "ranking_path": "data/alpha5d/runs/20261119T004300/ranking.json",
-  "review_path": "data/alpha5d/runs/20261119T004300/review.json",
-  "receipt_path": "data/alpha5d/runs/20261119T004300/receipt.json",
-  "workflow_run_id": "44350273694",
+  "ranking_path": "data/alpha5d/runs/20261120T004536/ranking.json",
+  "review_path": "data/alpha5d/runs/20261120T004536/review.json",
+  "receipt_path": "data/alpha5d/runs/20261120T004536/receipt.json",
+  "workflow_run_id": "44569550002",
   "top5": [
     {
       "rank": 1,
-      "name": "龙江交通",
-      "symbol": "sh601188",
-      "score": 85.70722943,
-      "reference_raw_close": 5.08,
+      "name": "巴比食品",
+      "symbol": "sh605338",
+      "score": 85.95129741,
+      "reference_raw_close": 23.4,
       "execution_state": "WAIT"
     },
     {
       "rank": 2,
-      "name": "洽洽食品",
-      "symbol": "sz002557",
-      "score": 85.27040588,
-      "reference_raw_close": 20.96,
+      "name": "招商港口",
+      "symbol": "sz001872",
+      "score": 85.73929261,
+      "reference_raw_close": 27.55,
       "execution_state": "WAIT"
     },
     {
       "rank": 3,
-      "name": "北京银行",
-      "symbol": "sh601169",
-      "score": 85.21856978,
-      "reference_raw_close": 6.29,
+      "name": "苏州银行",
+      "symbol": "sz002966",
+      "score": 85.09311633,
+      "reference_raw_close": 10.21,
       "execution_state": "WAIT"
     },
     {
       "rank": 4,
-      "name": "江苏银行",
-      "symbol": "sh600919",
-      "score": 84.94011179,
-      "reference_raw_close": 13.59,
+      "name": "海立股份",
+      "symbol": "sh600619",
+      "score": 84.23559232,
+      "reference_raw_close": 15.07,
       "execution_state": "WAIT"
     },
     {
       "rank": 5,
-      "name": "宁沪高速",
-      "symbol": "sh600377",
-      "score": 84.56578831,
-      "reference_raw_close": 14.8,
+      "name": "沪农商行",
+      "symbol": "sh601825",
+      "score": 83.82606816,
+      "reference_raw_close": 9.84,
       "execution_state": "WAIT"
     }
   ],
@@ -74,77 +74,80 @@
     "raw": 5223,
     "missing_pages": 0,
     "cross_source_samples": "20/20",
-    "history_success": 5025,
+    "history_success": 5026,
     "history_missing": 0,
-    "necessary_industry": 5005,
-    "industry_covered": 5005,
-    "industry_source": "Eastmoney full first-level verified 2026-11-18 01:03 snapshot, not Shenwan",
-    "eligible": 3758,
+    "necessary_industry": 5007,
+    "industry_covered": 5007,
+    "industry_source": "Eastmoney first-level previous day verified snapshot, NOT Shenwan",
+    "eligible": 3749,
     "technical_warmup": 1,
-    "excluded": {
-      "liquidity_lt_50m": 1247,
+    "excluded_counts": {
+      "liquidity_lt_50m": 1258,
       "st": 193,
-      "known_suspension": 5,
-      "listing_lt_60_sessions": 19,
+      "known_suspension": 4,
+      "listing_lt_60_sessions": 18,
       "technical_warmup_60_bars": 1
     },
-    "industry_snapshot_sha256": "9f6e911206e01015b05a2f4730cd54bcb0b492dbefeb0116bf8df1e03b91095d"
+    "industry_snapshot_sha256": "abb68368ffdf6ebca09e0a8f369c936a2b894461afa2c896fa4962a5422ba3c3"
   },
   "evidence_review": {
     "status": "PASSED",
-    "ranker_top5_unchanged": true,
     "top20_checked": 20,
-    "independent_cross_checks": "20/20",
-    "necessary_history": "5025 valid; missing0",
-    "necessary_industry": "5005/5005 Eastmoney first-level",
+    "ranker_top5_unchanged": true,
+    "independent_cross_checks": "20/20 exact",
+    "necessary_history": "5026 valid, missing 0",
+    "necessary_industry": "5007/5007",
     "technical_warmup_excluded_from_scoring": [
-      "sh688836"
+      "sz301655"
     ],
     "event_positive_points_granted": false,
     "earnings_positive_points_granted": false,
-    "company_news_asof": "No additional points; past reports treated as background",
-    "individual_risk_cards_written": true,
+    "ranking_blob_sha": "3a8d17a54172f005081b0ffd95231be280e392cf",
     "score_not_probability": true,
-    "selection_not_execution": true,
-    "ranking_blob_sha": "fb110b7704e8fe2b95031c7edc6d5772d098360d"
+    "individual_risk_cards_written": true
   },
   "sector_capture": {
     "taxonomy": "Shenwan level1 narrative; Eastmoney level1 ranking",
     "strong3": [
       [
-        "综合",
-        2.2
+        "家用电器",
+        0.69
       ],
       [
-        "通信",
-        1.61
+        "食品饮料",
+        0.65
       ],
       [
-        "电子",
-        1.58
+        "非银金融",
+        0.24
       ]
     ],
-    "weak_key_unranked": [
-      "有色金属",
-      "传媒",
-      "商贸零售"
+    "weak2": [
+      [
+        "传媒",
+        -3.54
+      ],
+      [
+        "计算机",
+        -3.01
+      ]
     ],
-    "review_status": "PASS for strong3 discussion and ranking sector coverage; exact weak3 ranks unverified",
-    "source_url": "https://finance.eastmoney.com/a/202611183934168443.html"
+    "weak3": "UNVERIFIED",
+    "review_status": "PASS strong3 discussed; exact weak3 UNVERIFIED"
   },
   "market_prediction": {
-    "score": 31,
-    "weighted_sum": 30.75,
+    "score": 16,
+    "weighted_sum": 15.55,
     "light": "RED",
     "regime": "Distribution",
     "risk_budget_reference": "30%",
     "confidence": "LOW",
     "factors": {
-      "index_turnover": 40,
-      "breadth": 23,
-      "sentiment": 26,
-      "sector_capital": 32,
-      "external": 38
+      "index_turnover": 24,
+      "breadth": 8,
+      "sentiment": 14,
+      "sector_capital": 19,
+      "external": 12
     },
     "weights": {
       "index_turnover": 0.2,
@@ -154,60 +157,64 @@
       "external": 0.1
     },
     "raw_evidence": {
-      "security_date": "2026-11-18",
-      "up": 1277,
-      "down": 3822,
-      "flat": 124,
-      "median_pct": -1.165,
-      "amount_cny": 1369381329181,
-      "index_shanghai_pct": 0.09,
-      "index_chinext_pct": 0.85,
-      "index_star50_pct": 2.19,
+      "security_date": "2026-11-19",
+      "up": 637,
+      "down": 4532,
+      "flat": 54,
+      "median_pct": -2.444,
+      "amount_cny": 1304615214930,
+      "shanghai_pct": -0.28,
+      "sz_component_pct": -0.71,
+      "chinext_pct": -0.79,
+      "star50_pct": 1.83,
       "sw_strong3": [
         [
-          "综合",
-          2.2
+          "家用电器",
+          0.69
         ],
         [
-          "通信",
-          1.61
+          "食品饮料",
+          0.65
         ],
         [
-          "电子",
-          1.58
+          "非银金融",
+          0.24
         ]
       ],
-      "us_sp500_pct": -0.23,
-      "us_nasdaq_pct": 0.42,
-      "us_dow_pct": -1.11,
-      "us_fed_minutes_hawkish": true
+      "sw_weak2": [
+        [
+          "传媒",
+          -3.54
+        ],
+        [
+          "计算机",
+          -3.01
+        ]
+      ],
+      "us_sp500_pct": -2.02,
+      "us_nasdaq_pct": -2.25,
+      "us_dow_pct": -2.19
     },
-    "cutoff": "2026-11-19T08:50:00+08:00",
+    "cutoff": "2026-11-20T08:50:00+08:00",
     "uncalibrated": true
   },
   "heat": {
     "version": "Heat-v0.1",
     "H_prev": "UNVERIFIED",
     "H_forecast": "UNVERIFIED",
-    "B_raw_proxy": 25.6366,
-    "P_raw_proxy": 20.875,
-    "deltas": {
-      "overseas": -3,
-      "domestic": 0,
-      "continuation": -5
-    },
-    "missing": "Strict IPO/ST full comparable Heat sample, median of previous 20 daily amounts, extreme tails F, full Shenwan breadth S",
+    "B_raw_proxy": 12.71,
+    "P_raw_proxy": 0,
+    "missing": "strict IPO/ST filtered heat universe, 20-session turnover median, +/-5 tails, complete comparable Shenwan sector changes",
     "not_rank_blocker": true
   },
-  "publication_validity": "2026-11-19 08:50 public-information freeze based on 00:43 producer and 11/18 closed prices, no post-open data; no trained or backtested performance",
+  "publication_validity": "2026-11-20 08:50 frozen public information, 00:46 produced full-A, 11/19 real closed prices, 09:25/09:35 not used; no trained performance claimed",
   "actual_fills": "UNVERIFIED",
   "source_urls": [
-    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/74dd5f40e40d0069dfdaacf605d9b3919e1e43c9/data/alpha5d/runs/20261119T004300/receipt.json",
-    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/74dd5f40e40d0069dfdaacf605d9b3919e1e43c9/data/alpha5d/runs/20261119T004300/ranking.json",
-    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/74dd5f40e40d0069dfdaacf605d9b3919e1e43c9/data/alpha5d/runs/20261119T004300/review.json"
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/e0454e3029ecec8c1d250f765d7a7a41338c1ca9/data/alpha5d/runs/20261120T004536/receipt.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/e0454e3029ecec8c1d250f765d7a7a41338c1ca9/data/alpha5d/runs/20261120T004536/review.json"
   ],
   "private_portfolio_data_included": false,
-  "publication_path": "data/alpha5d/publications/2026-11-19-0850-evidence.json",
+  "publication_path": "data/alpha5d/publications/2026-11-20-0850-evidence.json",
   "latest_pointer": true,
-  "updated_at": "2026-11-19T00:51:29.435Z"
+  "updated_at": "2026-11-20T00:51:47.362Z"
 }
