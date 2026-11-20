@@ -1,8 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261120T004536",
+  "run_id": "20261120T115452",
   "stage": "evidence_review",
-  "started_at": "2026-11-20T00:45:36.476603+08:00",
+  "started_at": "2026-11-20T11:54:52.429320+08:00",
   "forecast_date": "2026-11-20",
   "previous_session": "2026-11-19",
   "sessions": [
@@ -14,13 +14,13 @@
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
   "status": "COMPLETE",
-  "run_kind": "scheduled",
+  "run_kind": "late_research",
   "market_snapshot_audit": {
     "security_date": "2026-11-19",
     "captured_at": "2026-11-19T22:02:27.735628+08:00",
     "sha256": "72864a66a213f6db7ed361fc7474830b38879542f9171af18dbada6e3a61d980",
     "frozen_samples_verified": 20,
-    "source": "data/universe_latest.json",
+    "source": "data/alpha5d/market/2026-11-19.json",
     "recovered_attempts_backed_by_identical_raw_shards": []
   },
   "raw_count": 5223,
@@ -379,18 +379,17 @@
     "covered_required_codes": 5007,
     "membership_count": 5224,
     "snapshot": {
-      "route": "verified_recent_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-19-145140-abb68368ffdf.json",
-      "observed_at": "2026-11-19T14:51:40.053361+08:00",
-      "boards_sha256": "abb68368ffdf6ebca09e0a8f369c936a2b894461afa2c896fa4962a5422ba3c3",
-      "live_error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
+      "route": "live_provider_pages",
+      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-20-115523-1b55ab61178e.json",
+      "observed_at": "2026-11-20T11:55:23.667048+08:00",
+      "boards_sha256": "1b55ab61178eb3d9b2c696d1efe1da9b31b6572970a8fc672c5d470a44a142f7"
     }
   },
   "technical_warmup_codes": [
     "sz301655"
   ],
-  "input_sha256": "0514913f6ff35721885e46c980f2c922029e50843c85de5cf93065bc40e0107d",
-  "ranking_path": "data/alpha5d/runs/20261120T004536/ranking.json",
+  "input_sha256": "a1ba56af27c9ab60406ad196ffc58952bfdabd2bbf7371bbad2404fd7f99dccb",
+  "ranking_path": "data/alpha5d/runs/20261120T115452/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
@@ -511,26 +510,18 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261120T004536/review.json",
-  "generated_at": "2026-11-20T00:46:02.649419+08:00",
+  "review_path": "data/alpha5d/runs/20261120T115452/review.json",
+  "generated_at": "2026-11-20T11:55:24.796597+08:00",
   "provider_route_health": {
     "eastmoney_daily": {
-      "attempted": 26,
-      "succeeded": 26,
+      "attempted": 19,
+      "succeeded": 19,
       "failed": 0,
       "data_errors": 0,
       "consecutive_failures": 0,
       "circuit_open": false
     },
     "sample_eastmoney_daily": {
-      "attempted": 8,
-      "succeeded": 0,
-      "failed": 8,
-      "data_errors": 0,
-      "consecutive_failures": 8,
-      "circuit_open": true
-    },
-    "sample_sina_klc2": {
       "attempted": 20,
       "succeeded": 20,
       "failed": 0,
@@ -541,22 +532,22 @@
   },
   "industry_classification": "Eastmoney first-level industry",
   "verified_sample_count": 20,
-  "is_0850_live_prediction": null,
+  "is_0850_live_prediction": false,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-20T00:46:46.094339+08:00",
+  "ended_at": "2026-11-20T11:55:47.199380+08:00",
   "retrieval_progress": {
-    "attempted": 26,
-    "succeeded": 26,
+    "attempted": 19,
+    "succeeded": 19,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-20T00:46:46.245512+08:00"
+    "recorded_at": "2026-11-20T11:55:47.341790+08:00"
   },
   "cached_history_files": 5026,
-  "workflow_run_id": "44569550002",
+  "workflow_run_id": "44670824435",
   "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-44569550002-1",
-  "persisted_at": "2026-11-19T16:47:03.703168+00:00"
+  "evidence_artifact_name": "alpha5d-public-evidence-44670824435-1",
+  "persisted_at": "2026-11-20T03:56:11.518761+00:00"
 }
