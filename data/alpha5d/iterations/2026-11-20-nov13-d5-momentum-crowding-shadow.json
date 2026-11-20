@@ -1,0 +1,30 @@
+{
+  "version": "alpha5d-iteration-v8.2",
+  "asof": "2026-11-20",
+  "change_id": "nov13-d5-momentum-crowding-shadow",
+  "status": "PROPOSED",
+  "model_changed": false,
+  "weights_changed": false,
+  "run_kind": "scheduled_research",
+  "cohort_id": "2026-11-13",
+  "evidence_path": "data/alpha5d/diagnostics/2026-11-20-mature-nov13-price-only.json",
+  "original_judgement": "High 5/10/20-day momentum, 60-day breakout and strong close favor five-day upside leadership.",
+  "observed_counterevidence": "Nov13 cohort reached D5 Nov19: raw average -13.17%, raw median -20.64%; 1 positive and 4 negative. Formal total-return/true market winners remain INCOMPLETE.",
+  "problem_labels": [
+    "Crowding",
+    "Rank",
+    "Sector"
+  ],
+  "hypotheses": [
+    "High short-term momentum in a contracting market may select exhausted leaders near an unwind.",
+    "A defensive rotation can lift relative strength scores while reducing odds of truly leading market five-day returns."
+  ],
+  "proposed_shadow": "Compare fixed V8.0, same-day momentum20 benchmark, and a research-only market-width/crowding stratified shadow using identical frozen universe and event availability. Preserve original Top5, D5 true-winner capture and median returns, and record all failed/NO TRADE names. Do not inject the user's holdings.",
+  "expected_metrics": "True five-day top5/top20 captures, true universe ranks, median and mean adjusted returns, cohort overlap, missing-data coverage; equal time cutoff and out-of-sample evaluation.",
+  "risks": "Penalizing high momentum can exclude true runaway winners; defensive filters can favor low-upside names.",
+  "test_status": "NOT_RUN",
+  "shadow_status": "NOT_IMPLEMENTED",
+  "deployment_status": "NOT_DEPLOYED",
+  "performance_improvement_claimed": false,
+  "private_portfolio_data_included": false
+}
