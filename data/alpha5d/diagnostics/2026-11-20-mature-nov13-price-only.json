@@ -1,0 +1,73 @@
+{
+  "record_type": "MATURE_D5_RAW_PRICE_ONLY_DIAGNOSTIC",
+  "asof": "2026-11-20",
+  "cohort_id": "2026-11-13",
+  "forecast_date": "2026-11-13",
+  "previous_session": "2026-11-12",
+  "D5_security_date": "2026-11-19",
+  "sessions": [
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19"
+  ],
+  "cohort_input_sha256": "2ab9f2a26d6c06f18b7e53598644a39eac6a0abcb2d6b9c1617853fc1e6d450f",
+  "model_version": "V8.0-bootstrap-1",
+  "basis": "raw previous close to D5 close, no corporate action / total return adjustment, not validated actual fills",
+  "results": [
+    {
+      "rank": 1,
+      "symbol": "sz002148",
+      "name": "北纬科技",
+      "base_close_CNY": 7.23,
+      "d5_close_CNY": 9.3,
+      "raw_price_return_pct": 28.63,
+      "source_url": "https://cn.investing.com/equities/bewinner-comm-a-historical-data"
+    },
+    {
+      "rank": 2,
+      "symbol": "sh600261",
+      "name": "阳光照明",
+      "base_close_CNY": 6.37,
+      "d5_close_CNY": 4.62,
+      "raw_price_return_pct": -27.47,
+      "source_url": "https://cn.investing.com/equities/yankon-group-historical-data"
+    },
+    {
+      "rank": 3,
+      "symbol": "sh603725",
+      "name": "天安新材",
+      "base_close_CNY": 13.16,
+      "d5_close_CNY": 9.48,
+      "raw_price_return_pct": -27.96,
+      "source_url": "https://cn.investing.com/equities/guangdong-tianan-new-material-historical-data"
+    },
+    {
+      "rank": 4,
+      "symbol": "sh601929",
+      "name": "吉视传媒",
+      "base_close_CNY": 2.81,
+      "d5_close_CNY": 2.23,
+      "raw_price_return_pct": -20.64,
+      "source_url": "https://cn.investing.com/equities/jishi-media-historical-data"
+    },
+    {
+      "rank": 5,
+      "symbol": "sz002045",
+      "name": "国光电器",
+      "base_close_CNY": 10.93,
+      "d5_close_CNY": 8.92,
+      "raw_price_return_pct": -18.39,
+      "source_url": "https://cn.investing.com/equities/guoguang-elec-a-historical-data"
+    }
+  ],
+  "mean_raw_price_return_pct": -13.17,
+  "median_raw_price_return_pct": -20.64,
+  "positive": 1,
+  "negative": 4,
+  "eligible_universe_count": 3807,
+  "formal_metrics_state": "INCOMPLETE: corporate actions, consistent D5 full universe ranking, true winners top5/top20, execution receipts, momentum20 comparator not validated",
+  "audit_label": "DIAGNOSTIC_NOT_FORMAL_EVALUATION",
+  "private_holdings_included": false
+}
