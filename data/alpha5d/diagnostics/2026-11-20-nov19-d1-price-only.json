@@ -1,0 +1,63 @@
+{
+  "record_type": "D1_RAW_PRICE_ONLY_DIAGNOSTIC",
+  "asof": "2026-11-20",
+  "cohort_id": "2026-11-19",
+  "forecast_date": "2026-11-19",
+  "previous_session": "2026-11-18",
+  "D1_security_date": "2026-11-19",
+  "maturity_D5": "2026-11-25",
+  "cohort_input_sha256": "25c95e767d724e29825bff5514db1f934dd16762f47ea33cd9f7dcccb837cb59",
+  "results": [
+    {
+      "rank": 1,
+      "symbol": "sh601188",
+      "name": "龙江交通",
+      "base_close_CNY": 5.08,
+      "D1_close_CNY": 4.57,
+      "raw_price_return_pct": -10.04,
+      "source_url": "https://cn.investing.com/equities/htdc-historical-data"
+    },
+    {
+      "rank": 2,
+      "symbol": "sz002557",
+      "name": "洽洽食品",
+      "base_close_CNY": 20.96,
+      "D1_close_CNY": 20.99,
+      "raw_price_return_pct": 0.14,
+      "source_url": "https://cn.investing.com/equities/qiaqia-food-a-historical-data"
+    },
+    {
+      "rank": 3,
+      "symbol": "sh601169",
+      "name": "北京银行",
+      "base_close_CNY": 6.29,
+      "D1_close_CNY": 6.2,
+      "raw_price_return_pct": -1.43,
+      "source_url": "https://cn.investing.com/equities/beijing-bank-historical-data"
+    },
+    {
+      "rank": 4,
+      "symbol": "sh600919",
+      "name": "江苏银行",
+      "base_close_CNY": 13.59,
+      "D1_close_CNY": 13.56,
+      "raw_price_return_pct": -0.22,
+      "source_url": "https://cn.investing.com/equities/bank-of-jiangsu-co-ltd-historical-data"
+    },
+    {
+      "rank": 5,
+      "symbol": "sh600377",
+      "name": "宁沪高速",
+      "base_close_CNY": 14.8,
+      "D1_close_CNY": 14.7,
+      "raw_price_return_pct": -0.68,
+      "source_url": "https://cn.investing.com/equities/jiangsu-exp-historical-data"
+    }
+  ],
+  "mean_raw_price_return_pct": -2.45,
+  "median_raw_price_return_pct": -0.68,
+  "status": "STAGE_D1_ONLY_NOT_MATURED",
+  "is_actually_executable_return": false,
+  "not_included_in_D5_metrics": true,
+  "private_portfolio_data_included": false
+}
