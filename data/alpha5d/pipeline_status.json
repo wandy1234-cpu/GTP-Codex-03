@@ -1,8 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261120T115452",
+  "run_id": "20261120T143943",
   "stage": "evidence_review",
-  "started_at": "2026-11-20T11:54:52.429320+08:00",
+  "started_at": "2026-11-20T14:39:43.849345+08:00",
   "forecast_date": "2026-11-20",
   "previous_session": "2026-11-19",
   "sessions": [
@@ -379,8 +379,8 @@
     "covered_required_codes": 5007,
     "membership_count": 5224,
     "snapshot": {
-      "route": "live_provider_pages",
-      "snapshot_path": ".cache/alpha5d/industry_snapshots/2026-11-20-115523-1b55ab61178e.json",
+      "route": "verified_published_snapshot",
+      "snapshot_path": "data/alpha5d/industry/2026-11-20-115523-1b55ab61178e.json",
       "observed_at": "2026-11-20T11:55:23.667048+08:00",
       "boards_sha256": "1b55ab61178eb3d9b2c696d1efe1da9b31b6572970a8fc672c5d470a44a142f7"
     }
@@ -388,8 +388,8 @@
   "technical_warmup_codes": [
     "sz301655"
   ],
-  "input_sha256": "a1ba56af27c9ab60406ad196ffc58952bfdabd2bbf7371bbad2404fd7f99dccb",
-  "ranking_path": "data/alpha5d/runs/20261120T115452/ranking.json",
+  "input_sha256": "e5e4af381be7dfb69d51a2e2ae547b95dc836f303ced1fcb1a28138669760982",
+  "ranking_path": "data/alpha5d/runs/20261120T143943/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
@@ -510,8 +510,8 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261120T115452/review.json",
-  "generated_at": "2026-11-20T11:55:24.796597+08:00",
+  "review_path": "data/alpha5d/runs/20261120T143943/review.json",
+  "generated_at": "2026-11-20T14:39:51.758977+08:00",
   "provider_route_health": {
     "eastmoney_daily": {
       "attempted": 19,
@@ -534,7 +534,7 @@
   "verified_sample_count": 20,
   "is_0850_live_prediction": false,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-20T11:55:47.199380+08:00",
+  "ended_at": "2026-11-20T14:40:10.897370+08:00",
   "retrieval_progress": {
     "attempted": 19,
     "succeeded": 19,
@@ -543,11 +543,11 @@
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-20T11:55:47.341790+08:00"
+    "recorded_at": "2026-11-20T14:40:11.100954+08:00"
   },
   "cached_history_files": 5026,
-  "workflow_run_id": "44670824435",
+  "workflow_run_id": "44689266925",
   "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-44670824435-1",
-  "persisted_at": "2026-11-20T03:56:11.518761+00:00"
+  "evidence_artifact_name": "alpha5d-public-evidence-44689266925-1",
+  "persisted_at": "2026-11-20T06:40:31.968816+00:00"
 }
