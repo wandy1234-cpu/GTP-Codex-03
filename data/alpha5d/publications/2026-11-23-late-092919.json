@@ -1,0 +1,217 @@
+{
+  "schema": "alpha5d-publication-1",
+  "cohort_id": "2026-11-23-late-092919",
+  "forecast_date": "2026-11-23",
+  "previous_session": "2026-11-20",
+  "sessions": [
+    "2026-11-23",
+    "2026-11-24",
+    "2026-11-25",
+    "2026-11-26",
+    "2026-11-27"
+  ],
+  "cutoff": "2026-11-23T09:23:49.160231+08:00",
+  "generated_at": "2026-11-23T09:29:19.076+08:00",
+  "rank_generated_at": "2026-11-23T09:23:49.160231+08:00",
+  "freeze_verified_at": "2026-11-23T09:29:19.076+08:00",
+  "delivered_at": null,
+  "run_kind": "late_research",
+  "is_0850_live_prediction": false,
+  "publication_state": "PUBLISHED_RESEARCH",
+  "formal_research_selection": true,
+  "selection_delivery_count": 5,
+  "model_version": "V8.0-bootstrap-1",
+  "model_state": "HEURISTIC_NOT_TRAINED_OR_VALIDATED",
+  "model_blob_sha": "711cb65bdfd10e3ea6a428c09a8d07375cd3cbce",
+  "source_repo_commit": "fc4a9bb237753821d07273976bdad5f518794606",
+  "data_commit": "ec355d610669951d2e7c0c116ab9ac44967635c0",
+  "input_sha256": "8565868c3085a234c5ab64f2981581162699846fd6b4d215e55964d15b000515",
+  "input_hash": "8565868c3085a234c5ab64f2981581162699846fd6b4d215e55964d15b000515",
+  "ranking_path": "data/alpha5d/runs/20261123T092309/ranking.json",
+  "review_path": "data/alpha5d/runs/20261123T092309/review.json",
+  "receipt_path": "data/alpha5d/runs/20261123T092309/receipt.json",
+  "workflow_run_id": "44772311259",
+  "workflow_run_attempt": 2,
+  "evidence_artifact": "alpha5d-public-evidence-44772311259-2",
+  "artifact_id": 14782063333,
+  "artifact_sha256": "sha256:698679aa6bf2b121db938bf1fcabdee45e1b4aa415af1ba0e6b6c6ce503258d5",
+  "prior_0850_failure_preserved": true,
+  "scheduled_receipt_path": "data/alpha5d/diagnostics/2026-11-23-missing-current-production.json",
+  "coverage": {
+    "raw_count": 5223,
+    "sh_pages": 24,
+    "sh_rows": 2318,
+    "sz_pages": 30,
+    "sz_rows": 2905,
+    "missing_pages": 0,
+    "history_success": 5023,
+    "history_missing_count": 0,
+    "required_industry_codes": 5005,
+    "covered_industry_codes": 5005,
+    "industry": "Eastmoney first-level industry",
+    "industry_snapshot": "data/alpha5d/industry/2026-11-20-115523-1b55ab61178e.json",
+    "eligible_count": 3728,
+    "verified_histories_eligible": 3728,
+    "independent_samples": 20,
+    "excluded_counts": {
+      "liquidity_lt_50m": 1277,
+      "st": 193,
+      "known_suspension": 7,
+      "listing_lt_60_sessions": 18
+    },
+    "technical_warmup": []
+  },
+  "evidence_review": {
+    "status": "PASSED",
+    "top20_checked": 20,
+    "top20_sector_counts": {
+      "银行": 9,
+      "交通运输": 8,
+      "农林牧渔": 1,
+      "公用事业": 2
+    },
+    "ranker_top5_unchanged": true,
+    "independent_previous_close_checks": "20/20 three sources exact; five samples per board",
+    "rank_input_hash_matched": true,
+    "rank_order_verified": {
+      "success": true,
+      "from": "Complete published feature matrix, not a second download of all underlying bars",
+      "score_and_symbol_rows": 3728,
+      "maximum_unrounded_to_published_score_difference": 4.998664593358626e-9,
+      "n_sectors": 31
+    },
+    "ranker_output_blob_sha": "b6da1f5fb39c933e2b435bde52851a4f565180f7",
+    "review_blob_sha": "73db02432765739f4ab44553c8ca8889f4983432",
+    "receipt_blob_sha": "59cc3dfb1e269ffe3032efc7cf5bbe390393b93c",
+    "industry_assignment_audit": {
+      "ambiguous_memberships": {},
+      "scenarios_required": 1,
+      "scenarios_verified": 1,
+      "top5_order_invariant": true,
+      "selected_score_ranges": {
+        "sh601998": [
+          87.41534746,
+          87.41534746
+        ],
+        "sh600000": [
+          87.07805972,
+          87.07805972
+        ],
+        "sh601825": [
+          86.82828012,
+          86.82828012
+        ],
+        "sh600350": [
+          86.31220374,
+          86.31220374
+        ],
+        "sh600919": [
+          86.16635364,
+          86.16635364
+        ]
+      }
+    },
+    "before_cutoff_company_disclosures_reviewed": 5,
+    "positive_event_or_earnings_points_top20": 0,
+    "price_scope": "11月20日收盘。连续量价指标来自本次排序的复权特征。",
+    "source_availability": "公司公告及周末政策资料均早于排序信息截止时间。",
+    "score_not_probability": true
+  },
+  "private_portfolio_data_included": false,
+  "created_at": "2026-11-23T09:29:19.076+08:00",
+  "cohort_path": "data/alpha5d/cohorts/2026-11-23-late-092919.json",
+  "publication_path": "data/alpha5d/publications/2026-11-23-late-092919.json",
+  "top5": [
+    {
+      "rank": 1,
+      "symbol": "sh601998",
+      "name": "XD中信银",
+      "display_name": "中信银行",
+      "score": 87.41534746,
+      "reference_raw_close": 9.66,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 2,
+      "symbol": "sh600000",
+      "name": "浦发银行",
+      "display_name": "浦发银行",
+      "score": 87.07805972,
+      "reference_raw_close": 10.87,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 3,
+      "symbol": "sh601825",
+      "name": "沪农商行",
+      "display_name": "沪农商行",
+      "score": 86.82828012,
+      "reference_raw_close": 9.9,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 4,
+      "symbol": "sh600350",
+      "name": "山东高速",
+      "display_name": "山东高速",
+      "score": 86.31220374,
+      "reference_raw_close": 11.9,
+      "execution_state": "WAIT"
+    },
+    {
+      "rank": 5,
+      "symbol": "sh600919",
+      "name": "江苏银行",
+      "display_name": "江苏银行",
+      "score": 86.16635364,
+      "reference_raw_close": 13.66,
+      "execution_state": "WAIT"
+    }
+  ],
+  "market_prediction": {
+    "score": 15,
+    "weighted_sum": 14.55,
+    "weights": [
+      0.2,
+      0.25,
+      0.2,
+      0.25,
+      0.1
+    ],
+    "components": [
+      18,
+      6,
+      12,
+      25,
+      8
+    ],
+    "confidence": "LOW",
+    "light": "RED",
+    "risk_budget_reference": "30%",
+    "cutoff": "2026-11-23T08:50:00+08:00",
+    "breadth": {
+      "scope": "sh_a+sz_a",
+      "valid_returns": 5223,
+      "advancing": 297,
+      "declining": 4896,
+      "unchanged": 30,
+      "median_change_pct": -5.111,
+      "amount_sum_raw_CNY": 1421761055354
+    },
+    "source": "data/alpha5d/diagnostics/2026-11-23-missing-current-production.json",
+    "score_type": "uncalibrated research assessment"
+  },
+  "actual_fills": "UNVERIFIED",
+  "publication_context_quotes": "UNVERIFIED",
+  "source_urls": [
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/fc4a9bb237753821d07273976bdad5f518794606/data/alpha5d/runs/20261123T092309/ranking.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/fc4a9bb237753821d07273976bdad5f518794606/data/alpha5d/runs/20261123T092309/review.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/fc4a9bb237753821d07273976bdad5f518794606/data/alpha5d/runs/20261123T092309/receipt.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/fc4a9bb237753821d07273976bdad5f518794606/data/alpha5d/diagnostics/2026-11-23-missing-current-production.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/actions/runs/44772311259/attempts/2",
+    "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+    "https://star.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20261122_10838649.shtml",
+    "https://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/search/rptid/848509383643/index.phtml",
+    "https://www.nhsa.gov.cn/art/2026/11/21/art_185_23491.html"
+  ]
+}
