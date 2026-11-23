@@ -1,0 +1,78 @@
+{
+  "schema": "alpha5d-delivery-diagnostic-v1",
+  "forecast_date": "2026-11-23",
+  "previous_session": "2026-11-20",
+  "sessions": [
+    "2026-11-23",
+    "2026-11-24",
+    "2026-11-25",
+    "2026-11-26",
+    "2026-11-27"
+  ],
+  "checked_at_bjt": "2026-11-23T08:50:12+08:00",
+  "cutoff": "2026-11-23T08:50:00+08:00",
+  "run_kind": "scheduled_research",
+  "is_0850_live_prediction": false,
+  "formal_top5": "NO RANK 0/5",
+  "blocking_stage": "producer freshness / full rank availability",
+  "evidence": {
+    "pipeline_status_path": "data/alpha5d/pipeline_status.json",
+    "pipeline_blob_sha": "be4f13b3f0ebcaba75ec54f3388541d2078d4a4f",
+    "pipeline_record": {
+      "status": "NOT_TRADING_DAY",
+      "date": "2026-11-21",
+      "generated_at": "2026-11-21T00:21:01.963756+08:00"
+    },
+    "most_recent_actions_run_id": 44772311259,
+    "most_recent_actions_run_created_at": "2026-11-20T16:20:02Z",
+    "publication_latest_forecast_date": "2026-11-20",
+    "publication_latest_blob_sha": "0015b64c730f971ba9c2245eca444ec6f2ebd7bc",
+    "market_prev_session": "2026-11-20",
+    "market_summary_blob_sha": "b16ea0e72a368d1f97a3a60ec80f024e66aedafb",
+    "market_cross_source_samples": "20/20",
+    "market_raw_sh_sz_count": 5223,
+    "market_up": 297,
+    "market_down": 4896,
+    "market_flat": 30,
+    "market_median_pct": -5.111,
+    "market_amount_cny": 1421761055354
+  },
+  "health": {
+    "market": "GREEN_PREVIOUS_CLOSE",
+    "stock_pick": "INCOMPLETE_NO_2026_11_23_PRODUCER",
+    "ranking": "INCOMPLETE",
+    "heat": "UNVERIFIED"
+  },
+  "score": {
+    "formula": "0.20 index+turnover,0.25 breadth,0.20 sentiment,0.25 sector+capital,0.10 external",
+    "components": [
+      18,
+      6,
+      12,
+      25,
+      8
+    ],
+    "weighted_sum": 14.55,
+    "display_score": 15,
+    "traffic_light": "RED",
+    "regime": "Risk-Off Liquidation",
+    "position_reference": "30%",
+    "subjective_uncalibrated": true
+  },
+  "missing": [
+    "2026-11-23 forecast_date-matched complete receipt.json",
+    "same-commit verified ranking.json/review.json",
+    "current eligible universe and 61-bar coverage",
+    "current 2026-11-23 independent formal Top5 cohort and publication"
+  ],
+  "prior_research_not_reused": true,
+  "raw_market_not_a_formal_rank": true,
+  "model_weights_changed": false,
+  "private_holdings_included": false,
+  "source_urls": [
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/main/data/alpha5d/pipeline_status.json",
+    "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/main/data/universe_summary.json",
+    "https://api.github.com/repos/wandy1234-cpu/GTP-Codex-03/actions/runs?per_page=10",
+    "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/specific/margin/c/c_20261122_10838633.shtml"
+  ]
+}
