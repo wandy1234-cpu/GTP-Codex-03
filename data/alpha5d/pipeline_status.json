@@ -1,8 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261123T092309",
+  "run_id": "20261123T113753",
   "stage": "evidence_review",
-  "started_at": "2026-11-23T09:23:09.694423+08:00",
+  "started_at": "2026-11-23T11:37:53.372187+08:00",
   "forecast_date": "2026-11-23",
   "previous_session": "2026-11-20",
   "sessions": [
@@ -20,7 +20,7 @@
     "captured_at": "2026-11-20T23:56:48.816715+08:00",
     "sha256": "ad252ea2749052a28c100c807f4c4d6d1be7f4714660a66cbe8a48c21d0733d3",
     "frozen_samples_verified": 20,
-    "source": "data/universe_latest.json",
+    "source": "data/alpha5d/market/2026-11-20.json",
     "recovered_attempts_backed_by_identical_raw_shards": []
   },
   "raw_count": 5223,
@@ -433,8 +433,8 @@
     }
   },
   "technical_warmup_codes": [],
-  "input_sha256": "8565868c3085a234c5ab64f2981581162699846fd6b4d215e55964d15b000515",
-  "ranking_path": "data/alpha5d/runs/20261123T092309/ranking.json",
+  "input_sha256": "87143b464e6d8312ac77f220f6517036e795225a2bfd494780f233bc04444f12",
+  "ranking_path": "data/alpha5d/runs/20261123T113753/ranking.json",
   "ranker_version": "V8.0-bootstrap-1",
   "top5": [
     {
@@ -555,31 +555,31 @@
   ],
   "errors": [],
   "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261123T092309/review.json",
-  "generated_at": "2026-11-23T09:23:49.160231+08:00",
+  "review_path": "data/alpha5d/runs/20261123T113753/review.json",
+  "generated_at": "2026-11-23T11:38:25.089037+08:00",
   "provider_route_health": {
     "eastmoney_daily": {
-      "attempted": 29,
-      "succeeded": 14,
-      "failed": 15,
+      "attempted": 16,
+      "succeeded": 0,
+      "failed": 16,
       "data_errors": 0,
-      "consecutive_failures": 6,
-      "circuit_open": false
+      "consecutive_failures": 16,
+      "circuit_open": true
     },
     "sina_klc2": {
-      "attempted": 15,
-      "succeeded": 15,
+      "attempted": 18,
+      "succeeded": 18,
       "failed": 0,
       "data_errors": 0,
       "consecutive_failures": 0,
       "circuit_open": false
     },
     "sample_eastmoney_daily": {
-      "attempted": 14,
+      "attempted": 13,
       "succeeded": 0,
-      "failed": 14,
+      "failed": 13,
       "data_errors": 0,
-      "consecutive_failures": 14,
+      "consecutive_failures": 13,
       "circuit_open": true
     },
     "sample_sina_klc2": {
@@ -595,20 +595,20 @@
   "verified_sample_count": 20,
   "is_0850_live_prediction": false,
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-23T09:24:45.116411+08:00",
+  "ended_at": "2026-11-23T11:38:45.834757+08:00",
   "retrieval_progress": {
-    "attempted": 29,
-    "succeeded": 29,
+    "attempted": 18,
+    "succeeded": 18,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-23T09:24:45.342913+08:00"
+    "recorded_at": "2026-11-23T11:38:45.945067+08:00"
   },
   "cached_history_files": 5023,
-  "workflow_run_id": "44772311259",
-  "workflow_run_attempt": "2",
-  "evidence_artifact_name": "alpha5d-public-evidence-44772311259-2",
-  "persisted_at": "2026-11-23T01:25:09.505527+00:00"
+  "workflow_run_id": "45107021472",
+  "workflow_run_attempt": "1",
+  "evidence_artifact_name": "alpha5d-public-evidence-45107021472-1",
+  "persisted_at": "2026-11-23T03:39:08.219292+00:00"
 }
