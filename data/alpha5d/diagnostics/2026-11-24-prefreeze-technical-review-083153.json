@@ -1,0 +1,129 @@
+{
+  "type": "PREFREEZE_TECHNICAL_REVIEW",
+  "forecast_date": "2026-11-24",
+  "last_verified_clock": "2026-11-24T08:31:53+08:00",
+  "planned_cutoff": "2026-11-24T08:50:00+08:00",
+  "is_0850_live_prediction": false,
+  "formal_publication": false,
+  "run_id": "20261124T032720",
+  "workflow_run_id": "45249016134",
+  "source_repo_commit": "d194365371bdb18df71770737d072e71f2e2af4a",
+  "input_sha256": "e784b10ee6b3905d4ae2345f8a0de4eb21a6b8bc5c3f351fe2188ce0f9c94205",
+  "ranking_blob": "c9a54831a2e28dab9bc6d6e8ef90aedc0313d389",
+  "ranking_readback": "3738 rows; top20 exactly matches review; input hash and data commit match",
+  "coverage": {
+    "raw": 5223,
+    "eligible": 3738,
+    "verified_histories": 3738,
+    "samples": 20,
+    "history_success": 5024,
+    "industry": 5006
+  },
+  "top5": [
+    [
+      "sh600467",
+      87.35656944,
+      3.15
+    ],
+    [
+      "sh601998",
+      86.31386139,
+      9.66
+    ],
+    [
+      "sh601916",
+      86.009232,
+      3.06
+    ],
+    [
+      "sh601009",
+      84.78148247,
+      13.42
+    ],
+    [
+      "sz001201",
+      84.26229109,
+      17.77
+    ]
+  ],
+  "market": {
+    "type": "pre-freeze subjective assessment",
+    "factors": [
+      62,
+      82,
+      73,
+      64,
+      88
+    ],
+    "weights": [
+      0.2,
+      0.25,
+      0.2,
+      0.25,
+      0.1
+    ],
+    "weighted_sum": 72.3,
+    "score": 72,
+    "light": "yellow-green",
+    "risk_budget_reference": 60,
+    "evidence": {
+      "previous_session": "2026-11-23",
+      "breadth": {
+        "up": 4306,
+        "down": 779,
+        "flat": 138,
+        "median_pct": 2.319,
+        "amount_cny": 1552359051408,
+        "turnover_change_pct": 9.185650117662192
+      },
+      "sh_pct": 0.15,
+      "chinext_pct": 3.08,
+      "star50_pct": -0.26,
+      "limit_up_reported": 152,
+      "sw_up": 22,
+      "sw_down": 9,
+      "sp500_pct": 4.73,
+      "nasdaq_pct": 6.51,
+      "dow_pct": 3.01
+    },
+    "sources": [
+      "https://github.com/wandy1234-cpu/GTP-Codex-03/blob/main/data/universe_summary.json",
+      "https://news.10jqka.com.cn/20261123/c682101377.shtml",
+      "https://finance.sina.com.cn/roll/2026-11-23/doc-iniztmty2236958.shtml",
+      "https://finance.sina.com.cn/jjxw/2026-11-23/doc-iniztmtw5497979.shtml",
+      "https://www.mrjjxw.com/articles/2026-11-24/4656624.html"
+    ]
+  },
+  "evaluation": {
+    "cohort": "2026-11-17",
+    "d5": "2026-11-23",
+    "basis": "unadjusted price diagnostic only",
+    "reference_prices": [
+      4.36,
+      2.96,
+      3.74,
+      4.73,
+      6.1
+    ],
+    "d5_prices": [
+      3.45,
+      2.38,
+      2.85,
+      4.61,
+      4.51
+    ],
+    "mean_pct": -18.57310346555986,
+    "median_pct": -20.871559633027527,
+    "true_top5_top20": "INCOMPLETE",
+    "source_urls": [
+      "https://cn.investing.com/equities/kaiser-china-holding-co-ltd-historical-data",
+      "https://cn.investing.com/equities/jishi-media-historical-data",
+      "https://cn.investing.com/equities/songliao-auto-historical-data",
+      "https://cn.investing.com/equities/htdc-historical-data",
+      "https://cn.investing.com/equities/baocheng-inves-historical-data"
+    ]
+  },
+  "model_changed": false,
+  "private_data_included": false,
+  "notes": "Pre-freeze only; do not create or overwrite the scheduled cohort or claim actual 08:50 final publication."
+}
