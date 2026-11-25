@@ -1,0 +1,22 @@
+{
+  "adapter_version": "alpha5d-pipeline-1.1.2",
+  "run_id": "20261125T155304",
+  "stage": "market",
+  "started_at": "2026-11-25T15:53:04.310215+08:00",
+  "forecast_date": "2026-11-26",
+  "previous_session": "2026-11-25",
+  "sessions": [
+    "2026-11-26",
+    "2026-11-27",
+    "2026-11-30",
+    "2026-12-01",
+    "2026-12-02"
+  ],
+  "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+  "status": "INCOMPLETE",
+  "run_kind": "late_research",
+  "failed_stage": "market",
+  "error": "ValueError: sh_a: false terminal/short page 23 before minimum verified coverage 2314",
+  "formal_top5_allowed": false,
+  "ended_at": "2026-11-25T15:54:00.981077+08:00"
+}
