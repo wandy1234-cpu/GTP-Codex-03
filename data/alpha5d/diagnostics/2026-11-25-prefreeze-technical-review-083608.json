@@ -1,0 +1,351 @@
+{
+  "type": "PREFREEZE_TECHNICAL_REVIEW",
+  "forecast_date": "2026-11-25",
+  "last_verified_clock": "2026-11-25T08:36:08+08:00",
+  "planned_cutoff": "2026-11-25T08:50:00+08:00",
+  "is_0850_live_prediction": false,
+  "formal_publication": false,
+  "source_repo_commit": "92edab7a5961be53d18aa8ae99e46b02b0a596ef",
+  "producer_run_id": "20261125T030428",
+  "generated_at": "2026-11-25T03:04:45.753641+08:00",
+  "input_sha256": "f112991166ed2bb68355e51356d7f99dcfc706796a0a1662481ff9b5255fa39c",
+  "ranking_blob": "03af460925944cd78e477c67b4a4225051da891e",
+  "ranking_readback": "File blob exists but content unavailable via connector (empty response and raw route rejected). Review and receipt read successfully, top5 exact match. Full ranking rows not independently reread.",
+  "coverage": {
+    "raw": 5223,
+    "sh_pages": 24,
+    "sz_pages": 30,
+    "missing_pages": 0,
+    "eligible": 3732,
+    "samples": 20,
+    "history_success": 5026,
+    "history_missing": 0,
+    "industry_covered": 5008
+  },
+  "top5": [
+    {
+      "symbol": "sz002548",
+      "name": "金新农",
+      "sector": "农林牧渔",
+      "score": 88.28102385,
+      "features": {
+        "r5": 0.1607142857142856,
+        "r10": 0.28895184135977336,
+        "r20": 0.270949720670391,
+        "breakout": -0.03601694915254239,
+        "close_pos": 1,
+        "volume_ratio": 2.038730049855401,
+        "trend": 0.05092592592592604,
+        "above_ma10": true,
+        "overheat": 0.02906193314330144,
+        "sector": "农林牧渔"
+      },
+      "penalty": 0,
+      "reference_raw_close": 4.55,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 1
+    },
+    {
+      "symbol": "sz001872",
+      "name": "招商港口",
+      "sector": "交通运输",
+      "score": 86.72098633,
+      "features": {
+        "r5": 0.04434423149192024,
+        "r10": 0.10849621061029113,
+        "r20": 0.14597938144329903,
+        "breakout": 0.0076142131979695105,
+        "close_pos": 1,
+        "volume_ratio": 1.259320957623676,
+        "trend": 0.024957698815566642,
+        "above_ma10": true,
+        "overheat": 0,
+        "sector": "交通运输"
+      },
+      "penalty": 0,
+      "reference_raw_close": 27.79,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 2
+    },
+    {
+      "symbol": "sz002685",
+      "name": "华东重机",
+      "sector": "机械设备",
+      "score": 86.45550791,
+      "features": {
+        "r5": 0.3358208955223878,
+        "r10": 0.8530020703933745,
+        "r20": 0.896186440677966,
+        "breakout": 0.09950859950859936,
+        "close_pos": 1,
+        "volume_ratio": 2.953402388923187,
+        "trend": 0.18043933054393313,
+        "above_ma10": true,
+        "overheat": 0.17181361689558408,
+        "sector": "机械设备"
+      },
+      "penalty": 0,
+      "reference_raw_close": 8.95,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 3
+    },
+    {
+      "symbol": "sz002242",
+      "name": "九阳股份",
+      "sector": "家用电器",
+      "score": 86.09876709,
+      "features": {
+        "r5": 0.11199238578680193,
+        "r10": 0.3301707779886147,
+        "r20": 0.6424554826616682,
+        "breakout": 0.10012554927809147,
+        "close_pos": 1,
+        "volume_ratio": 1.2119967420311821,
+        "trend": 0.0660680154351041,
+        "above_ma10": true,
+        "overheat": 0.035683840194851296,
+        "sector": "家用电器"
+      },
+      "penalty": 0,
+      "reference_raw_close": 35.05,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 4
+    },
+    {
+      "symbol": "sh600467",
+      "name": "好当家",
+      "sector": "农林牧渔",
+      "score": 85.15275491,
+      "features": {
+        "r5": 0.1890909090909092,
+        "r10": 0.4598214285714284,
+        "r20": 0.5,
+        "breakout": 0.03809523809523818,
+        "close_pos": 0.5918367346938773,
+        "volume_ratio": 2.2656805538602223,
+        "trend": 0.10545454545454525,
+        "above_ma10": true,
+        "overheat": 0.04517543859649145,
+        "sector": "农林牧渔"
+      },
+      "penalty": 0,
+      "reference_raw_close": 3.27,
+      "catalyst_points": 0,
+      "earnings_points": 0,
+      "rank": 5
+    }
+  ],
+  "top20": [
+    {
+      "rank": 1,
+      "symbol": "sz002548",
+      "score": 88.28102385,
+      "sector": "农林牧渔"
+    },
+    {
+      "rank": 2,
+      "symbol": "sz001872",
+      "score": 86.72098633,
+      "sector": "交通运输"
+    },
+    {
+      "rank": 3,
+      "symbol": "sz002685",
+      "score": 86.45550791,
+      "sector": "机械设备"
+    },
+    {
+      "rank": 4,
+      "symbol": "sz002242",
+      "score": 86.09876709,
+      "sector": "家用电器"
+    },
+    {
+      "rank": 5,
+      "symbol": "sh600467",
+      "score": 85.15275491,
+      "sector": "农林牧渔"
+    },
+    {
+      "rank": 6,
+      "symbol": "sh601288",
+      "score": 85.11117338,
+      "sector": "银行"
+    },
+    {
+      "rank": 7,
+      "symbol": "sh601009",
+      "score": 85.04770839,
+      "sector": "银行"
+    },
+    {
+      "rank": 8,
+      "symbol": "sh600619",
+      "score": 84.83127848,
+      "sector": "家用电器"
+    },
+    {
+      "rank": 9,
+      "symbol": "sh688981",
+      "score": 84.51119648,
+      "sector": "电子"
+    },
+    {
+      "rank": 10,
+      "symbol": "sh601658",
+      "score": 84.47270616,
+      "sector": "银行"
+    },
+    {
+      "rank": 11,
+      "symbol": "sz300812",
+      "score": 84.32166905,
+      "sector": "电子"
+    },
+    {
+      "rank": 12,
+      "symbol": "sh601916",
+      "score": 84.27526132,
+      "sector": "银行"
+    },
+    {
+      "rank": 13,
+      "symbol": "sh600690",
+      "score": 84.21160547,
+      "sector": "家用电器"
+    },
+    {
+      "rank": 14,
+      "symbol": "sh601939",
+      "score": 84.1895807,
+      "sector": "银行"
+    },
+    {
+      "rank": 15,
+      "symbol": "sh601169",
+      "score": 84.1543822,
+      "sector": "银行"
+    },
+    {
+      "rank": 16,
+      "symbol": "sh601998",
+      "score": 83.93272581,
+      "sector": "银行"
+    },
+    {
+      "rank": 17,
+      "symbol": "sz301252",
+      "score": 83.90257304,
+      "sector": "家用电器"
+    },
+    {
+      "rank": 18,
+      "symbol": "sh601816",
+      "score": 83.02894666,
+      "sector": "交通运输"
+    },
+    {
+      "rank": 19,
+      "symbol": "sh601398",
+      "score": 82.86688109,
+      "sector": "银行"
+    },
+    {
+      "rank": 20,
+      "symbol": "sh601166",
+      "score": 82.85164835,
+      "sector": "银行"
+    }
+  ],
+  "baselines": {
+    "momentum20_top5": [
+      "sz002148",
+      "sz002086",
+      "sz002685",
+      "sh600715",
+      "sz002242"
+    ]
+  },
+  "market": {
+    "type": "pre-freeze uncalibrated assessment",
+    "factors": [
+      42,
+      34,
+      40,
+      35,
+      32
+    ],
+    "weights": [
+      0.2,
+      0.25,
+      0.2,
+      0.25,
+      0.1
+    ],
+    "weighted_sum": 36.85,
+    "score": 37,
+    "light": "RED_YELLOW",
+    "risk_budget_reference": 30,
+    "confidence": "LOW",
+    "evidence": {
+      "previous_session": "2026-11-24",
+      "up": 1837,
+      "down": 3267,
+      "flat": 119,
+      "median_pct": -0.668,
+      "amount_cny": 1654699218974,
+      "turnover_change_pct": 6.592557789589781,
+      "sh_pct": 0.27,
+      "sz_pct": -0.29,
+      "chinext_pct": -0.05,
+      "star50_pct": 1.81,
+      "us_sp500_pct": -0.5,
+      "us_nasdaq_pct": -1.48,
+      "us_dow_pct": 0.85,
+      "limit_up_reported": 64,
+      "limit_down_reported": 4
+    },
+    "sources": [
+      "https://finance.eastmoney.com/a/202611243938405257.html",
+      "https://www.reuters.com/business/wall-st-futures-dip-chip-stocks-cool-after-nvidia-fueled-rally-2026-11-24/"
+    ]
+  },
+  "heat": {
+    "H_prev": "UNVERIFIED",
+    "H_forecast": "UNVERIFIED",
+    "raw_B_proxy": 36.31054949262876,
+    "raw_P_proxy": 33.3,
+    "missing": "strict ST/IPO filtering, 20-day comparable turnover median, tails, full SW31 closing sector breadth"
+  },
+  "evaluation": {
+    "latest_mature": "2026-11-18",
+    "status": "INCOMPLETE",
+    "reason": "11/24 closing price for sh603170 not verified; other four price returns diagnostic only, no five-stock mean or median; total return and full universe winners not verified",
+    "verified_price_returns_pct": {
+      "sh600467": 18.90909090909092,
+      "sh603151": -15.417558886509642,
+      "sh601169": 0.15847860538829028,
+      "sz002959": -14.611528822055131
+    },
+    "last_complete_price_only_d5": {
+      "cohort": "2026-11-17",
+      "mean_pct": -18.57310346555986,
+      "median_pct": -20.871559633027527
+    }
+  },
+  "risk_review": {
+    "top1": "Company disclosed abnormal trading and first nine months loss 541.5867 million CNY; no positive event score",
+    "top3": "High momentum and possible crowding; do not chase",
+    "source_urls": [
+      "https://stock.cfi.cn/p20261123002240.html",
+      "https://www.cfi.net.cn/p20261116002110.html",
+      "https://www.sanofi.com/en/media-room/press-releases/2026/2026-11-24-06-30-00-3409002"
+    ]
+  },
+  "model_changed": false,
+  "private_data_included": false
+}
