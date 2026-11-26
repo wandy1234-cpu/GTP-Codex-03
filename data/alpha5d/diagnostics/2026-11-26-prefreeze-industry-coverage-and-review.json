@@ -1,0 +1,140 @@
+{
+  "record_type": "PREFREEZE_DIAGNOSTIC_NOT_FORMAL_PUBLICATION",
+  "forecast_date": "2026-11-26",
+  "previous_session": "2026-11-25",
+  "sessions": [
+    "2026-11-26",
+    "2026-11-27",
+    "2026-11-30",
+    "2026-12-01",
+    "2026-12-02"
+  ],
+  "verified_clock": "2026-11-26T08:36:31+08:00",
+  "cutoff": "NOT_REACHED_08:50",
+  "is_0850_live_prediction": false,
+  "source_blobs": {
+    "pipeline": "1339dc5dded6d7c1e64c4a5a2279adc58df50226",
+    "receipt": "eaf68fd5905dcd507df579158dec1502fb1c7efe",
+    "market_summary": "d058bc941a6d6293be544b28af4c4b25d57f4202"
+  },
+  "market": {
+    "raw_count": 5106,
+    "previous_raw_count": 5223,
+    "coverage_difference": -117,
+    "independent_samples": 20,
+    "advancing": 561,
+    "declining": 4379,
+    "flat": 166,
+    "median_pct": -3.5045,
+    "turnover_cny": 1325052937156,
+    "complete_market_coverage": "UNVERIFIED despite complete pagination; compare exchange listing identities"
+  },
+  "ranking": {
+    "status": "INCOMPLETE",
+    "run_id": "20261126T021013",
+    "failed_stage": "industry",
+    "history_success": 4862,
+    "history_missing": 0,
+    "industry_required": 4861,
+    "eastmoney_missing": 55,
+    "sina_missing": 2269,
+    "formal_top5": "NO RANK 0/5 at prefreeze",
+    "publication_latest_date": "2026-11-23",
+    "rerun_workflow": 45672176867,
+    "rerun_attempt": 2,
+    "rerun_status": "in_progress at last check",
+    "rerun_request_accepted": true
+  },
+  "market_prediction": {
+    "status": "PREFREEZE_SUBJECTIVE_RESEARCH",
+    "factors": [
+      18,
+      12,
+      18,
+      23,
+      35
+    ],
+    "weights": [
+      0.2,
+      0.25,
+      0.2,
+      0.25,
+      0.1
+    ],
+    "weighted_sum": 19.45,
+    "score": 19,
+    "light": "RED",
+    "confidence": "LOW",
+    "evidence": [
+      "11/25 Shanghai -2.03%, Shenzhen -3.24%, ChiNext -4.19%, turnover contraction",
+      "sample breadth 561/4379, external market reports corroborate broad decline",
+      "58 limit-ups and 49 limit-downs, 42 failed boards",
+      "pharma and retail relative resilience but no broad diffusion",
+      "11/25 Nasdaq and S&P fell, recovered off lows; tariff and inflation risks"
+    ],
+    "source_urls": [
+      "https://finance.sina.com.cn/wm/2026-11-25/doc-inizxxxz9492550.shtml",
+      "https://www.21jingji.com/article/20261125/herald/8f3814f647a6e355f5bc94305ea4ec12.html",
+      "https://www.reuters.com/business/nasdaq-futures-slide-over-2-fresh-us-tariff-concerns-inflation-data-focus-2026-11-25/",
+      "https://www.reuters.com/world/china/us-proposes-new-tariffs-14-trading-partners-fight-excess-factory-capacity-2026-11-25/"
+    ]
+  },
+  "heat": "UNVERIFIED",
+  "historical_d5_price_only": {
+    "cohort": "2026-11-19",
+    "source_cohort_blob": "0a28e3da042f2274b44c887e34bd4e874d43b4a3",
+    "symbols": [
+      "sh601188",
+      "sz002557",
+      "sh601169",
+      "sh600919",
+      "sh600377"
+    ],
+    "reference": [
+      5.08,
+      20.96,
+      6.29,
+      13.59,
+      14.8
+    ],
+    "close": [
+      4.21,
+      20.67,
+      6.25,
+      13.51,
+      14.41
+    ],
+    "mean_pct": -4.473861071878988,
+    "median_pct": -1.3835877862595325,
+    "adjusted_total_return": "INCOMPLETE",
+    "true_winner_capture": "INCOMPLETE",
+    "source_pages": [
+      "sh_a_003",
+      "sh_a_008",
+      "sh_a_009",
+      "sz_a_011"
+    ]
+  },
+  "nov25_technical_d1_price_only": {
+    "formal_cohort_not_found": true,
+    "reference": [
+      4.55,
+      27.79,
+      8.95,
+      35.05,
+      3.27
+    ],
+    "close": [
+      5.01,
+      27.3,
+      8.99,
+      38.56,
+      3.6
+    ],
+    "mean_pct": 5.779920351466609,
+    "median_pct": 10.014265335235395,
+    "not_formal_track_record": true
+  },
+  "model_weights_changed": false,
+  "private_holdings_in_public": false
+}
