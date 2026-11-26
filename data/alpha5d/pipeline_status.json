@@ -1,8 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261126T021013",
+  "run_id": "20261126T083656",
   "stage": "industry",
-  "started_at": "2026-11-26T02:10:13.758360+08:00",
+  "started_at": "2026-11-26T08:36:56.855151+08:00",
   "forecast_date": "2026-11-26",
   "previous_session": "2026-11-25",
   "sessions": [
@@ -356,11 +356,11 @@
   "history_success": 4862,
   "history_missing": {},
   "industry_source_audit": {
-    "required_codes": 4861,
+    "required_codes": 4860,
     "attempts": [
       {
         "source": "Eastmoney first-level industry",
-        "error": "Industry map incomplete: 55 missing; first=['sh600190', 'sh600193', 'sh600225', 'sh600297', 'sh600306', 'sh600321', 'sh600387', 'sh600421', 'sh600462', 'sh600599', 'sh600608', 'sh600636', 'sh600647', 'sh600696', 'sh600705', 'sh600766', 'sh600804', 'sh600837', 'sh601028', 'sh601059']"
+        "error": "Industry map incomplete: 54 missing; first=['sh600190', 'sh600193', 'sh600225', 'sh600297', 'sh600306', 'sh600321', 'sh600387', 'sh600421', 'sh600462', 'sh600599', 'sh600608', 'sh600636', 'sh600647', 'sh600696', 'sh600705', 'sh600766', 'sh600804', 'sh600837', 'sh601028', 'sh601059']"
       },
       {
         "source": "Sina industry",
@@ -369,22 +369,22 @@
     ]
   },
   "failed_stage": "industry",
-  "error": "ValueError: All coherent industry sources incomplete: [{\"source\": \"Eastmoney first-level industry\", \"error\": \"Industry map incomplete: 55 missing; first=['sh600190', 'sh600193', 'sh600225', 'sh600297', 'sh600306', 'sh600321', 'sh600387', 'sh600421', 'sh600462', 'sh600599', 'sh600608', 'sh600636', 'sh600647', 'sh600696', 'sh600705', 'sh600766', 'sh600804', 'sh600837', 'sh601028', 'sh601059']\"}, {\"source\": \"Sina industry\", \"error\": \"Industry map incomplete: 2269 missing; first=['sh600025', 'sh600032', 'sh600071', 'sh600158', 'sh600392', 'sh600661', 'sh600679', 'sh600766', 'sh600901', 'sh600903', 'sh600905', 'sh600906', 'sh600908', 'sh600909', 'sh600916', 'sh600918', 'sh600919', 'sh600926', 'sh600927', 'sh600928']\"}]",
+  "error": "ValueError: All coherent industry sources incomplete: [{\"source\": \"Eastmoney first-level industry\", \"error\": \"Industry map incomplete: 54 missing; first=['sh600190', 'sh600193', 'sh600225', 'sh600297', 'sh600306', 'sh600321', 'sh600387', 'sh600421', 'sh600462', 'sh600599', 'sh600608', 'sh600636', 'sh600647', 'sh600696', 'sh600705', 'sh600766', 'sh600804', 'sh600837', 'sh601028', 'sh601059']\"}, {\"source\": \"Sina industry\", \"error\": \"Industry map incomplete: 2269 missing; first=['sh600025', 'sh600032', 'sh600071', 'sh600158', 'sh600392', 'sh600661', 'sh600679', 'sh600766', 'sh600901', 'sh600903', 'sh600905', 'sh600906', 'sh600908', 'sh600909', 'sh600916', 'sh600918', 'sh600919', 'sh600926', 'sh600927', 'sh600928']\"}]",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-26T02:12:00.111954+08:00",
+  "ended_at": "2026-11-26T08:37:36.111188+08:00",
   "retrieval_progress": {
-    "attempted": 72,
-    "succeeded": 72,
+    "attempted": 56,
+    "succeeded": 56,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-26T02:12:00.112951+08:00"
+    "recorded_at": "2026-11-26T08:37:36.111924+08:00"
   },
   "cached_history_files": 4862,
   "workflow_run_id": "45672176867",
-  "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-45672176867-1",
-  "persisted_at": "2026-11-25T18:12:18.483786+00:00"
+  "workflow_run_attempt": "2",
+  "evidence_artifact_name": "alpha5d-public-evidence-45672176867-2",
+  "persisted_at": "2026-11-26T00:37:55.709447+00:00"
 }
