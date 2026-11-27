@@ -1,0 +1,145 @@
+{
+  "record_type": "PREFREEZE_TECHNICAL_REVIEW",
+  "forecast_date": "2026-11-27",
+  "previous_session": "2026-11-26",
+  "verified_clock": "2026-11-27T08:34:01+08:00",
+  "cutoff_reached": false,
+  "not_a_final_0850_receipt": true,
+  "formal_publication": "NOT_CREATED_AT_CHECK",
+  "model_version": "V8.0-bootstrap-1",
+  "source_repo_commit": "9c02495e412f314bf9bcfe43e635890d7d47e347",
+  "input_sha256": "5640c4b4f77f91466c5efd169f7d886be76360dd4d8e064e654d309ffe3a86b1",
+  "producer_run_id": "20261127T015241",
+  "producer_generated_at": "2026-11-27T01:54:05.792334+08:00",
+  "ranking_blob_sha": "9badf1c401e2d314af513824a5ea64816b91668f",
+  "ranking_read": "RANKING_CONTENT_UNAVAILABLE; receipt and review same commit accessible, consistent technical top5",
+  "review_blob_sha": "a8402dfb402a62485a1b90efa8475a38abdb70a6",
+  "receipt_blob_sha": "5bf8f7a3b4e6adbbc5481f0ed0d493750e3df2c1",
+  "coverage": {
+    "raw": 5223,
+    "sh_pages": 24,
+    "sz_pages": 30,
+    "missing_pages": 0,
+    "verified_samples": 20,
+    "history_success": 5029,
+    "history_missing": 0,
+    "industry_required": 5012,
+    "industry_covered": 5012,
+    "eligible": 3698,
+    "industry_snapshot": "2026-11-20-115523-1b55ab61178e.json"
+  },
+  "technical_top5": [
+    {
+      "rank": 1,
+      "code": "600467",
+      "name": "好当家",
+      "price": 3.96,
+      "score": 88.82309981
+    },
+    {
+      "rank": 2,
+      "code": "600814",
+      "name": "杭州解百",
+      "price": 9.19,
+      "score": 87.16188802
+    },
+    {
+      "rank": 3,
+      "code": "002548",
+      "name": "金新农",
+      "price": 5.33,
+      "score": 86.54056303
+    },
+    {
+      "rank": 4,
+      "code": "603708",
+      "name": "家家悦",
+      "price": 10.65,
+      "score": 86.08723289
+    },
+    {
+      "rank": 5,
+      "code": "601939",
+      "name": "建设银行",
+      "price": 12.73,
+      "score": 85.69739196
+    }
+  ],
+  "market_preview": {
+    "score": 41,
+    "weighted_sum": 40.95,
+    "factors": [
+      40,
+      34,
+      45,
+      39,
+      57
+    ],
+    "weights": [
+      0.2,
+      0.25,
+      0.2,
+      0.25,
+      0.1
+    ],
+    "basis": [
+      "A share mixed close and low turnover; intraday reversal",
+      "1683 advancing,3374 declining,166 flat",
+      "median -0.761%, approximately 70 limit-ups per public data",
+      "coal/precious metals/PCB rotation, bank strength, uneven breadth",
+      "Thanksgiving US closed, European rally, oil/inflation risk"
+    ],
+    "breadth": {
+      "up": 1683,
+      "down": 3374,
+      "flat": 166,
+      "median_pct": -0.761,
+      "amount_cny": 1317076929355
+    },
+    "uncalibrated": true,
+    "formal_score": "UNVERIFIED",
+    "confidence": "LOW"
+  },
+  "heat": "UNVERIFIED: strict heat universe, 20-session comparable amount, tails and SW31 missing",
+  "diagnostic_d5": {
+    "cohort": "2026-11-20",
+    "reference": [
+      23.4,
+      27.55,
+      10.21,
+      15.07,
+      9.84
+    ],
+    "close": [
+      21.22,
+      27.46,
+      10.16,
+      13.15,
+      9.66
+    ],
+    "raw_price_returns_pct": [
+      -9.316239316239317,
+      -0.32667876588021727,
+      -0.48971596474045587,
+      -12.740544127405439,
+      -1.8292682926829285
+    ],
+    "mean_pct": -4.940489293389671,
+    "median_pct": -1.8292682926829285,
+    "adjusted_return_and_full_winner_capture": "INCOMPLETE",
+    "status": "PRICE_ONLY"
+  },
+  "sources": [
+    "https://finance.eastmoney.com/a/202611263940583832.html",
+    "https://finance.eastmoney.com/a/202611263940592232.html",
+    "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
+    "https://www.reuters.com/business/finance/european-stocks-rally-tech-banks-rebound-tariff-fears-ease-2026-11-26/",
+    "https://cn.investing.com/equities/zhongyin-babi-food-historical-data",
+    "https://cn.investing.com/equities/chiwan-wharf-a-historical-data",
+    "https://cn.investing.com/equities/bank-of-suzhou-historical-data",
+    "https://cn.investing.com/equities/highly-historical-data",
+    "https://cn.investing.com/equities/shanghai-rural-commercial-bank-historical-data"
+  ],
+  "model_changed": false,
+  "private_holdings_in_public": false
+}
