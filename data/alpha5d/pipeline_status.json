@@ -1,8 +1,8 @@
 {
   "adapter_version": "alpha5d-pipeline-1.1.2",
-  "run_id": "20261127T015241",
-  "stage": "evidence_review",
-  "started_at": "2026-11-27T01:52:41.500895+08:00",
+  "run_id": "20261127T125347",
+  "stage": "industry",
+  "started_at": "2026-11-27T12:53:47.077312+08:00",
   "forecast_date": "2026-11-27",
   "previous_session": "2026-11-26",
   "sessions": [
@@ -13,14 +13,14 @@
     "2026-12-03"
   ],
   "calendar_source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
-  "status": "COMPLETE",
-  "run_kind": "scheduled",
+  "status": "INCOMPLETE",
+  "run_kind": "late_research",
   "market_snapshot_audit": {
     "security_date": "2026-11-26",
     "captured_at": "2026-11-26T22:38:03.535535+08:00",
     "sha256": "f717809681cdc0ba25ab17120dc80359cfe236615a634733f6953642ae70e085",
     "frozen_samples_verified": 20,
-    "source": "data/universe_latest.json",
+    "source": "data/alpha5d/market/2026-11-26.json",
     "recovered_attempts_backed_by_identical_raw_shards": []
   },
   "raw_count": 5223,
@@ -393,197 +393,34 @@
   "history_missing": {},
   "industry_source_audit": {
     "required_codes": 5012,
-    "attempts": [],
-    "classification": "Eastmoney first-level industry",
-    "fallback": false,
-    "source_url": "https://82.push2.eastmoney.com/api/qt/clist/get?pn=1&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A2+f%3A%2150&fields=f12%2Cf13%2Cf14",
-    "covered_required_codes": 5012,
-    "membership_count": 5224,
-    "snapshot": {
-      "route": "verified_recent_snapshot",
-      "snapshot_path": "data/alpha5d/industry/2026-11-20-115523-1b55ab61178e.json",
-      "observed_at": "2026-11-20T11:55:23.667048+08:00",
-      "boards_sha256": "1b55ab61178eb3d9b2c696d1efe1da9b31b6572970a8fc672c5d470a44a142f7",
-      "live_error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway']"
-    }
+    "attempts": [
+      {
+        "source": "Eastmoney first-level industry",
+        "error": "Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway', 'HTTPError: HTTP Error 502: Bad Gateway']"
+      },
+      {
+        "source": "Sina industry",
+        "error": "Industry map incomplete: 2626 missing; first=['sh600025', 'sh600032', 'sh600071', 'sh600158', 'sh600392', 'sh600661', 'sh600679', 'sh600901', 'sh600903', 'sh600905', 'sh600906', 'sh600908', 'sh600909', 'sh600916', 'sh600918', 'sh600919', 'sh600925', 'sh600926', 'sh600927', 'sh600928']"
+      }
+    ]
   },
-  "technical_warmup_codes": [],
-  "input_sha256": "5640c4b4f77f91466c5efd169f7d886be76360dd4d8e064e654d309ffe3a86b1",
-  "ranking_path": "data/alpha5d/runs/20261127T015241/ranking.json",
-  "ranker_version": "V8.0-bootstrap-1",
-  "top5": [
-    {
-      "symbol": "sh600467",
-      "name": "好当家",
-      "sector": "农林牧渔",
-      "score": 88.82309981,
-      "features": {
-        "r5": 0.523076923076923,
-        "r10": 0.596774193548387,
-        "r20": 0.8333333333333333,
-        "breakout": 0.09999999999999987,
-        "close_pos": 1.0,
-        "volume_ratio": 1.9480111171234689,
-        "trend": 0.14660083554880377,
-        "above_ma10": true,
-        "overheat": 0.1616926134481617,
-        "sector": "农林牧渔"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 3.96,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 1
-    },
-    {
-      "symbol": "sh600814",
-      "name": "杭州解百",
-      "sector": "商贸零售",
-      "score": 87.16188802,
-      "features": {
-        "r5": 0.42923794712286156,
-        "r10": 0.2763888888888888,
-        "r20": 0.3357558139534884,
-        "breakout": 0.10059880239520957,
-        "close_pos": 1.0,
-        "volume_ratio": 1.905895074445364,
-        "trend": 0.052624032119300335,
-        "above_ma10": true,
-        "overheat": 0.10187304181991555,
-        "sector": "商贸零售"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 9.19,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 2
-    },
-    {
-      "symbol": "sz002548",
-      "name": "金新农",
-      "sector": "农林牧渔",
-      "score": 86.54056303,
-      "features": {
-        "r5": 0.5584795321637428,
-        "r10": 0.5316091954022988,
-        "r20": 0.5360230547550431,
-        "breakout": 0.06387225548902209,
-        "close_pos": 0.7692307692307694,
-        "volume_ratio": 2.277644543057185,
-        "trend": 0.11605003992547247,
-        "above_ma10": true,
-        "overheat": 0.12116622943000258,
-        "sector": "农林牧渔"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 5.33,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 3
-    },
-    {
-      "symbol": "sh603708",
-      "name": "家家悦",
-      "sector": "商贸零售",
-      "score": 86.08723289,
-      "features": {
-        "r5": 0.1626637554585153,
-        "r10": 0.10822060353798135,
-        "r20": 0.16393442622950816,
-        "breakout": 0.09007164790174005,
-        "close_pos": 1.0,
-        "volume_ratio": 1.812356648044848,
-        "trend": 0.004351055926987257,
-        "above_ma10": true,
-        "overheat": 0.0,
-        "sector": "商贸零售"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 10.65,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 4
-    },
-    {
-      "symbol": "sh601939",
-      "name": "建设银行",
-      "sector": "银行",
-      "score": 85.69739196,
-      "features": {
-        "r5": 0.028271405492730217,
-        "r10": 0.05995004163197337,
-        "r20": 0.057308970099667844,
-        "breakout": -0.0023510971786833146,
-        "close_pos": 0.9032258064516151,
-        "volume_ratio": 1.2480485795020713,
-        "trend": 0.014615824283497947,
-        "above_ma10": true,
-        "overheat": 0.0,
-        "sector": "银行"
-      },
-      "penalty": 0.0,
-      "reference_raw_close": 12.73,
-      "catalyst_points": 0,
-      "earnings_points": 0,
-      "rank": 5
-    }
-  ],
-  "errors": [],
-  "publication_state": "AWAITING_EVIDENCE_REVIEW",
-  "review_path": "data/alpha5d/runs/20261127T015241/review.json",
-  "generated_at": "2026-11-27T01:54:05.792334+08:00",
-  "provider_route_health": {
-    "eastmoney_daily": {
-      "attempted": 12,
-      "succeeded": 0,
-      "failed": 12,
-      "data_errors": 0,
-      "consecutive_failures": 12,
-      "circuit_open": true
-    },
-    "sina_klc2": {
-      "attempted": 229,
-      "succeeded": 229,
-      "failed": 0,
-      "data_errors": 0,
-      "consecutive_failures": 0,
-      "circuit_open": false
-    },
-    "sample_eastmoney_daily": {
-      "attempted": 8,
-      "succeeded": 0,
-      "failed": 8,
-      "data_errors": 0,
-      "consecutive_failures": 8,
-      "circuit_open": true
-    },
-    "sample_sina_klc2": {
-      "attempted": 20,
-      "succeeded": 20,
-      "failed": 0,
-      "data_errors": 0,
-      "consecutive_failures": 0,
-      "circuit_open": false
-    }
-  },
-  "industry_classification": "Eastmoney first-level industry",
-  "verified_sample_count": 20,
-  "is_0850_live_prediction": null,
+  "failed_stage": "industry",
+  "error": "ValueError: All coherent industry sources incomplete: [{\"source\": \"Eastmoney first-level industry\", \"error\": \"Industry/profile access failed: ['RemoteDisconnected: Remote end closed connection without response', 'HTTPError: HTTP Error 502: Bad Gateway', 'HTTPError: HTTP Error 502: Bad Gateway']\"}, {\"source\": \"Sina industry\", \"error\": \"Industry map incomplete: 2626 missing; first=['sh600025', 'sh600032', 'sh600071', 'sh600158', 'sh600392', 'sh600661', 'sh600679', 'sh600901', 'sh600903', 'sh600905', 'sh600906', 'sh600908', 'sh600909', 'sh600916', 'sh600918', 'sh600919', 'sh600925', 'sh600926', 'sh600927', 'sh600928']\"}]",
   "formal_top5_allowed": false,
-  "ended_at": "2026-11-27T01:54:56.049541+08:00",
+  "ended_at": "2026-11-27T12:54:20.178533+08:00",
   "retrieval_progress": {
-    "attempted": 229,
-    "succeeded": 229,
+    "attempted": 17,
+    "succeeded": 17,
     "failed": 0,
     "consecutive_failures": 0,
     "circuit_open": false,
     "circuit_scope": "per_provider_only",
     "last_error": null,
-    "recorded_at": "2026-11-27T01:54:56.270932+08:00"
+    "recorded_at": "2026-11-27T12:54:20.179385+08:00"
   },
   "cached_history_files": 5029,
-  "workflow_run_id": "45871305605",
+  "workflow_run_id": "45942470007",
   "workflow_run_attempt": "1",
-  "evidence_artifact_name": "alpha5d-public-evidence-45871305605-1",
-  "persisted_at": "2026-11-26T17:55:23.201881+00:00"
+  "evidence_artifact_name": "alpha5d-public-evidence-45942470007-1",
+  "persisted_at": "2026-11-27T04:54:36.747083+00:00"
 }
